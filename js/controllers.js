@@ -37,7 +37,6 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.selected_batch = [];
     $scope.rows_selected = false;
 
-
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
@@ -156,7 +155,7 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
 
     $scope.menu.forEach(function(link) {
       console.log(link);
-      if (link.title == $location.path() || link.path == $location.path()){
+      if (link.href == $location.path() || link.path == $location.path()){
         link.class = 'active';
         console.log('found');
       }

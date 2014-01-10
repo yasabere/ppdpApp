@@ -1,0 +1,190 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <div class="row" ng-show="selected_batch.length == 0">
+
+      <div class="col-xs-12 col-sm-3 col-md-3">
+          <h3 style="margin-top: 7px; margin-bottom: 0px;">Dashboard</h3>
+      </div>
+
+      <div class="col-xs-12 col-sm-9 col-md-9">
+        <span class="pull-left">
+          
+          <div class="btn-group" style="inline-block">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <input type="checkbox" style="z-index:10; margin:0px"> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">All</a></li>
+              <li><a href="#">None</a></li>
+              <li><a href="#">Unresolved</a></li>
+            </ul>
+          </div>
+        </span>
+
+        <span class="pull-left" style="display:inline-block; margin-left:5px">
+          <div class="input-group" style="width:300px; ">
+            <input type="text" class="form-control" placeholder="Search" >
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" >
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </div>
+          </div>
+        </span>
+
+        <span class="pull-right">
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              Filter <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">All</a></li>
+              <li><a href="#">Unresolved</a></li>
+              <li><a href="#">Resolved</a></li>
+              <li><a href="#">Published</a></li>
+            </ul>
+          </div>
+       
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <b>1</b>-<b>50</b> of <b>265</b> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Newest</a></li>
+              <li><a href="#">Oldest</a></li>
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+           
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+          </div>
+        </span>
+      </div>
+    </div>
+
+    <div class= "row" ng-show="selected_batch.length > 0">
+      <div class="col-xs-12 col-sm-3 col-md-3">
+          <h3 style="margin-top: 7px; margin-bottom: 0px;">Dashboard</h3>
+      </div>
+
+      <div class="col-xs-12 col-sm-9 col-md-9">
+    
+        <div class="btn-group" style="inline-block">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <input type="checkbox" style="z-index:10; margin:0px"> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">All</a></li>
+            <li><a href="#">None</a></li>
+            <li><a href="#">Unresolved</a></li>
+          </ul>
+        </div>
+
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#assignModal">
+           Assign <span class="glyphicon glyphicon-folder-close"></span>
+        </button>
+
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#publishModal">
+           Publish <span class="glyphicon glyphicon-transfer"></span>
+        </button>
+
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteModal">
+          Remove <span class="glyphicon glyphicon-trash"></span>
+        </button>
+
+        <span class="pull-right">
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <b>1</b>-<b>50</b>  of <b>265</b> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Newest</a></li>
+              <li><a href="#">Oldest</a></li>
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+           
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel ">
+  <div class="panel-body">
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-3 col-md-3">
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="home.html">Newsclips</a></li>
+          <li class="active"><a href="batches.html" >Batches</a></li>
+          <li> <a href="files.html" >Files</a></li>
+          <li><a href="assignments.html" >Assignments</a></li>
+        </ul>
+        <hr/>
+        <h4>Directions</h4>
+        <ul>
+          <li ng-repeat="direction in directions">{{direction}}</li>
+        </ul>
+
+      </div>
+
+      <div class="col-xs-12 col-sm-9 col-md-9">
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="documents">
+           
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+  
+                    <td>Select</td>
+                    <td>Name</td>
+                    <td>Date Created</td>
+                    <td>Creator</td>
+                    <td>Status</td>
+                    <td>assigned</td>
+                  </tr>
+       
+                </head>
+                <tbody>
+                  <tr ng-repeat="_batch in batches">
+  
+                    <td><input type="checkbox" ng-click="toggle_select($index)"></td>
+                    <td ng-click="details()">{{_batch.name}}</td>
+                    <td ng-click="details()">{{_batch.date_created}}</td>
+                    <td ng-click="details()">created by {{_batch.entry_clerk.first_name}}</td>
+                    <td ng-click="details()">{{_batch.status}}</td>
+                    <td ng-click="details($index)">{{ obj = {true:"Unassigned",false:"Assigned"}; obj[_batch.assigned] }}</td>
+
+                  </tr>
+       
+                </tbody>
+              </table>
+          </div>
+        
+        </div>
+
+      </div>
+
+    </div>
+
+  </div><!-- /.panel-body -->
+</div><!-- /.panel -->

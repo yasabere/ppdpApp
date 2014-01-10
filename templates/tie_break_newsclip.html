@@ -1,0 +1,172 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <div class= "row" >
+      <div class="col-xs-12 col-sm-3 col-md-3">
+          <h3 style="margin-top: 7px; margin-bottom: 0px;">Dashboard</h3>
+      </div>
+
+      <div class="col-xs-12 col-sm-9 col-md-9">
+    
+        <a href="home.html">
+          <button type="button" class="btn btn-default" >
+            <span class="glyphicon glyphicon-arrow-left"></span>
+          </button>
+        </a>
+   
+        <button type="button" class="btn btn-default">
+          Trash <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <button type="button" class="btn btn-default">
+           Add to Batch <span class="glyphicon glyphicon-folder-close"></span>
+        </button>
+
+        <span class="pull-right">
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <b>1</b> of <b>265</b> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Newest</a></li>
+              <li><a href="#">Oldest</a></li>
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+           
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel ">
+  <div class="panel-body">
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-3 col-md-3">
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="home.html">Newsclips</a>
+            <ul>  
+              <li><a href="document.html" >Create</a></li>
+            </ul>
+          </li>
+          <li><a href="batches.html" >Batches</a></li>
+          <li> 
+            <a href="files.html" >Files</a>
+          </li>
+          <li><a href="assignments.html" >Assignments</a></li>
+        </ul>
+
+        <div class="panel">
+          <div class="panel-body">
+            <h4>Directions</h4>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-xs-12 col-sm-9 col-md-9">
+
+        <div class= "row" >
+      
+          <div class="col-xs-12 col-sm-8 col-md-8">
+            <form role="form">
+              <div class="form-group">
+                <label for="txtheadline">Headline</label>
+                <textarea id="txtheadline" class="form-control" rows="2">{{document.name}}</textarea>
+              </div>
+              <div class="form-group">
+                <label for="txtabstract">Abstract</label>
+                <textarea id="txtabstract" class="form-control" rows="5">{{document.abstract}}</textarea>
+              </div>
+
+              <div style="display:inline-block;">  
+
+                  <label>Date</label><br/>
+                  <input type="date" class="form-control" id="inputPassword" value="11/04/2014">
+
+              </div>
+
+              <div style="display:inline-block; margin-left:10px;">  
+                <label>Initials</label><br/>
+                <input class="form-control" size="2" value="YA" />
+              </div>
+              <br/><br/>
+
+
+              <div class="form-group">
+                <label for="txtcomments">Comments</label>
+                <textarea id="txtcomments" class="form-control" rows="3"></textarea>
+              </div>
+              <button type="button" class="btn btn-default">
+                Cancel
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save
+              </button>
+            </form>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-4">
+
+            <label>Code 1</label><br/>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" disabled>
+                Select a code 1
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </div>
+            <br/>
+            <br/>
+
+            <label>Code 2</label><br/>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" disabled>
+                Select a code 2
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </div>
+            <br/>
+            <br/>
+
+            <label>Final</label><br/>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Select a final code <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </div>
+            <br/>
+            <br/>
+      </div>
+
+    </div>
+
+  </div><!-- /.panel-body -->
+</div><!-- /.panel -->

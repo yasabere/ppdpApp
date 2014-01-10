@@ -1,0 +1,194 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <div class= "row" >
+      <div class="col-xs-12 col-sm-3 col-md-3">
+          <h3 style="margin-top: 7px; margin-bottom: 0px;">Dashboard</h3>
+      </div>
+
+      <div class="col-xs-12 col-sm-9 col-md-9">
+    
+        <a href="home.html">
+          <button type="button" class="btn btn-default" >
+            <span class="glyphicon glyphicon-arrow-left"></span>
+          </button>
+        </a>
+   
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteModal">
+          Remove <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#batchModal">
+           Add to Batch <span class="glyphicon glyphicon-folder-close"></span>
+        </button>
+
+        <span class="pull-right">
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <b>1</b> of <b>265</b> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Newest</a></li>
+              <li><a href="#">Oldest</a></li>
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+           
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel ">
+  <div class="panel-body">
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-3 col-md-3">
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="home.html">Newsclips</a>
+            <ul>  
+              <li><a href="create_document.html" >Create</a></li>
+            </ul>
+          </li>
+          <li><a href="batches.html" >Batches</a></li>
+          <li> 
+            <a href="files.html" >Files</a>
+          </li>
+          <li><a href="assignments.html" >Assignments</a></li>
+        </ul>
+        <hr/>
+        <h4>Directions</h4>
+        <ul>
+          <li ng-repeat="direction in directions">{{direction}}</li>
+        </ul>
+
+      </div>
+
+      <div class="col-xs-12 col-sm-9 col-md-9">
+
+        <div class= "row" >
+      
+          <div class="col-xs-12 col-sm-8 col-md-8">
+            <form role="form">
+
+              <div style="display:inline-block; ">
+                <label>Newspaper</label><br/>
+                <div class="btn-group">
+                  
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Philadelphia Inquirer <span class="caret"></span>
+                  </button>
+          
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Ambler Gazette</a></li>
+                    <li><a href="#">Temple News</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Other</a></li>
+                  </ul>
+          
+                </div>
+              </div>
+
+              <div style="display:inline-block; margin-left:10px;">  
+
+                  <label>Date</label><br/>
+                  <input type="date" class="form-control" id="inputPassword" value="11/04/2014">
+
+              </div>
+
+              <div style="display:inline-block; margin-left:10px;">
+                <label>Type</label><br/>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Article <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Article</a></li>
+                    <li><a href="#">Editorial</a></li>
+                    <li><a href="#">Opinion</a></li>
+                    <li><a href="#">Letter</a></li>
+                    <li><a href="#">Photograph</a></li>
+                    <li><a href="#">Newswire Story</a></li>
+                    <li><a href="#">Cartoon</a></li>
+                    <li><a href="#">Broadcast Transcript</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Other (note in comments)</a></li>
+                  </ul>
+                </div>
+              </div>
+              <br/><br/>
+
+              <div class="form-group">
+                <label for="txtheadline">Headline</label>
+                <textarea id="txtheadline" class="form-control" rows="2">{{document.name}}</textarea>
+              </div>
+              <div class="form-group">
+                <label for="txtabstract">Abstract</label>
+                <textarea id="txtabstract" class="form-control" rows="5">{{document.abstract}}</textarea>
+              </div>
+
+              <div style="display:inline-block; margin-left:0px;">  
+                <label>Policy Code</label><br/>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Select a topic <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <br/><br/>
+
+              <div class="form-group">
+                <label for="txtcomments">Comments</label>
+                <textarea id="txtcomments" class="form-control" rows="2">This article seems to have some copy paste errors</textarea>
+              </div>
+              <button type="button" class="btn btn-default">
+                Cancel
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save
+              </button>
+            </form>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-4">
+
+            <a href="http://www.cla.temple.edu/papolicy/codebook/" target="_blank" ><button class="btn btn-info btn-md">View Code Book</button></a>
+
+            <br/><br/>
+            <b>Pennsylvania</b><br/>
+            <input type="checkbox" checked> Executive<br/>
+            <input type="checkbox"> Legislative<br/>
+            <input type="checkbox"> Judicial<br/>
+            <input type="checkbox"> State Agency<br/>
+            <input type="checkbox"> Budget<br/>
+            <hr/>
+            <b>General</b><br/>
+            <input type="checkbox"> Local Govt<br/>
+            <input type="checkbox"> Federal<br/>
+            <input type="checkbox"> Tax<br/>
+            <input type="checkbox"> Elderly<br/>
+            <input type="checkbox"> Interest Group<br/>
+            <input type="checkbox"> Elections<br/>
+          </div>
+      </div>
+
+    </div>
+
+  </div><!-- /.panel-body -->
+</div><!-- /.panel -->

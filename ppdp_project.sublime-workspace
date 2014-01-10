@@ -1,0 +1,1060 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"add",
+				"add_user"
+			],
+			[
+				"commu",
+				"community"
+			],
+			[
+				"post",
+				"post_community"
+			],
+			[
+				"conver",
+				"conversation_id"
+			],
+			[
+				"convers",
+				"conversation"
+			],
+			[
+				"upload",
+				"upload_test"
+			],
+			[
+				"ser",
+				"server_url"
+			],
+			[
+				"tem",
+				"templateUrl"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"on",
+				"on-click"
+			],
+			[
+				"g",
+				"game_controller"
+			],
+			[
+				"sub",
+				"subscription_model"
+			],
+			[
+				"pn",
+				"pnSharedService"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"margin",
+				"margin-right"
+			],
+			[
+				"ad_id",
+				"ad_id"
+			],
+			[
+				"catego",
+				"category_id"
+			],
+			[
+				"stat",
+				"status"
+			],
+			[
+				"rating",
+				"rating_value_id"
+			],
+			[
+				"css",
+				"cssUnit"
+			],
+			[
+				"ge",
+				"geocoderRequest"
+			],
+			[
+				"colu",
+				"columns"
+			],
+			[
+				"inp",
+				"input"
+			],
+			[
+				"communi",
+				"communities"
+			],
+			[
+				"cate",
+				"category"
+			],
+			[
+				"background",
+				"background-color"
+			],
+			[
+				"site",
+				"site_name"
+			],
+			[
+				"rtu",
+				"rtuSharedService"
+			],
+			[
+				"proper",
+				"property_id"
+			],
+			[
+				"email",
+				"email_address"
+			],
+			[
+				"row",
+				"row_array"
+			],
+			[
+				"users",
+				"users_model"
+			],
+			[
+				"te",
+				"text-top"
+			],
+			[
+				"em",
+				"email_domain_query"
+			],
+			[
+				"str",
+				"strchr"
+			],
+			[
+				"report",
+				"reports_model"
+			],
+			[
+				"user",
+				"user_id"
+			],
+			[
+				"repor",
+				"report_id"
+			],
+			[
+				"insert_",
+				"insert_data"
+			],
+			[
+				"conversation",
+				"conversation_id"
+			],
+			[
+				"result",
+				"result_array"
+			],
+			[
+				"prinr",
+				"print_r"
+			],
+			[
+				"sele",
+				"selected_site"
+			],
+			[
+				"sites",
+				"sites_model"
+			],
+			[
+				"user_site_",
+				"user_site_subscription"
+			],
+			[
+				"where",
+				"where_data"
+			],
+			[
+				"ad",
+				"ad_feed"
+			],
+			[
+				"subsc",
+				"subsciptions"
+			],
+			[
+				"get_pro",
+				"get_profile_data"
+			],
+			[
+				"subscr",
+				"subscription"
+			],
+			[
+				"subscription",
+				"subscription_model"
+			],
+			[
+				"key",
+				"keywords"
+			],
+			[
+				"ke",
+				"keywords"
+			],
+			[
+				"postin",
+				"postings"
+			],
+			[
+				"keywors",
+				"keywords_model"
+			],
+			[
+				"das",
+				"dashboard_model"
+			],
+			[
+				"date",
+				"date_create"
+			],
+			[
+				"subc",
+				"subscribe"
+			],
+			[
+				"feed",
+				"feed_type"
+			],
+			[
+				"array_mer",
+				"array_merge"
+			],
+			[
+				"si",
+				"sites_result"
+			],
+			[
+				"categ",
+				"category_id"
+			],
+			[
+				"category",
+				"category_values"
+			],
+			[
+				"res",
+				"result_array"
+			],
+			[
+				"input",
+				"input_data"
+			],
+			[
+				"message",
+				"message_id"
+			],
+			[
+				"mess",
+				"message"
+			],
+			[
+				"conversa",
+				"conversation_id"
+			],
+			[
+				"resul",
+				"result_array"
+			],
+			[
+				"conversat",
+				"conversations"
+			],
+			[
+				"friends",
+				"user_user_friends"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"prin",
+				"print_r"
+			],
+			[
+				"for",
+				"foreach	foreach …"
+			],
+			[
+				"data",
+				"data2"
+			],
+			[
+				"ad_",
+				"ad_images"
+			],
+			[
+				"show",
+				"show_hidden"
+			],
+			[
+				"image",
+				"image_id"
+			],
+			[
+				"i",
+				"image_data"
+			],
+			[
+				"img",
+				"img_url"
+			],
+			[
+				"file_",
+				"file_name"
+			],
+			[
+				"c",
+				"config"
+			],
+			[
+				"user_",
+				"user_id"
+			],
+			[
+				"view",
+				"view_data"
+			],
+			[
+				"cateo",
+				"Categories"
+			],
+			[
+				"create_site_st",
+				"widget_create_site_step1"
+			],
+			[
+				"form",
+				"form_hidden"
+			],
+			[
+				"pos",
+				"poster_data"
+			],
+			[
+				"ads",
+				"ads_model"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "js/app.js",
+			"settings":
+			{
+				"buffer_size": 2247,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "js/api.js",
+			"settings":
+			{
+				"buffer_size": 12679,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 2326,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/controllers.js",
+			"settings":
+			{
+				"buffer_size": 2674,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "js/directives.js",
+			"settings":
+			{
+				"buffer_size": 769,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/header.html",
+			"settings":
+			{
+				"buffer_size": 1186,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/sidebarmenu.html",
+			"settings":
+			{
+				"buffer_size": 381,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/login.html",
+			"settings":
+			{
+				"buffer_size": 937,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/newsclips.html",
+			"settings":
+			{
+				"buffer_size": 6861,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 391.0,
+		"selected_items":
+		[
+			[
+				"",
+				"Bookmarks: Select Previous"
+			]
+		],
+		"width": 416.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/owner/Dropbox/PostingNation/code/ppdp_app/templates/batches.html",
+		"/C/Users/owner/AppData/Roaming/Sublime Text 2/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ppdp_app/css/starter-template.css",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ppdp_app/templates/footer.html",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ppdp_app/templates/menu",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci-redesign/application/views/master.html",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci-redesign/application/views/master.php",
+		"/C/Users/yaw2/Documents/GitHub/tendo.io/public/views/setup.html",
+		"/C/Users/yaw2/Documents/GitHub/tendo.io/public/js/controllers/login.js",
+		"/C/Users/yaw2/Documents/GitHub/tendo.io/app/controllers/game.js",
+		"/C/Users/yaw2/Documents/GitHub/tendo.io/app/controllers/index.js",
+		"/C/Users/yaw2/Documents/GitHub/tendo.io/public/js/controllers/controller.js",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/js/controllers.js",
+		"/C/Users/yaw2/Dropbox/capstone/bootstrap-3.0.1-dist/dist/document - Copy.html",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/js/uploader.html",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/js/ng-upload.js",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/includes/header.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/settings_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/feed/ad_feed_posting_angular_js.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/feed/feed.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/config/routes.php",
+		"/C/Users/yaw2/Dropbox/fantasyed/progresspage.html",
+		"/C/Users/yaw2/Dropbox/fantasyed/mobile.htm",
+		"/C/Users/yaw2/Dropbox/fantasyed/jquery.mobile-1.3.0.min.js",
+		"/C/Users/yaw2/Dropbox/fantasyed/jQuery-Mobile-Progress-Bar-with-Percentage-master/jQuery-Mobile-Progress-Bar-with-Percentage-master/src/js/tolito-1.0.3.js",
+		"/C/Users/yaw2/Dropbox/fantasyed/jQuery-Mobile-Progress-Bar-with-Percentage-master/jQuery-Mobile-Progress-Bar-with-Percentage-master/examples/example_7.html",
+		"/C/Users/yaw2/Dropbox/fantasyed/jQuery-Mobile-Progress-Bar-with-Percentage-master/jQuery-Mobile-Progress-Bar-with-Percentage-master/examples/example_5.html",
+		"/C/Users/yaw2/Dropbox/fantasyed/jQuery-Mobile-Progress-Bar-with-Percentage-master/jQuery-Mobile-Progress-Bar-with-Percentage-master/examples/example_9.html",
+		"/C/Users/yaw2/Dropbox/fantasyed/jQuery-Mobile-Progress-Bar-with-Percentage-master/jQuery-Mobile-Progress-Bar-with-Percentage-master/examples/example_6.html",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/ads/ads_dialog.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/ads/post_ad_step2.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/ads/ad_feed_posting.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/codeigniter-restserver-master/application/views/welcome_message.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/codeigniter-restserver-master/application/controllers/api/user.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/codeigniter-restserver-master/application/config/rest.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/codeigniter-restserver-master/application/libraries/REST_Controller.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/codeigniter-restserver-master/tutorial/Working with RESTful Services in CodeIgniter   Nettuts+.htm",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/codeigniter-restserver-master/application/config/routes.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/codeigniter-restserver-master/application/controllers/index.html",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/codeigniter-restserver-master/index.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/codeigniter-restserver-master/application/controllers/welcome.php",
+		"/C/Users/yaw2/Dropbox/RentTempleU/version2/application/controllers/ad_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/users_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/users/users_register.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/js/ad_uploader.js",
+		"/C/Users/yaw2/Dropbox/RentTempleU/version2/application/controllers/property_helper.php",
+		"/C/Users/yaw2/Dropbox/RentTempleU/version2/application/controllers/dashboard.php",
+		"/C/Users/yaw2/Dropbox/RentTempleU/version2/application/controllers/welcome.php",
+		"/C/Users/yaw2/Dropbox/fantasyed/homepage.html",
+		"/C/Users/yaw2/Dropbox/RentTempleU/version2/application/views/teampage.php",
+		"/C/Users/yaw2/Dropbox/RentTempleU/version2/application/views/standingspage.php",
+		"/C/Users/yaw2/Dropbox/fantasyed/teampage.php",
+		"/C/Users/yaw2/Dropbox/fantasyed/scoreboardpage.html",
+		"/C/Users/yaw2/Dropbox/fantasyed/standingspage.html",
+		"/C/Users/yaw2/Dropbox/fantasyed/teampage.html",
+		"/C/Users/yaw2/Dropbox/fantasyed/leaguescorepage.html",
+		"/C/Users/yaw2/Dropbox/RentTempleU/version2/application/views/homepage.php",
+		"/C/Users/yaw2/Dropbox/RentTempleU/version2/application/controllers/message_helper.php",
+		"/C/Users/yaw2/Dropbox/RentTempleU/version2/application/models/property_model.php",
+		"/C/Users/yaw2/Dropbox/RentTempleU/version2/application/controllers/page_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/Design/WIP_landing_page/index.html",
+		"/C/Users/yaw2/Dropbox/fantasyed/progresspage.php",
+		"/C/xampp/apache/conf/extra/httpd-vhosts.conf",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/dashboard.php",
+		"/C/Users/yaw2/AppData/Roaming/Sublime Text 2/Packages/User/Distraction Free.sublime-settings",
+		"/C/Users/yaw2/Dropbox/RentTempleU/version2/application/controllers/property_helper - Copy.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/messeges/message.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/messeges/message_feed.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/ads/ad_upload_images.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/ads/ad_info_editor.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/misc/empty_dialog.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/settings_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/users_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/messenger_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/users/user_email_requirement_dialog.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/users/user_email_requirement.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/feed/user_feed_listing.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/categories_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/users/user_profile.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/feed/site_feed_listing.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/feed/ad_feed_posting.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/dashboard.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/feed/ad_feed.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/ads_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/ads_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/site_creator/create_site_step2.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/css/demo.css",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/subscription_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/subscription_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/ads/post_ad_step1.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/libraries/sphinxclient.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/search_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/sites_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/dashboard_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/message_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/includes/empty_dialog.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/rating/rating.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/images_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/reports_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/reports_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/config/config.php",
+		"/C/internet/project/sphinx/project.conf.in",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/messeges/conversation.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/messeges/conversation_feed.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/reports_model",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/messeges/messeges.php",
+		"/C/Users/yaw2/Dropbox/RentTempleU/content/widgets/gallery.php",
+		"/C/Users/yaw2/Dropbox/RentTempleU/content/property.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/settings/sites/application_editable.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/settings/profile/password_editable.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/settings/profile/password_default.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/settings/profile/profile.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/messege_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/contact_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/categories_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/includes/subscriptions.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/subscriptions/subscriptions.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/users/users_login.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/controllers/sites_helper.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/ads/ad_viewer.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/settings/ads/ads.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/feed/user_feed.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/feed/site_feed.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/settings/sites/users.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/contact_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/models/images_model.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/widgets/site_creator/create_site_step1.php",
+		"/C/Users/yaw2/Dropbox/PostingNation/code/ci/application/views/settings/profile/username_default.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"C:\\Users\\yaw2\\Documents\\GitHub\\tendo.io"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"template:",
+			"console.log",
+			"$routeParams',",
+			"phonecat",
+			"edit",
+			"for",
+			"edit_posting",
+			"for",
+			"register",
+			"authenti",
+			"messages",
+			"posting",
+			"message",
+			"edit",
+			"posting.title",
+			"post.title",
+			"posting.title",
+			"authenticate",
+			"path",
+			"32",
+			"http",
+			"TendoServ",
+			"pnModule",
+			"home",
+			"logout",
+			"lout",
+			"log",
+			"logout",
+			"alert",
+			"create",
+			"site",
+			"sites",
+			"update",
+			"api",
+			"function site",
+			"sites",
+			"var_ads",
+			"create_posting",
+			"create_ad",
+			"post_ad",
+			"categ",
+			"startFrom",
+			"\" ",
+			"o",
+			"empty",
+			";\n",
+			"category_is_included",
+			"$data['user']->user_id",
+			"<pre",
+			"$data['user']->id",
+			"settings",
+			"mod_rewrite",
+			"username",
+			"password",
+			"categorie",
+			"categoris",
+			"get_site_data",
+			"header_sub",
+			"subscrip",
+			"feed",
+			"_header",
+			"subscr",
+			"$posting",
+			"$suggested_site",
+			"get_all_categories_",
+			"get_category_fil",
+			"cate",
+			"@CONFDIR@",
+			"@CONFDIR",
+			"C:/Internet/Project/sphinx/data",
+			"C:/Internet/Project/sphinx/data/",
+			"C:\\Internet\\Project\\sphinx\\",
+			"@CONFDIR@",
+			"        \n",
+			"41",
+			"site_creator",
+			"suscription",
+			"print",
+			"print_r",
+			"last_name",
+			" ?>",
+			"insert",
+			" ',"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"templateUrl:",
+			"$routeParams', 'ppdpAPIService',",
+			"ppdp",
+			"posting.name",
+			"post.name",
+			"posting.name",
+			"tendoModule",
+			"$data['user']->id",
+			"$data['user']->user_id",
+			"$listing",
+			"$site",
+			"C:/Internet/Project/sphinx",
+			"C:\\Internet\\Project\\sphinx",
+			"@CONFDIR@",
+			"C:/Internet/Project/sphinx",
+			"C:\\Internet\\Project\\sphinx\\",
+			"subscription"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "js/app.js",
+					"settings":
+					{
+						"buffer_size": 2247,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1919,
+								1919
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 9.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "js/api.js",
+					"settings":
+					{
+						"buffer_size": 12679,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12425,
+								12425
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "index.html",
+					"settings":
+					{
+						"buffer_size": 2326,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1320,
+								1335
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "js/controllers.js",
+					"settings":
+					{
+						"buffer_size": 2674,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1883,
+								1883
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "js/directives.js",
+					"settings":
+					{
+						"buffer_size": 769,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								733,
+								733
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 43.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "templates/header.html",
+					"settings":
+					{
+						"buffer_size": 1186,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								890,
+								890
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 82.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "templates/sidebarmenu.html",
+					"settings":
+					{
+						"buffer_size": 381,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								381,
+								18
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "templates/login.html",
+					"settings":
+					{
+						"buffer_size": 937,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								937,
+								937
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "templates/newsclips.html",
+					"settings":
+					{
+						"buffer_size": 6861,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5327,
+								5327
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 30.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 185.0,
+	"status_bar_visible": true
+}

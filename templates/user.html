@@ -1,0 +1,130 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <div class= "row" >
+      <div class="col-xs-12 col-sm-3 col-md-3">
+          <h3 style="margin-top: 7px; margin-bottom: 0px;">Manage Users</h3>
+      </div>
+
+      <div class="col-xs-12 col-sm-9 col-md-9">
+    
+        <a href="users.html">
+          <button type="button" class="btn btn-default" >
+            <span class="glyphicon glyphicon-arrow-left"></span>
+          </button>
+        </a>
+   
+        <button type="button" class="btn btn-default">
+          Delete User <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <button type="button" class="btn btn-default">
+           Assign <span class="glyphicon glyphicon-folder-close"></span>
+        </button>
+
+        <span class="pull-right">
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <b>1</b> of <b>265</b> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Newest</a></li>
+              <li><a href="#">Oldest</a></li>
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+           
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel ">
+  <div class="panel-body">
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-3 col-md-3">
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active">
+            <a href="users.html">Users</a>
+            <ul>  
+              <li class="active"><a href="create_user.html" >Add User</a></li>
+            </ul>
+          </li>
+
+        </ul>
+        <hr/>
+        <h4>Directions</h4>
+        <ul>
+          <li ng-repeat="direction in directions">{{direction}}</li>
+        </ul>
+
+      </div>
+
+      <div class="col-xs-12 col-sm-9 col-md-9">
+
+        <div class= "row" >
+    
+          <div class="col-xs-12 col-sm-8 col-md-8">
+   
+          <div class="form-group">
+            <label for="exampleInputEmail1">First Name</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" ng-model="user.first_name" value="{{user.first_name}}" style="width:32ex">
+          </div>
+          
+          <div class="form-group">
+            <label for="exampleInputEmail1">Last Name</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" ng-model="user.last_name" placeholder="Enter last name" style="width:32ex">
+          </div>
+         
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" ng-model="user.email" placeholder="Enter email" style="width:32ex">
+           </div>
+
+          <label>Role</label><br/>
+          <div class="btn-group">
+              
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              Select a Role <span class="caret"></span>
+            </button>
+      
+            <ul class="dropdown-menu" role="menu">
+              <li ng-repeat="role in role_list"><a href="#">{{role.name}}</a></li>
+            </ul>
+          </div>
+          <br/>
+          <br/>
+    
+    <label>Status</label><br/>
+            <div class="btn-group">
+              
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Set active Status <span class="caret"></span>
+              </button>
+      
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Active</a></li>
+                <li><a href="#">Non-active</a></li>
+      </ul>
+            </div>
+    <br/>
+    <br/>
+    
+            <a href="#"><button class="btn btn-primary">Save User</button></a>
+          </div>
+      </div>
+
+    </div>
+
+  </div><!-- /.panel-body -->
+</div><!-- /.panel -->

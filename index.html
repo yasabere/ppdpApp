@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ppdpApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+    <title>PPDP APP</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/starter-template.css" rel="stylesheet">
+    <link href="css/footer.css" rel="stylesheet">
+
+    <!-- 3rd party javascript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+
+    <!-- custom javascript -->
+    <script src="js/app.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/directives.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Displays javascript header if javascript works. If not it displays default header -->
+    <master-Header>
+      <div id="header" class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container">
+          <a class="navbar-brand" href="#">PostingNation</a>
+        </div>
+      </div>
+    </master-Header>
+
+    <!-- Displays javascript body if javascript works. If not it displays default body -->
+    <div ng-view>
+      Javascript must be enabled
+    </div>
+
+    <!-- Displays javascript footer if javascript works. If not it displays default footer -->
+    <master-footer>
+      <div id="footer">
+        <div class="container">
+
+        </div>
+        <div class="panel-footer" style="background-color:#222">
+          <div class="container">
+            PostingNation
+          </div>
+        </div>
+      </div>
+    </master-footer>
+      
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/bootstrap.min.js"></script>
+    
+  </body>
+</html>

@@ -1,3 +1,5 @@
+#GIT Commands
+
 # Set your contributor config variables
 - - -
 **git config --global user.name `full_name_here`**

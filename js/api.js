@@ -70,37 +70,48 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
       return  Math.ceil(Math.random() * 12) + '/' + Math.ceil(Math.random() * 29) + '/201' + Math.ceil(3 + Math.random() * 2) + ' ' + Math.ceil(Math.random() * 9) + ':' + Math.ceil(Math.random() * 5) + '' + Math.ceil(Math.random() * 9) + ' ' + ((Math.round(Math.random()))?"AM":"PM") ;
     }
     
+    //Service Functions 
     
-    /*
-    Functions 
-    */
-    
+    /**
+     * get_selected_subset() returns a subset of an arraylist
+     * based on the one passed in '_array'
+     * where property selected == true 
+     *
+     * @param <Array> _array
+     * @return <Array> subset_array
+     */
     sharedService.get_selected_subset = function(_array) {
         
         var subset_array = [];
         
         for (var i=0, l=_array.length; i<l; i++) {
             if (_array[i].selected === true){
-                subset_array.push(_array);
+                subset_array.push(_array[i]);
             }
         }
         
         return subset_array;
     }
     
+    /**
+     * get_selected_subset() toggles property selected (true/false)
+     * of object of array _array using index 
+     *
+     * @param <Array> _array
+     * @param <Number> index
+     * @return <Array> subset_array
+     */
     sharedService.toggle_select = function(_array,index){
       if (_array[index]['selected']){
-       _array[index]['selected'] = true;
+       _array[index]['selected'] = false;
       }
       else{
-        _array[index]['selected'] = false;
+        _array[index]['selected'] = true;
       }
-      
+     
     }
 
-    /*
-    Model Functions 
-    */
+    //Model Functions 
 
     sharedService.userModel = function(){
 

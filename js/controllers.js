@@ -16,18 +16,54 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
 
 ppdpControllers.controller('assignment', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
-    console.log();
-    
-    // TODO: -- need to implement fill in code copy batches
+    console.log('newsclips');
+   
     
   }]
 );
 
-ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams) {
+ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('assignments');
     
-    // TODO: -- need to implement fill in code copy batches
+    // Global variables for controller
+    
+    // FIXME: currently have to instantiate
+    var assignmentModel = new ppdpAPIService.assignmentModel();
+    $scope.assignments = assignmentModel.retrieve({});
+    $scope.selected_assignments = [];
+    $scope.rows_selected = false;
+
+    // set the directions to show up on page
+    $scope.directions = [];
+    $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
+    $scope.directions.push('Click batch to view its\' contents');
+
+    /**
+     * toggle_select() Update selected property of assignment and
+     * updates selected_assienments based on id of batch passed in index
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.toggle_select = function(index){
+      ppdpAPIService.toggle_select($scope.assignments,index);
+      $scope.selected_assignments = ppdpAPIService.get_selected_subset($scope.assignments);
+    }
+
+    // FIXME: need to implement the angular way
+    /**
+     * details() redirect to assignment
+     * id in url is based on passed index
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.details = function(){
+      $location.path = "/assignment";
+    }
+    
+    console.log($scope.assignments);
     
   }]
 );
@@ -46,10 +82,10 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     
     // Global variables for controller
     
-    // FIXME: currently have to instantiat
+    // FIXME: currently have to instantiate
     var batchModel = new ppdpAPIService.batchModel();
     $scope.batches = batchModel.retrieve({});
-    $scope.selected_batch = [];
+    $scope.selected_batches = [];
     $scope.rows_selected = false;
 
     // set the directions to show up on page
@@ -65,15 +101,9 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
      * @return NULL
      */
     $scope.toggle_select = function(index){
-      if ( $scope.selected_batch[index] == index){
-        $scope.selected_batch.splice(index,1);
-        console.log("deselect");
-      }
-      else{
-        $scope.selected_batch[index] = index;
-        console.log("select");
-      }
-    };
+      ppdpAPIService.toggle_select($scope.batches,index);
+      $scope.selected_batches = ppdpAPIService.get_selected_subset($scope.batches);
+    }
 
     // FIXME: need to implement the angular way
     /**
@@ -100,22 +130,39 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
 
 ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams, ppdpAPIService) {
+    
+    // Global variables for controller
+    
+    // FIXME: currently have to instantiate
     var fileModel = new ppdpAPIService.fileModel();
-
     $scope.files = fileModel.retrieve({});
     $scope.selected_files = [];
     $scope.rows_selected = false;
 
+    // set the directions to show up on page
     $scope.directions = [];
     $scope.directions.push('Select file(s) to "Assign" or "Trash"');
     $scope.directions.push('Click file to download');
 
-    //Function
+    /**
+     * toggle_select() Update selected property of file and
+     * updates selected_files based on id of batch passed in index
+     *
+     * @param <String> index
+     * @return NULL
+     */
     $scope.toggle_select = function(index){
       ppdpAPIService.toggle_select($scope.files,index);
-      $scope.selected_files = ppdpAPIService.get_selected_subset();
+      $scope.selected_files = ppdpAPIService.get_selected_subset($scope.files);
     }
 
+    // FIXME: need to implement the angular way
+    /**
+     * details() bring up file modal
+     *
+     * @param <String> index
+     * @return NULL
+     */
     $scope.details = function(){
       $('#downloadModal').modal('toggle');
     }
@@ -134,17 +181,54 @@ ppdpControllers.controller('header', ['$scope', '$routeParams', 'ppdpAPIService'
   }]
 );
 
-ppdpControllers.controller('home', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams) {
+ppdpControllers.controller('home', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('home');
     
-    // TODO: -- need to implement fill in code copy batches
+    // Global variables for controller
+    
+    // FIXME: currently have to instantiate
+    var documentModel = new ppdpAPIService.documentModel();
+    $scope.documents = documentModel.retrieve({});
+    $scope.selected_documents = [];
+    $scope.rows_selected = false;
+
+    // set the directions to show up on page
+    $scope.directions = [];
+    $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
+    $scope.directions.push('Click batch to view its\' contents');
+
+    /**
+     * toggle_select() Update selected property of batch and
+     * updates selected_batches based on id of batch passed in index
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.toggle_select = function(index){
+      ppdpAPIService.toggle_select($scope.documents,index);
+      $scope.selected_documents = ppdpAPIService.get_selected_subset($scope.documents);
+    }
+
+    // FIXME: need to implement the angular way
+    /**
+     * details() redirect to batch
+     * id in url is based on passed index
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.details = function(){
+      $location.path = "/newsclip";
+    }
+    
+    console.log($scope.documents);
     
   }]
 );
 
 ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppdpAPIService',
-  function($scope, $routeParams) {
+  function($scope, $routeParams, $location, ppdpAPIService) {
     $location.path('newclips');
     
     // TODO: -- need to implementfill in code
@@ -153,7 +237,7 @@ ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppd
 );
 
 ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
-  function($scope, $routeParams, $ppdpAPIService, $location) {
+  function($scope, $routeParams, ppdpAPIService, $location) {
 
     console.log($location);
 
@@ -212,11 +296,48 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
   }]
 );
 
-ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams) {
+ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('newsclips');
     
-    // TODO: -- need to implement fill in code copy batches
+    // Global variables for controller
+    
+    // FIXME: currently have to instantiate
+    var documentModel = new ppdpAPIService.documentModel();
+    $scope.documents = documentModel.retrieve({});
+    $scope.selected_documents = [];
+    $scope.rows_selected = false;
+
+    // set the directions to show up on page
+    $scope.directions = [];
+    $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
+    $scope.directions.push('Click batch to view its\' contents');
+
+    /**
+     * toggle_select() Update selected property of batch and
+     * updates selected_batches based on id of batch passed in index
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.toggle_select = function(index){
+      ppdpAPIService.toggle_select($scope.documents,index);
+      $scope.selected_documents = ppdpAPIService.get_selected_subset($scope.documents);
+    }
+
+    // FIXME: need to implement the angular way
+    /**
+     * details() redirect to batch
+     * id in url is based on passed index
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.details = function(){
+      $location.path = "/newsclip";
+    }
+    
+    console.log($scope.documents);
     
   }]
 );

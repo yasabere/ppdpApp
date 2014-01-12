@@ -66,9 +66,41 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
         return this[Math.floor(Math.random() * this.length)]
     }
 
-    random_datetime =  function(){
+    var random_datetime =  function(){
       return  Math.ceil(Math.random() * 12) + '/' + Math.ceil(Math.random() * 29) + '/201' + Math.ceil(3 + Math.random() * 2) + ' ' + Math.ceil(Math.random() * 9) + ':' + Math.ceil(Math.random() * 5) + '' + Math.ceil(Math.random() * 9) + ' ' + ((Math.round(Math.random()))?"AM":"PM") ;
     }
+    
+    
+    /*
+    Functions 
+    */
+    
+    sharedService.get_selected_subset = function(_array) {
+        
+        var subset_array = [];
+        
+        for (var i=0, l=_array.length; i<l; i++) {
+            if (_array[i].selected === true){
+                subset_array.push(_array);
+            }
+        }
+        
+        return subset_array;
+    }
+    
+    sharedService.toggle_select = function(_array,index){
+      if (_array[index]['selected']){
+       _array[index]['selected'] = true;
+      }
+      else{
+        _array[index]['selected'] = false;
+      }
+      
+    }
+
+    /*
+    Model Functions 
+    */
 
     sharedService.userModel = function(){
 

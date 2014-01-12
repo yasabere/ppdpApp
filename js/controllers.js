@@ -4,55 +4,85 @@ Controllers for each page in application
 */
 
 var ppdpControllers = angular.module('ppdpControllers', []);
- 
+
 ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('add user');
+    
+    // TODO: -- need to implement fill in code
+    
   }]
 );
 
 ppdpControllers.controller('assignment', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log();
+    
+    // TODO: -- need to implement fill in code copy batches
+    
   }]
 );
 
 ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('assignments');
+    
+    // TODO: -- need to implement fill in code copy batches
+    
   }]
 );
 
 ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('batch');
+    
+    // TODO: -- need to implement
+    
   }]
 );
 
 ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams, ppdpAPIService) {
+    
+    // Global variables for controller
+    
+    // FIXME: currently have to instantiat
     var batchModel = new ppdpAPIService.batchModel();
-
-    $scope.batches = batchModel.retrieve({});;
+    $scope.batches = batchModel.retrieve({});
     $scope.selected_batch = [];
     $scope.rows_selected = false;
 
+    // set the directions to show up on page
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
 
+    /**
+     * toggle_select() Update selected property of batch and
+     * updates selected_batches based on id of batch passed in index
+     *
+     * @param <String> index
+     * @return NULL
+     */
     $scope.toggle_select = function(index){
       if ( $scope.selected_batch[index] == index){
-        $scope.selected_batch.splice(index,1)
+        $scope.selected_batch.splice(index,1);
         console.log("deselect");
       }
       else{
         $scope.selected_batch[index] = index;
         console.log("select");
       }
-      
-    }
+    };
 
+    // FIXME: need to implement the angular way
+    /**
+     * details() redirect to batch
+     * id in url is based on passed index
+     *
+     * @param <String> index
+     * @return NULL
+     */
     $scope.details = function(){
       window.location = "batch.html";
     }
@@ -62,6 +92,9 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
 ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('create_newsclip');
+    
+    // TODO: -- need to implement
+    
   }]
 );
 
@@ -77,16 +110,10 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.directions.push('Select file(s) to "Assign" or "Trash"');
     $scope.directions.push('Click file to download');
 
+    //Function
     $scope.toggle_select = function(index){
-      if ( $scope.selected_files[index] == index){
-        $scope.selected_files.splice(index,1)
-        console.log("deselect");
-      }
-      else{
-        $scope.selected_files[index] = index;
-        console.log("select");
-      }
-      
+      ppdpAPIService.toggle_select($scope.files,index);
+      $scope.selected_files = ppdpAPIService.get_selected_subset();
     }
 
     $scope.details = function(){
@@ -110,12 +137,18 @@ ppdpControllers.controller('header', ['$scope', '$routeParams', 'ppdpAPIService'
 ppdpControllers.controller('home', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('home');
+    
+    // TODO: -- need to implement fill in code copy batches
+    
   }]
 );
 
 ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppdpAPIService',
   function($scope, $routeParams) {
     $location.path('newclips');
+    
+    // TODO: -- need to implementfill in code
+    
   }]
 );
 
@@ -137,7 +170,8 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
       {
         title: 'Batches',
         href: 'batches',
-        menu:[]
+        menu:[],
+        path:'/batches'
       },
       {
         title: 'Files',
@@ -145,17 +179,19 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
         menu:[{
           title: 'Upload',
           href: 'upload',
-        }]
+        }],
+        path:'/files'
       },
       {
         title: 'Assignments',
         href: 'assignments',
+        path:'/assignments',
       },
     ];
 
     $scope.menu.forEach(function(link) {
       console.log(link);
-      if (link.href == $location.path() || link.path == $location.path()){
+      if (link.title == $location.path() || link.path == $location.path()){
         link.class = 'active';
         console.log('found');
       }
@@ -170,29 +206,44 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
 ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('newsclip');
+    
+    // TODO: -- need to implement
+    
   }]
 );
 
 ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('newsclips');
+    
+    // TODO: -- need to implement fill in code copy batches
+    
   }]
 );
 
 ppdpControllers.controller('sitemap', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('sitemap');
+    
+    // TODO: -- need to implement
+    
   }]
 );
 
 ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('user');
+    
+    // TODO: -- need to implement
+    
   }]
 );
 
 ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('users');
+    
+    // TODO: -- need to implement fill in code copy batches
+    
   }]
 );

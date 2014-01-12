@@ -380,6 +380,23 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
       _batch.status = batch_statuses.randomElement();
       _batchModel.create(_batch);
     }
+    
+    //make assignments for the system
+    var assignment_statuses = ['Incomplete', 'Complete'];
+    var _assignmentModel = new sharedService.assignmentModel();
+
+    for (i=8; i > 0; i-=1){
+      var _assignment = new assignmentObj();
+      var rand_int;
+      _assignment.name+=" "+i;
+      _assignment.date_created = '11/5/201' + Math.ceil(3 + Math.random() * 2) + ' 6:08 PM';
+      _assignment.date_due = random_datetime();
+      rand_int = Math.ceil(Math.random() * (sharedService.users.length-1));
+      _assignment.user = sharedService.users[ rand_int ];
+      _assignment.assigned = [true,false][Math.round(Math.random() * 1)];
+      _assignment.status = assignment_statuses.randomElement();
+      _assignmentModel.create(_assignment);
+    }
 
     return sharedService;
 });

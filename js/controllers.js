@@ -60,7 +60,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
      * @return NULL
      */
     $scope.details = function(){
-      $location.path = "/assignment";
+      $location.path("/assignment");
     }
     
     console.log($scope.assignments);
@@ -77,8 +77,8 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
   }]
 );
 
-ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams, ppdpAPIService) {
+ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
     
     // Global variables for controller
     
@@ -114,7 +114,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
      * @return NULL
      */
     $scope.details = function(){
-      window.location = "batch.html";
+      $location.path("batch.html");
     }
   }]
 );
@@ -219,10 +219,8 @@ ppdpControllers.controller('home', ['$scope', '$routeParams', 'ppdpAPIService', 
      * @return NULL
      */
     $scope.details = function(){
-      $location.path = "/newsclip";
+      $location.path("/newsclip");
     }
-    
-    console.log($scope.documents);
     
   }]
 );
@@ -274,14 +272,10 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
     ];
 
     $scope.menu.forEach(function(link) {
-      console.log(link);
       if (link.title == $location.path() || link.path == $location.path()){
         link.class = 'active';
-        console.log('found');
       }
     });
-
-    console.log($scope.menu);
 
     console.log('menu_sidebar');
   }]
@@ -334,10 +328,9 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
      * @return NULL
      */
     $scope.details = function(){
-      $location.path = "/newsclip";
+      $location.path("/newsclip");
     }
-    
-    console.log($scope.documents);
+
     
   }]
 );

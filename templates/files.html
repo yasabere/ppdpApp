@@ -205,3 +205,61 @@
 
   </div><!-- /.panel-body -->
 </div><!-- /.panel -->
+
+<!-- Modal -->
+  <div class="modal fade" id="createFileModal" tabindex="-1" role="dialog" aria-labelledby="createFileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="createFileModalLabel">Upload File</h4>
+        </div>
+        <div class="modal-body">
+          <div style="text-align:center">
+            <form enctype="multipart/form-data" action="http://pn.localhost/codeigniter-restserver-master/index.php/api/image/create" method="post">
+              <input name="userfile" type="file" class="btn btn-default btn-lg" style="display:inline-block; width:300px;"  size="20"  />
+              <input type="submit" name="submit" value="upload"  class="btn btn-primary btn-lg" style="display:inline-block;" />
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="deleteModalLabel">Delete</h4>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this file
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Delete</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="deleteModalLabel">Download this file</h4>
+        </div>
+        <div class="modal-body" style="text-align:center">
+          <button class="btn btn-default btn-lg">Download</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->

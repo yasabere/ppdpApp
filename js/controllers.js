@@ -5,6 +5,7 @@ Controllers for each page in application
 
 var ppdpControllers = angular.module('ppdpControllers', []);
 
+/** Controller: add_user */ 
 ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('add user');
@@ -14,14 +15,17 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
   }]
 );
 
+/** Controller: assignment */ 
 ppdpControllers.controller('assignment', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('newsclips');
-   
     
+    // TODO: -- need to implement fill in code
+   
   }]
 );
 
+/** Controller: assignments */ 
 ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
   function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('assignments');
@@ -68,6 +72,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
   }]
 );
 
+/** Controller: batch */ 
 ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('batch');
@@ -77,6 +82,7 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
   }]
 );
 
+/** Controller: batches */
 ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
   function($scope, $routeParams, ppdpAPIService, $location) {
     
@@ -119,6 +125,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
   }]
 );
 
+/** Controller: create_newsclip */
 ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('create_newsclip');
@@ -128,6 +135,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
   }]
 );
 
+/** Controller: files */
 ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams, ppdpAPIService) {
     
@@ -169,18 +177,21 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
   }]
 );
 
+/** Controller: footer */
 ppdpControllers.controller('footer', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('footer');
   }]
 );
 
+/** Controller: header */
 ppdpControllers.controller('header', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('header');
   }]
 );
 
+/** Controller: home */
 ppdpControllers.controller('home', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
   function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('home');
@@ -225,6 +236,7 @@ ppdpControllers.controller('home', ['$scope', '$routeParams', 'ppdpAPIService', 
   }]
 );
 
+/** Controller: login */
 ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppdpAPIService',
   function($scope, $routeParams, $location, ppdpAPIService) {
     $location.path('newclips');
@@ -234,6 +246,7 @@ ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppd
   }]
 );
 
+/** Controller: menu_sidebar */
 ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
   function($scope, $routeParams, ppdpAPIService, $location) {
 
@@ -281,6 +294,7 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
   }]
 );
 
+/** Controller: newsclip */
 ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('newsclip');
@@ -290,6 +304,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
   }]
 );
 
+/** Controller: newsclips */
 ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
   function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('newsclips');
@@ -335,6 +350,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
   }]
 );
 
+/** Controller: sitemap */
 ppdpControllers.controller('sitemap', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('sitemap');
@@ -344,6 +360,7 @@ ppdpControllers.controller('sitemap', ['$scope', '$routeParams', 'ppdpAPIService
   }]
 );
 
+/** Controller: user */
 ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('user');
@@ -353,6 +370,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService',
   }]
 );
 
+/** Controller: users */
 ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
     console.log('users');

@@ -47,6 +47,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
       this.newspaper = '';
       this.topic = "";
       this.type = "";
+      this.date = "";
       this.date_created = '11/5/2013 6:08 PM';
       this.entry_clerk = {first_name:"Jay", last_name: "Jennings"};
       this.assigned = false;
@@ -115,7 +116,125 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
     }
 
     /** Model Functions */
+    sharedService.assignmentModel = function(){
+      this.create = function(_assignment){
+        sharedService.assignments.push(_assignment);
+        return true;
+      }
 
+      this.retrieve = function(_assignment){
+        return sharedService.assignments;
+      }
+
+      this.update = function(){
+
+      }
+
+      this.delete = function(){
+        
+      }
+    }
+    sharedService.assignment = new sharedService.assignmentModel();
+
+    sharedService.batchModel = function(){
+      this.create = function(_batch){
+        sharedService.batches.push(_batch);
+        return true;
+      }
+
+      this.retrieve = function(batch){
+        return sharedService.batches;
+      }
+
+      this.update = function(){
+
+      }
+
+      this.delete = function(){
+        
+      }
+    }
+    sharedService.batch = new sharedService.batchModel();
+
+    sharedService.documentModel = function(){
+      this.create = function(_document){
+        sharedService.documents.push(_document);
+        return true;
+      }
+
+      this.retrieve = function(document){
+        return sharedService.documents;
+      }
+
+      this.update = function(){
+
+      }
+
+      this.delete = function(){
+        
+      }
+    }
+    sharedService.doc = new sharedService.documentModel();
+
+    sharedService.fileModel = function(){
+      this.create = function(_file){
+        sharedService.files.push(_file);
+        return true;
+      }
+
+      this.retrieve = function(_file){
+        return sharedService.files;
+      }
+
+      this.update = function(){
+
+      }
+
+      this.delete = function(){
+        
+      }
+    }
+    sharedService.file = new sharedService.fileModel();
+    
+    sharedService.newspaperModel = function(){
+      this.create = function(_newspaper){
+        sharedService.newspapers.push(_newspaper);
+        return true;
+      }
+
+      this.retrieve = function(query){
+        return sharedService.newspapers;
+      }
+
+      this.update = function(){
+
+      }
+
+      this.delete = function(){
+        
+      }
+    }
+    sharedService.newspaper = new sharedService.newspaperModel();
+
+    sharedService.roleModel = function(){
+      this.create = function(_role){
+        sharedService.roles.push(_role);
+        return true;
+      }
+
+      this.retrieve = function(_role){
+        return sharedService.roles;
+      }
+
+      this.update = function(){
+
+      }
+
+      this.delete = function(){
+        
+      }
+    }
+    sharedService.role = new sharedService.roleModel();
     
     sharedService.userModel = function(){
 
@@ -136,121 +255,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
         
       }
     }
-
-    sharedService.assignmentModel = function(){
-      this.create = function(_assignment){
-        sharedService.assignments.push(_assignment);
-        return true;
-      }
-
-      this.retrieve = function(_assignment){
-        return sharedService.assignments;
-      }
-
-      this.update = function(){
-
-      }
-
-      this.delete = function(){
-        
-      }
-    }
-
-    sharedService.batchModel = function(){
-      this.create = function(_batch){
-        sharedService.batches.push(_batch);
-        return true;
-      }
-
-      this.retrieve = function(batch){
-        return sharedService.batches;
-      }
-
-      this.update = function(){
-
-      }
-
-      this.delete = function(){
-        
-      }
-    }
-
-    sharedService.documentModel = function(){
-      this.create = function(_document){
-        sharedService.documents.push(_document);
-        return true;
-      }
-
-      this.retrieve = function(document){
-        return sharedService.documents;
-      }
-
-      this.update = function(){
-
-      }
-
-      this.delete = function(){
-        
-      }
-    }
-
-    sharedService.fileModel = function(){
-      this.create = function(_file){
-        sharedService.files.push(_file);
-        return true;
-      }
-
-      this.retrieve = function(_file){
-        return sharedService.files;
-      }
-
-      this.update = function(){
-
-      }
-
-      this.delete = function(){
-        
-      }
-    }
+    sharedService.user = new sharedService.userModel();
     
-    sharedService.newspaperModel = function(){
-      this.create = function(_newspaper){
-        sharedService.newspapers.push(_newspaper);
-        return true;
-      }
-
-      this.retrieve = function(_newspaper){
-        return sharedService.newspaper;
-      }
-
-      this.update = function(){
-
-      }
-
-      this.delete = function(){
-        
-      }
-    }
-
-    sharedService.roleModel = function(){
-      this.create = function(_role){
-        sharedService.roles.push(_role);
-        return true;
-      }
-
-      this.retrieve = function(_role){
-        return sharedService.roles;
-      }
-
-      this.update = function(){
-
-      }
-
-      this.delete = function(){
-        
-      }
-    }
-
     /** Temporary model data */
     //make roles for system
     var _roleModel = new sharedService.roleModel()

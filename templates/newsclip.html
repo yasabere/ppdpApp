@@ -78,10 +78,7 @@
                   </button>
           
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Ambler Gazette</a></li>
-                    <li><a href="#">Temple News</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Other</a></li>
+                    <li ng-repeat="newspaper in newspapers"><a>{{newspaper.name}}</a></li>
                   </ul>
           
                 </div>

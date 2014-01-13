@@ -242,7 +242,7 @@ ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppd
   function($scope, $routeParams, $location, ppdpAPIService) {
     $location.path('newclips');
     
-    // TODO: -- need to implementfill in code
+    // TODO: -- need to implement
     
   }]
 );
@@ -251,8 +251,7 @@ ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppd
 ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
   function($scope, $routeParams, ppdpAPIService, $location) {
 
-    console.log($location);
-
+    //json representation of menu sidebar
     $scope.menu = [
       {
         title: 'Newsclips',
@@ -285,13 +284,13 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
       },
     ];
 
+    //determins if menu item has been selected and if so it adds 'active class'
     $scope.menu.forEach(function(link) {
       if (link.title == $location.path() || link.path == $location.path()){
         link.class = 'active';
       }
     });
 
-    console.log('menu_sidebar');
   }]
 );
 
@@ -300,8 +299,21 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
   function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('newsclip');
     
-    // TODO: -- need to implement
+    //news papers to be displayed in 'Newspaper' dropdown
+    $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
     
+    //json representation of 
+    $scope.this_newsclip = {
+        abstract:'',
+        comments:'',
+        date:'',
+        date_created: '',
+        headline:'',
+        policy:'',
+        policy_code:'',
+        type:'',
+    };
+    // TODO: -- need to finish implementation
     
   }]
 );

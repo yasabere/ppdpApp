@@ -42,7 +42,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
     }
     
     function documentObj(){
-      this.name = "document";
+      this.headline = "document";
       this.abstract = '';
       this.newspaper = '';
       this.topic = "";
@@ -316,55 +316,55 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
     var statuses = ['Requires Tie-break', 'Requires coding', 'Requires 1 Code', "Complete","Published"]
 
     var _document = new documentObj();
-    _document.name = "Philly area's smaller banks not hurrying to repay TARP funds";
+    _document.headline = "Philly area's smaller banks not hurrying to repay TARP funds";
     _document.abstract = "Banks nationwide have been able to repay most of the federal money they received from the 2008/2009 bailout effort. Many banks in Philadelphia are reluctant to sell new shares at depressed prices to repay the government investment. Bank executives have stated that small-bank gains came at the expense of larger and troubled banks";
     _document.newspaper = "Philadelphia Inquirer";
     _documentModel.create(_document);
 
     _document = new documentObj();
-    _document.name = "Turnpike tolls going up Sunday";
+    _document.headline = "Turnpike tolls going up Sunday";
     _document.abstract = "Tolls on the PA Turnpike will soon increase 10 percent for cash customers and 3 percent for E-Zpass holders. A turnpike spokesperson said that travelers should expect regular increases as Act 44 mandates the turnpike to pay the PA Department of Transpiration to repair other highways. The turnpike wastes an annual $50,000 on unused tickets";
     _document.newspaper = "Bucks County Courier Time";
     _documentModel.create(_document);
 
     _document = new documentObj();
-    _document.name = "Task force wants funding for libraries put before voters";
+    _document.headline = "Task force wants funding for libraries put before voters";
     _document.abstract = "Court Judge Frank Lucchino, chairman of the Carnegie Library's Public Private Task Force, has suggested that the issue of closing Pittsburgh area library branches should be put to a vote. This comes after the public showed great opposition to the closing of Carnegie Library of Pittsburgh. Voters would decide how to fund libraries.";
     _document.newspaper = "Pittsburgh Tribune Review";
     _documentModel.create(_document);
 
     _document = new documentObj();
-    _document.name = "Coming soon: Nightmare on area streets";
+    _document.headline = "Coming soon: Nightmare on area streets";
     _document.abstract = "A Spokesman from the White House Council of Economic Advisers has warned of catastrophic consequences that will result if Republicans follow through on threats to reject an increase in the nation's borrowing limit. The US Treasury Department has estimated that the limit will be reached during the first or second quarter of FY 2011. US";
     _document.newspaper = "Reuters";
     _documentModel.create(_document);
 
     _document = new documentObj();
-    _document.name = 'Computers That See You and Keep Watch Over You';
+    _document.headline = 'Computers That See You and Keep Watch Over You';
     _document.abstract = "A series of articles examining the advances in artificial intelligence and robotics and their potential impact on society: Prison guards are now being assisted by smart video technology, which can pinpoint when and where potential disturbances between inmates are occurring. Some computers can read a man's face to determine his heart rate.";
     _document.newspaper = "New York Times";
     _documentModel.create(_document);
 
     _document = new documentObj();
-    _document.name = "State collects $191M more than expected in December";
+    _document.headline = "State collects $191M more than expected in December";
     _document.abstract = "Pennsylvania Gov. Ed Rendell says the state collected $191.2 million more than expected in revenue in December 2010. Collections in every major tax category surpassed expectations. Rendell said that Governor Elect Tom Corbett will still have very tough decisions to make due to rising costs related to corrections, pensions and Medicaid.";
     _document.newspaper = "Associated Press";
     _documentModel.create(_document);
 
     _document = new documentObj();
-    _document.name = "Are Americans Wusses or Just Fond of Trash Talk?";
+    _document.headline = "Are Americans Wusses or Just Fond of Trash Talk?";
     _document.abstract = 'US President Barack Obama was recently lambasted for killing a house fly with his hands. PA Governor Ed Rendell has called us a "nation of wussies," which raised a lot of eye brows. He now understands why this comment stung so much. In an interview Rendell recounts US history: "Our country was founded by risk-takers, an army of farmers';
     _document.newspaper = "Wall Street Journal";
     _documentModel.create(_document);
 
     _document = new documentObj();
-    _document.name = "Officials celebrate groundbreaking for two 'flex' buildings at Navy ";
+    _document.headline = "Officials celebrate groundbreaking for two 'flex' buildings at Navy ";
     _document.abstract = 'Mayor of Philadelphia Michael Nutter, along with 2 members of Congress, were present at a groundbreaking ceremony for two buildings that totaled little more than 100,000 square feet. Such a small undertaking usually does not attract such high ranking officials, but this is the biggest project since May 2009. The buildings will be unique to';
     _document.newspaper = "Philadelphia Inquirer";
     _documentModel.create(_document);
 
     _document = new documentObj();
-    _document.name = "Pittsburgh mentors, money fuel education";
+    _document.headline = "Pittsburgh mentors, money fuel education";
     _document.abstract = 'Pittsburgh police officer Tamara Davis loves to volunteer her time to kids in the Pittsburgh School Districts. She does this through a mentoring program, which eventually leads to a $40,000 scholarship over four years, which can be spent at any college or trade school in PA. The United Way of Allegheny County sponsors a similar program.';
     _document.newspaper = "USA Today";
     _documentModel.create(_document);

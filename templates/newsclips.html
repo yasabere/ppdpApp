@@ -158,7 +158,7 @@
                 <tr>
 
                   <td>Select</td>
-                  <td>Name</td>
+                  <td>Headline</td>
                   <td>Newspaper</td>
                   <td>Date Created</td>
                   <td>Creator</td>
@@ -171,7 +171,7 @@
                 <tr ng-repeat="_document in documents">
 
                   <td><input type="checkbox" ng-click="toggle_select($index)"></td>
-                  <td ng-click="details($index)">{{_document.name}}</td>
+                  <td ng-click="details($index)">{{_document.headline}}</td>
                   <td ng-click="details($index)">{{_document.newspaper}}</td>
                   <td ng-click="details($index)">{{_document.date_created}}</td>
                   <td ng-click="details($index)">{{_document.entry_clerk.first_name}}</td>

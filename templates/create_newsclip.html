@@ -89,7 +89,7 @@
               <div style="display:inline-block; margin-left:10px;">  
 
                   <label>Date</label><br/>
-                  <input type="date" class="form-control" id="inputPassword" value="11/04/2014">
+                  <input type="date" class="form-control" id="inputPassword" value="11/04/2014" ng-model="doc.date">
 
               </div>
 
@@ -117,11 +117,11 @@
 
               <div class="form-group">
                 <label for="txtheadline">Headline</label>
-                <textarea id="txtheadline" class="form-control" rows="2">{{document.name}}</textarea>
+                <textarea id="txtheadline" class="form-control" rows="2" ng-model="doc.headline"></textarea>
               </div>
               <div class="form-group">
                 <label for="txtabstract">Abstract</label>
-                <textarea id="txtabstract" class="form-control" rows="5">{{document.abstract}}</textarea>
+                <textarea id="txtabstract" class="form-control" rows="5" ng-model="doc.abstract"></textarea>
               </div>
 
               <div style="display:inline-block; margin-left:0px;">  
@@ -144,12 +144,12 @@
 
               <div class="form-group">
                 <label for="txtcomments">Comments</label>
-                <textarea id="txtcomments" class="form-control" rows="2"></textarea>
+                <textarea id="txtcomments" class="form-control" rows="2" ng-model="doc.comments"></textarea>
               </div>
               <button type="button" class="btn btn-default">
                 Cancel
               </button>
-              <button type="button" class="btn btn-primary">
+              <button type="button" class="btn btn-primary" ng-click="save()">
                 Save
               </button>
             </form>

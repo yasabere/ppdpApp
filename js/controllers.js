@@ -127,11 +127,36 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
 );
 
 /** Controller: create_newsclip */
-ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams) {
+ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('create_newsclip');
     
-    // TODO: -- need to implement
+    //news papers to be displayed in 'Newspaper' dropdown
+    $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
+    
+    //json representation of 
+    $scope.doc = {
+        abstract:'',
+        comments:'',
+        date:'',
+        date_created: '',
+        headline:'',
+        policy:'',
+        policy_code:'',
+        type:'',
+    };
+    
+    /**
+     * save() updates current doc with doc data
+     * id in url is based on passed index
+     *
+     * @return NULL
+     */
+    $scope.save = function(){
+        console.log($scope.doc);
+        var status = ppdpAPIService.newspaper.create($scope.doc);
+        
+    }
     
   }]
 );
@@ -303,7 +328,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
     
     //json representation of 
-    $scope.this_newsclip = {
+    $scope.doc = {
         abstract:'',
         comments:'',
         date:'',
@@ -313,6 +338,18 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
         policy_code:'',
         type:'',
     };
+    
+    /**
+     * save() updates current doc with doc data
+     * id in url is based on passed index
+     *
+     * @return NULL
+     */
+    $scope.save = function(){
+        var status = ppdpAPIService.newspaper.update($scope.doc);
+        
+    }
+    
     // TODO: -- need to finish implementation
     
   }]

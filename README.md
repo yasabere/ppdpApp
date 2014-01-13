@@ -1,3 +1,7 @@
+#JavaScript Style Guide
+- - -
+**https://github.com/airbnb/javascript**
+
 #GIT Commands
 
 # Set your contributor config variables

@@ -1,23 +1,46 @@
 var ppdpAPI = angular.module('ppdpAPI', []);
  
+ //registers ppdpAPIService
 ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
+    
+    // Global Variables
     var sharedService = {};
-
     sharedService.users = [];
     sharedService.documents = [];
     sharedService.assignments = [];
     sharedService.batches = [];
     sharedService.files = [];
     sharedService.roles = [];
-
-    //classes
-    function fileObj(){
-      this.name = '';
-      this.date_created = '11/5/2013 6:08 PM';
-      this.entry_clerk = {first_name:"Jay", last_name: "Jennings"};
-      this.file_size = "47kb";
+    sharedService.newspapers = [];
+    
+    /** Private functions */
+    Array.prototype.randomElement = function () {
+        return this[Math.floor(Math.random() * this.length)]
     }
 
+    var random_datetime =  function(){
+      return  Math.ceil(Math.random() * 12) + '/' + Math.ceil(Math.random() * 29) + '/201' + Math.ceil(3 + Math.random() * 2) + ' ' + Math.ceil(Math.random() * 9) + ':' + Math.ceil(Math.random() * 5) + '' + Math.ceil(Math.random() * 9) + ' ' + ((Math.round(Math.random()))?"AM":"PM") ;
+    }
+
+    /** Object Classes */
+    function assignmentObj(){
+      this.user = {first_name:"John", last_name: "Doe"};
+      this.type = {type_id : 1, name : "Data Entry"};
+      this.file = {file_id:"2",name : "file 1"};
+      this.date_created = "11/5/2013 6:08 PM";
+      this.date_completed = "";
+      this.date_due = "1/5/2014 6:08 PM";
+      this.status = "Incomplete"
+    }
+    
+    function batchObj(){
+      this.name = "batch";
+      this.date_created = '11/5/2013 6:08 PM';
+      this.entry_clerk = {first_name:"Jay", last_name: "Jennings"};
+      this.assigned = false;
+      this.status = "";
+    }
+    
     function documentObj(){
       this.name = "document";
       this.abstract = '';
@@ -28,17 +51,20 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
       this.entry_clerk = {first_name:"Jay", last_name: "Jennings"};
       this.assigned = false;
       this.status = "unassigned";;
-
     }
-
-    function batchObj(){
-      this.name = "batch";
+    
+    function fileObj(){
+      this.name = '';
       this.date_created = '11/5/2013 6:08 PM';
       this.entry_clerk = {first_name:"Jay", last_name: "Jennings"};
-      this.assigned = false;
-      this.status = "";
+      this.file_size = "47kb";
     }
-
+    
+    function roleObj(){
+      this.role_id = 2;
+      this.name = "User";
+    }
+    
     function userObj(){
       this.first_name = "";
       this.last_name = "";
@@ -47,30 +73,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
       this.role = {role_id:2,name:"user"};
     }
 
-    function assignmentObj(){
-      this.user = {first_name:"John", last_name: "Doe"};
-      this.type = {type_id : 1, name : "Data Entry"};
-      this.file = {file_id:"2",name : "file 1"};
-      this.date_created = "11/5/2013 6:08 PM";
-      this.date_completed = "";
-      this.date_due = "1/5/2014 6:08 PM";
-      this.status = "Incomplete"
-    }
-
-    function roleObj(){
-      this.role_id = 2;
-      this.name = "User";
-    }
-
-    Array.prototype.randomElement = function () {
-        return this[Math.floor(Math.random() * this.length)]
-    }
-
-    var random_datetime =  function(){
-      return  Math.ceil(Math.random() * 12) + '/' + Math.ceil(Math.random() * 29) + '/201' + Math.ceil(3 + Math.random() * 2) + ' ' + Math.ceil(Math.random() * 9) + ':' + Math.ceil(Math.random() * 5) + '' + Math.ceil(Math.random() * 9) + ' ' + ((Math.round(Math.random()))?"AM":"PM") ;
-    }
-    
-    //Service Functions 
+    /** Service Functions */
     
     /**
      * get_selected_subset() returns a subset of an arraylist
@@ -111,8 +114,9 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
      
     }
 
-    //Model Functions 
+    /** Model Functions */
 
+    
     sharedService.userModel = function(){
 
       this.create = function(_user){
@@ -208,6 +212,25 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
         
       }
     }
+    
+    sharedService.newspaperModel = function(){
+      this.create = function(_newspaper){
+        sharedService.newspapers.push(_newspaper);
+        return true;
+      }
+
+      this.retrieve = function(_newspaper){
+        return sharedService.newspaper;
+      }
+
+      this.update = function(){
+
+      }
+
+      this.delete = function(){
+        
+      }
+    }
 
     sharedService.roleModel = function(){
       this.create = function(_role){
@@ -228,6 +251,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
       }
     }
 
+    /** Temporary model data */
     //make roles for system
     var _roleModel = new sharedService.roleModel()
     var _role = new roleObj();
@@ -246,7 +270,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
     _roleModel.create(_role);
 
     // make users for system
-    var _userModel = new sharedService.userModel()
+    var _userModel = new sharedService.userModel();
     var _user = new userObj();
     
     _user.first_name = "Jay";
@@ -387,7 +411,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
 
     for (i=8; i > 0; i-=1){
       var _assignment = new assignmentObj();
-      var rand_int;
+
       _assignment.name+=" "+i;
       _assignment.date_created = '11/5/201' + Math.ceil(3 + Math.random() * 2) + ' 6:08 PM';
       _assignment.date_due = random_datetime();
@@ -397,6 +421,39 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
       _assignment.status = assignment_statuses.randomElement();
       _assignmentModel.create(_assignment);
     }
+    
+    //make newspapers for the syste
+    var _newspaperModel = new sharedService.newspaperModel();
 
+    var _newspaper = new assignmentObj();
+    _newspaper.id = sharedService.newspapers.length;
+    _newspaper.name = "Philadelphia Inquirer";
+    _newspaperModel.create(_newspaper);
+    
+    _newspaper = new assignmentObj();
+    _newspaper.id = sharedService.newspapers.length;
+    _newspaper.name = "Bucks County Courier Time";
+    _newspaperModel.create(_newspaper);
+    
+    _newspaper = new assignmentObj();
+    _newspaper.id = sharedService.newspapers.length;
+    _newspaper.name = "Pittsburgh Tribune Review";
+    _newspaperModel.create(_newspaper);
+    
+    _newspaper = new assignmentObj();
+    _newspaper.id = sharedService.newspapers.length;
+    _newspaper.name = "Reuters";
+    _newspaperModel.create(_newspaper);
+    
+    _newspaper = new assignmentObj();
+    _newspaper.id = sharedService.newspapers.length;
+    _newspaper.name = "New York Times";
+    _newspaperModel.create(_newspaper);
+    
+    _newspaper = new assignmentObj();
+    _newspaper.id = sharedService.newspapers.length;
+    _newspaper.name = "USA Today";
+    _newspaperModel.create(_newspaper);
+    
     return sharedService;
 });

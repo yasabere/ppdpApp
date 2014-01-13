@@ -21,6 +21,7 @@ ppdpControllers.controller('assignment', ['$scope', '$routeParams', 'ppdpAPIServ
     console.log('newsclips');
     
     // TODO: -- need to implement fill in code
+    
    
   }]
 );
@@ -295,11 +296,12 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
 );
 
 /** Controller: newsclip */
-ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams) {
+ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('newsclip');
     
     // TODO: -- need to implement
+    
     
   }]
 );

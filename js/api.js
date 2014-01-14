@@ -169,7 +169,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
       this.retrieve = function(_doc){
           
         if (_doc.id){
-            return sharedService.files.slice(_doc.id,_doc.id+1);
+            return sharedService.documents.slice(_doc.id,_doc.id+1);
         }   
           
         return sharedService.documents;

@@ -166,7 +166,12 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
         return true;
       }
 
-      this.retrieve = function(document){
+      this.retrieve = function(_doc){
+          
+        if (_doc.id){
+            return sharedService.files.slice(_doc.id,_doc.id+1);
+        }   
+          
         return sharedService.documents;
       }
 
@@ -187,8 +192,6 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
       }
 
       this.retrieve = function(_file){
-          
-        _file.id = 3;  
           
         if (_file.id){
             return sharedService.files.slice(_file.id,_file.id+1);

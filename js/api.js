@@ -1,7 +1,7 @@
 var ppdpAPI = angular.module('ppdpAPI', []);
  
  //registers ppdpAPIService
-ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
+ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
     
     // Global Variables
     var sharedService = {};
@@ -119,6 +119,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
     sharedService.assignmentModel = function(){
       this.create = function(_assignment){
         sharedService.assignments.push(_assignment);
+
         return true;
       }
 
@@ -133,6 +134,9 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
       this.delete = function(){
         
       }
+
+      
+      
     }
     sharedService.assignment = new sharedService.assignmentModel();
 
@@ -244,6 +248,11 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
       }
 
       this.retrieve = function(_user){
+          
+        if (_user.id){
+            return sharedService.users.slice(_user.id,_user.id+1);
+        } 
+          
         return sharedService.users;
       }
 
@@ -256,6 +265,15 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location){
       }
     }
     sharedService.user = new sharedService.userModel();
+    
+    sharedService.accountModel = function(){
+        
+      this.login = function(_user){
+        return sharedService.users;
+      }
+
+    }
+    sharedService.account = new sharedService.accountModel();
     
     /** Temporary model data */
     //make roles for system

@@ -412,21 +412,65 @@ ppdpControllers.controller('sitemap', ['$scope', '$routeParams', 'ppdpAPIService
 );
 
 /** Controller: user */
-ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams) {
+ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('user');
     
+    $scope.user = ppdpAPIService.user.retrieve({id:$routeParams.userId})[0];
     // TODO: -- need to implement
+    
+    /**
+     * back() redirect to users
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.back = function(){
+      $location.path("/users")
+    }
     
   }]
 );
 
 /** Controller: users */
-ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams) {
+ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('users');
     
-    // TODO: -- need to implement fill in code copy batches
+    // Global variables for controller
+    
+    // FIXME: currently have to instantiate
+    $scope.users = ppdpAPIService.user.retrieve({});
+    $scope.selected_users = [];
+    $scope.rows_selected = false;
+
+    // set the directions to show up on page
+    $scope.directions = [];
+    $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
+    $scope.directions.push('Click batch to view its\' contents');
+
+    /**
+     * toggle_select() Update selected property of batch and
+     * updates selected_batches based on id of batch passed in index
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.toggle_select = function(index){
+      ppdpAPIService.toggle_select($scope.users,index);
+      $scope.selected_users = ppdpAPIService.get_selected_subset($scope.users);
+    }
+
+    /**
+     * details() redirect to batch
+     * id in url is based on passed index
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.details = function(id){
+      $location.path("/user/"+id);
+    }
     
   }]
 );

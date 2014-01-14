@@ -73,7 +73,7 @@ ppdpApp.config(['$routeProvider',
         templateUrl: 'templates/upload_file.html',
         controller: 'upload_file'
       }).
-      when('/user', {
+      when('/user/:userId', {
         templateUrl: 'templates/user.html',
         controller: 'user'
       }).

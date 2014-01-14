@@ -342,6 +342,8 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     //loads current doc
     $scope.doc = ppdpAPIService.doc.retrieve({id:$routeParams.docId})[0];
     
+    console.log($scope.doc);
+    
     /**
      * back() redirect to users
      *

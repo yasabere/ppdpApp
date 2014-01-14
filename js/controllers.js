@@ -339,6 +339,20 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
         type:'',
     };
     
+    //loads current doc
+    $scope.doc = ppdpAPIService.doc.retrieve({id:$routeParams.docId})[0];
+    
+    /**
+     * back() redirect to users
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.back = function(){
+      console.log("back");
+      $location.path("/users");
+    }
+    
     /**
      * save() updates current doc with doc data
      * id in url is based on passed index
@@ -393,8 +407,8 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
      * @param <String> index
      * @return NULL
      */
-    $scope.details = function(){
-      $location.path("/newsclip");
+    $scope.details = function(id){
+      $location.path("/newsclip/"+id);
     }
 
     
@@ -426,7 +440,8 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
      * @return NULL
      */
     $scope.back = function(){
-      $location.path("/users")
+      console.log("back");
+      $location.path("/users");
     }
     
   }]

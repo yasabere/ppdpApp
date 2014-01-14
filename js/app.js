@@ -57,7 +57,7 @@ ppdpApp.config(['$routeProvider',
         templateUrl: 'templates/login.html',
         controller: 'login'
       }).
-      when('/newsclip', {
+      when('/newsclip/:docId', {
         templateUrl: 'templates/newsclip.html',
         controller: 'newsclip'
       }).

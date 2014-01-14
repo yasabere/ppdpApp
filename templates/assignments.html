@@ -157,12 +157,12 @@
                   <tr ng-repeat="_assignment in assignments">
   
                     <td><input type="checkbox" ng-click="toggle_select($index)"></td>
-                    <td ng-click="details()">{{_assignment.type.name+" of "+_assignment.file.name}}</td>
-                    <td ng-click="details()">{{_assignment.user.first_name}}</td>
-                    <td ng-click="details()">{{_assignment.date_created}}</td>
-                    <td ng-click="details()">{{_assignment.date_due}}</td>
-                    <td ng-click="details()">{{_assignment.date_completed}}</td>
-                    <td ng-click="details()">{{_assignment.status}}</td>
+                    <td ng-click="details($index)">{{_assignment.type.name+" of "+_assignment.file.name}}</td>
+                    <td ng-click="details($index)">{{_assignment.user.first_name}}</td>
+                    <td ng-click="details($index)">{{_assignment.date_created}}</td>
+                    <td ng-click="details($index)">{{_assignment.date_due}}</td>
+                    <td ng-click="details($index)">{{_assignment.date_completed}}</td>
+                    <td ng-click="details($index)">{{_assignment.status}}</td>
                   </tr>
        
                 </tbody>

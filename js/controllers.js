@@ -147,6 +147,17 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
     };
     
     /**
+     * back() redirect to users
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.back = function(){
+      console.log("back");
+      $location.path("/newsclips");
+    }
+    
+    /**
      * save() updates current doc with doc data
      * id in url is based on passed index
      *
@@ -154,7 +165,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
      */
     $scope.save = function(){
         console.log($scope.doc);
-        var status = ppdpAPIService.newspaper.create($scope.doc);
+        var status = ppdpAPIService.doc.create($scope.doc);
         
     }
     
@@ -476,6 +487,21 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
      */
     $scope.toggle_select = function(index){
       ppdpAPIService.toggle_select($scope.users,index);
+      $scope.selected_users = ppdpAPIService.get_selected_subset($scope.users);
+    }
+    
+    /**
+     * toggle_select_all() Update selected property of batch and
+     * updates all selected_batches
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.toggle_select_all = function(){
+      for (var i=0;i <6;i+=1){
+          ppdpAPIService.toggle_select($scope.users,i);
+      }
+      
       $scope.selected_users = ppdpAPIService.get_selected_subset($scope.users);
     }
 

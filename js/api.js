@@ -3,6 +3,8 @@ var ppdpAPI = angular.module('ppdpAPI', []);
  //registers ppdpAPIService
 ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
     
+    console.log("loaded");
+    
     // Global Variables
     var sharedService = {};
     sharedService.users = [];
@@ -162,7 +164,19 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
 
     sharedService.documentModel = function(){
       this.create = function(_document){
+        
+        //TODO: Will be removed by server processes
+        var now = new Date();
+        var strDateTime = [[AddZero(now.getDate()), AddZero(now.getMonth() + 1), now.getFullYear()].join("/"), [AddZero(now.getHours()), AddZero(now.getMinutes())].join(":"), now.getHours() >= 12 ? "PM" : "AM"].join(" ");
+        function AddZero(num) {
+            return (num >= 0 && num < 10) ? "0" + num : num + "";
+        }
+        
+        _document.entry_clerk = sharedService.users[1];
+        _document.date_created = strDateTime;
+        
         sharedService.documents.push(_document);
+        
         return true;
       }
 

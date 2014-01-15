@@ -8,8 +8,8 @@
 
       <div class="col-xs-12 col-sm-9 col-md-9">
     
-        <a href="home.html">
-          <button type="button" class="btn btn-default" >
+        <a  ng-click="back()" title="back" alt="back">
+          <button type="button" class="btn btn-default">
             <span class="glyphicon glyphicon-arrow-left"></span>
           </button>
         </a>
@@ -73,14 +73,11 @@
                 <div class="btn-group">
                   
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    Select a Newspaper <span class="caret"></span>
+                    {{ doc.newspaper || 'Select a Newspaper'}} <span class="caret"></span>
                   </button>
           
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Ambler Gazette</a></li>
-                    <li><a href="#">Temple News</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Other</a></li>
+                    <li ng-repeat="newspaper in newspapers" ng-click="doc.newspaper = newspaper.name"><a>{{newspaper.name}}</a></li>
                   </ul>
           
                 </div>

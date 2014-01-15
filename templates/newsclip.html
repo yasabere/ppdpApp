@@ -74,12 +74,10 @@
                 <label>Newspaper</label><br/>
                 <div class="btn-group">
                   
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    Philadelphia Inquirer <span class="caret"></span>
-                  </button>
-          
+                  <input type="text" class="form-control" placeholder="Type a Newspaper" ng-model="doc.newspaper" data-toggle="dropdown">
+        
                   <ul class="dropdown-menu" role="menu">
-                    <li ng-repeat="newspaper in newspapers"><a>{{newspaper.name}}</a></li>
+                    <li ng-repeat="newspaper in newspapers | filter:doc.newspaper" ng-click="doc.newspaper = newspaper.name "><a>{{newspaper.name}}</a></li>
                   </ul>
           
                 </div>

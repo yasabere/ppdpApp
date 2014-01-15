@@ -352,7 +352,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
      */
     $scope.back = function(){
       console.log("back");
-      $location.path("/users");
+      $location.path("/newsclips");
     }
     
     /**
@@ -433,6 +433,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
     console.log('user');
     
     $scope.user = ppdpAPIService.user.retrieve({id:$routeParams.userId})[0];
+    $scope.roles = ppdpAPIService.role.retrieve({});
     // TODO: -- need to implement
     
     /**

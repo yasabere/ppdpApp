@@ -32,3 +32,12 @@ ppdpDirectives.directive('masterMenu', function(ppdpAPIService){
     controller: 'menu_sidebar',
   }
 });
+
+//directive for table
+ppdpDirectives.directive('masterTable', function(ppdpAPIService){
+   return {
+     restrict: "E",
+     templateUrl: "templates/table.html",
+     controller: 'table',
+   } 
+});

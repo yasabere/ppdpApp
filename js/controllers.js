@@ -438,6 +438,16 @@ ppdpControllers.controller('sitemap', ['$scope', '$routeParams', 'ppdpAPIService
   }]
 );
 
+/** Controller: table */
+ppdpControllers.controller('table', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
+    console.log('table');
+    
+    // TODO: -- need to implement
+    
+  }]
+);
+
 /** Controller: user */
 ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
   function($scope, $routeParams, ppdpAPIService, $location) {

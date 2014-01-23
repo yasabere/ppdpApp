@@ -38,6 +38,9 @@ ppdpDirectives.directive('masterTable', function(ppdpAPIService){
    return {
      restrict: "E",
      templateUrl: "templates/table.html",
+     scope: {
+       columns: '=columns',
+     },
      controller: 'table',
    } 
 });

@@ -399,6 +399,14 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
+    
+    $scope.columns = [{name:'Headlines', attributes:[]},
+      {name:'Newspaper', attributes:[]},
+      {name:'Date Created', attributes:[]},
+      {name:'Creator', attributes:[]},
+      {name:'Status', attributes:[]},
+      {name:'Assigned', attributes:[]}
+    ];
 
     /**
      * toggle_select() Update selected property of batch and
@@ -442,6 +450,9 @@ ppdpControllers.controller('sitemap', ['$scope', '$routeParams', 'ppdpAPIService
 ppdpControllers.controller('table', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
   function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('table');
+    console.log($scope.columns);
+    
+    
     
     // TODO: -- need to implement
     

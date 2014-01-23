@@ -400,12 +400,12 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
     
-    $scope.columns = [{name:'Headlines', attributes:[]},
-      {name:'Newspaper', attributes:[]},
-      {name:'Date Created', attributes:[]},
-      {name:'Creator', attributes:[]},
-      {name:'Status', attributes:[]},
-      {name:'Assigned', attributes:[]}
+    $scope.columns = [{name:'Headline', value:'', attributes:[]},
+      {name:'Newspaper', value:'{{ \'test\' }}', attributes:'test'},
+      {name:'Date Created', value:'', attributes:''},
+      {name:'Creator', value:'', attributes:''},
+      {name:'Status', value:'', attributes:''},
+      {name:'Assigned', value:'', attributes:''}
     ];
 
     /**

@@ -40,6 +40,7 @@ ppdpDirectives.directive('masterTable', function(ppdpAPIService){
      templateUrl: "templates/table.html",
      scope: {
        columns: '=columns',
+       data:'=data',
      },
      controller: 'table',
    } 

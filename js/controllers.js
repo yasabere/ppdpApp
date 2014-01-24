@@ -400,12 +400,72 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
     
-    $scope.columns = [{name:'Headline', value:'', attributes:[]},
-      {name:'Newspaper', value:'{{ \'test\' }}', attributes:'test'},
-      {name:'Date Created', value:'', attributes:''},
-      {name:'Creator', value:'', attributes:''},
-      {name:'Status', value:'', attributes:''},
-      {name:'Assigned', value:'', attributes:''}
+    /** directive masterTable data. 
+     *  
+     *  text is text which shows up in table column header
+     *  value is function which returns text which will show up table data under column. it excepts row parameter which data about document
+     * 
+     */
+    $scope.columns = [
+      {
+        text:'Headline',
+        value: function(row){
+          return row.headline;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:[]
+      },
+      { 
+        text:'Newspaper', 
+        value: function(row){
+          return row.newspaper;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'test'},
+      { 
+        text:'Date Created',
+        value: function(row){
+          return row.date_created;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:''
+      },
+      {
+        text:'Creator',
+        value: function(row){
+          return row.entry_clerk.first_name;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:''
+      },
+      {
+        text:'Status',
+        value: function(row){
+          return row.status;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:''
+      },
+      {
+        text:'Assigned',
+        value: function(row){
+          return (row.assigned)?'Unassigned':'Assigned';
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:''
+      }
     ];
 
     /**

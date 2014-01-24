@@ -512,7 +512,9 @@ ppdpControllers.controller('table', ['$scope', '$routeParams', 'ppdpAPIService',
     console.log('table');
     console.log($scope.columns);
     
-    
+    $scope.table_data_click_function = function(){
+      $scope.table_data_click();
+    }
     
     // TODO: -- need to implement
     

@@ -400,6 +400,8 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
     
+    console.log($scope);
+    
     /** directive masterTable data. 
      *  
      *  text is text which shows up in table column header

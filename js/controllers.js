@@ -529,6 +529,7 @@ ppdpControllers.controller('table', ['$scope', '$routeParams', 'ppdpAPIService',
     //global veriabals
     $scope.predicate;
     $scope.reverse = false;
+    $scope.arrow = ""
     
     /**
      * table_data_click_function() computes tableRowClick attribute
@@ -568,6 +569,8 @@ ppdpControllers.controller('table', ['$scope', '$routeParams', 'ppdpAPIService',
       if ($scope.predicate == predicate){
         $scope.reverse = !$scope.reverse;
       }
+      
+      $scope.arrow = ($scope.reverse)?'▾':'▴';
       
       $scope.predicate = predicate;
     }

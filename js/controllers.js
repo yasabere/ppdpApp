@@ -408,14 +408,20 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
      */
     $scope.columns = [
       {
-        text:'Headline',
+        //header text to be shown for column
+        text:'Headline', 
+        //row value 
         value: function(row){
           return row.headline;
         },
+        //function which is called when row is clicked
         click: function(id, row){
           $scope.details(id);
         },
-        attributes:[]
+        //attributes for rows
+        attributes:[],
+        //data field name
+        field_text: 'headline' 
       },
       { 
         text:'Newspaper', 
@@ -425,7 +431,9 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         click: function(id, row){
           $scope.details(id);
         },
-        attributes:'test'},
+        attributes:'test',
+        field_text: 'newspaper'
+      },
       { 
         text:'Date Created',
         value: function(row){
@@ -434,7 +442,8 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         click: function(id, row){
           $scope.details(id);
         },
-        attributes:''
+        attributes:'',
+        field_text: 'date_created'
       },
       {
         text:'Creator',
@@ -444,7 +453,8 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         click: function(id, row){
           $scope.details(id);
         },
-        attributes:''
+        attributes:'',
+        field_text: 'entry_clerk.first_name'
       },
       {
         text:'Status',
@@ -454,7 +464,8 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         click: function(id, row){
           $scope.details(id);
         },
-        attributes:''
+        attributes:'',
+        field_text: 'status'
       },
       {
         text:'Assigned',
@@ -464,7 +475,8 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         click: function(id, row){
           $scope.details(id);
         },
-        attributes:''
+        attributes:'',
+        field_text: 'assigned'
       }
     ];
 
@@ -509,13 +521,18 @@ ppdpControllers.controller('sitemap', ['$scope', '$routeParams', 'ppdpAPIService
 /** Controller: table */
 ppdpControllers.controller('table', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
   function($scope, $routeParams, ppdpAPIService, $location) {
+    
     console.log('table');
-    console.log($scope.columns);
+    
+    //global veriabals
+    $scope.predicate;
+    $scope.reverse = false;
     
     /**
      * table_data_click_function() computes tableRowClick attribute
      * arg0 row index
      * arg1 row data
+     * 
      * @param <String> arg0
      * @param <String> arg1
      * @return NULL
@@ -528,12 +545,29 @@ ppdpControllers.controller('table', ['$scope', '$routeParams', 'ppdpAPIService',
      * table_data_select_function() computes tableRowSelect attribute
      * arg0 row index
      * arg1 row data
+     * 
      * @param <String> arg0
      * @param <String> arg1
      * @return NULL
      */
     $scope.table_data_select_function = function(arg0, arg1){
       $scope.tableRowSelect(arg0, arg1);
+    }
+    
+    /**
+     * table_header_click_function() sets predicate for orderby
+     * predicate string name of column field_text
+     * 
+     * @param <String> predicate
+     * @return NULL
+     */
+    $scope.table_header_click_function = function(predicate){
+      
+      if ($scope.predicate == predicate){
+        $scope.reverse = !$scope.reverse;
+      }
+      
+      $scope.predicate = predicate;
     }
     
   }]

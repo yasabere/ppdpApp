@@ -512,11 +512,29 @@ ppdpControllers.controller('table', ['$scope', '$routeParams', 'ppdpAPIService',
     console.log('table');
     console.log($scope.columns);
     
-    $scope.table_data_click_function = function(){
-      $scope.table_data_click();
+    /**
+     * table_data_click_function() computes tableRowClick attribute
+     * arg0 row index
+     * arg1 row data
+     * @param <String> arg0
+     * @param <String> arg1
+     * @return NULL
+     */
+    $scope.table_data_click_function = function(arg0, arg1){
+      $scope.tableRowClick(arg0);
     }
     
-    // TODO: -- need to implement
+    /**
+     * table_data_select_function() computes tableRowSelect attribute
+     * arg0 row index
+     * arg1 row data
+     * @param <String> arg0
+     * @param <String> arg1
+     * @return NULL
+     */
+    $scope.table_data_select_function = function(arg0, arg1){
+      $scope.tableRowSelect(arg0, arg1);
+    }
     
   }]
 );

@@ -41,8 +41,8 @@ ppdpDirectives.directive('masterTable', function(ppdpAPIService){
      scope: {
        columns: '=columns',
        data: '=data',
-       table_row_click: '=table_row_click',
-       row_select: '=row_select'
+       tableRowClick: '=tableRowClick',
+       tableRowSelect: '=tableRowSelect'
      },
      controller: 'table',
    } 

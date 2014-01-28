@@ -99,6 +99,75 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
+    
+    /** directive masterTable data. 
+     *  
+     *  text is text which shows up in table column header
+     *  value is function which returns text which will show up table data under column. it excepts row parameter which data about document
+     * 
+     */
+    $scope.columns = [
+      {
+        //header text to be shown for column
+        text:'Name', 
+        //row value 
+        value: function(row){
+          return row.name;
+        },
+        //function which is called when row is clicked
+        click: function(id, row){
+          $scope.details(id);
+        },
+        //attributes for rows
+        attributes:[],
+        //data field name
+        field_text: 'name' 
+      },
+      { 
+        text:'Date Created', 
+        value: function(row){
+          return row.date_created;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'test',
+        field_text: 'date_created'
+      },
+      { 
+        text:'Creator',
+        value: function(row){
+          return row.entry_clerk.first_name;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'entry_clerk.first_name'
+      },
+      {
+        text:'Status',
+        value: function(row){
+          return row.status;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'status'
+      },
+      {
+        text:'Assigned',
+        value: function(row){
+          return (row.assigned)?'Unassigned':'Assigned';
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'assigned'
+      }
+    ];
 
     /**
      * toggle_select() Update selected property of batch and

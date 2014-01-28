@@ -440,11 +440,25 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
     //make batches for the system
     var batch_statuses = ['Incomplete', 'Complete'];
     var _batchModel = new sharedService.batchModel();
+    
+    var months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Nov',
+      'Dec'
+      ];
 
     for (i=8; i > 0; i-=1){
       var _batch = new batchObj();
       var rand_int;
-      _batch.name+=" "+i;
+      _batch.name= months[i];
       _batch.date_created = '11/5/201' + Math.ceil(3 + Math.random() * 2) + ' 6:08 PM';
       rand_int = Math.ceil(Math.random() * (sharedService.users.length-1));
       _batch.entry_clerk = sharedService.users[ rand_int ];

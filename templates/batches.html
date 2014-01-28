@@ -24,7 +24,7 @@
 
         <span class="pull-left" style="display:inline-block; margin-left:5px">
           <div class="input-group" style="width:300px; ">
-            <input type="text" class="form-control" placeholder="Search" >
+            <input type="text" class="form-control" placeholder="Search" ng-model="query">
             <div class="input-group-btn">
               <button type="button" class="btn btn-default" >
                 <span class="glyphicon glyphicon-search"></span>
@@ -143,35 +143,9 @@
       <div class="col-xs-12 col-sm-9 col-md-9">
         <!-- Tab panes -->
         <div class="tab-content">
-          <div class="tab-pane active" id="documents">
-           
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-  
-                    <td>Select</td>
-                    <td>Name</td>
-                    <td>Date Created</td>
-                    <td>Creator</td>
-                    <td>Status</td>
-                    <td>assigned</td>
-                  </tr>
-       
-                </head>
-                <tbody>
-                  <tr ng-repeat="_batch in batches">
-  
-                    <td><input type="checkbox" ng-click="toggle_select($index)"></td>
-                    <td ng-click="details()">{{_batch.name}}</td>
-                    <td ng-click="details()">{{_batch.date_created}}</td>
-                    <td ng-click="details()">created by {{_batch.entry_clerk.first_name}}</td>
-                    <td ng-click="details()">{{_batch.status}}</td>
-                    <td ng-click="details($index)">{{ obj = {true:"Unassigned",false:"Assigned"}; obj[_batch.assigned] }}</td>
-
-                  </tr>
-       
-                </tbody>
-              </table>
+          <div class="tab-pane active" id="batches">
+            <master-Table columns="columns" data="batches" table-Row-Click="details" table-Row-Select="toggle_select" search-Query="query">
+            </master-Table>
           </div>
         
         </div>

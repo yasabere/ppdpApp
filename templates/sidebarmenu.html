@@ -1,8 +1,8 @@
 <!-- Nav tabs -->
 <ul class="nav nav-pills nav-stacked">
-  <li class="{{link.class}}" ng-repeat="link in menu" ><a href="#/{{link.href}}">{{link.title}}</a>
+  <li class="{{link.class}}" ng-repeat="link in menu" ><a href="#/{{link.href}}" alt="{{link.title}}" title="{{link.title}}">{{link.title}}</a>
     <ul ng-show="link.menu && link.class == 'active' ">  
-      <li style="padding:5px 0;" ng-repeat="link in link.menu"><a href="#/{{link.href}}" >{{link.title}}</a></li>
+      <li style="padding:5px 0;" ng-repeat="link in link.menu"><a href="#/{{link.href}}" alt="{{link.title}}" title="{{link.title}}">{{link.title}}</a></li>
     </ul>
   </li>
 </ul>

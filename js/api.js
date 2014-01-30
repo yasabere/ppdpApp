@@ -63,6 +63,10 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
       this.file_size = "47kb";
     }
     
+    function newspaperObj(){
+      
+    }
+    
     function roleObj(){
       this.role_id = 2;
       this.name = "User";
@@ -126,6 +130,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
       }
 
       this.retrieve = function(_assignment){
+        console.log(sharedService.assignments[0]);
         return sharedService.assignments;
       }
 
@@ -149,6 +154,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
       }
 
       this.retrieve = function(batch){
+        console.log(sharedService.batches[0]);
         return sharedService.batches;
       }
 
@@ -186,6 +192,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
             return sharedService.documents.slice(_doc.id,_doc.id+1);
         }   
           
+        console.log(sharedService.documents[0]);
         return sharedService.documents;
       }
 
@@ -211,6 +218,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
             return sharedService.files.slice(_file.id,_file.id+1);
         } 
           
+        console.log(sharedService.files[0]);
         return sharedService.files;
       }
 
@@ -231,6 +239,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
       }
 
       this.retrieve = function(query){
+        console.log(sharedService.newspapers[0]);
         return sharedService.newspapers;
       }
 
@@ -251,6 +260,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
       }
 
       this.retrieve = function(_role){
+        console.log(sharedService.roles[0]);
         return sharedService.roles;
       }
 
@@ -277,6 +287,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
             return sharedService.users.slice(_user.id,_user.id+1);
         } 
           
+        console.log(sharedService.users[0]);
         return sharedService.users;
       }
 
@@ -293,6 +304,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
     sharedService.accountModel = function(){
         
       this.login = function(_user){
+        console.log(sharedService.users[0]);
         return sharedService.users;
       }
 
@@ -487,32 +499,32 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
     //make newspapers for the syste
     var _newspaperModel = new sharedService.newspaperModel();
 
-    var _newspaper = new assignmentObj();
+    var _newspaper = new  newspaperObj();
     _newspaper.id = sharedService.newspapers.length;
     _newspaper.name = "Philadelphia Inquirer";
     _newspaperModel.create(_newspaper);
     
-    _newspaper = new assignmentObj();
+    _newspaper = new  newspaperObj();
     _newspaper.id = sharedService.newspapers.length;
     _newspaper.name = "Bucks County Courier Time";
     _newspaperModel.create(_newspaper);
     
-    _newspaper = new assignmentObj();
+    _newspaper = new newspaperObj();
     _newspaper.id = sharedService.newspapers.length;
     _newspaper.name = "Pittsburgh Tribune Review";
     _newspaperModel.create(_newspaper);
     
-    _newspaper = new assignmentObj();
+    _newspaper = new  newspaperObj();
     _newspaper.id = sharedService.newspapers.length;
     _newspaper.name = "Reuters";
     _newspaperModel.create(_newspaper);
     
-    _newspaper = new assignmentObj();
+    _newspaper = new  newspaperObj();
     _newspaper.id = sharedService.newspapers.length;
     _newspaper.name = "New York Times";
     _newspaperModel.create(_newspaper);
     
-    _newspaper = new assignmentObj();
+    _newspaper = new  newspaperObj();
     _newspaper.id = sharedService.newspapers.length;
     _newspaper.name = "USA Today";
     _newspaperModel.create(_newspaper);

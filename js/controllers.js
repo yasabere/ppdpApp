@@ -551,6 +551,15 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
 
     //determins if menu item has been selected and if so it adds 'active class'
     $scope.menu.forEach(function(link) {
+      
+      var has_link = false;
+      
+      link.menu.forEach(function(sub_link) {
+        if (sub_link.title == $location.path() || sub_link.path == $location.path()){
+          has_link = true;
+        }
+      });
+      
       if (link.title == $location.path() || link.path == $location.path()){
         link.class = 'active';
       }

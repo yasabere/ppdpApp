@@ -141,61 +141,9 @@
         <!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active" id="documents">
-           
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-  
-                    <td>Select</td>
-                    <td>Name</td>
-                    <td>File Size</td>
-                    <td>Creator</td>
-                    <td>Date Created</td>
-                    <td>Status</td>
-                    <td>Assigned</td>
-                    
-
-                  </tr>
-       
-                </head>
-                <tbody>
-                  <tr ng-repeat="_file in files | filter:query.$">
-  
-                    <td><input type="checkbox" ng-click="toggle_select($index)"></td>
-                    <td ng-click="details()">{{_file.name}}</td>
-                    <td ng-click="details()">{{_file.file_size}}</td>
-                    <td ng-click="details()">{{_file.entry_clerk.first_name}}</td>
-                    <td ng-click="details()">5/7/2013</td>
-                    <td ng-click="details()">{{_file.status}}</td>
-                    <td ng-click="details($index)">{{ obj = {true:"Unassigned",false:"Assigned"}; obj[_file.assigned] }}</td>
-                    
-                  </tr>
-       
-                </tbody>
-              </table>
-          </div>
-          <div class="tab-pane" id="profile">
-            <table class="table table-hover">
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
+            <master-Table columns="columns" data="files" table-Row-Click="details" table-Row-Select="toggle_select" search-Query="query">
+              
+            </master-Table>
           </div>
         </div>
 

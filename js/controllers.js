@@ -43,6 +43,86 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
+    
+    /** directive masterTable data. 
+     *  
+     *  text is text which shows up in table column header
+     *  value is function which returns text which will show up table data under column. it excepts row parameter which data about document
+     * 
+     */
+    $scope.columns = [
+      {
+        //header text to be shown for column
+        text:'Name', 
+        //row value 
+        value: function(row){
+          return row.type.name+" of "+row.file.name;
+        },
+        //function which is called when row is clicked
+        click: function(id, row){
+          $scope.details(id);
+        },
+        //attributes for rows
+        attributes:[],
+        //data field name
+        field_text: 'name' 
+      },
+      { 
+        text:'Assignee', 
+        value: function(row){
+          return row.user.first_name;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'test',
+        field_text: 'user.first_name'
+      },
+      { 
+        text:'Date Assigned',
+        value: function(row){
+          return row.date_created;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'date_created'
+      },
+      {
+        text:'Date Due',
+        value: function(row){
+          return row.date_due;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'date_due'
+      },
+      {
+        text:'Date Complete',
+        value: function(row){
+          return row.date_complete;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'date_complete'
+      },
+      {
+        text:'Status',
+        value: function(row){
+          return row.status;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'status'
+      },
+    ];
 
     /**
      * toggle_select() Update selected property of assignment and
@@ -269,6 +349,86 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       ppdpAPIService.toggle_select($scope.files,index);
       $scope.selected_files = ppdpAPIService.get_selected_subset($scope.files);
     }
+    
+    /** directive masterTable data. 
+     *  
+     *  text is text which shows up in table column header
+     *  value is function which returns text which will show up table data under column. it excepts row parameter which data about document
+     * 
+     */
+    $scope.columns = [
+      {
+        //header text to be shown for column
+        text:'Name', 
+        //row value 
+        value: function(row){
+          return row.name;
+        },
+        //function which is called when row is clicked
+        click: function(id, row){
+          $scope.details(id);
+        },
+        //attributes for rows
+        attributes:[],
+        //data field name
+        field_text: 'name' 
+      },
+      { 
+        text:'File Size', 
+        value: function(row){
+          return row.file_size;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'test',
+        field_text: 'file_size'
+      },
+      { 
+        text:'Creator',
+        value: function(row){
+          return row.entry_clerk.first_name;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'entry_clerk.first_name'
+      },
+      {
+        text:'Date Created',
+        value: function(row){
+          return row.date_created;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'date_created'
+      },
+      {
+        text:'Status',
+        value: function(row){
+          return row.status;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'status'
+      },
+      {
+        text:'Assigned',
+        value: function(row){
+          return (row.assigned)?'Unassigned':'Assigned';
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'assigned'
+      }
+    ];
 
     // FIXME: need to implement the angular way
     /**

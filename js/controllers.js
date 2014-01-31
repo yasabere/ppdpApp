@@ -524,6 +524,7 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
         menu:[{
           title: 'Create',
           href: 'create_newsclip',
+          path:'/create_newsclip'
         }],
         path:'/'
       },
@@ -539,6 +540,7 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
         menu:[{
           title: 'Upload',
           href: 'upload',
+          path:'/upload'
         }],
         path:'/files'
       },
@@ -546,6 +548,7 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
         title: 'Assignments',
         href: 'assignments',
         path:'/assignments',
+        menu:[]
       },
     ];
 
@@ -554,13 +557,16 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
       
       var has_link = false;
       
+      //console.log(link.menu);
       link.menu.forEach(function(sub_link) {
         if (sub_link.title == $location.path() || sub_link.path == $location.path()){
           has_link = true;
         }
       });
+      ;
+      console.log(has_link);
       
-      if (link.title == $location.path() || link.path == $location.path()){
+      if (link.title == $location.path() || link.path == $location.path() || has_link == true){
         link.class = 'active';
       }
     });

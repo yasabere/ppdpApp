@@ -596,8 +596,25 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     
     //loads current doc
     $scope.doc = ppdpAPIService.doc.retrieve({id:$routeParams.docId})[0];
+
     
-    console.log($scope.doc);
+    /** directive masterTopMenu data. 
+     *  
+     *  buttons to show up in menu
+     * 
+     */
+    $scope.button_functions = [
+      {
+        text : 'Add to Batch',
+        glyphicon : 'folder-close',
+        function_callback : function(){$('#batchModal').modal('toggle')}, 
+      },
+      {
+        text : 'Remove',
+        glyphicon : 'trash',
+        function_callback : function(){$('#deleteModal').modal('toggle')}, 
+      }
+    ];
     
     /**
      * back() redirect to users
@@ -637,7 +654,13 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     var documentModel = new ppdpAPIService.documentModel();
     $scope.documents = documentModel.retrieve({});
     $scope.selected_documents = [];
+    $scope.query = "";
+    //$scope.max_num_rows = 50;
+   // $scope.num_rows_displayed = 50;
+    //$scope.num_pages = $scope.documents.length / $scope.num_rows_displayed;
+    //$scope.page = 1;
     $scope.rows_selected = false;
+    //$scope.num_items
 
     // set the directions to show up on page
     $scope.directions = [];
@@ -645,6 +668,25 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.directions.push('Click batch to view its\' contents');
     
     console.log($scope);
+    
+    /** directive masterTopMenu data. 
+     *  
+     *  buttons to show up in menu
+     * 
+     */
+    $scope.button_functions = [
+      {
+        text : 'Add to Batch',
+        glyphicon : 'folder-close',
+        function_callback : function(){$('#batchModal').modal('toggle')}, 
+      },
+      {
+        text : 'Remove',
+        glyphicon : 'trash',
+        function_callback : function(){$('#deleteModal').modal('toggle')}, 
+      }
+    ];
+    
     
     /** directive masterTable data. 
      *  
@@ -737,6 +779,39 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       ppdpAPIService.toggle_select($scope.documents,index);
       $scope.selected_documents = ppdpAPIService.get_selected_subset($scope.documents);
     }
+    
+    /**
+     * toggle_select_all() Selects all documents
+     *
+     * @return NULL
+     */
+    $scope.toggle_select_all = function(){
+      
+      var i = 0;
+      for(i = 0 ;i < $scope.documents.length; i+=1){
+        ppdpAPIService.toggle_select($scope.documents,i);
+        $scope.selected_documents = ppdpAPIService.get_selected_subset($scope.documents);
+      }
+      
+    }
+    
+    /**
+     * next_page() increments view of downcumets to next set
+     *
+     * @return NULL
+     */
+    $scope.next_page = function(){
+      //$scope.page = Math.min(1,$scope.page-1);
+    }
+    
+    /**
+     * next_page() decrements view of downcumets to next set
+     *
+     * @return NULL
+     */
+    $scope.prev_page = function(){
+      //.page = Math.min($scope.num_pages ,$scope.page+1);
+    }
 
     // FIXME: need to implement the angular way
     /**
@@ -818,6 +893,17 @@ ppdpControllers.controller('table', ['$scope', '$routeParams', 'ppdpAPIService',
       
       $scope.predicate = predicate;
     }
+    
+  }]
+);
+
+/** Controller: topmenu */
+ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
+    
+    console.log('topmenu');
+    
+    //$scope.
     
   }]
 );

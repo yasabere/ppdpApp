@@ -59,11 +59,11 @@ ppdpDirectives.directive('masterTopMenu', function(ppdpAPIService){
        query : '=searchQuery',
        query_button_function : '=query_button_function',
        selected_data : '=selectedData',
-       single_item : '=singleItem',
        default_button_functions : '=defaultButtonFunctions',
        button_functions : '=buttonFunctions',
-       back : '=back',
-       data: '=data'
+       back_function : '=backFunction',
+       data: '=data',
+       params: '=params',
      },
      controller: 'topmenu',
    } 

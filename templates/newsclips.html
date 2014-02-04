@@ -1,6 +1,12 @@
 <div class="panel panel-default">
-  <master-Top-Menu title=" 'Dashboard' " data="documents" searchQuery="query" selected-Data="selected_documents" button-Functions="button_functions">
-    top
+  <master-Top-Menu 
+  title=" 'Dashboard' " 
+  selected-Data="selected_documents"
+  data="documents"
+  button-Functions="button_functions" 
+  back-Function="back"
+  params = "params"
+  >
   </master-Top-Menu>
 </div>
 <div class="panel ">
@@ -21,7 +27,7 @@
         <!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active" id="documents">
-            <master-Table columns="columns" data="documents" table-Row-Click="details" table-Row-Select="toggle_select" search-Query="query">
+            <master-Table columns="columns" data="documents" table-Row-Click="details" table-Row-Select="toggle_select" search-Query="params.query">
               
             </master-Table>
           </div>
@@ -34,3 +40,50 @@
 
   </div><!-- /.panel-body -->
 </div><!-- /.panel -->
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="deleteModalLabel">Delete</h4>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete {{selected_documents.length}} news clips
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="batchModal" tabindex="-1" role="dialog" aria-labelledby="batchModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="deleteModalLabel">Add Newsclip to Batch</h4>
+      </div>
+      <div class="modal-body">
+        <!-- Single button -->
+        <div class="btn-group">
+          <input type="text" class="form-control" placeholder="Select a Batch" class="form-control dropdown-toggle" data-toggle="dropdown" style="width:100%" />
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">file 1</a></li>
+            <li><a href="#">file 2</a></li>
+            <li><a href="#">file 3</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Add to new batch</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

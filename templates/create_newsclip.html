@@ -1,51 +1,13 @@
 <div class="panel panel-default">
-  <div class="panel-body">
-
-    <div class= "row" >
-      <div class="col-xs-12 col-sm-3 col-md-3">
-          <h3 style="margin-top: 7px; margin-bottom: 0px;">Dashboard</h3>
-      </div>
-
-      <div class="col-xs-12 col-sm-9 col-md-9">
-    
-        <a  ng-click="back()" title="back" alt="back">
-          <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-arrow-left"></span>
-          </button>
-        </a>
-   
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteModal">
-          Remove <span class="glyphicon glyphicon-trash"></span>
-        </button>
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#batchModal">
-           Add to Batch <span class="glyphicon glyphicon-folder-close"></span>
-        </button>
-
-        <span class="pull-right">
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <b>1</b> of <b>265</b> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Newest</a></li>
-              <li><a href="#">Oldest</a></li>
-            </ul>
-          </div>
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-chevron-left"></span>
-            </button>
-           
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-chevron-right"></span>
-            </button>
-          </div>
-        </span>
-      </div>
-    </div>
-  </div>
+  <master-Top-Menu 
+    title=" 'Dashboard' " 
+    selected-Data="[]"
+    data="['','','','','']"
+    button-Functions="button_functions" 
+    back-Function="back"
+    params = "params"
+  >
+  </master-Top-Menu>
 </div>
 <div class="panel ">
   <div class="panel-body">
@@ -141,12 +103,25 @@
                 <label for="txtcomments">Comments</label>
                 <textarea id="txtcomments" class="form-control" rows="2" ng-model="doc.comments"></textarea>
               </div>
-              <button type="button" class="btn btn-default">
+              <button type="button" class="btn btn-default" ng-click="back()">
                 Cancel
               </button>
               <button type="button" class="btn btn-primary" ng-click="save()">
                 Save
               </button>
+              <a ng-href="#/create_newsclip" class="pull-right" ng-show="saved">
+              <button type="button" class="btn btn-default">
+                Create New Newsclip
+              </button>
+              </a>
+              
+              <br/>
+              <br/>
+              
+              <div class="alert alert-success">Successfully saved! <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
+              <div class="alert alert-warning">Trouble connecting to server <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
+              <div class="alert alert-danger">There was a problem with the form <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
+            
             </form>
           </div>
           <div class="col-xs-12 col-sm-4 col-md-4">

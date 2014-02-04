@@ -280,6 +280,9 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
   function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('create_newsclip');
     
+    //global variables
+    $scope.saved = false;
+    
     //news papers to be displayed in 'Newspaper' dropdown
     $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
     
@@ -294,6 +297,13 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
         policy_code:'',
         type:'',
     };
+    
+    //query parameters
+    $scope.params = {
+      offset:0,
+      limit:1,
+      query:''
+    }
     
     /**
      * back() redirect to users
@@ -315,7 +325,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
     $scope.save = function(){
         console.log($scope.doc);
         var status = ppdpAPIService.doc.create($scope.doc);
-        
+        $scope.saved = true;
     }
     
   }]
@@ -579,6 +589,13 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
   function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('newsclip');
     
+    //global variables
+    $scope.params = {
+      offset:0,
+      limit:1,
+      query:''
+    }
+    
     //news papers to be displayed in 'Newspaper' dropdown
     $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
     
@@ -597,7 +614,6 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     //loads current doc
     $scope.doc = ppdpAPIService.doc.retrieve({id:$routeParams.docId})[0];
 
-    
     /** directive masterTopMenu data. 
      *  
      *  buttons to show up in menu
@@ -638,6 +654,21 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
         
     }
     
+    //events
+    
+    /**
+     * offset change event
+     * 
+     */
+     $scope.$watch('params.offset', function() {
+       //scope.greeting = scope.salutation + ' ' + scope.name + '!';
+       if ($routeParams.docId != $scope.params.offset){
+         $location.path("/newsclip/"+($scope.params.offset+1));
+       }
+      }); // initialize the watch
+      
+    
+          
     // TODO: -- need to finish implementation
     
   }]
@@ -659,7 +690,11 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
    // $scope.num_rows_displayed = 50;
     //$scope.num_pages = $scope.documents.length / $scope.num_rows_displayed;
     //$scope.page = 1;
-    $scope.rows_selected = false;
+    $scope.params = {
+      offset:0,
+      limit:5,
+      query:''
+    }
     //$scope.num_items
 
     // set the directions to show up on page
@@ -795,24 +830,6 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       
     }
     
-    /**
-     * next_page() increments view of downcumets to next set
-     *
-     * @return NULL
-     */
-    $scope.next_page = function(){
-      //$scope.page = Math.min(1,$scope.page-1);
-    }
-    
-    /**
-     * next_page() decrements view of downcumets to next set
-     *
-     * @return NULL
-     */
-    $scope.prev_page = function(){
-      //.page = Math.min($scope.num_pages ,$scope.page+1);
-    }
-
     // FIXME: need to implement the angular way
     /**
      * details() redirect to batch
@@ -903,7 +920,27 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
     
     console.log('topmenu');
     
-    //$scope.
+    $scope.displayed_limit = Math.min($scope.data.length,$scope.params.offset+$scope.params.limit);
+
+    /**
+     * next_page() increment view of downcumets to next set
+     *
+     * @return NULL
+     */
+    $scope.next_page = function(){
+      $scope.params.offset = Math.min($scope.data.length-$scope.params.limit+1,$scope.params.offset+$scope.params.limit);
+      $scope.displayed_limit = Math.min($scope.data.length - 1,$scope.params.offset+$scope.params.limit);
+    };
+    
+    /**
+     * previous_page() decrements view of downcumets to next set
+     *
+     * @return NULL
+     */
+    $scope.previous_page = function(){
+      $scope.params.offset = Math.max(0,$scope.params.offset-$scope.params.limit);
+      $scope.displayed_limit = Math.min($scope.data.length - 1,$scope.params.offset+$scope.params.limit);
+    };
     
   }]
 );

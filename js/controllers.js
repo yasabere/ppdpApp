@@ -323,9 +323,21 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
      * @return NULL
      */
     $scope.save = function(){
-        console.log($scope.doc);
-        var status = ppdpAPIService.doc.create($scope.doc);
-        $scope.saved = true;
+      console.log($scope.doc);
+      var status = ppdpAPIService.doc.create($scope.doc);
+      $scope.saved = true;
+      $scope.button_functions = [
+        {
+          text : 'Add to Batch',
+          glyphicon : 'folder-close',
+          function_callback : function(){$('#batchModal').modal('toggle')}, 
+        },
+        {
+          text : 'Remove',
+          glyphicon : 'trash',
+          function_callback : function(){$('#deleteModal').modal('toggle')}, 
+        }
+      ];
     }
     
   }]
@@ -591,13 +603,16 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     
     //global variables
     $scope.params = {
-      offset:0,
+      offset:parseInt($routeParams.docId),
       limit:1,
       query:''
     }
     
     //news papers to be displayed in 'Newspaper' dropdown
     $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
+    
+    //get number of documents
+    $scope.documents = ppdpAPIService.doc.retrieve({});
     
     //json representation of 
     $scope.doc = {
@@ -660,12 +675,18 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
      * offset change event
      * 
      */
-     $scope.$watch('params.offset', function() {
-       //scope.greeting = scope.salutation + ' ' + scope.name + '!';
-       if ($routeParams.docId != $scope.params.offset){
-         $location.path("/newsclip/"+($scope.params.offset+1));
-       }
-      }); // initialize the watch
+    $scope.$watch('params.offset', function() {
+      //scope.greeting = scope.salutation + ' ' + scope.name + '!';
+      if ($routeParams.docId != $scope.params.offset){
+        var int = $scope.params.offset;
+        var str = "/newsclip/"+$scope.params.offset;
+        console.log(str);
+        
+        
+        $location.path(str);
+      }
+      return $scope.params.offset;
+    }); // initialize the watch
       
     
           

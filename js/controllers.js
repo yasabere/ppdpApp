@@ -666,7 +666,9 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
      * @return NULL
      */
     $scope.save = function(){
-        var status = ppdpAPIService.newspaper.update($scope.doc);
+        
+      
+      var status = ppdpAPIService.newspaper.update($scope.doc);
         
     }
     

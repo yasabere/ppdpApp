@@ -607,6 +607,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       limit:1,
       query:''
     }
+    $scope.tiebreaker = false;
     
     //news papers to be displayed in 'Newspaper' dropdown
     $scope.newspapers = ppdpAPIService.newspaper.retrieve({});

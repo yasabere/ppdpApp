@@ -191,13 +191,22 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
         if (_doc.id){
             return sharedService.documents.slice(_doc.id,_doc.id+1);
         }   
+        
+        
           
         console.log(sharedService.documents[0]);
         return sharedService.documents;
       }
 
-      this.update = function(){
-
+      this.update = function(_doc){
+        
+        var request = {
+          method: 'get',
+          url: 'test',
+          data: _doc,
+        };
+        
+        return $http(request);
       }
 
       this.delete = function(){

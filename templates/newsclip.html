@@ -10,7 +10,7 @@
   >
   </master-Top-Menu>
 </div>
-<form role="form">
+<form role="form" name="form" class="css-form" novalidate>
   <div class="panel ">
     <div class="panel-body">
       <div class="row">
@@ -159,18 +159,14 @@
               <button type="button" class="btn btn-default" ng-click="back()">
                 Cancel
               </button>
-              <button type="button" class="btn btn-primary">
+              <button type="button" class="btn btn-primary" ng-click="save()">
                 Save
               </button>
               
               <br/>
               <br/>
               
-              <div class="alert alert-success">Successfully saved! <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
-              <div class="alert alert-warning">Trouble connecting to server. <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
-              <div class="alert alert-danger">There was a problem with the form. <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
-            
-            
+              <div ng-repeat="alert in alerts" class="alert alert-{{alert.level}} fade in">{{alert.message}} <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
               
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">

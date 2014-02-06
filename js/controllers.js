@@ -282,6 +282,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
     
     //global variables
     $scope.saved = false;
+    $scope.alerts = [];
     
     //news papers to be displayed in 'Newspaper' dropdown
     $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
@@ -325,19 +326,49 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
     $scope.save = function(){
       console.log($scope.doc);
       var status = ppdpAPIService.doc.create($scope.doc);
-      $scope.saved = true;
-      $scope.button_functions = [
-        {
-          text : 'Add to Batch',
-          glyphicon : 'folder-close',
-          function_callback : function(){$('#batchModal').modal('toggle')}, 
-        },
-        {
-          text : 'Remove',
-          glyphicon : 'trash',
-          function_callback : function(){$('#deleteModal').modal('toggle')}, 
-        }
-      ];
+      $scope.alerts = [];
+
+      //call update api function
+      ppdpAPIService.doc.update({}).
+        success(function(data, status) {
+          
+          //set saved to true
+          $scope.saved = true;
+ 
+          //tell user that request was successful
+          $scope.alerts.push({
+            message:'Save successful!',
+            level:'success',  
+          }); 
+          
+          //add functions to topmenu
+          $scope.button_functions = [
+            {
+              text : 'Add to Batch',
+              glyphicon : 'folder-close',
+              function_callback : function(){$('#batchModal').modal('toggle')}, 
+            },
+            {
+              text : 'Remove',
+              glyphicon : 'trash',
+              function_callback : function(){$('#deleteModal').modal('toggle')}, 
+            }
+          ];
+          
+        }).
+        error(function(data, status) {
+          
+          switch($scope.status){
+            case 404:
+              
+              $scope.alerts.push({
+                message:'Trouble connecting to server.',
+                level:'warning',  
+              }); 
+              
+            break;
+          }
+      });
     }
     
   }]
@@ -597,8 +628,8 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
 );
 
 /** Controller: newsclip */
-ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
-  function($scope, $routeParams, ppdpAPIService, $location) {
+ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$http',
+  function($scope, $routeParams, ppdpAPIService, $location, $http) {
     console.log('newsclip');
     
     //global variables
@@ -607,7 +638,12 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       limit:1,
       query:''
     }
+    
+    // TODO: -- swap out for something that makes sense
     $scope.tiebreaker = false;
+    
+    //alerts to be displayed on screen
+    $scope.alerts = [];
     
     //news papers to be displayed in 'Newspaper' dropdown
     $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
@@ -666,16 +702,48 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
      * @return NULL
      */
     $scope.save = function(){
-        
+      $(".alert").alert('close');
       
-      var status = ppdpAPIService.newspaper.update($scope.doc);
-        
+      //remove all previous alerts
+      $scope.alerts = [];
+      
+      //call update api function
+      ppdpAPIService.doc.update({}).
+        success(function(data, status) {
+ 
+          $scope.alerts.push({
+            message:'Save successful!',
+            level:'success',  
+          }); 
+          
+        }).
+        error(function(data, status) {
+          
+          switch($scope.status){
+            case 404:
+              
+              $scope.alerts.push({
+                message:'Trouble connecting to server.',
+                level:'warning',  
+              }); 
+              
+              break;
+          }
+      });
+      
+      $scope.alerts.push({
+        message:'Trouble connecting to server.',
+        level:'warning',  
+      });
+      
     }
     
     //events
     
     /**
-     * offset change event
+     * 'offset' change event
+     * 
+     * when params.offset changes page should change to newsclip with id equaling offset id
      * 
      */
     $scope.$watch('params.offset', function() {
@@ -683,8 +751,6 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       if ($routeParams.docId != $scope.params.offset){
         var int = $scope.params.offset;
         var str = "/newsclip/"+$scope.params.offset;
-        console.log(str);
-        
         
         $location.path(str);
       }

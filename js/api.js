@@ -15,6 +15,9 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
     sharedService.roles = [];
     sharedService.newspapers = [];
     
+    //api url
+    var api_url = '';
+    
     /** Private functions */
     Array.prototype.randomElement = function () {
         return this[Math.floor(Math.random() * this.length)]
@@ -201,16 +204,22 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
       this.update = function(_doc){
         
         var request = {
-          method: 'get',
-          url: 'test',
+          method: 'POST',
+          url: api_url + 'document/update',
           data: _doc,
         };
         
         return $http(request);
       }
 
-      this.delete = function(){
+      this.delete = function(_doc){
+        var request = {
+          method: 'POST',
+          url: api_url + 'document/delete',
+          data: _doc,
+        };
         
+        return $http(request);
       }
     }
     sharedService.doc = new sharedService.documentModel();

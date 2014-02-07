@@ -711,6 +711,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       ppdpAPIService.doc.update({}).
         success(function(data, status) {
  
+          //if succesful show message to user
           $scope.alerts.push({
             message:'Save successful!',
             level:'success',  
@@ -719,21 +720,38 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
         }).
         error(function(data, status) {
           
-          switch($scope.status){
+          switch(status){
+            
+            case 403:
+              
+              $scope.alerts.push({
+                message:'Request was forbidden.',
+                level:'warning',  
+                debug_data: status+ ' : ' + data
+              });
+              
+              break;
+            
             case 404:
               
               $scope.alerts.push({
                 message:'Trouble connecting to server.',
-                level:'warning',  
-              }); 
+                level:'warning',
+                debug_data:status+ ' : ' + data
+              });
               
               break;
+              
+            default:
+            
+              $scope.alerts.push({
+                message:'Unknown problem.',
+                level:'warning',
+                debug_data:status+ ' : ' + data
+              });
+            
+              break;
           }
-      });
-      
-      $scope.alerts.push({
-        message:'Trouble connecting to server.',
-        level:'warning',  
       });
       
     }

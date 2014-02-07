@@ -166,7 +166,18 @@
               <br/>
               <br/>
               
-              <div ng-repeat="alert in alerts" class="alert alert-{{alert.level}} fade in">{{alert.message}} <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
+              <div ng-repeat="alert in alerts" class="alert alert-{{alert.level}} fade in">{{alert.message}} 
+                <span data-toggle="collapse" data-parent="#accordion" href="#collapse{{$index}}">
+                  <b>See more</b> 
+                </span>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <br/>
+                <div id="collapse{{$index}}" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    {{alert.debug_data}}
+                  </div>
+                </div>
+              </div>
               
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">

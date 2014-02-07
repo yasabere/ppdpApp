@@ -651,6 +651,10 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     //get number of documents
     $scope.documents = ppdpAPIService.doc.retrieve({});
     
+    // set the directions to show up on page
+    $scope.directions = [];
+    $scope.directions.push('Edit information');
+    
     //json representation of 
     $scope.doc = {
         abstract:'',
@@ -725,7 +729,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
             case 403:
               
               $scope.alerts.push({
-                message:'Request was forbidden.',
+                message:'Trouble connecting to server.',
                 level:'warning',  
                 debug_data: status+ ' : ' + data
               });
@@ -1036,7 +1040,7 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
      * @return NULL
      */
     $scope.next_page = function(){
-      $scope.params.offset = Math.min($scope.data.length-$scope.params.limit+1,$scope.params.offset+$scope.params.limit);
+      $scope.params.offset = Math.min($scope.data.length-$scope.params.limit,$scope.params.offset+$scope.params.limit);
       $scope.displayed_limit = Math.min($scope.data.length - 1,$scope.params.offset+$scope.params.limit);
     };
     
@@ -1058,6 +1062,9 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
   function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('user');
     
+    //global variables
+    $scope.alerts = [];
+    
     $scope.user = ppdpAPIService.user.retrieve({id:$routeParams.userId})[0];
     $scope.roles = ppdpAPIService.role.retrieve({});
     // TODO: -- need to implement
@@ -1071,6 +1078,16 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
     $scope.back = function(){
       console.log("back");
       $location.path("/users");
+    }
+    
+    $scope.save = function(){
+      
+      $scope.alerts = [];
+      
+      $scope.alerts.push({
+        message:'Not yet implemented',
+        level:'danger',
+      });
     }
     
   }]

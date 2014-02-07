@@ -1,0 +1,21 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+
+      <td><b>Select</b></td>
+      <td ng-repeat="column in columns"><b  ng-click="table_header_click_function(column.field_text)">{{column.text}}<span ng-show="predicate == column.field_text"> {{arrow}}</span></b></td> 
+    </tr>
+
+  </head>
+  <tbody>
+    <tr ng-repeat="row in data | filter:query | orderBy:predicate:reverse" ng:init="rowIndex = $index">
+    
+      <td><input type="checkbox" ng-click="table_data_select_function(rowIndex)"></td>
+      <td ng-repeat="column in columns" ng-click="table_data_click_function(rowIndex,row)">
+      {{ column.value(row) }}
+      </td>
+      
+    </tr>
+
+  </tbody>
+</table>

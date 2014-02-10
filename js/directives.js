@@ -5,14 +5,15 @@ Directives application
 
 var ppdpDirectives = angular.module('ppdpDirectives', []);
 
-//directive for header
-ppdpDirectives.directive('masterHeader', function(ppdpAPIService){
-  return {
-    restrict: "E",
-    templateUrl: "templates/header.html",
-    scope: false,
-    controller: 'header',
-  }
+//directive for alerts
+ppdpDirectives.directive('masterAlerts', function(ppdpAPIService){
+   return {
+     restrict: "E",
+     templateUrl: "templates/alerts.html",
+     scope: {
+       alerts : '=alerts',
+     },
+   } 
 });
 
 //directive for footer
@@ -21,6 +22,16 @@ ppdpDirectives.directive('masterFooter', function(ppdpAPIService){
     restrict: "E",
     templateUrl: "templates/footer.html",
     controller: 'footer',
+  }
+});
+
+//directive for header
+ppdpDirectives.directive('masterHeader', function(ppdpAPIService){
+  return {
+    restrict: "E",
+    templateUrl: "templates/header.html",
+    scope: false,
+    controller: 'header',
   }
 });
 
@@ -49,7 +60,7 @@ ppdpDirectives.directive('masterTable', function(ppdpAPIService){
    } 
 });
 
-//directive for table
+//directive for topmenu
 ppdpDirectives.directive('masterTopMenu', function(ppdpAPIService){
    return {
      restrict: "E",

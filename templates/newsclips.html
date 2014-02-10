@@ -14,8 +14,10 @@
     <div class="row">
 
       <div class="col-xs-12 col-sm-3 col-md-3">
+      
         <master-Menu>
         </master-Menu>
+        
         <hr/>
         <h4>Directions</h4>
         <ul>
@@ -27,9 +29,13 @@
         <!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active" id="documents">
+          
+            <master-Alerts alerts="alerts">
+            </master-Alerts>
+            
             <master-Table columns="columns" data="documents" table-Row-Click="details" table-Row-Select="toggle_select" search-Query="params.query">
-              
             </master-Table>
+            
           </div>
         
         </div>

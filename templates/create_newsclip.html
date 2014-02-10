@@ -118,7 +118,8 @@
               <br/>
               <br/>
               
-              <div ng-repeat="alert in alerts" class="alert alert-{{alert.level}} fade in">{{alert.message}} <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>
+              <master-Alerts alerts="alerts">
+              </master-Alerts>
               
             </form>
           </div>

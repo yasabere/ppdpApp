@@ -78,11 +78,11 @@
   
               <div class="form-group">
                 <label for="txtheadline">Headline</label>
-                <textarea id="txtheadline" class="form-control" rows="2">{{doc.headline}}</textarea>
+                <textarea id="txtheadline" class="form-control" rows="2" ng-model="doc.headline"></textarea>
               </div>
               <div class="form-group">
                 <label for="txtabstract">Abstract</label>
-                <textarea id="txtabstract" class="form-control" rows="5">{{doc.abstract}}</textarea>
+                <textarea id="txtabstract" class="form-control" rows="5" ng-model="doc.abstract"></textarea>
               </div>
               
               <div style="display:inline-block; margin-left:0px;" ng-show="!tiebreaker">  
@@ -167,18 +167,8 @@
               <br/>
               <br/>
               
-              <div ng-repeat="alert in alerts" class="alert alert-{{alert.level}} fade in">{{alert.message}} 
-                <span data-toggle="collapse" data-parent="#accordion" href="#collapse{{$index}}" ng-show="(alert.debug_data)">
-                  <b>See more</b> 
-                </span>
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <br/>
-                <div id="collapse{{$index}}" class="panel-collapse collapse" ng-show="(alert.debug_data)">
-                  <div class="panel-body">
-                    {{alert.debug_data}}
-                  </div>
-                </div>
-              </div>
+              <master-Alerts alerts="alerts">
+              </master-Alerts>
               
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">

@@ -1,4 +1,4 @@
-var ppdpAPI = angular.module('ppdpAPI', []);
+var ppdpAPI = angular.module('ppdpAPI', ['ngMockE2E']);
  
  //registers ppdpAPIService
 ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
@@ -137,12 +137,24 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
         return sharedService.assignments;
       }
 
-      this.update = function(){
-
+      this.update = function(_assignment){
+        var request = {
+          method: 'POST',
+          url: api_url + 'assignment/update',
+          data: _assignment,
+        };
+        
+        return $http(request);
       }
 
-      this.delete = function(){
+      this.delete = function(_assignment){
+        var request = {
+          method: 'POST',
+          url: api_url + 'assignment/update',
+          data: _assignment,
+        };
         
+        return $http(request);
       }
 
       
@@ -156,17 +168,29 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
         return true;
       }
 
-      this.retrieve = function(batch){
+      this.retrieve = function(_batch){
         console.log(sharedService.batches[0]);
         return sharedService.batches;
       }
 
-      this.update = function(){
-
+      this.update = function(_batch){
+        var request = {
+          method: 'POST',
+          url: api_url + 'batch/update',
+          data: _batch,
+        };
+        
+        return $http(request);
       }
 
-      this.delete = function(){
+      this.delete = function(_batch){
+        var request = {
+          method: 'POST',
+          url: api_url + 'batch/delete',
+          data: _batch,
+        };
         
+        return $http(request);  
       }
     }
     sharedService.batch = new sharedService.batchModel();
@@ -181,24 +205,31 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
             return (num >= 0 && num < 10) ? "0" + num : num + "";
         }
         
-        _document.entry_clerk = sharedService.users[1];
+        sharedService.user.retrieve({id:1}).
+          success(function(data, status) {
+            _document.entry_clerk = data[0];
+          });
+          
         _document.date_created = strDateTime;
         
-        sharedService.documents.push(_document);
+        var request = {
+          method: 'POST',
+          url: api_url + 'document/create',
+          data: _document,
+        };
         
-        return true;
+        return $http(request);
       }
 
       this.retrieve = function(_doc){
           
-        if (_doc.id){
-            return sharedService.documents.slice(_doc.id,_doc.id+1);
-        }   
+        var request = {
+          method: 'GET',
+          url: api_url + 'document/retrieve',
+          data: _doc,
+        };
         
-        
-          
-        console.log(sharedService.documents[0]);
-        return sharedService.documents;
+        return $http(request);
       }
 
       this.update = function(_doc){
@@ -240,12 +271,24 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
         return sharedService.files;
       }
 
-      this.update = function(){
-
+      this.update = function(_file){
+        var request = {
+          method: 'POST',
+          url: api_url + 'file/update',
+          data: _file,
+        };
+        
+        return $http(request);
       }
 
-      this.delete = function(){
+      this.delete = function(_file){
+        var request = {
+          method: 'POST',
+          url: api_url + 'file/delete',
+          data: _file,
+        };
         
+        return $http(request);
       }
     }
     sharedService.file = new sharedService.fileModel();
@@ -261,12 +304,24 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
         return sharedService.newspapers;
       }
 
-      this.update = function(){
-
+      this.update = function(_newspaper){
+        var request = {
+          method: 'POST',
+          url: api_url + 'newspaper/update',
+          data: _newspaper,
+        };
+        
+        return $http(request);
       }
 
-      this.delete = function(){
+      this.delete = function(_newspaper){
+        var request = {
+          method: 'POST',
+          url: api_url + 'newspaper/delete',
+          data: _newspaper,
+        };
         
+        return $http(request);
       }
     }
     sharedService.newspaper = new sharedService.newspaperModel();
@@ -281,40 +336,55 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
         console.log(sharedService.roles[0]);
         return sharedService.roles;
       }
-
-      this.update = function(){
-
-      }
-
-      this.delete = function(){
-        
-      }
     }
     sharedService.role = new sharedService.roleModel();
     
     sharedService.userModel = function(){
 
       this.create = function(_user){
-        sharedService.users.push(_user);
-        return true;
+        var request = {
+          method: 'POST',
+          url: api_url + 'user/create',
+          data: _user,
+        };
+        
+        return $http(request);
       }
 
       this.retrieve = function(_user){
-          
+        /*  
         if (_user.id){
             return sharedService.users.slice(_user.id,_user.id+1);
         } 
-          
-        console.log(sharedService.users[0]);
-        return sharedService.users;
+        */
+        
+        var request = {
+          method: 'GET',
+          url: api_url + 'user/retrieve',
+          data: _user,
+        };
+        
+        return $http(request);
       }
 
       this.update = function(_user){
-
+        var request = {
+          method: 'POST',
+          url: api_url + 'user/update',
+          data: _user,
+        };
+        
+        return $http(request);
       }
 
       this.delete = function(_user){
+        var request = {
+          method: 'POST',
+          url: api_url + 'user/delete',
+          data: _user,
+        };
         
+        return $http(request);
       }
     }
     sharedService.user = new sharedService.userModel();
@@ -548,4 +618,243 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
     _newspaperModel.create(_newspaper);
     
     return sharedService;
+});
+
+//fake backend for unit testing
+
+ppdpAPI.run(function($httpBackend) {
+  
+  //allow all template pages to not be intercepted by httpbackend
+  var i = 0;
+  var templates = [
+    'alerts',
+    'assignments',
+    'batch',
+    'batches',
+    'create_newsclip',
+    'files',
+    'footer',
+    'header',
+    'login',
+    'newsclip',
+    'newsclips',
+    'sidebarmenu',
+    'table',
+    'tie_break_newsclip',
+    'topmenu',
+    'user',
+    'users',
+    ];
+  for(i = 0;i < templates.length;i+=1){
+    $httpBackend.whenGET( 'templates/' + templates[i] + '.html').passThrough();
+  }
+  
+  //resource arrays
+  var assignments = [];
+  var batches = [];
+  var documents = [];
+  var files = [];
+  var newspapers = [];
+  var roles = [];
+  var users = [];
+
+  //assignment
+  
+  //batch
+  
+  //document
+  $httpBackend.whenPOST('document/create').respond(function(method,url,data) {
+    console.log("Creating document");
+    data = angular.fromJson(data);
+    data.id = documents.length;
+    documents.push(data);
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('document/retrieve').respond(function(method,url,data) {
+    console.log("Retrieving document");
+    
+    var return_data = documents;
+    
+    data = angular.fromJson(data);
+    
+    if (data.id){
+      return_data = return_data.slice(data.id,data.id+1);
+    } 
+    
+    console.log(return_data);
+    
+    return [200, return_data, {}];
+  });
+  
+  $httpBackend.whenPOST('document/update').respond(function(method,url,data) {
+    console.log("Updating document");
+    data = angular.fromJson(data);
+    documents[data.id] = data;
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenPOST('document/delete').respond(function(method,url,data) {
+    console.log("Deleting document");
+    
+    documents.splice(documents[angular.fromJson(data).id], 1);
+    return [200, {}, {}];
+  });
+  
+  //file
+  $httpBackend.whenPOST('file/create').respond(function(method,url,data) {
+    console.log("Creating file");
+    data = angular.fromJson(data)
+    data.id = files.length;
+    files.push(data);
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('file/retrieve').respond(function(method,url,data) {
+    console.log("Retrieving file");
+    
+    var return_data = files;
+    
+    data = angular.fromJson(data)
+    
+    if (data.id){
+      return_data = return_data.slice(data.id,data.id+1);
+    } 
+    
+    console.log(return_data);
+    
+    return [200, return_data, {}];
+  });
+  
+  $httpBackend.whenPOST('file/update').respond(function(method,url,data) {
+    console.log("Updating file");
+    data = angular.fromJson(data)
+    files[data.id] = data;
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenPOST('file/delete').respond(function(method,url,data) {
+    console.log("Deleting file");
+    
+    files.splice(files[angular.fromJson(data).id], 1);
+    return [200, {}, {}];
+  });
+  
+  //newspaper
+  $httpBackend.whenPOST('newspaper/create').respond(function(method,url,data) {
+    console.log("Creating newspaper");
+    data = angular.fromJson(data)
+    data.id = newspapers.length;
+    newspapers.push(data);
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('newspaper/retrieve').respond(function(method,url,data) {
+    console.log("Retrieving newspaper");
+    
+    var return_data = newspapers;
+    
+    data = angular.fromJson(data)
+    
+    if (data.id){
+      return_data = return_data.slice(data.id,data.id+1);
+    } 
+    
+    console.log(return_data);
+    
+    return [200, return_data, {}];
+  });
+  
+  $httpBackend.whenPOST('newspaper/update').respond(function(method,url,data) {
+    console.log("Updating newspaper");
+    data = angular.fromJson(data)
+    newspapers[data.id] = data;
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenPOST('newspaper/delete').respond(function(method,url,data) {
+    console.log("Deleting newspaper");
+    
+    newspapers.splice(newspapers[angular.fromJson(data).id], 1);
+    return [200, {}, {}];
+  });
+  
+  //role
+  $httpBackend.whenPOST('role/create').respond(function(method,url,data) {
+    console.log("Creating role");
+    data = angular.fromJson(data)
+    data.id = roles.length;
+    roles.push(data);
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('role/retrieve').respond(function(method,url,data) {
+    console.log("Retrieving role");
+    
+    var return_data = roles;
+    
+    data = angular.fromJson(data)
+    
+    if (data.id){
+      return_data = return_data.slice(data.id,data.id+1);
+    } 
+    
+    console.log(return_data);
+    
+    return [200, return_data, {}];
+  });
+  
+  $httpBackend.whenPOST('role/update').respond(function(method,url,data) {
+    console.log("Updating role");
+    data = angular.fromJson(data)
+    roles[data.id] = data;
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenPOST('role/delete').respond(function(method,url,data) {
+    console.log("Deleting role");
+    
+    roles.splice(roles[angular.fromJson(data).id], 1);
+    return [200, {}, {}];
+  });
+  
+  //user
+  $httpBackend.whenPOST('user/create').respond(function(method,url,data) {
+    console.log("Creating user");
+    data = angular.fromJson(data)
+    data.id = users.length;
+    users.push(data);
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('user/retrieve').respond(function(method,url,data) {
+    console.log("Retrieving user");
+    
+    var return_data = users;
+    
+    data = angular.fromJson(data)
+    
+    if (data.id){
+      return_data = return_data.slice(data.id,data.id+1);
+    } 
+    
+    console.log(return_data);
+    
+    return [200, return_data, {}];
+  });
+  
+  $httpBackend.whenPOST('user/update').respond(function(method,url,data) {
+    console.log("Updating user");
+    data = angular.fromJson(data)
+    users[data.id] = data;
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenPOST('user/delete').respond(function(method,url,data) {
+    console.log("Deleting user");
+    
+    users.splice(users[angular.fromJson(data).id], 1);
+    return [200, {}, {}];
+  });
+
 });

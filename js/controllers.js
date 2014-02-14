@@ -153,6 +153,20 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
   }]
 );
 
+/** Controller: autosuggest */ 
+ppdpControllers.controller('autosuggest', ['$scope',
+  function($scope) {
+
+    console.log('autosuggest');
+    
+    $scope.select = function(option){
+      $scope.model = option.name;
+    };
+    
+   
+  }]
+);
+
 /** Controller: batch */ 
 ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
   function($scope, $routeParams) {
@@ -325,52 +339,77 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
      */
     $scope.save = function(){
       console.log($scope.doc);
-      var status = ppdpAPIService.doc.create($scope.doc);
+      
       $scope.alerts = [];
-
-      //call update api function
-      ppdpAPIService.doc.update({}).
-        success(function(data, status) {
-          
-          //set saved to true
-          $scope.saved = true;
- 
-          //tell user that request was successful
-          $scope.alerts.push({
-            message:'Save successful!',
-            level:'success',  
-          }); 
-          
-          //add functions to topmenu
-          $scope.button_functions = [
-            {
-              text : 'Add to Batch',
-              glyphicon : 'folder-close',
-              function_callback : function(){$('#batchModal').modal('toggle')}, 
-            },
-            {
-              text : 'Remove',
-              glyphicon : 'trash',
-              function_callback : function(){$('#deleteModal').modal('toggle')}, 
+      
+      if ($scope.create_doc_form.$invalid){
+        $scope.alerts.push({
+          message:'All fields with * must be filled in',
+          level:'danger',  
+        }); 
+      }
+      else{
+        //call update api function
+        ppdpAPIService.doc.create($scope.doc).
+          success(function(data, status) {
+            
+            //set saved to true
+            $scope.saved = true;
+   
+            //tell user that request was successful
+            $scope.alerts.push({
+              message:'Save successful!',
+              level:'success',  
+            }); 
+            
+            //add functions to topmenu
+            $scope.button_functions = [
+              {
+                text : 'Add to Batch',
+                glyphicon : 'folder-close',
+                function_callback : function(){$('#batchModal').modal('toggle')}, 
+              },
+              {
+                text : 'Remove',
+                glyphicon : 'trash',
+                function_callback : function(){$('#deleteModal').modal('toggle')}, 
+              }
+            ];
+            
+          }).
+          error(function(data, status) {
+            
+            switch($scope.status){
+              case 404:
+                
+                $scope.alerts.push({
+                  message:'Trouble connecting to server.',
+                  level:'warning',  
+                }); 
+                
+              break;
             }
-          ];
-          
-        }).
-        error(function(data, status) {
-          
-          switch($scope.status){
-            case 404:
-              
-              $scope.alerts.push({
-                message:'Trouble connecting to server.',
-                level:'warning',  
-              }); 
-              
-            break;
-          }
-      });
+        });
+      }
     }
     
+  }]
+);
+
+/** Controller: dropdown */ 
+ppdpControllers.controller('dropdown', ['$scope',
+  function($scope) {
+    $scope.selected_value = $scope.options[0].text;
+    $scope.ngModel =  $scope.options[0].value;
+    
+    console.log('dropdown');
+    
+    $scope.select = function(option){
+      $scope.selected_value = option.text;
+      $scope.ngModel = option.value;
+    };
+    
+   
   }]
 );
 

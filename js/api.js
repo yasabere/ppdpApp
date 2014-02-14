@@ -629,9 +629,11 @@ ppdpAPI.run(function($httpBackend) {
   var templates = [
     'alerts',
     'assignments',
+    'autosuggest',
     'batch',
     'batches',
     'create_newsclip',
+    'dropdown',
     'files',
     'footer',
     'header',

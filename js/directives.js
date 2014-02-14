@@ -80,5 +80,33 @@ ppdpDirectives.directive('masterTopMenu', function(ppdpAPIService){
    } 
 });
 
+//directive for dropdown
+ppdpDirectives.directive('dropdown', function(){
+   return {
+     restrict: "E",
+     templateUrl: "templates/dropdown.html",
+     scope: {
+      ngModel : "=ngModel",
+      options : "=options",
+      extraOptions : "=extraOptions"
+     },
+     controller:'dropdown',
+   } 
+});
+
+//directive for autoSuggest
+ppdpDirectives.directive('autoSuggest', function(){
+   return {
+     restrict: "E",
+     templateUrl: "templates/autosuggest.html",
+     scope: {
+      model : "=ngModel",
+      options : "=options",
+      placeholder : "=placeholder"
+     },
+     controller:'autosuggest',
+   } 
+});
+
 
 

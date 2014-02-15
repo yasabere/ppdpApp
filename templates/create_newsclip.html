@@ -31,7 +31,7 @@
             <form name="create_doc_form" role="form">
 
               <div style="display:inline-block;">
-                <label class="control-label" for="newspaper">Newspaper</label><br/>
+                <label class="control-label" for="newspaper">Newspaper</label> <span class="text-danger"><b>*</b></span><br/>
                 <auto-Suggest
                   name = "newspaper"
                   ng-model = "doc.newspaper"
@@ -47,16 +47,16 @@
 
               <div style="display:inline-block; margin-left:10px;">  
 
-                  <label>Date</label><br/>
+                  <label>Date</label> <span class="text-danger"><b>*</b></span><br/>
                   <input name="date" type="date" class="form-control" id="inputPassword" value="11/04/2014" ng-model="doc.date" required>
   
               </div>
 
               <div style="display:inline-block; margin-left:10px;">
-                <label>Type</label><br/>
+                <label>Type</label> <span class="text-danger"><b>*</b></span><br/>
                 <dropdown 
                   ng-Model = "doc.type" 
-                  options = "[{text:'Article', value:'Article', class:''}, {text:'Editorial', value:'Editorial', class:''}]"
+                  options = "[{text:'Article', value:'Article', class:''}, {text:'Editorial', value:'Editorial', class:''}, {text:'',value:'', class:'divider'}, {text:'Other - Note in Comments', value:'Other', class:''}]"
                 >
                 </dropdown>
                 <br/>
@@ -64,16 +64,16 @@
               <br/><br/>
 
               <div class="form-group">
-                <label for="txtheadline">Headline</label>
+                <label for="txtheadline">Headline</label> <span class="text-danger"><b>*</b></span>
                 <textarea name="headline" id="txtheadline" class="form-control" rows="2" ng-model="doc.headline" required></textarea>
               </div>
               <div class="form-group">
-                <label for="txtabstract">Abstract</label>
+                <label for="txtabstract">Abstract</label> <span class="text-danger"><b>*</b></span>
                 <textarea name="abstract" id="txtabstract" class="form-control" rows="5" ng-model="doc.abstract" required></textarea>
               </div>
 
               <div style="display:inline-block; margin-left:0px;">  
-                <label>Policy Code</label><br/>
+                <label>Policy Code</label> <span class="text-danger"><b>*</b></span><br/>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     Select a Policy Code<span class="caret"></span>

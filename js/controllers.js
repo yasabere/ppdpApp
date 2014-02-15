@@ -188,11 +188,40 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.batches = batchModel.retrieve({});
     $scope.selected_batches = [];
     $scope.rows_selected = false;
+    
+    $scope.params = {
+      offset:0,
+      limit:5,
+      query:''
+    }
 
     // set the directions to show up on page
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
+    
+    /** directive masterTopMenu data. 
+     *  
+     *  buttons to show up in menu
+     * 
+     */
+    $scope.button_functions = [
+      {
+        text : 'Assign',
+        glyphicon : 'folder-close',
+        function_callback : function(){$('#batchModal').modal('toggle')}, 
+      },
+      {
+        text : 'Publish',
+        glyphicon : 'transfer',
+        function_callback : function(){$('#publishModal').modal('toggle')}, 
+      },
+      {
+        text : 'Remove',
+        glyphicon : 'trash',
+        function_callback : function(){$('#deleteModal').modal('toggle')}, 
+      }
+    ];
     
     /** directive masterTable data. 
      *  
@@ -424,6 +453,12 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.files = fileModel.retrieve({});
     $scope.selected_files = [];
     $scope.rows_selected = false;
+    
+    $scope.params = {
+      offset:0,
+      limit:5,
+      query:''
+    }
 
     // set the directions to show up on page
     $scope.directions = [];
@@ -441,6 +476,24 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       ppdpAPIService.toggle_select($scope.files,index);
       $scope.selected_files = ppdpAPIService.get_selected_subset($scope.files);
     }
+    
+    /** directive masterTopMenu data. 
+     *  
+     *  buttons to show up in menu
+     * 
+     */
+    $scope.button_functions = [
+      {
+        text : 'Assign',
+        glyphicon : 'folder-close',
+        function_callback : function(){$('#batchModal').modal('toggle')}, 
+      },
+      {
+        text : 'Remove',
+        glyphicon : 'trash',
+        function_callback : function(){$('#deleteModal').modal('toggle')}, 
+      }
+    ];
     
     /** directive masterTable data. 
      *  

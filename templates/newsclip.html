@@ -35,27 +35,26 @@
               
   
               <div style="display:inline-block; ">
-                <label>Newspaper</label><br/>
-                <div class="btn-group">
-                  
-                  <input type="text" class="form-control" placeholder="Type a Newspaper" ng-model="doc.newspaper" data-toggle="dropdown">
-        
-                  <ul class="dropdown-menu" role="menu">
-                    <li ng-repeat="newspaper in newspapers | filter:doc.newspaper" ng-click="doc.newspaper = newspaper.name "><a>{{newspaper.name}}</a></li>
-                  </ul>
-          
-                </div>
+                <label>Newspaper</label> <span class="text-danger">*</span><br/>
+                <auto-Suggest
+                  name = "newspaper"
+                  ng-model = "doc.newspaper"
+                  options = "newspapers"
+                  placeholder=" 'Type a Newspaper' "
+                  required
+                >
+                </auto-Suggest>
               </div>
   
               <div style="display:inline-block; margin-left:10px;">  
   
-                  <label>Date</label><br/>
-                  <input type="date" class="form-control" id="inputPassword" value="11/04/2014">
+                  <label>Date</label> <span class="text-danger">*</span><br/>
+                  <input type="date" class="form-control" id="inputPassword" value="11/04/2014" required>
   
               </div>
   
               <div style="display:inline-block; margin-left:10px;">
-                <label>Type</label><br/>
+                <label>Type</label> <span class="text-danger">*</span><br/>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     Article <span class="caret"></span>
@@ -77,16 +76,16 @@
               <br/><br/>
   
               <div class="form-group">
-                <label for="txtheadline">Headline</label>
-                <textarea id="txtheadline" class="form-control" rows="2" ng-model="doc.headline"></textarea>
+                <label for="txtheadline">Headline</label> <span class="text-danger">*</span>
+                <textarea id="txtheadline" class="form-control" rows="2" ng-model="doc.headline" required></textarea>
               </div>
               <div class="form-group">
-                <label for="txtabstract">Abstract</label>
-                <textarea id="txtabstract" class="form-control" rows="5" ng-model="doc.abstract"></textarea>
+                <label for="txtabstract">Abstract</label> <span class="text-danger">*</span>
+                <textarea id="txtabstract" class="form-control" rows="5" ng-model="doc.abstract" required></textarea>
               </div>
               
               <div style="display:inline-block; margin-left:0px;" ng-show="!tiebreaker">  
-                <label>Policy Code</label><br/>
+                <label>Policy Code</label> <span class="text-danger">*</span><br/>
                 <div class="btn-group">
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     Select a topic <span class="caret"></span>

@@ -38,11 +38,30 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
     $scope.assignments = assignmentModel.retrieve({});
     $scope.selected_assignments = [];
     $scope.rows_selected = false;
+    
+    $scope.params = {
+      offset:0,
+      limit:5,
+      query:''
+    }
 
     // set the directions to show up on page
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
+    
+    /** directive masterTopMenu data. 
+     *  
+     *  buttons to show up in menu
+     * 
+     */
+    $scope.button_functions = [
+      {
+        text : 'Remove',
+        glyphicon : 'trash',
+        function_callback : function(){$('#deleteModal').modal('toggle')}, 
+      }
+    ];
     
     /** directive masterTable data. 
      *  
@@ -742,7 +761,13 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
     
     //get number of documents
-    $scope.documents = ppdpAPIService.doc.retrieve({});
+    $scope.documents = ppdpAPIService.doc.retrieve({}).
+      success(function(data, status) {
+
+        //load data into users
+        $scope.documents = data;
+        
+      });
     
     // set the directions to show up on page
     $scope.directions = [];
@@ -1151,7 +1176,7 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
     
     console.log('topmenu');
     
-    $scope.displayed_limit = Math.min($scope.data.length,$scope.params.offset+$scope.params.limit);
+    $scope.displayed_limit = Math.min($scope.data.length - 1,$scope.params.offset+$scope.params.limit);
 
     /**
      * next_page() increment view of downcumets to next set
@@ -1159,7 +1184,9 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
      * @return NULL
      */
     $scope.next_page = function(){
-      $scope.params.offset = Math.min($scope.data.length-$scope.params.limit,$scope.params.offset+$scope.params.limit);
+      if ($scope.params.offset + $scope.params.limit < $scope.data.length){
+        $scope.params.offset = Math.min($scope.data.length,$scope.params.offset+$scope.params.limit);
+      }
       $scope.displayed_limit = Math.min($scope.data.length - 1,$scope.params.offset+$scope.params.limit);
     };
     
@@ -1172,6 +1199,16 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
       $scope.params.offset = Math.max(0,$scope.params.offset-$scope.params.limit);
       $scope.displayed_limit = Math.min($scope.data.length - 1,$scope.params.offset+$scope.params.limit);
     };
+    
+    /**
+     * 'data.length' change event
+     * 
+     * when params.offset changes page should change to newsclip with id equaling offset id
+     * 
+     */
+    $scope.$watch('data.length', function() {
+      $scope.displayed_limit = Math.min($scope.data.length - 1,$scope.params.offset+$scope.params.limit);
+    }); // initialize the watch
     
   }]
 );

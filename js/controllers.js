@@ -1320,6 +1320,11 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.users = [];
     $scope.selected_users = [];
     $scope.rows_selected = false;
+    $scope.params = {
+      offset:0,
+      limit:5,
+      query:''
+    }
 
     // set the directions to show up on page
     $scope.directions = [];
@@ -1341,6 +1346,71 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
           debug_data:status+ ' : ' + data
         });
     });
+    
+    /** directive masterTopMenu data. 
+     *  
+     *  buttons to show up in menu
+     * 
+     */
+    $scope.button_functions = [
+      {
+        text : 'Assign',
+        glyphicon : 'folder-close',
+        function_callback : function(){$('#assignModal').modal('toggle')}, 
+      },
+      {
+        text : 'Remove',
+        glyphicon : 'trash',
+        function_callback : function(){$('#deleteModal').modal('toggle')}, 
+      }
+    ];
+    
+    /** directive masterTable data. 
+     *  
+     *  text is text which shows up in table column header
+     *  value is function which returns text which will show up table data under column. it excepts row parameter which data about document
+     * 
+     */
+    $scope.columns = [
+      {
+        //header text to be shown for column
+        text:'Name', 
+        //row value 
+        value: function(row){
+          return row.first_name + " " + row.last_name;
+        },
+        //function which is called when row is clicked
+        click: function(id, row){
+          $scope.details(id);
+        },
+        //attributes for rows
+        attributes:[],
+        //data field name
+        field_text: 'first_name' 
+      },
+      { 
+        text:'Date Joined',
+        value: function(row){
+          return row.date_joined;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'date_joined'
+      },
+      {
+        text:'Role',
+        value: function(row){
+          return row.role.name;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'role.name'
+      }
+    ];
 
     /**
      * toggle_select() Update selected property of batch and

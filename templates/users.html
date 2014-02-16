@@ -1,126 +1,13 @@
 <div class="panel panel-default">
-  <div class="panel-body">
-
-    <div class="row" ng-show="selected_users.length == 0">
-
-      <div class="col-xs-12 col-sm-3 col-md-3">
-          <h3 style="margin-top: 7px; margin-bottom: 0px;">Manage Users</h3>
-      </div>
-
-      <div class="col-xs-12 col-sm-9 col-md-9">
-        <span class="pull-left">
-          
-          <div class="btn-group" style="inline-block">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <input type="checkbox" style="z-index:1000; margin:0px" ng-click="toggle_select_all()"> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">All</a></li>
-              <li><a href="#">None</a></li>
-              <li><a href="#">Unresolved</a></li>
-            </ul>
-          </div>
-        </span>
-
-        <span class="pull-left" style="display:inline-block; margin-left:5px">
-          <div class="input-group" style="width:300px; ">
-            <input type="text" class="form-control" placeholder="Search" >
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-default" >
-                <span class="glyphicon glyphicon-search"></span>
-              </button>
-            </div>
-          </div>
-        </span>
-
-        <span class="pull-right">
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              Filter <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">All</a></li>
-              <li><a href="#">Unresolved</a></li>
-              <li><a href="#">Resolved</a></li>
-              <li><a href="#">Published</a></li>
-            </ul>
-          </div>
-       
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <b>1</b>-<b>50</b> of <b>265</b> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Newest</a></li>
-              <li><a href="#">Oldest</a></li>
-            </ul>
-          </div>
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-chevron-left"></span>
-            </button>
-           
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-chevron-right"></span>
-            </button>
-          </div>
-        </span>
-      </div>
-    </div>
-
-    <div class= "row" ng-show="selected_users.length > 0">
-      <div class="col-xs-12 col-sm-3 col-md-3">
-          <h3 style="margin-top: 7px; margin-bottom: 0px;">Dashboard</h3>
-      </div>
-
-      <div class="col-xs-12 col-sm-9 col-md-9">
-    
-        <div class="btn-group" style="inline-block">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <input type="checkbox" style="z-index:10; margin:0px"> <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">All</a></li>
-            <li><a href="#">None</a></li>
-            <li><a href="#">Unresolved</a></li>
-          </ul>
-        </div>
-
-        <button type="button" class="btn btn-default">
-           Assign <span class="glyphicon glyphicon-folder-close"></span>
-        </button>
-
-        <button type="button" class="btn btn-default">
-          Remove <span class="glyphicon glyphicon-trash"></span>
-        </button>
-
-        <span class="pull-right">
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <b>1</b>-<b>50</b>  of <b>265</b> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Newest</a></li>
-              <li><a href="#">Oldest</a></li>
-            </ul>
-          </div>
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-chevron-left"></span>
-            </button>
-           
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-chevron-right"></span>
-            </button>
-          </div>
-        </span>
-      </div>
-    </div>
-  </div>
+  <master-Top-Menu 
+    title=" 'Manage Users' " 
+    selected-Data="selected_users"
+    data="users"
+    button-Functions="button_functions" 
+    back-Function="back"
+    params = "params"
+  >
+  </master-Top-Menu>
 </div>
 <div class="panel ">
   <div class="panel-body">
@@ -150,33 +37,9 @@
         <master-Alerts alerts="alerts">
         </master-Alerts>
       
-        <!-- Tab panes -->
+        <master-Table columns="columns" data="users" table-Row-Click="details" table-Row-Select="toggle_select" search-Query="params.query">
+        </master-Table>
            
-        <table class="table table-hover">
-          <thead>
-            <tr>
-
-              <td>Select</td>
-              <td>Name</td>
-              <td>Date Joined</td>
-              <td>Role</td>
-
-            </tr>
-   
-          </thead>
-          <tbody>
-            <tr ng-repeat="_user in users" >
-
-              <td><input type="checkbox" ng-click="toggle_select($index)" style="position:absolute; z-index:100;"><span width="100%" ng-click="details($index)"> </span></td>
-              <td ng-click="details($index)">{{_user.first_name + " " + _user.last_name}}</td>
-              <td ng-click="details($index)"> {{_user.date_joined}}</td>
-              <td ng-click="details($index)">{{_user.role.name}}</td>
-
-            </tr>
- 
-          </tbody>
-        </table>
-
       </div>
 
     </div>

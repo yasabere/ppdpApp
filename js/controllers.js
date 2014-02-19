@@ -179,7 +179,12 @@ ppdpControllers.controller('autosuggest', ['$scope',
     console.log('autosuggest');
     
     $scope.select = function(option){
-      $scope.model = option.name;
+      if (option.name === undefined){
+        $scope.model = option['$scope.name_field'];
+      }
+      else{
+        $scope.model = option.name;
+      }
     };
     
    
@@ -447,14 +452,29 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
 /** Controller: dropdown */ 
 ppdpControllers.controller('dropdown', ['$scope',
   function($scope) {
-    $scope.selected_value = $scope.options[0].text;
-    $scope.ngModel =  $scope.options[0].value;
     
+    $scope.selected_value = $scope.placeholder;
+    
+    if ($scope.text_field === undefined || $scope.text_field === ''){
+      $scope.text_field = 'text';
+    }
+    
+    if ($scope.value_field === undefined || $scope.value_field === ''){
+      $scope.value_field = 'value';
+    }
+    
+    if ($scope.ngModel === ''){
+      if ($scope.placeholder === undefined){
+        $scope.selected_value = $scope.options[0][$scope.text_field];
+        $scope.ngModel =  $scope.options[0][$scope.value_field];
+      }
+    }
+  
     console.log('dropdown');
     
     $scope.select = function(option){
-      $scope.selected_value = option.text;
-      $scope.ngModel = option.value;
+      $scope.selected_value = option[$scope.text_field];
+      $scope.ngModel = option[$scope.value_field];
     };
     
    

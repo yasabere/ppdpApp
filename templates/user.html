@@ -92,31 +92,24 @@
            </div>
 
           <label>Role</label><br/>
-          <div class="btn-group">
-              
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              Select a Role <span class="caret"></span>
-            </button>
-      
-            <ul class="dropdown-menu" role="menu">
-              <li ng-repeat="role in roles"><a href="#">{{role.name}}</a></li>
-            </ul>
-          </div>
+          <dropdown 
+            ng-Model = "user.active" 
+            options = "roles"
+            placeholder = " 'Select a Role' "
+            text-field = "'name'"
+            value-field = "'rold_id'"
+          >
+          </dropdown>
           <br/>
           <br/>
     
           <label>Status</label><br/>
-          <div class="btn-group">
-            
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              Set active Status <span class="caret"></span>
-            </button>
-    
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Active</a></li>
-              <li><a href="#">Non-active</a></li>
-            </ul>
-          </div>
+          <dropdown 
+            ng-Model = "user.active" 
+            options = "[{text:'Active', value:true, class:''}, {text:'Non-active', value:false, class:''}]"
+            placeholder = " 'Set active status' "
+          >
+          </dropdown>
           <br/>
           <br/>
   

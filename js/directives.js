@@ -88,9 +88,16 @@ ppdpDirectives.directive('dropdown', function(){
      scope: {
       ngModel : "=ngModel",
       options : "=options",
-      extraOptions : "=extraOptions"
+      extraOptions : "=extraOptions",
+      placeholder : "=placeholder",
+      text_field : "=textField",
+      value_field : "=valueField"
      },
      controller:'dropdown',
+     compile: function(element, attrs){
+       if (!attrs.textField) { attrs.textField = 'text'; }
+       if (!attrs.valueField) { attrs.valueField = 'value'; }
+    },
    } 
 });
 
@@ -102,7 +109,8 @@ ppdpDirectives.directive('autoSuggest', function(){
      scope: {
       model : "=ngModel",
       options : "=options",
-      placeholder : "=placeholder"
+      placeholder : "=placeholder",
+      name_field : "=valueField"
      },
      controller:'autosuggest',
    } 

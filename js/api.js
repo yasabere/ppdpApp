@@ -455,7 +455,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
     //make documents for system
     var _documentModel = new sharedService.documentModel();
 
-    var statuses = ['Requires Tie-break', 'Requires coding', 'Requires 1 Code', "Complete","Published"]
+    var statuses = ['Requires Tie-break', 'Requires coding', 'Requires 1 Code', "Complete","Published"];
 
     var _document = new documentObj();
     _document.headline = "Philly area's smaller banks not hurrying to repay TARP funds";

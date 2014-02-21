@@ -75,6 +75,7 @@ ppdpDirectives.directive('masterTopMenu', function(ppdpAPIService){
        back_function : '=backFunction',
        data: '=data',
        params: '=params',
+       totalrows: '=totalRows',
      },
      controller: 'topmenu',
    } 

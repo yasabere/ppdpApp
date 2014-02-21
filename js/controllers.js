@@ -962,21 +962,47 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
     
-    //call retrieve api function
-    ppdpAPIService.doc.retrieve({}).
-      success(function(data, status) {
-
-        //load data into users
-        $scope.documents = data;
-        
-      }).
-      error(function(data, status) {
-        $scope.alerts.push({
-          message:'Trouble connecting to server.',
-          level:'warning',
-          debug_data:status+ ' : ' + data
-        });
-    });
+    /**
+     * update_results() Updates document data with new search 
+     *
+     * @return NULL
+     */
+    $scope.update_results = function(){
+      //call retrieve api function
+      ppdpAPIService.doc.retrieve($scope.params).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.documents = data;
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+      
+      //call retrieve api function get total num
+      ppdpAPIService.doc.totalNum({query:$scope.params.query}).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.totalRows = data.totalnum;
+          console.log($scope.totalRows)
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+    }
+    
+    $scope.update_results();
     
     console.log($scope);
     
@@ -1076,6 +1102,17 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         },
         attributes:'',
         field_text: 'assigned'
+      },
+      {
+        text:'ID',
+        value: function(row){
+          return row.id;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'id'
       }
     ];
 
@@ -1118,7 +1155,18 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       $location.path("/newsclip/"+id);
     }
 
-    
+    /**
+     * 'params' change event
+     * 
+     * when params changes page should change to newsclip with id equaling offset id
+     * 
+     */
+    $scope.$watch('params', function() {
+      
+      console.log('shit changed');
+      $scope.update_results();
+      return $scope.params;
+    }, true); // initialize the watch
   }]
 );
 
@@ -1196,7 +1244,8 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
     
     console.log('topmenu');
     
-    $scope.displayed_limit = Math.min($scope.data.length - 1,$scope.params.offset+$scope.params.limit);
+    $scope.displayed_limit = Math.min($scope.num_rows - 1,$scope.params.offset+$scope.params.limit);
+    $scope.num_rows = parseInt(($scope.totalrows !== undefined) ? $scope.totalrows : $scope.data.length);
 
     /**
      * next_page() increment view of downcumets to next set
@@ -1204,10 +1253,10 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
      * @return NULL
      */
     $scope.next_page = function(){
-      if ($scope.params.offset + $scope.params.limit < $scope.data.length){
-        $scope.params.offset = Math.min($scope.data.length,$scope.params.offset+$scope.params.limit);
+      if ($scope.params.offset + $scope.params.limit < $scope.num_rows){
+        $scope.params.offset = Math.min($scope.num_rows,$scope.params.offset+$scope.params.limit);
       }
-      $scope.displayed_limit = Math.min($scope.data.length - 1,$scope.params.offset+$scope.params.limit);
+      $scope.displayed_limit = Math.min($scope.num_rows - 1,$scope.params.offset+$scope.params.limit);
     };
     
     /**
@@ -1217,7 +1266,7 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
      */
     $scope.previous_page = function(){
       $scope.params.offset = Math.max(0,$scope.params.offset-$scope.params.limit);
-      $scope.displayed_limit = Math.min($scope.data.length - 1,$scope.params.offset+$scope.params.limit);
+      $scope.displayed_limit = Math.min($scope.num_rows - 1,$scope.params.offset+$scope.params.limit);
     };
     
     /**
@@ -1226,9 +1275,13 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
      * when params.offset changes page should change to newsclip with id equaling offset id
      * 
      */
-    $scope.$watch('data.length', function() {
-      $scope.displayed_limit = Math.min($scope.data.length - 1,$scope.params.offset+$scope.params.limit);
+    $scope.$watch('num_rows', function() {
+      $scope.displayed_limit = Math.min($scope.num_rows - 1,$scope.params.offset+$scope.params.limit);
     }); // initialize the watch
+    
+    $scope.$watch('totalrows', function(){
+      $scope.num_rows = parseInt(($scope.totalrows !== undefined) ? $scope.totalrows : $scope.data.length);
+    });
     
   }]
 );

@@ -252,6 +252,16 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
         
         return $http(request);
       }
+      
+      this.totalNum = function(){
+        var request = {
+          method: 'GET',
+          url: api_url + 'document/totalnum'
+        };
+        
+        return $http(request);
+      }
+      
     }
     sharedService.doc = new sharedService.documentModel();
 
@@ -676,13 +686,28 @@ ppdpAPI.run(function($httpBackend) {
   $httpBackend.whenGET('document/retrieve').respond(function(method,url,data) {
     console.log("Retrieving document");
     
-    var return_data = documents;
+    var return_data = documents.slice(0);
+    var offset = 0;
+    var limit = 50;
     
     data = angular.fromJson(data);
     
     if (data.id){
       return_data = return_data.slice(data.id,data.id+1);
-    } 
+    }
+    else{
+      
+      if ( data.offset !== undefined){
+        offset = data.offset;
+      }
+      
+      if ( data.limit !== undefined){
+        limit = data.limit;
+      }
+      
+      return_data = return_data.slice(offset,offset+limit);
+      
+    }
     
     console.log(return_data);
     
@@ -701,6 +726,20 @@ ppdpAPI.run(function($httpBackend) {
     
     documents.splice(documents[angular.fromJson(data).id], 1);
     return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('document/totalnum').respond(function(method,url,data) {
+    console.log("Retrieving total num");
+    
+    var return_data = documents.slice(0);
+    var offset = 0;
+    var limit = 50;
+    
+    data = angular.fromJson(data);
+
+    console.log(data);
+
+    return [200, {totalnum : return_data.length}, {}];
   });
   
   //file

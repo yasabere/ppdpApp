@@ -7,6 +7,7 @@
     button-Functions="button_functions" 
     back-Function="back"
     params = "params"
+    total-rows=" totalRows "
   >
   </master-Top-Menu>
 </div>
@@ -81,7 +82,7 @@
   
               <div class="form-group">
                 <label for="txtheadline">Headline</label> <span class="text-danger">*</span>
-                <textarea id="txtheadline" class="form-control" rows="2" ng-model="doc.headline" required></textarea>
+                <textarea name="headline" id="txtheadline" class="form-control" rows="2" ng-model="doc.headline" required></textarea>
               </div>
               <div class="form-group">
                 <label for="txtabstract">Abstract</label> <span class="text-danger">*</span>

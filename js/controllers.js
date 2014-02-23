@@ -764,36 +764,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     console.log('newsclip');
     
     //global variables
-    $scope.doc = {};
-    $scope.params = {
-      offset:parseInt($routeParams.docId),
-      limit:1,
-      query:''
-    }
-    
-    // TODO: -- swap out for something that makes sense
-    $scope.tiebreaker = false;
-    
-    //alerts to be displayed on screen
-    $scope.alerts = [];
-    
-    //news papers to be displayed in 'Newspaper' dropdown
-    $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
-    
-    //get number of documents
-    $scope.documents = ppdpAPIService.doc.retrieve({}).
-      success(function(data, status) {
-
-        //load data into users
-        $scope.documents = data;
-        
-      });
-    
-    // set the directions to show up on page
-    $scope.directions = [];
-    $scope.directions.push('Edit information');
-    
-    //json representation of 
+    //document variable which represents the loaded document
     $scope.doc = {
         abstract:'',
         comments:'',
@@ -805,21 +776,86 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
         type:'',
     };
     
-    //call retrieve api function to load current doc
-    ppdpAPIService.doc.retrieve({id:$routeParams.docId}).
-      success(function(data, status) {
-
-        //load data into users
-        $scope.doc = data[0];
-        
-      }).
-      error(function(data, status) {
-        $scope.alerts.push({
-          message:'Trouble connecting to server.',
-          level:'warning',
-          debug_data:status+ ' : ' + data
-        });
+    //variable to keep track of recently searched documents for navigation 
+    $scope.documents = [];
+    
+    //keep track of url variables
+    $scope.old_params = jQuery.extend(true, {}, $routeParams);
+    $scope.params = jQuery.extend(true, {}, $routeParams);
+    jQuery.extend(true, $scope.params, {
+      offset:parseInt($routeParams.docId),
+      limit:1,
+      query:''
     });
+    
+    // TODO: -- swap out for something that makes sense
+    $scope.tiebreaker = false;
+    
+    //alerts to be displayed on screen
+    $scope.alerts = [];
+    
+    //news papers to be displayed in 'Newspaper' dropdown
+    $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
+    
+    // set the directions to show up on page
+    $scope.directions = [];
+    $scope.directions.push('Edit information');
+
+    /**
+     * update_results() Updates document data with new search 
+     *
+     * @return NULL
+     */
+    $scope.update_results = function(){
+      
+      //retrieve a list of documents based off of what is in the uri parameters 
+      ppdpAPIService.doc.retrieve({offset:0, limit:$routeParams.docId+1, query:$scope.old_params.query}).
+        success(function(data, status) {
+
+          $scope.documents = data;
+          
+          //get data for doc
+          ppdpAPIService.doc.retrieve({id:data[$routeParams.docId].id}).
+            success(function(data, status) {
+              //load data into doc
+              $scope.doc = jQuery.extend(true, {}, data[0]);
+            }).
+            error(function(data, status) {
+              $scope.alerts.push({
+                message:'Trouble connecting to server.',
+                level:'warning',
+                debug_data:status+ ' : ' + data
+              });
+          });
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+      
+      //call retrieve api function get total num
+      ppdpAPIService.doc.totalNum({query:$routeParams.query}).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.totalRows = data.totalnum;
+          console.log($scope.totalRows);
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+    }
+    
+    $scope.update_results();
 
     /** directive masterTopMenu data. 
      *  
@@ -847,7 +883,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
      */
     $scope.back = function(){
       console.log("back");
-      $location.path("/newsclips");
+      $location.path("/newsclips").search($scope.old_params);
     }
     
     /**
@@ -950,11 +986,12 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.query = "";
     $scope.alerts = [];
 
-    $scope.params = {
+    $scope.params = jQuery.extend(true, {}, $routeParams );
+    jQuery.extend($scope.params, {
       offset:0,
       limit:5,
-      query:''
-    }
+    });
+    
     //$scope.num_items
 
     // set the directions to show up on page
@@ -971,7 +1008,6 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       //call retrieve api function
       ppdpAPIService.doc.retrieve($scope.params).
         success(function(data, status) {
-  
           //load data into users
           $scope.documents = data;
           
@@ -985,12 +1021,12 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       });
       
       //call retrieve api function get total num
-      ppdpAPIService.doc.totalNum({query:$scope.params.query}).
+      ppdpAPIService.doc.totalNum($scope.params).
         success(function(data, status) {
   
           //load data into users
           $scope.totalRows = data.totalnum;
-          console.log($scope.totalRows)
+          console.log($scope.totalRows);
           
         }).
         error(function(data, status) {
@@ -1003,8 +1039,6 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     }
     
     $scope.update_results();
-    
-    console.log($scope);
     
     /** directive masterTopMenu data. 
      *  
@@ -1152,21 +1186,25 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
      * @return NULL
      */
     $scope.details = function(id){
-      $location.path("/newsclip/"+id);
+      console.log($scope.params);
+      $location.path("/newsclip/"+(id+$scope.params.offset)).search($scope.params);
     }
 
     /**
      * 'params' change event
      * 
      * when params changes page should change to newsclip with id equaling offset id
+     * This will also upate the query string
      * 
      */
     $scope.$watch('params', function() {
       
       console.log('shit changed');
       $scope.update_results();
+      console.log($scope.params);
       return $scope.params;
     }, true); // initialize the watch
+    
   }]
 );
 
@@ -1256,7 +1294,7 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
       if ($scope.params.offset + $scope.params.limit < $scope.num_rows){
         $scope.params.offset = Math.min($scope.num_rows,$scope.params.offset+$scope.params.limit);
       }
-      $scope.displayed_limit = Math.min($scope.num_rows - 1,$scope.params.offset+$scope.params.limit);
+      $scope.displayed_limit = Math.min($scope.num_rows ,$scope.params.offset+$scope.params.limit);
     };
     
     /**
@@ -1266,7 +1304,7 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
      */
     $scope.previous_page = function(){
       $scope.params.offset = Math.max(0,$scope.params.offset-$scope.params.limit);
-      $scope.displayed_limit = Math.min($scope.num_rows - 1,$scope.params.offset+$scope.params.limit);
+      $scope.displayed_limit = Math.min($scope.num_rows ,$scope.params.offset+$scope.params.limit);
     };
     
     /**
@@ -1276,7 +1314,7 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
      * 
      */
     $scope.$watch('num_rows', function() {
-      $scope.displayed_limit = Math.min($scope.num_rows - 1,$scope.params.offset+$scope.params.limit);
+      $scope.displayed_limit = Math.min($scope.num_rows ,$scope.params.offset+$scope.params.limit);
     }); // initialize the watch
     
     $scope.$watch('totalrows', function(){

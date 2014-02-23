@@ -1,7 +1,7 @@
 var ppdpAPI = angular.module('ppdpAPI', ['ngMockE2E']);
  
  //registers ppdpAPIService
-ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
+ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
     
     console.log("loaded");
     
@@ -253,10 +253,11 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
         return $http(request);
       }
       
-      this.totalNum = function(){
+      this.totalNum = function(params){
         var request = {
           method: 'GET',
-          url: api_url + 'document/totalnum'
+          url: api_url + 'document/totalnum',
+          data: params
         };
         
         return $http(request);
@@ -632,7 +633,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location,$q){
 
 //fake backend for unit testing
 
-ppdpAPI.run(function($httpBackend) {
+ppdpAPI.run(function($httpBackend, $filter) {
   
   //allow all template pages to not be intercepted by httpbackend
   var i = 0;
@@ -693,7 +694,7 @@ ppdpAPI.run(function($httpBackend) {
     data = angular.fromJson(data);
     
     if (data.id){
-      return_data = return_data.slice(data.id,data.id+1);
+      return_data = $filter('filter')(return_data,{id:data.id} );
     }
     else{
       
@@ -703,6 +704,10 @@ ppdpAPI.run(function($httpBackend) {
       
       if ( data.limit !== undefined){
         limit = data.limit;
+      }
+      
+      if ( data.query !== undefined){
+        return_data = $filter('filter')(return_data,data.query );
       }
       
       return_data = return_data.slice(offset,offset+limit);
@@ -736,6 +741,12 @@ ppdpAPI.run(function($httpBackend) {
     var limit = 50;
     
     data = angular.fromJson(data);
+    
+    console.log(data);
+    
+    if ( typeof data.query !== undefined){
+      return_data = $filter('filter')(return_data,data.query );
+    }
 
     console.log(data);
 

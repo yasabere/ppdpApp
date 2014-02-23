@@ -61,9 +61,9 @@ ppdpApp.config(['$routeProvider',
         templateUrl: 'templates/newsclip.html',
         controller: 'newsclip'
       }).
-      when('/newclips', {
+      when('/newsclips', {
         templateUrl: 'templates/newsclips.html',
-        controller: 'newclips'
+        controller: 'newsclips'
       }).
       when('/sitemap', {
         templateUrl: 'templates/sitemap.html',

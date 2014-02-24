@@ -710,7 +710,7 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
           href: 'create_newsclip',
           path:'/create_newsclip'
         }],
-        path:'/'
+        path:['/','/newsclips']
       },
       {
         title: 'Batches',
@@ -750,9 +750,10 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
       ;
       console.log(has_link);
       
-      if (link.title == $location.path() || link.path == $location.path() || has_link == true){
+      if (link.title == $location.path() || ( link.path instanceof Array && $.inArray($location.path(),link.path) != -1 ) || link.path == $location.path() || has_link == true){
         link.class = 'active';
       }
+      
     });
 
   }]

@@ -92,7 +92,7 @@
 
               <div class="form-group">
                 <label for="txtcomments">Comments</label>
-                <textarea name="comments" id="txtcomments" class="form-control" rows="2" ng-model="doc.comments"></textarea>
+                <textarea name="comments" id="txtcomments" class="form-control" rows="2" ng-model="comments"></textarea>
               </div>
               <button type="button" class="btn btn-default" ng-click="back()">
                 Cancel
@@ -108,6 +108,8 @@
               
               <br/>
               <br/>
+              
+              {{comments}}
               
               <master-Alerts alerts="alerts">
               </master-Alerts>

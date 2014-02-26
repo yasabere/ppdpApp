@@ -708,9 +708,9 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
         menu:[{
           title: 'Create',
           href: 'create_newsclip',
-          path:'/create_newsclip'
+          path:['/create_newsclip','/newsclip']
         }],
-        path:['/','/newsclips']
+        path:['/','/newsclips','/newsclip/0']
       },
       {
         title: 'Batches',
@@ -734,6 +734,16 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
         path:'/assignments',
         menu:[]
       },
+      {
+        title: 'Users',
+        href: 'users',
+        path:'/users',
+        menu:[{
+          title: 'Add User',
+          href: 'create_user',
+          path:['/create_user']
+        }],
+      },
     ];
 
     //determins if menu item has been selected and if so it adds 'active class'
@@ -743,13 +753,11 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
       
       //console.log(link.menu);
       link.menu.forEach(function(sub_link) {
-        if (sub_link.title == $location.path() || sub_link.path == $location.path()){
+        if (sub_link.title == $location.path() || sub_link.path == $location.path() || ( sub_link.path instanceof Array && $.inArray($location.path(),sub_link.path) != -1 ) ){
           has_link = true;
         }
       });
-      ;
-      console.log(has_link);
-      
+
       if (link.title == $location.path() || ( link.path instanceof Array && $.inArray($location.path(),link.path) != -1 ) || link.path == $location.path() || has_link == true){
         link.class = 'active';
       }
@@ -1334,14 +1342,38 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
     $scope.alerts = [];
     
     $scope.user = {};
+    $scope.users = [];
     $scope.roles = ppdpAPIService.role.retrieve({});
     
+    //keep track of url variables
+    $scope.old_params = jQuery.extend(true, {}, $routeParams);
+    $scope.params = jQuery.extend(true, {}, $routeParams);
+    jQuery.extend(true, $scope.params, {
+      offset:parseInt($routeParams.userId),
+      limit:1,
+      query:''
+    });
+    
     //call retrieve api function
-    ppdpAPIService.user.retrieve({id:$routeParams.userId}).
+    ppdpAPIService.user.retrieve({offset:0, limit:$routeParams.userId+1, query:$scope.old_params.query}).
       success(function(data, status) {
 
         //load data into users
-        $scope.user = data[0];
+        $scope.users = data;
+          
+        //get data for doc
+        ppdpAPIService.user.retrieve({id:$scope.users[$routeParams.userId].id}).
+          success(function(data, status) {
+            //load data into doc
+            $scope.user = jQuery.extend(true, {}, data[0]);
+          }).
+          error(function(data, status) {
+            $scope.alerts.push({
+              message:'Trouble connecting to server.',
+              level:'warning',
+              debug_data:status+ ' : ' + data
+            });
+        });
         
       }).
       error(function(data, status) {
@@ -1352,6 +1384,36 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
         });
     });
     
+    //call retrieve api function get total num
+    ppdpAPIService.user.totalNum({query:$routeParams.query}).
+      success(function(data, status) {
+
+        //load data into users
+        $scope.totalRows = data.totalnum;
+        console.log($scope.totalRows);
+        
+      }).
+      error(function(data, status) {
+        $scope.alerts.push({
+          message:'Trouble connecting to server.',
+          level:'warning',
+          debug_data:status+ ' : ' + data
+        });
+    });
+    
+    /** directive masterTopMenu data. 
+     *  
+     *  buttons to show up in menu
+     * 
+     */
+    $scope.button_functions = [
+      {
+        text : 'Assign',
+        glyphicon : 'folder-close',
+        function_callback : function(){$('#assignModal').modal('toggle')}, 
+      },
+    ];
+    
     /**
      * back() redirect to users
      *
@@ -1360,7 +1422,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
      */
     $scope.back = function(){
       console.log("back");
-      $location.path("/users");
+      $location.path("/users").search($scope.old_params);
     }
     
     $scope.save = function(){
@@ -1432,32 +1494,57 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.users = [];
     $scope.selected_users = [];
     $scope.rows_selected = false;
-    $scope.params = {
-      offset:0,
-      limit:5,
-      query:''
-    }
+    
+    $scope.params = jQuery.extend(true, {offset:0,limit:10}, $routeParams );
 
     // set the directions to show up on page
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
     
-    //call retrieve api function
-    ppdpAPIService.user.retrieve({}).
-      success(function(data, status) {
 
-        //load data into users
-        $scope.users = data;
+    /**
+     * update_results() Updates document data with new search 
+     *
+     * @return NULL
+     */
+    $scope.update_results = function(){
+      //call retrieve api function
+      ppdpAPIService.user.retrieve($scope.params).
+        success(function(data, status) {
+
+          //load data into users
+          $scope.users = data;
+          
         
-      }).
+        }).
       error(function(data, status) {
         $scope.alerts.push({
           message:'Trouble connecting to server.',
           level:'warning',
           debug_data:status+ ' : ' + data
         });
-    });
+      });
+      
+      //call retrieve api function get total num
+      ppdpAPIService.user.totalNum($scope.params).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.totalRows = data.totalnum;
+          console.log($scope.totalRows);
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+        });
+    }
+    
+    $scope.update_results();
     
     /** directive masterTopMenu data. 
      *  
@@ -1470,11 +1557,6 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
         glyphicon : 'folder-close',
         function_callback : function(){$('#assignModal').modal('toggle')}, 
       },
-      {
-        text : 'Remove',
-        glyphicon : 'trash',
-        function_callback : function(){$('#deleteModal').modal('toggle')}, 
-      }
     ];
     
     /** directive masterTable data. 
@@ -1559,8 +1641,23 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
      * @return NULL
      */
     $scope.details = function(id){
-      $location.path("/user/"+id);
+      $location.path("/user/"+id).search($scope.params);
     }
+    
+    /**
+     * 'params' change event
+     * 
+     * when params changes page should change to newsclip with id equaling offset id
+     * This will also upate the query string
+     * 
+     */
+    $scope.$watch('params', function() {
+      
+      console.log('shit changed');
+      $scope.update_results();
+      console.log($scope.params);
+      return $scope.params;
+    }, true); // initialize the watch
     
   }]
 );

@@ -127,14 +127,25 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
     /** Model Functions */
     sharedService.assignmentModel = function(){
       this.create = function(_assignment){
-        sharedService.assignments.push(_assignment);
+        var request = {
+          method: 'POST',
+          url: api_url + 'assignment/create',
+          data: _assignment,
+        };
+        
+        return $http(request);
 
-        return true;
       }
 
       this.retrieve = function(_assignment){
-        console.log(sharedService.assignments[0]);
-        return sharedService.assignments;
+        var request = {
+          method: 'GET',
+          url: api_url + 'assignment/retrieve',
+          data: _assignment,
+        };
+        
+        return $http(request); 
+  
       }
 
       this.update = function(_assignment){
@@ -150,14 +161,22 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.delete = function(_assignment){
         var request = {
           method: 'POST',
-          url: api_url + 'assignment/update',
+          url: api_url + 'assignment/delete',
           data: _assignment,
         };
         
         return $http(request);
       }
 
-      
+      this.totalNum = function(params){
+        var request = {
+          method: 'GET',
+          url: api_url + 'assignment/totalnum',
+          data: params
+        };
+        
+        return $http(request);
+      }
       
     }
     sharedService.assignment = new sharedService.assignmentModel();
@@ -444,9 +463,31 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
     
     sharedService.accountModel = function(){
         
-      this.login = function(_user){
-        console.log(sharedService.users[0]);
-        return sharedService.users;
+      this.login = function(_account){
+        var request = {
+          method: 'GET',
+          url: api_url + 'account/login',
+        };
+        
+        return $http(request);
+      }
+      
+      this.logout = function(_account){
+        var request = {
+          method: 'GET',
+          url: api_url + 'account/logout',
+        };
+        
+        return $http(request);
+      }
+      
+      this.isloggedin = function(){
+        var request = {
+          method: 'GET',
+          url: api_url + 'account/isloggedin',
+        };
+        
+        return $http(request);
       }
 
     }

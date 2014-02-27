@@ -34,10 +34,10 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
     // Global variables for controller
     
     // FIXME: currently have to instantiate
-    var assignmentModel = new ppdpAPIService.assignmentModel();
-    $scope.assignments = assignmentModel.retrieve({});
+    $scope.assignments = [];
     $scope.selected_assignments = [];
     $scope.rows_selected = false;
+    $scope.totalRows = 0;
     
     $scope.params = {
       offset:0,
@@ -49,6 +49,48 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
+    
+    /**
+     * update_results() Updates assigment data with new search 
+     *
+     * @return NULL
+     */
+    $scope.update_results = function(){
+      //call retrieve api function
+      ppdpAPIService.assignment.retrieve($scope.params).
+        success(function(data, status) {
+
+          //load data into users
+          $scope.assignments = data;
+        
+        }).
+      error(function(data, status) {
+        $scope.alerts.push({
+          message:'Trouble connecting to server.',
+          level:'warning',
+          debug_data:status+ ' : ' + data
+        });
+      });
+      
+      //call retrieve api function get total num
+      ppdpAPIService.assignment.totalNum($scope.params).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.totalRows = data.totalnum;
+          console.log($scope.totalRows);
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+        });
+    }
+    
+    $scope.update_results();
     
     /** directive masterTopMenu data. 
      *  
@@ -169,6 +211,19 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
     
     console.log($scope.assignments);
     
+    /**
+     * 'params' change event
+     * 
+     * when params changes page should change to newsclip with id equaling offset id
+     * This will also upate the query string
+     * 
+     */
+    $scope.$watch('params', function() {
+      
+      $scope.update_results();
+      return $scope.params;
+    }, true); // initialize the watch
+    
   }]
 );
 
@@ -208,10 +263,10 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     // Global variables for controller
     
     // FIXME: currently have to instantiate
-    var batchModel = new ppdpAPIService.batchModel();
-    $scope.batches = batchModel.retrieve({});
+    $scope.batches = [];
     $scope.selected_batches = [];
     $scope.rows_selected = false;
+    $scope.totalRows = 0;
     
     $scope.params = {
       offset:0,
@@ -223,6 +278,49 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
+    
+    /**
+     * update_results() Updates batch data with new search 
+     *
+     * @return NULL
+     */
+    $scope.update_results = function(){
+      //call retrieve api function
+      ppdpAPIService.batch.retrieve($scope.params).
+        success(function(data, status) {
+
+          //load data into users
+          $scope.batches = data;
+          
+        
+        }).
+      error(function(data, status) {
+        $scope.alerts.push({
+          message:'Trouble connecting to server.',
+          level:'warning',
+          debug_data:status+ ' : ' + data
+        });
+      });
+      
+      //call retrieve api function get total num
+      ppdpAPIService.batch.totalNum($scope.params).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.totalRows = data.totalnum;
+          console.log($scope.totalRows);
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+        });
+    }
+    
+    $scope.update_results();
     
     /** directive masterTopMenu data. 
      *  
@@ -339,6 +437,18 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.details = function(){
       $location.path("batch.html");
     }
+    
+    /**
+     * 'params' change event
+     * 
+     * when params changes page should change to newsclip with id equaling offset id
+     * This will also upate the query string
+     * 
+     */
+    $scope.$watch('params', function() {
+      $scope.update_results();
+      return $scope.params;
+    }, true); // initialize the watch
   }]
 );
 
@@ -1255,6 +1365,16 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.details = function(id){
       console.log($scope.params);
       $location.path("/newsclip/"+(id+$scope.params.offset)).search($scope.params);
+    }
+    
+    /**
+     * delete() deletes selected items
+     * 
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.delete = function(id){
+      console.log('deleting newsclip' id);
     }
 
     /**

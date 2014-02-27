@@ -714,18 +714,94 @@ ppdpAPI.run(function($httpBackend, $filter) {
   var users = [];
 
   //assignment
+  $httpBackend.whenPOST('assignment/create').respond(function(method,url,data) {
+    console.log("Creating assignment");
+    data = angular.fromJson(data);
+    data.id = assignments.length;
+    assignments.push(data);
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('assignment/retrieve').respond(function(method,url,data) {
+    console.log("Retrieving assignment");
+    
+    var return_data = assignments.slice(0);
+    var offset = 0;
+    var limit = 50;
+    
+    data = angular.fromJson(data);
+    
+    if (data.id){
+      return_data = $filter('filter')(return_data,{id:data.id} );
+    }
+    else{
+      
+      if ( data.offset !== undefined){
+        offset = data.offset;
+      }
+      
+      if ( data.limit !== undefined){
+        limit = data.limit;
+      }
+      
+      if ( data.query !== undefined){
+        return_data = $filter('filter')(return_data,data.query );
+      }
+      
+      return_data = return_data.slice(offset,offset+limit);
+      
+    }
+    
+    console.log(return_data);
+    
+    return [200, return_data, {}];
+  });
+  
+  $httpBackend.whenPOST('assignment/update').respond(function(method,url,data) {
+    console.log("Updating assignment");
+    data = angular.fromJson(data);
+    assignments[data.id] = data;
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenPOST('assignment/delete').respond(function(method,url,data) {
+    console.log("Deleting assignment");
+    
+    assignments.splice(assignments[angular.fromJson(data).id], 1);
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('assignment/totalnum').respond(function(method,url,data) {
+    console.log("Retrieving total num");
+    
+    var return_data = assignments.slice(0);
+    var offset = 0;
+    var limit = 50;
+    
+    data = angular.fromJson(data);
+    
+    console.log(data);
+    
+    if ( typeof data.query !== undefined){
+      return_data = $filter('filter')(return_data,data.query );
+    }
+
+    console.log(data);
+
+    return [200, {totalnum : return_data.length}, {}];
+  });
   
   //batch
   $httpBackend.whenPOST('batch/create').respond(function(method,url,data) {
-    console.log("Creating document");
+    console.log("Creating batch");
     data = angular.fromJson(data);
     data.id = batches.length;
-    documents.push(data);
+    batches.push(data);
     return [200, {}, {}];
   });
   
   $httpBackend.whenGET('batch/retrieve').respond(function(method,url,data) {
-    console.log("Retrieving document");
+    console.log("Retrieving batch");
     
     var return_data = batches.slice(0);
     var offset = 0;
@@ -794,6 +870,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
   });
   
   //document
+  
   $httpBackend.whenPOST('document/create').respond(function(method,url,data) {
     console.log("Creating document");
     data = angular.fromJson(data);

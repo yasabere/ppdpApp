@@ -662,9 +662,10 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
      * @param <String> index
      * @return NULL
      */
-    $scope.details = function(option){
+    $scope.details = function(id,option){
       $('#downloadModal').modal('toggle');
-      $scope.downloadName = option.name;
+      $scope.downloadName = $scope.files[id].name;
+      $scope.downloadLink = $scope.files[id].href;
     }
     
     /**

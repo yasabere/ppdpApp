@@ -73,6 +73,7 @@ ppdpDirectives.directive('masterTopMenu', function(ppdpAPIService){
        default_button_functions : '=defaultButtonFunctions',
        button_functions : '=buttonFunctions',
        back_function : '=backFunction',
+       toggle_select_all_function :'=toggleSelectAllFunction',
        data: '=data',
        params: '=params',
        totalrows: '=totalRows',

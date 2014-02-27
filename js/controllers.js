@@ -482,8 +482,8 @@ ppdpControllers.controller('dropdown', ['$scope',
 );
 
 /** Controller: files */
-ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams, ppdpAPIService) {
+ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
     
     // Global variables for controller
     
@@ -662,9 +662,25 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
      * @param <String> index
      * @return NULL
      */
-    $scope.details = function(){
+    $scope.details = function(option){
       $('#downloadModal').modal('toggle');
+      $scope.downloadName = option.name;
     }
+    
+    /**
+     * 'offset' change event
+     * 
+     * when params.offset changes page should change to newsclip with id equaling offset id
+     * 
+     */
+    $scope.$watch('params', function() {
+      
+      console.log('shit changed');
+      $scope.update_results();
+      console.log($scope.params);
+      return $scope.params;
+    }, true); // initialize the watch
+    
   }]
 );
 

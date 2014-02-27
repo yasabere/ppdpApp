@@ -873,16 +873,20 @@ ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppd
     $scope.login = function(){
       ppdpAPIService.account.login($scope.account).
         success(function(data, status){
+          
+          //show user alert stating they have successfully logged in
           $scope.alerts.push({
-            message:'Trouble connecting to server.',
-            level:'warning',
-            debug_data:status+ ' : ' + data
+            message:'You have successfully logged in',
+            level:'success',
           });
+          
+          //send user to assignments page
+          $location.path('assignments');
         }).
         error(function(data, status){
           $scope.alerts.push({
             message:'Trouble connecting to server.',
-            level:'warning',
+            level:'danger',
             debug_data:status+ ' : ' + data
           });
         });

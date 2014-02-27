@@ -1374,7 +1374,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
      * @return NULL
      */
     $scope.delete = function(id){
-      console.log('deleting newsclip' id);
+      console.log('deleting newsclip' + id);
     }
 
     /**

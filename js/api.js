@@ -753,6 +753,20 @@ ppdpAPI.run(function($httpBackend, $filter) {
   var newspapers = [];
   var roles = [];
   var users = [];
+  //var account = {password:''};
+  var loggedinuser = {};
+  var loggedin = false;
+  
+  //account
+  $httpBackend.whenGET('account/login').respond(function(method,url,data) {
+    loggedin = true;
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('account/logout').respond(function(method,url,data) {
+    loggedin = false;
+    return [200, {}, {}];
+  });
 
   //assignment
   $httpBackend.whenPOST('assignment/create').respond(function(method,url,data) {

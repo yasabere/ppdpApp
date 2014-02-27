@@ -164,13 +164,23 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
     sharedService.batchModel = function(){
       this.create = function(_batch){
-        sharedService.batches.push(_batch);
-        return true;
+        var request = {
+          method: 'POST',
+          url: api_url + 'batch/create',
+          data: _batch,
+        };
+        
+        return $http(request);
       }
 
       this.retrieve = function(_batch){
-        console.log(sharedService.batches[0]);
-        return sharedService.batches;
+        var request = {
+          method: 'GET',
+          url: api_url + 'batch/retrieve',
+          data: _batch,
+        };
+        
+        return $http(request);
       }
 
       this.update = function(_batch){
@@ -191,6 +201,16 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         };
         
         return $http(request);  
+      }
+      
+      this.totalNum = function(params){
+        var request = {
+          method: 'GET',
+          url: api_url + 'batch/totalnum',
+          data: params
+        };
+        
+        return $http(request);
       }
     }
     sharedService.batch = new sharedService.batchModel();
@@ -380,12 +400,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       }
 
       this.retrieve = function(_user){
-        /*  
-        if (_user.id){
-            return sharedService.users.slice(_user.id,_user.id+1);
-        } 
-        */
-        
+
         var request = {
           method: 'GET',
           url: api_url + 'user/retrieve',
@@ -701,6 +716,82 @@ ppdpAPI.run(function($httpBackend, $filter) {
   //assignment
   
   //batch
+  $httpBackend.whenPOST('batch/create').respond(function(method,url,data) {
+    console.log("Creating document");
+    data = angular.fromJson(data);
+    data.id = batches.length;
+    documents.push(data);
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('batch/retrieve').respond(function(method,url,data) {
+    console.log("Retrieving document");
+    
+    var return_data = batches.slice(0);
+    var offset = 0;
+    var limit = 50;
+    
+    data = angular.fromJson(data);
+    
+    if (data.id){
+      return_data = $filter('filter')(return_data,{id:data.id} );
+    }
+    else{
+      
+      if ( data.offset !== undefined){
+        offset = data.offset;
+      }
+      
+      if ( data.limit !== undefined){
+        limit = data.limit;
+      }
+      
+      if ( data.query !== undefined){
+        return_data = $filter('filter')(return_data,data.query );
+      }
+      
+      return_data = return_data.slice(offset,offset+limit);
+      
+    }
+    
+    console.log(return_data);
+    
+    return [200, return_data, {}];
+  });
+  
+  $httpBackend.whenPOST('batch/update').respond(function(method,url,data) {
+    console.log("Updating batch");
+    data = angular.fromJson(data);
+    batches[data.id] = data;
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenPOST('batch/delete').respond(function(method,url,data) {
+    console.log("Deleting document");
+    
+    batches.splice(documents[angular.fromJson(data).id], 1);
+    return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('batch/totalnum').respond(function(method,url,data) {
+    console.log("Retrieving total num");
+    
+    var return_data = batches.slice(0);
+    var offset = 0;
+    var limit = 50;
+    
+    data = angular.fromJson(data);
+    
+    console.log(data);
+    
+    if ( typeof data.query !== undefined){
+      return_data = $filter('filter')(return_data,data.query );
+    }
+
+    console.log(data);
+
+    return [200, {totalnum : return_data.length}, {}];
+  });
   
   //document
   $httpBackend.whenPOST('document/create').respond(function(method,url,data) {

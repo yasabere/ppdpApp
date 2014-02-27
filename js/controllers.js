@@ -857,8 +857,36 @@ ppdpControllers.controller('home', ['$scope', '$routeParams', 'ppdpAPIService', 
 /** Controller: login */
 ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppdpAPIService',
   function($scope, $routeParams, $location, ppdpAPIService) {
-    //$location.path('newclips');
     
+    // Global variables for controller
+    $scope.alerts = [];
+    $scope.account = {};
+    
+    /**
+     * login() tries to log user in with specified account data from scope. 
+     * If it was possible it changes page to assignments. If false it produces an alert saying
+     * it failed
+     * 
+     * @param NULL
+     * @returns NULL
+     */
+    $scope.login = function(){
+      ppdpAPIService.account.login($scope.account).
+        success(function(data, status){
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+        }).
+        error(function(data, status){
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+        });
+    }
     // TODO: -- need to implement
     
   }]

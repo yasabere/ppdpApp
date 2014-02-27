@@ -268,18 +268,25 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
     sharedService.fileModel = function(){
       this.create = function(_file){
-        sharedService.files.push(_file);
-        return true;
+        
+        var request = {
+          method: 'POST',
+          url: api_url + 'file/create',
+          data: _file,
+        };
+        
+        return $http(request);
       }
 
       this.retrieve = function(_file){
           
-        if (_file.id){
-            return sharedService.files.slice(_file.id,_file.id+1);
-        } 
-          
-        console.log(sharedService.files[0]);
-        return sharedService.files;
+        var request = {
+          method: 'GET',
+          url: api_url + 'file/retrieve',
+          data: _file,
+        };
+        
+        return $http(request);
       }
 
       this.update = function(_file){
@@ -297,6 +304,16 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url + 'file/delete',
           data: _file,
+        };
+        
+        return $http(request);
+      }
+      
+      this.totalNum = function(params){
+        var request = {
+          method: 'GET',
+          url: api_url + 'file/totalnum',
+          data: params
         };
         
         return $http(request);
@@ -773,15 +790,34 @@ ppdpAPI.run(function($httpBackend, $filter) {
   });
   
   $httpBackend.whenGET('file/retrieve').respond(function(method,url,data) {
-    console.log("Retrieving file");
+    console.log("Retrieving files");
     
-    var return_data = files;
+    var return_data = files.slice(0);
+    var offset = 0;
+    var limit = 50;
     
-    data = angular.fromJson(data)
+    data = angular.fromJson(data);
     
     if (data.id){
-      return_data = return_data.slice(data.id,data.id+1);
-    } 
+      return_data = $filter('filter')(return_data,{id:data.id} );
+    }
+    else{
+      
+      if ( data.offset !== undefined){
+        offset = data.offset;
+      }
+      
+      if ( data.limit !== undefined){
+        limit = data.limit;
+      }
+      
+      if ( data.query !== undefined){
+        return_data = $filter('filter')(return_data,data.query );
+      }
+      
+      return_data = return_data.slice(offset,offset+limit);
+      
+    }
     
     console.log(return_data);
     
@@ -800,6 +836,26 @@ ppdpAPI.run(function($httpBackend, $filter) {
     
     files.splice(files[angular.fromJson(data).id], 1);
     return [200, {}, {}];
+  });
+  
+  $httpBackend.whenGET('file/totalnum').respond(function(method,url,data) {
+    console.log("Retrieving total num");
+    
+    var return_data = files.slice(0);
+    var offset = 0;
+    var limit = 50;
+    
+    data = angular.fromJson(data);
+    
+    console.log(data);
+    
+    if ( typeof data.query !== undefined){
+      return_data = $filter('filter')(return_data,data.query );
+    }
+
+    console.log(data);
+
+    return [200, {totalnum : return_data.length}, {}];
   });
   
   //newspaper
@@ -892,7 +948,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
   $httpBackend.whenGET('user/retrieve').respond(function(method,url,data) {
     console.log("Retrieving user");
     
-    var return_data = users.slice(0);;
+    var return_data = users.slice(0);
     
     var offset = 0;
     var limit = 50;

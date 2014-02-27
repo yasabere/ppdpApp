@@ -488,10 +488,10 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     // Global variables for controller
     
     // FIXME: currently have to instantiate
-    var fileModel = new ppdpAPIService.fileModel();
-    $scope.files = fileModel.retrieve({});
+    $scope.files = [];
     $scope.selected_files = [];
     $scope.rows_selected = false;
+    $scope.totalRows = 0;
     
     $scope.params = {
       offset:0,
@@ -503,6 +503,47 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.directions = [];
     $scope.directions.push('Select file(s) to "Assign" or "Trash"');
     $scope.directions.push('Click file to download');
+    
+    /**
+     * update_results() Updates document data with new search 
+     *
+     * @return NULL
+     */
+    $scope.update_results = function(){
+      //call retrieve api function
+      ppdpAPIService.file.retrieve($scope.params).
+        success(function(data, status) {
+          //load data into files
+          $scope.files = data;
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+      
+      //call retrieve api function get total num
+      ppdpAPIService.file.totalNum($scope.params).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.totalRows = data.totalnum;
+          console.log($scope.totalRows);
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+    }
+    
+    $scope.update_results();
 
     /**
      * toggle_select() Update selected property of file and
@@ -1432,53 +1473,76 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
       $scope.alerts = [];
       
       //call update api function
-      ppdpAPIService.user.update($scope.user).
-        success(function(data, status) {
- 
-          //if succesful show message to user
-          $scope.alerts.push({
-            message:'Save successful!',
-            level:'success',  
-          }); 
-          
-        }).
-        error(function(data, status) {
-          
-          switch(status){
+      if ($scope.create_user_form.$invalid){
+        $scope.alerts.push({
+          message:'All fields with * must be filled in',
+          level:'danger',  
+        }); 
+      }
+      else{
+        ppdpAPIService.user.update($scope.user).
+          success(function(data, status) {
+   
+            //if succesful show message to user
+            $scope.alerts.push({
+              message:'Save successful!',
+              level:'success',  
+            }); 
             
-            case 403:
-              
-              $scope.alerts.push({
-                message:'Trouble connecting to server.',
-                level:'warning',  
-                debug_data: status+ ' : ' + data
-              });
-              
-              break;
+            console.log($scope.user);
             
-            case 404:
-              
-              $scope.alerts.push({
-                message:'Trouble connecting to server.',
-                level:'warning',
-                debug_data:status+ ' : ' + data
-              });
-              
-              break;
-              
-            default:
+          }).
+          error(function(data, status) {
             
-              $scope.alerts.push({
-                message:'Unknown problem.',
-                level:'warning',
-                debug_data:status+ ' : ' + data
-              });
-            
-              break;
-          }
-      });
+            switch(status){
+              
+              case 403:
+                
+                $scope.alerts.push({
+                  message:'Trouble connecting to server.',
+                  level:'warning',  
+                  debug_data: status+ ' : ' + data
+                });
+                
+                break;
+              
+              case 404:
+                
+                $scope.alerts.push({
+                  message:'Trouble connecting to server.',
+                  level:'warning',
+                  debug_data:status+ ' : ' + data
+                });
+                
+                break;
+                
+              default:
+              
+                $scope.alerts.push({
+                  message:'Unknown problem.',
+                  level:'warning',
+                  debug_data:status+ ' : ' + data
+                });
+              
+                break;
+            }
+        });
+      }
+      
+      
+      
     }
     
+    $scope.$watch('params.offset', function() {
+      //scope.greeting = scope.salutation + ' ' + scope.name + '!';
+      if ($routeParams.docId != $scope.params.offset){
+        var int = $scope.params.offset;
+        var str = "/user/"+$scope.params.offset;
+        
+        $location.path(str);
+      }
+      return $scope.params.offset;
+    }); // initialize the watch
   }]
 );
 

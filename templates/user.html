@@ -12,7 +12,8 @@
 </div>
 <div class="panel ">
   <div class="panel-body">
-    <div class="row">
+    <form name="create_user_form" role="form">
+      <div class="row">
 
       <div class="col-xs-12 col-sm-3 col-md-3">
         <!-- Nav tabs -->
@@ -40,37 +41,39 @@
           <div class="col-xs-12 col-sm-8 col-md-8">
    
           <div class="form-group">
-            <label for="exampleInputEmail1">First Name</label>
+            <label for="exampleInputEmail1" required>First Name</label> <span class="text-danger"><b>*</b></span><br/>
             <input type="text" class="form-control" id="exampleInputEmail1" ng-model="user.first_name" value="{{user.first_name}}" style="width:32ex">
           </div>
           
           <div class="form-group">
-            <label for="exampleInputEmail1">Last Name</label>
+            <label for="exampleInputEmail1" required>Last Name</label> <span class="text-danger"><b>*</b></span><br/>
             <input type="text" class="form-control" id="exampleInputEmail1" ng-model="user.last_name" placeholder="Enter last name" style="width:32ex">
           </div>
          
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+            <label for="exampleInputEmail1" required>Email address</label> <span class="text-danger"><b>*</b></span><br/>
             <input type="email" class="form-control" id="exampleInputEmail1" ng-model="user.email" placeholder="Enter email" style="width:32ex">
            </div>
 
-          <label>Role</label><br/>
+          <label>Role</label> <span class="text-danger"><b>*</b></span><br/>
           <dropdown 
-            ng-Model = "user.active" 
+            ng-Model = "user.role" 
             options = "roles"
             placeholder = " 'Select a Role' "
             text-field = "'name'"
             value-field = "'rold_id'"
+            required
           >
           </dropdown>
           <br/>
           <br/>
     
-          <label>Status</label><br/>
+          <label>Status</label> <span class="text-danger"><b>*</b></span><br/>
           <dropdown 
             ng-Model = "user.active" 
             options = "[{text:'Active', value:true, class:''}, {text:'Non-active', value:false, class:''}]"
             placeholder = " 'Set active status' "
+            required
           >
           </dropdown>
           <br/>
@@ -89,6 +92,9 @@
       </div>
 
     </div>
-
+    
+    </div>
+    </form>
   </div><!-- /.panel-body -->
+  
 </div><!-- /.panel -->

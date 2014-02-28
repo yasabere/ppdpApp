@@ -1947,7 +1947,8 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
      * @return NULL
      */
     $scope.toggle_select_all = function(){
-      for (var i=0;i <6;i+=1){
+      var i = 0;
+      for(i = 0 ;i < $scope.selected_users.length; i+=1){
           ppdpAPIService.toggle_select($scope.users,i);
       }
       

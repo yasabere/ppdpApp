@@ -98,9 +98,9 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var subset_array = [];
         
         for (var i=0, l=_array.length; i<l; i++) {
-            if (_array[i].selected === true){
-                subset_array.push(_array[i]);
-            }
+          if (_array[i].selected === true){
+            subset_array.push(_array[i]);
+          }
         }
         
         return subset_array;
@@ -160,7 +160,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
       this.delete = function(_assignment){
         var request = {
-          method: 'POST',
+          method: 'Delete',
           url: api_url + 'assignment/delete',
           data: _assignment,
         };
@@ -214,7 +214,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
       this.delete = function(_batch){
         var request = {
-          method: 'POST',
+          method: 'Delete',
           url: api_url + 'batch/delete',
           data: _batch,
         };
@@ -284,7 +284,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
       this.delete = function(_doc){
         var request = {
-          method: 'POST',
+          method: 'Delete',
           url: api_url + 'document/delete',
           data: _doc,
         };
@@ -340,7 +340,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
       this.delete = function(_file){
         var request = {
-          method: 'POST',
+          method: 'Delete',
           url: api_url + 'file/delete',
           data: _file,
         };
@@ -383,7 +383,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
       this.delete = function(_newspaper){
         var request = {
-          method: 'POST',
+          method: 'Delete',
           url: api_url + 'newspaper/delete',
           data: _newspaper,
         };
@@ -441,7 +441,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
       this.delete = function(_user){
         var request = {
-          method: 'POST',
+          method: 'Delete',
           url: api_url + 'user/delete',
           data: _user,
         };
@@ -465,7 +465,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
       this.login = function(_account){
         var request = {
-          method: 'GET',
+          method: 'Delete',
           url: api_url + 'account/login',
           data:_account,
         };
@@ -759,7 +759,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
   var loggedin = false;
   
   //account
-  $httpBackend.whenGET('account/login').respond(function(method,url,data) {
+  $httpBackend.whenPOST('account/login').respond(function(method,url,data) {
     
     console.log(method);
     console.log(url);
@@ -836,7 +836,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
     return [200, {}, {}];
   });
   
-  $httpBackend.whenPOST('assignment/delete').respond(function(method,url,data) {
+  $httpBackend.whenDELETE('assignment/delete').respond(function(method,url,data) {
     console.log("Deleting assignment");
     
     assignments.splice(assignments[angular.fromJson(data).id], 1);
@@ -914,7 +914,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
     return [200, {}, {}];
   });
   
-  $httpBackend.whenPOST('batch/delete').respond(function(method,url,data) {
+  $httpBackend.whenDELETE('batch/delete').respond(function(method,url,data) {
     console.log("Deleting document");
     
     batches.splice(documents[angular.fromJson(data).id], 1);
@@ -993,7 +993,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
     return [200, {}, {}];
   });
   
-  $httpBackend.whenPOST('document/delete').respond(function(method,url,data) {
+  $httpBackend.whenDELETE('document/delete').respond(function(method,url,data) {
     console.log("Deleting document");
     
     documents.splice(documents[angular.fromJson(data).id], 1);
@@ -1071,7 +1071,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
     return [200, {}, {}];
   });
   
-  $httpBackend.whenPOST('file/delete').respond(function(method,url,data) {
+  $httpBackend.whenDELETE('file/delete').respond(function(method,url,data) {
     console.log("Deleting file");
     
     files.splice(files[angular.fromJson(data).id], 1);
@@ -1130,7 +1130,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
     return [200, {}, {}];
   });
   
-  $httpBackend.whenPOST('newspaper/delete').respond(function(method,url,data) {
+  $httpBackend.whenDELETE('newspaper/delete').respond(function(method,url,data) {
     console.log("Deleting newspaper");
     
     newspapers.splice(newspapers[angular.fromJson(data).id], 1);
@@ -1169,7 +1169,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
     return [200, {}, {}];
   });
   
-  $httpBackend.whenPOST('role/delete').respond(function(method,url,data) {
+  $httpBackend.whenDELETE('role/delete').respond(function(method,url,data) {
     console.log("Deleting role");
     
     roles.splice(roles[angular.fromJson(data).id], 1);
@@ -1228,7 +1228,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
     return [200, {}, {}];
   });
   
-  $httpBackend.whenPOST('user/delete').respond(function(method,url,data) {
+  $httpBackend.whenDELETE('user/delete').respond(function(method,url,data) {
     console.log("Deleting user");
     
     users.splice(users[angular.fromJson(data).id], 1);

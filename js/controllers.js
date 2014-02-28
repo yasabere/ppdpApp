@@ -439,6 +439,20 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     }
     
     /**
+     * delete() deletes selected items
+     * 
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.delete = function(){
+      for(var i = 0; i < $scope.selected_batches.length; i+=1){
+        ppdpAPIService.batch.delete($scope.selected_batches[i]);
+        $scope.update_results();
+      }
+      $('#deleteModal').modal('hide');
+    }
+    
+    /**
      * 'params' change event
      * 
      * when params changes page should change to newsclip with id equaling offset id
@@ -776,6 +790,20 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       $('#downloadModal').modal('toggle');
       $scope.downloadName = $scope.files[id].name;
       $scope.downloadLink = $scope.files[id].href;
+    }
+    
+    /**
+     * delete() deletes selected items
+     * 
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.delete = function(){
+      for(var i = 0; i < $scope.selected_files.length; i+=1){
+        ppdpAPIService.file.delete($scope.selected_files[i]);
+        $scope.update_results();
+      }
+      $('#deleteModal').modal('hide');
     }
     
     /**

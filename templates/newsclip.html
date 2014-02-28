@@ -8,6 +8,7 @@
     back-Function="back"
     params = "params"
     total-rows=" totalRows "
+    page_description = " 'Newsclip ' + doc.id + ' |'"
   >
   </master-Top-Menu>
 </div>
@@ -33,12 +34,7 @@
           <div class= "row" >
         
             <div class="col-xs-12 col-sm-8 col-md-8">
-            
 
-              <div class="text-muted" >Newsclip {{doc.id}}</div>
-
-              <br/>
-              
               <div style="display:inline-block; ">
                 <label>Newspaper</label> <span class="text-danger">*</span><br/>
                 <auto-Suggest

@@ -77,6 +77,7 @@ ppdpDirectives.directive('masterTopMenu', function(ppdpAPIService){
        data: '=data',
        params: '=params',
        totalrows: '=totalRows',
+       page_description: '=pageDescription'
      },
      controller: 'topmenu',
    } 

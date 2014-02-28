@@ -220,6 +220,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
         ppdpAPIService.assignment.delete($scope.selected_assignments[i]);
         $scope.update_results();
       }
+      $scope.selected_assignments =[];
       $('#deleteModal').modal('hide');
     }
     
@@ -462,6 +463,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
         $scope.update_results();
       }
       $('#deleteModal').modal('hide');
+      $scope.selected_batches = [];
     }
     
     /**
@@ -816,6 +818,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
         $scope.update_results();
       }
       $('#deleteModal').modal('hide');
+      $scope.selected_files = [];
     }
     
     /**
@@ -1488,6 +1491,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         ppdpAPIService.doc.delete($scope.selected_documents[i]);
         $scope.update_results();
       }
+      $scope.selected_documents = [];
       $('#deleteModal').modal('hide');
     }
 

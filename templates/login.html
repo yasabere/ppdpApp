@@ -4,15 +4,15 @@
     <h3>PA Policy Project Content Mangement</h3>
     <p class="text-muted">login with your Temple email.</p>
     <br/><br/>
-    <form role="form" style=" width:300px; margin:0px auto; ">
+    <form role="form" name="login_form" style=" width:300px; margin:0px auto; ">
       <div style="text-align:left;">
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+          <input name="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" ng-model="account.username" required>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="account.password" required>
         </div>
       </div>
       <br/>

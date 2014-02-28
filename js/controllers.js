@@ -860,7 +860,7 @@ ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppd
     
     // Global variables for controller
     $scope.alerts = [];
-    $scope.account = {};
+    $scope.account = {password:'',username:''};
     
     /**
      * login() tries to log user in with specified account data from scope. 
@@ -871,25 +871,65 @@ ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppd
      * @returns NULL
      */
     $scope.login = function(){
-      ppdpAPIService.account.login($scope.account).
-        success(function(data, status){
-          
-          //show user alert stating they have successfully logged in
+      
+      $scope.alerts = [];
+      
+      console.log($scope.login_form);
+      
+      //login_form
+      if ($scope.login_form.$invalid){
+        
+        if ($scope.login_form.email.$valid == false){
           $scope.alerts.push({
-            message:'You have successfully logged in',
-            level:'success',
-          });
-          
-          //send user to assignments page
-          $location.path('assignments');
-        }).
-        error(function(data, status){
-          $scope.alerts.push({
-            message:'Trouble connecting to server.',
+            message: 'Valid Email Address is required.',
             level:'danger',
-            debug_data:status+ ' : ' + data
           });
-        });
+        }
+        
+        if ($scope.login_form.password.$valid == false){
+          $scope.alerts.push({
+            message: 'Password is required.',
+            level:'danger',
+          });
+        }
+
+      }
+      else{
+        ppdpAPIService.account.login($scope.account).
+          success(function(data, status){
+            
+            //show user alert stating they have successfully logged in
+            $scope.alerts.push({
+              message:'You have successfully logged in',
+              level:'success',
+            });
+            
+            //send user to assignments page
+            $location.path('assignments');
+          }).
+          error(function(data, status){
+            
+            console.log(data);
+            
+            switch(status){
+              case 404:
+                $scope.alerts.push({
+                  message:'No account with password was found.',
+                  level:'danger'
+                });
+                break;
+                
+              default:
+                $scope.alerts.push({
+                  message:'Trouble connecting to server.',
+                  level:'warning',
+                  debug_data:status+ ' : ' + data
+                });
+                break;
+            }
+            
+          });
+      }
     }
     // TODO: -- need to implement
     

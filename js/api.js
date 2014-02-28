@@ -467,6 +467,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'GET',
           url: api_url + 'account/login',
+          data:_account,
         };
         
         return $http(request);
@@ -759,8 +760,24 @@ ppdpAPI.run(function($httpBackend, $filter) {
   
   //account
   $httpBackend.whenGET('account/login').respond(function(method,url,data) {
-    loggedin = true;
-    return [200, {}, {}];
+    
+    console.log(method);
+    console.log(url);
+    console.log(data);
+    
+    data = angular.fromJson(data);
+    
+    if (typeof data.password !== undefined && typeof data.username !== undefined){
+      if(data.password == 'abc123' && data.username == 'admin@temple.edu'){
+        
+        loggedin = true;
+        return [200, {}, {}];
+      }
+      else{
+        return [404, {error:'password not found'}, {}];
+      }
+    }
+    
   });
   
   $httpBackend.whenGET('account/logout').respond(function(method,url,data) {

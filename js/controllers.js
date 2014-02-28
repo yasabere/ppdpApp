@@ -209,7 +209,19 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       $location.path("/assignment");
     }
     
-    console.log($scope.assignments);
+    /**
+     * delete() deletes selected items
+     * 
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.delete = function(){
+      for(var i = 0; i < $scope.selected_assignments.length; i+=1){
+        ppdpAPIService.assignment.delete($scope.selected_assignments[i]);
+        $scope.update_results();
+      }
+      $('#deleteModal').modal('hide');
+    }
     
     /**
      * 'params' change event
@@ -1262,13 +1274,11 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.selected_documents = [];
     $scope.query = "";
     $scope.alerts = [];
-
-    $scope.params = jQuery.extend(true, {}, $routeParams );
-    jQuery.extend($scope.params, {
-      offset:0,
-      limit:5,
-    });
     
+    $scope.params = jQuery.extend(true, {offset:0,limit:5}, $routeParams );
+    $scope.params.offset = parseInt($scope.params.offset);
+    $scope.params.limit = parseInt($scope.params.limit);
+    console.log($scope.params);
     //$scope.num_items
 
     // set the directions to show up on page
@@ -1801,6 +1811,8 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.rows_selected = false;
     
     $scope.params = jQuery.extend(true, {offset:0,limit:10}, $routeParams );
+    $scope.params.offset = parseInt($scope.params.offset);
+    $scope.params.limit = parseInt($scope.params.limit);
 
     // set the directions to show up on page
     $scope.directions = [];

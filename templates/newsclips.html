@@ -77,20 +77,19 @@
       </div>
       <div class="modal-body">
         <!-- Single button -->
-        <div class="btn-group">
-          <input type="text" class="form-control" placeholder="Select a Batch" class="form-control dropdown-toggle" data-toggle="dropdown" style="width:100%" />
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">file 1</a></li>
-            <li><a href="#">file 2</a></li>
-            <li><a href="#">file 3</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Add to new batch</a></li>
-          </ul>
-        </div>
+        <auto-Suggest
+          name = "batch"
+          ng-model = "batch"
+          options = "batches"
+          placeholder=" 'Select a batch' "
+          required
+        >
+        </auto-Suggest>
+        {{batch}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Delete</button>
+        <button type="button" class="btn btn-primary">Add</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

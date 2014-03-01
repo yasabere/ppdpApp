@@ -196,8 +196,22 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       ppdpAPIService.toggle_select($scope.assignments,index);
       $scope.selected_assignments = ppdpAPIService.get_selected_subset($scope.assignments);
     }
+    
+    /**
+     * toggle_select_all() Update selected property of batch and
+     * updates all selected_batches
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.toggle_select_all = function(){
+      var i = 0;
+      for(i = 0 ;i < $scope.assignments.length; i+=1){
+        ppdpAPIService.toggle_select($scope.assignments,i);
+        $scope.selected_assignments = ppdpAPIService.get_selected_subset($scope.assignments);
+      }
+    }
 
-    // FIXME: need to implement the angular way
     /**
      * details() redirect to assignment
      * id in url is based on passed index
@@ -438,8 +452,22 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       ppdpAPIService.toggle_select($scope.batches,index);
       $scope.selected_batches = ppdpAPIService.get_selected_subset($scope.batches);
     }
+    
+    /**
+     * toggle_select_all() Update selected property of batch and
+     * updates all selected_batches
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.toggle_select_all = function(){
+      var i = 0;
+      for(i = 0 ;i < $scope.batches.length; i+=1){
+        ppdpAPIService.toggle_select($scope.batches,i);
+        $scope.selected_batches = ppdpAPIService.get_selected_subset($scope.batches);
+      }
+    }
 
-    // FIXME: need to implement the angular way
     /**
      * details() redirect to batch
      * id in url is based on passed index
@@ -695,6 +723,21 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       $scope.selected_files = ppdpAPIService.get_selected_subset($scope.files);
     }
     
+    /**
+     * toggle_select_all() Update selected property of files and
+     * updates all selected_batches
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.toggle_select_all = function(){
+      var i = 0;
+      for(i = 0 ;i < $scope.files.length; i+=1){
+        ppdpAPIService.toggle_select($scope.files,i);
+        $scope.selected_files = ppdpAPIService.get_selected_subset($scope.files);
+      }
+    }
+    
     /** directive masterTopMenu data. 
      *  
      *  buttons to show up in menu
@@ -793,7 +836,6 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       }
     ];
 
-    // FIXME: need to implement the angular way
     /**
      * details() bring up file modal
      *
@@ -1051,8 +1093,8 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
 );
 
 /** Controller: newsclip */
-ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$http',
-  function($scope, $routeParams, ppdpAPIService, $location, $http) {
+ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$http', '$interval',
+  function($scope, $routeParams, ppdpAPIService, $location, $http, $interval) {
     console.log('newsclip');
     
     //global variables
@@ -1085,6 +1127,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     
     //alerts to be displayed on screen
     $scope.alerts = [];
+    $scope.urgent_alerts = [];
     
     //news papers to be displayed in 'Newspaper' dropdown
     $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
@@ -1176,7 +1219,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     $scope.back = function(){
       console.log("back");
       $location.path("/newsclips").search($scope.old_params);
-    }
+    };
     
     /**
      * save() updates current doc with doc data
@@ -1239,7 +1282,62 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           }
       });
       
-    }
+    };
+    
+    $scope.delete = function(){
+      //call update api function
+      ppdpAPIService.doc.delete($scope.doc).
+        success(function(data, status) {
+ 
+          //if succesful show message to user
+          $scope.urgent_alerts.push({
+            message:'Delete successful!',
+            level:'success',
+          }); 
+          
+          $('#deleteModal').modal('hide');
+          
+          $interval(function(){
+            $location.path("/newsclips");
+          }, 1000);
+          
+        }).
+        error(function(data, status) {
+          
+          switch(status){
+            
+            case 403:
+              
+              $scope.urgent_alerts.push({
+                message:'Trouble connecting to server.',
+                level:'warning',  
+                debug_data: status+ ' : ' + data
+              });
+              
+              break;
+            
+            case 404:
+              
+              $scope.urgent_alerts.push({
+                message:'Trouble connecting to server.',
+                level:'warning',
+                debug_data:status+ ' : ' + data
+              });
+              
+              break;
+              
+            default:
+            
+              $scope.urgent_alerts.push({
+                message:'Unknown problem.',
+                level:'warning',
+                debug_data:status+ ' : ' + data
+              });
+            
+              break;
+          }
+      });
+    };
     
     //events
     
@@ -1273,9 +1371,17 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     console.log('newsclips');
     
     // Global variables for controller
+    
+    //newsclips to be shown in table
     $scope.documents = [];
+    
+    //batches to be shown in dropdown when adding to batch
+    $scope.batches = [];
+    
+    //documents which bave been check boxed
     $scope.selected_documents = [];
-    $scope.query = "";
+    
+    //alerts to be shown on screen
     $scope.alerts = [];
     
     $scope.params = jQuery.extend(true, {offset:0,limit:5}, $routeParams );
@@ -1288,6 +1394,30 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
+    
+    /**
+     * update_batches() Updates batches to be shown when batch
+     *
+     * @return NULL
+     */
+    $scope.update_batches = function(){
+      //call retrieve api function
+      ppdpAPIService.batch.retrieve($scope.params).
+        success(function(data, status) {
+          //load data into batch
+          $scope.batches = data;
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+    }
+    
+    $scope.update_batches();
     
     /**
      * update_results() Updates document data with new search 
@@ -1948,11 +2078,10 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
      */
     $scope.toggle_select_all = function(){
       var i = 0;
-      for(i = 0 ;i < $scope.selected_users.length; i+=1){
-          ppdpAPIService.toggle_select($scope.users,i);
+      for(i = 0 ;i < $scope.users.length; i+=1){
+        ppdpAPIService.toggle_select($scope.users,i);
+        $scope.selected_users = ppdpAPIService.get_selected_subset($scope.users);
       }
-      
-      $scope.selected_users = ppdpAPIService.get_selected_subset($scope.users);
     }
 
     /**

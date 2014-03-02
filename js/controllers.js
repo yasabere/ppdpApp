@@ -1093,8 +1093,8 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
 );
 
 /** Controller: newsclip */
-ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$http', '$interval',
-  function($scope, $routeParams, ppdpAPIService, $location, $http, $interval) {
+ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$http', '$timeout',
+  function($scope, $routeParams, ppdpAPIService, $location, $http, $timeout) {
     console.log('newsclip');
     
     //global variables
@@ -1297,8 +1297,9 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           
           $('#deleteModal').modal('hide');
           
-          $interval(function(){
+          $timeout(function(){
             $location.path("/newsclips");
+            $scope.$apply();
           }, 1000);
           
         }).

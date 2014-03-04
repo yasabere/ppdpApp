@@ -94,7 +94,8 @@ ppdpDirectives.directive('dropdown', function(){
       extraOptions : "=extraOptions",
       placeholder : "=placeholder",
       text_field : "=textField",
-      value_field : "=valueField"
+      value_field : "=valueField",
+      returnObject: "=returnObject"
      },
      controller:'dropdown',
      compile: function(element, attrs){

@@ -27,8 +27,8 @@ ppdpControllers.controller('assignment', ['$scope', '$routeParams', 'ppdpAPIServ
 );
 
 /** Controller: assignments */ 
-ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
-  function($scope, $routeParams, ppdpAPIService, $location) {
+ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout',
+  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
     console.log('assignments');
     
     // Global variables for controller
@@ -36,6 +36,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
     // FIXME: currently have to instantiate
     $scope.assignments = [];
     $scope.selected_assignments = [];
+    $scope.alerts = [];
     $scope.rows_selected = false;
     $scope.totalRows = 0;
     
@@ -236,6 +237,21 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       }
       $scope.selected_assignments =[];
       $('#deleteModal').modal('hide');
+      
+      
+      //if succesful show message to user
+      $scope.alerts.push({
+        message:'Delete successful!',
+        level:'success'
+      }); 
+      
+      //after alert has been on screen for 2 seconds it is removed
+      $timeout(function(){
+        $('.alert').bind('closed.bs.alert', function () {
+          $scope.alerts = [];
+        });
+        $(".alert").alert('close');
+      }, 2000);
     }
     
     /**
@@ -284,8 +300,8 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
 );
 
 /** Controller: batches */
-ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
-  function($scope, $routeParams, ppdpAPIService, $location) {
+ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout',
+  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
     
     // Global variables for controller
     
@@ -293,6 +309,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.batches = [];
     $scope.users = [];
     $scope.selected_batches = [];
+    $scope.alerts = [];
     $scope.rows_selected = false;
     $scope.totalRows = 0;
     
@@ -516,6 +533,20 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       }
       $('#deleteModal').modal('hide');
       $scope.selected_batches = [];
+    
+      //if succesful show message to user
+      $scope.alerts.push({
+        message:'Delete successful!',
+        level:'success'
+      }); 
+      
+      //after alert has been on screen for 2 seconds it is removed
+      $timeout(function(){
+        $('.alert').bind('closed.bs.alert', function () {
+          $scope.alerts = [];
+        });
+        $(".alert").alert('close');
+      }, 2000);
     }
     
     /**
@@ -730,16 +761,22 @@ ppdpControllers.controller('dropdown', ['$scope',
     
     $scope.select = function(option){
       $scope.selected_value = option[$scope.text_field];
-      $scope.ngModel = option[$scope.value_field];
+      
+      if ($scope.returnObject === 'true'){
+        $scope.ngModel = option;
+      }
+      else{
+        $scope.ngModel = option[$scope.value_field];
+      }
+      
     };
-    
-   
+  
   }]
 );
 
 /** Controller: files */
-ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
-  function($scope, $routeParams, ppdpAPIService, $location) {
+ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService', '$location','$timeout',
+  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
     
     // Global variables for controller
     
@@ -748,6 +785,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.selected_files = [];
     $scope.rows_selected = false;
     $scope.totalRows = 0;
+    $scope.alerts = [];
     
     $scope.params = {
       offset:0,
@@ -951,6 +989,20 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       }
       $('#deleteModal').modal('hide');
       $scope.selected_files = [];
+      
+      //if succesful show message to user
+      $scope.alerts.push({
+        message:'Delete successful!',
+        level:'success'
+      }); 
+      
+      //after alert has been on screen for 2 seconds it is removed
+      $timeout(function(){
+        $('.alert').bind('closed.bs.alert', function () {
+          $scope.alerts = [];
+        });
+        $(".alert").alert('close');
+      }, 2000);
     }
     
     /**
@@ -1458,8 +1510,8 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
 );
 
 /** Controller: newsclips */
-ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
-  function($scope, $routeParams, ppdpAPIService, $location) {
+ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout',
+  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
     console.log('newsclips');
     
     // Global variables for controller
@@ -1715,6 +1767,20 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       }
       $scope.selected_documents = [];
       $('#deleteModal').modal('hide');
+      
+      //if succesful show message to user
+      $scope.alerts.push({
+        message:'Delete successful!',
+        level:'success'
+      }); 
+      
+      //after alert has been on screen for 2 seconds it is removed
+      $timeout(function(){
+        $('.alert').bind('closed.bs.alert', function () {
+          $scope.alerts = [];
+        });
+        $(".alert").alert('close');
+      }, 2000);
     };
 
     /**
@@ -1725,10 +1791,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
      * 
      */
     $scope.$watch('params', function() {
-      
-      console.log('shit changed');
       $scope.update_results();
-      console.log($scope.params);
       return $scope.params;
     }, true); // initialize the watch
     

@@ -291,6 +291,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     
     // FIXME: currently have to instantiate
     $scope.batches = [];
+    $scope.users = [];
     $scope.selected_batches = [];
     $scope.rows_selected = false;
     $scope.totalRows = 0;
@@ -349,6 +350,29 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     
     $scope.update_results();
     
+    /**
+     * update_batches() Updates batches to be shown when batch
+     *
+     * @return NULL
+     */
+    $scope.update_users = function(){
+      //call retrieve api function
+      ppdpAPIService.user.retrieve($scope.params).
+        success(function(data, status) {
+          //load data into batch
+          $scope.users = data;
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+    }
+    
+    
     /** directive masterTopMenu data. 
      *  
      *  buttons to show up in menu
@@ -358,7 +382,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       {
         text : 'Assign',
         glyphicon : 'folder-close',
-        function_callback : function(){$('#batchModal').modal('toggle')}, 
+        function_callback : function(){$('#assignModal').modal('toggle')}, 
       },
       {
         text : 'Publish',
@@ -537,7 +561,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
       offset:0,
       limit:1,
       query:''
-    }
+    };
     
     /**
      * back() redirect to users
@@ -548,7 +572,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
     $scope.back = function(){
       console.log("back");
       $location.path("/newsclips");
-    }
+    };
     
     /**
      * save() updates current doc with doc data
@@ -611,6 +635,21 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
         });
       }
     }
+    
+    /**
+     * delete() deletes selected items
+     * 
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.delete = function(){
+      for(var i = 0; i < $scope.selected_documents.length; i+=1){
+        ppdpAPIService.doc.delete($scope.selected_documents[i]);
+        $scope.update_results();
+      }
+      $scope.selected_documents = [];
+      $('#deleteModal').modal('hide');
+    };
     
   }]
 );
@@ -1416,7 +1455,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
             debug_data:status+ ' : ' + data
           });
       });
-    }
+    };
     
     $scope.update_batches();
     
@@ -1457,7 +1496,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
             debug_data:status+ ' : ' + data
           });
       });
-    }
+    };
     
     $scope.update_results();
     
@@ -1581,7 +1620,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.toggle_select = function(index){
       ppdpAPIService.toggle_select($scope.documents,index);
       $scope.selected_documents = ppdpAPIService.get_selected_subset($scope.documents);
-    }
+    };
     
     /**
      * toggle_select_all() Selects all documents
@@ -1596,7 +1635,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         $scope.selected_documents = ppdpAPIService.get_selected_subset($scope.documents);
       }
       
-    }
+    };
     
     // FIXME: need to implement the angular way
     /**
@@ -1609,7 +1648,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.details = function(id){
       console.log($scope.params);
       $location.path("/newsclip/"+(id+$scope.params.offset)).search($scope.params);
-    }
+    };
     
     /**
      * delete() deletes selected items
@@ -1624,7 +1663,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       }
       $scope.selected_documents = [];
       $('#deleteModal').modal('hide');
-    }
+    };
 
     /**
      * 'params' change event

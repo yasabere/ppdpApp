@@ -1331,6 +1331,8 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           $scope.alerts.push({
             message:'Save successful!',
             level:'success',
+            debug_data: $scope.doc
+            
           }); 
           
           console.log($scope.doc);
@@ -1345,7 +1347,6 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
               $scope.alerts.push({
                 message:'Trouble connecting to server.',
                 level:'warning',  
-                debug_data: status+ ' : ' + data
               });
               
               break;

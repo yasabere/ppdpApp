@@ -42,17 +42,17 @@
    
           <div class="form-group">
             <label for="exampleInputEmail1" required>First Name</label> <span class="text-danger"><b>*</b></span><br/>
-            <input type="text" class="form-control" id="exampleInputEmail1" ng-model="user.first_name" value="{{user.first_name}}" style="width:32ex">
+            <input type="text" class="form-control" id="exampleInputEmail1" name="first_name" ng-model="user.first_name" value="{{user.first_name}}" style="width:32ex">
           </div>
           
           <div class="form-group">
             <label for="exampleInputEmail1" required>Last Name</label> <span class="text-danger"><b>*</b></span><br/>
-            <input type="text" class="form-control" id="exampleInputEmail1" ng-model="user.last_name" placeholder="Enter last name" style="width:32ex">
+            <input type="text" class="form-control" id="exampleInputEmail1" name="last_name" ng-model="user.last_name" placeholder="Enter last name" style="width:32ex">
           </div>
          
           <div class="form-group">
             <label for="exampleInputEmail1" required>Email address</label> <span class="text-danger"><b>*</b></span><br/>
-            <input type="email" class="form-control" id="exampleInputEmail1" ng-model="user.email" placeholder="Enter email" style="width:32ex">
+            <input type="email" class="form-control" id="exampleInputEmail1" name="email" ng-model="user.email" placeholder="Enter email" style="width:32ex">
            </div>
 
           <label>Role</label> <span class="text-danger"><b>*</b></span><br/>
@@ -61,7 +61,8 @@
             options = "roles"
             placeholder = " 'Select a Role' "
             text-field = "'name'"
-            value-field = "'rold_id'"
+            value-field = "'role_id'"
+            name="role"
             required
           >
           </dropdown>
@@ -73,6 +74,7 @@
             ng-Model = "user.active" 
             options = "[{text:'Active', value:true, class:''}, {text:'Non-active', value:false, class:''}]"
             placeholder = " 'Set active status' "
+            name="active_status"
             required
           >
           </dropdown>

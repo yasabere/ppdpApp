@@ -1890,7 +1890,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
               level:'warning',
               debug_data:status+ ' : ' + data
             });
-        });
+          });
         
       }).
       error(function(data, status) {
@@ -1948,11 +1948,13 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
       //remove all previous alerts
       $scope.alerts = [];
       
+      console.log($scope.create_user_form);
+      
       //call update api function
       if ($scope.create_user_form.$invalid){
         $scope.alerts.push({
           message:'All fields with * must be filled in',
-          level:'danger',  
+          level:'danger',
         }); 
       }
       else{
@@ -1962,7 +1964,8 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
             //if succesful show message to user
             $scope.alerts.push({
               message:'Save successful!',
-              level:'success',  
+              level:'success',
+              debug_data: $scope.user
             }); 
             
             console.log($scope.user);

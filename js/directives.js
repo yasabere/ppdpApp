@@ -114,7 +114,8 @@ ppdpDirectives.directive('autoSuggest', function(){
       model : "=ngModel",
       options : "=options",
       placeholder : "=placeholder",
-      name_field : "=valueField"
+      name_field : "=valueField",
+      returnObject: "=returnObject"
      },
      controller:'autosuggest',
    } 

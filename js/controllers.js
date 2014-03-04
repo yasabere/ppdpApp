@@ -277,11 +277,16 @@ ppdpControllers.controller('autosuggest', ['$scope',
     console.log('autosuggest');
     
     $scope.select = function(option){
-      if (option.name === undefined){
-        $scope.model = option['$scope.name_field'];
+      if ($scope.returnObject === 'true'){
+        $scope.model = option;
       }
       else{
-        $scope.model = option.name;
+        if (option.name === undefined){
+          $scope.model = option['$scope.name_field'];
+        }
+        else{
+          $scope.model = option.name;
+        }
       }
     };
     

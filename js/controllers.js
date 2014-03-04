@@ -533,13 +533,14 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
 );
 
 /** Controller: create_newsclip */
-ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
-  function($scope, $routeParams, ppdpAPIService, $location) {
+ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout',
+  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
     console.log('create_newsclip');
     
     //global variables
     $scope.saved = false;
     $scope.alerts = [];
+    $scope.urgent_alerts = [];
     
     //news papers to be displayed in 'Newspaper' dropdown
     $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
@@ -598,6 +599,9 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
             
             //set saved to true
             $scope.saved = true;
+            
+            //update created document
+            $scope.doc = data;
    
             //tell user that request was successful
             $scope.alerts.push({
@@ -643,12 +647,59 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
      * @return NULL
      */
     $scope.delete = function(){
-      for(var i = 0; i < $scope.selected_documents.length; i+=1){
-        ppdpAPIService.doc.delete($scope.selected_documents[i]);
-        $scope.update_results();
-      }
-      $scope.selected_documents = [];
-      $('#deleteModal').modal('hide');
+      //call update api function
+      ppdpAPIService.doc.delete($scope.doc).
+        success(function(data, status) {
+ 
+          //if succesful show message to user
+          $scope.urgent_alerts.push({
+            message:'Delete successful!',
+            level:'success',
+          }); 
+          
+          $('#deleteModal').modal('hide');
+          
+          $timeout(function(){
+            $location.path("/newsclips");
+            $scope.$apply();
+          }, 1000);
+          
+        }).
+        error(function(data, status) {
+          
+          switch(status){
+            
+            case 403:
+              
+              $scope.urgent_alerts.push({
+                message:'Trouble connecting to server.',
+                level:'warning',  
+                debug_data: status+ ' : ' + data
+              });
+              
+              break;
+            
+            case 404:
+              
+              $scope.urgent_alerts.push({
+                message:'Trouble connecting to server.',
+                level:'warning',
+                debug_data:status+ ' : ' + data
+              });
+              
+              break;
+              
+            default:
+            
+              $scope.urgent_alerts.push({
+                message:'Unknown problem.',
+                level:'warning',
+                debug_data:status+ ' : ' + data
+              });
+            
+              break;
+          }
+      });
     };
     
   }]

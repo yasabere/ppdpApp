@@ -716,7 +716,6 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 });
 
 //fake backend for unit testing
-
 ppdpAPI.run(function($httpBackend, $filter) {
   
   //allow all template pages to not be intercepted by httpbackend
@@ -948,7 +947,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
     data = angular.fromJson(data);
     data.id = documents.length;
     documents.push(data);
-    return [200, {}, {}];
+    return [200, data, {}];
   });
   
   $httpBackend.whenGET('document/retrieve').respond(function(method,url,data) {

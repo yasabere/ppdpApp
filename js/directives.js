@@ -105,6 +105,29 @@ ppdpDirectives.directive('dropdown', function(){
    } 
 });
 
+//directive for searchable dropdown
+ppdpDirectives.directive('searchableDropdown', function(){
+   return {
+     restrict: "E",
+     templateUrl: "templates/searchable_dropdown.html",
+     scope: {
+      ngModel : "=ngModel",
+      options : "=options",
+      extraOptions : "=extraOptions",
+      placeholder : "=placeholder",
+      text_field : "=textField",
+      value_field : "=valueField",
+      return_object: "=returnObject",
+      query : "=query"
+     },
+     controller:'dropdown',
+     compile: function(element, attrs){
+       if (!attrs.textField) { attrs.textField = 'text'; }
+       if (!attrs.valueField) { attrs.valueField = 'value'; }
+    },
+   } 
+});
+
 //directive for autoSuggest
 ppdpDirectives.directive('autoSuggest', function(){
    return {

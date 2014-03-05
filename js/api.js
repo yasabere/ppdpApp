@@ -666,18 +666,26 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
     var assignment_statuses = ['Incomplete', 'Complete'];
     var _assignmentModel = new sharedService.assignmentModel();
 
-    for (i=8; i > 0; i-=1){
-      var _assignment = new assignmentObj();
-
-      _assignment.name+=" "+i;
-      _assignment.date_created = '11/5/201' + Math.ceil(3 + Math.random() * 2) + ' 6:08 PM';
-      _assignment.date_due = random_datetime();
-      rand_int = Math.ceil(Math.random() * (sharedService.users.length-1));
-      _assignment.user = sharedService.users[ rand_int ];
-      _assignment.assigned = [true,false][Math.round(Math.random() * 1)];
-      _assignment.status = assignment_statuses.randomElement();
-      _assignmentModel.create(_assignment);
+    sharedService.user.retrieve({}).
+      success(function(data, status){
+        sharedService.users = data;
+        console.log(sharedService.users);
+        
+        for (i=8; i > 0; i-=1){
+        var _assignment = new assignmentObj();
+  
+        _assignment.name+=" "+i;
+        _assignment.date_created = '11/5/201' + Math.ceil(3 + Math.random() * 2) + ' 6:08 PM';
+        _assignment.date_due = random_datetime();
+        rand_int = Math.ceil(Math.random() * (sharedService.users.length-1));
+        _assignment.user = sharedService.users[ rand_int ];
+        _assignment.assigned = [true,false][Math.round(Math.random() * 1)];
+        _assignment.status = assignment_statuses.randomElement();
+        _assignmentModel.create(_assignment);
     }
+      });
+      
+    
     
     //make newspapers for the syste
     var _newspaperModel = new sharedService.newspaperModel();
@@ -734,6 +742,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
     'login',
     'newsclip',
     'newsclips',
+    'searchable_dropdown',
     'sidebarmenu',
     'table',
     'tie_break_newsclip',

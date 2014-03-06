@@ -382,7 +382,10 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       ppdpAPIService.user.retrieve($scope.params).
         success(function(data, status) {
           //load data into batch
-          $scope.users = data;
+          
+          for(var i = 0;i < data.length; i+=1){
+            $scope.users.push({name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id});
+          }
           
         }).
         error(function(data, status) {
@@ -394,6 +397,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       });
     }
     
+    $scope.update_users();
     
     /** directive masterTopMenu data. 
      *  
@@ -787,6 +791,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     
     // FIXME: currently have to instantiate
     $scope.files = [];
+    $scope.users = [];
     $scope.selected_files = [];
     $scope.rows_selected = false;
     $scope.totalRows = 0;
@@ -843,6 +848,33 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     }
     
     $scope.update_results();
+    
+    /**
+     * update_batches() Updates batches to be shown when batch
+     *
+     * @return NULL
+     */
+    $scope.update_users = function(){
+      //call retrieve api function
+      ppdpAPIService.user.retrieve($scope.params).
+        success(function(data, status) {
+          //load data into batch
+          
+          for(var i = 0;i < data.length; i+=1){
+            $scope.users.push({name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id});
+          }
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+    }
+    
+    $scope.update_users();
 
     /**
      * toggle_select() Update selected property of file and
@@ -880,7 +912,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       {
         text : 'Assign',
         glyphicon : 'folder-close',
-        function_callback : function(){$('#batchModal').modal('toggle')}, 
+        function_callback : function(){$('#assignModal').modal('toggle')}, 
       },
       {
         text : 'Remove',

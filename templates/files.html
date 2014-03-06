@@ -105,3 +105,37 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+  
+  <div class="modal fade" id="assignModal" tabindex="-1" role="dialog" aria-labelledby="assignModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="deleteModalLabel">Create A File Assignment</h4>
+        </div>
+        <div class="modal-body" style="text-align:center;">
+          <!-- Single button -->
+          <dropdown 
+            ng-Model = "test2"
+            placeholder = " 'Select Task' "
+            options = " [{text:'Create Newsclips', value:3}] "
+            return-Object = " 'true' "
+          >
+          </dropdown>
+          <dropdown 
+            ng-Model = "test"
+            placeholder = " 'Select Assignee' "
+            options = "users"
+            text_field = " 'name' "
+            return-Object = " 'true' "
+          >
+          </dropdown>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary">Assign</button>
+        </div>
+        
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -92,11 +92,13 @@
       </div>
       <div class="modal-body" style="text-align:center;">
         <!-- Single button -->
-        <label>Assignee</label> <span class="text-danger"><b>*</b></span><br/>
+        <label>Task</label> <span class="text-danger"><b>*</b></span><br/>
         <dropdown 
-          ng-Model = "assignment.assignment_type"
+          ng-Model = "assignment.type"
           placeholder = " 'Select Task' "
-          options = " [{text:'Code', value:1}, {text:'Tie Break',value:2}] "
+          text_field = " 'name' "
+          text_value = " 'id' "
+          options = " [{name:'Code', id:2}] "
           return-Object = " 'true' "
         >
         </dropdown>
@@ -114,10 +116,9 @@
           </dropdown>
         </div>
         <br/>
-        <br/>
         <div>
           <label>Due Date</label> <span class="text-danger"><b>*</b></span><br/>
-          <input name="date" type="date" class="form-control" id="inputDate" value="11/04/2014" ng-model="doc.date" required>
+          <input name="date" type="date" class="form-control" id="inputDate" value="11/04/2014" ng-model="assignment.date_due" required>
         </div>
       </div>
       <div class="modal-footer">

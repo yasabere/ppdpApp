@@ -118,7 +118,27 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
         text:'Name', 
         //row value 
         value: function(row){
-          return row.type.name+" of "+row.file.name;
+          
+          var value;
+          
+          switch(row.type.id){
+            case 1:
+              value = row.type.name+" of "+row.file.name;
+              break;
+            case 2:
+              value = row.type.name+" of "+row.batch.name;
+              break;
+            case 3:
+              value = row.type.name+" of "+row.document.name;
+              break;
+            default:
+              value = 'unknown';
+              break;
+            
+          }
+          
+          return value;
+          
         },
         //function which is called when row is clicked
         click: function(id, row){
@@ -315,7 +335,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.alerts = [];
     $scope.rows_selected = false;
     $scope.totalRows = 0;
-    $scope.assignment = {assignment_type:'',user:''};
+    $scope.assignment = {type:'',user:''};
     
     $scope.params = {
       offset:0,
@@ -569,6 +589,11 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       
       for(var i = 0; i < $scope.selected_batches.length; i+=1){
         //ppdpAPIService.assignment.create($scope.selected_batches[i]);
+        
+        $scope.assignment.batch = $scope.batches[i];
+        
+        console.log($scope.assignment);
+        
         ppdpAPIService.assignment.create($scope.assignment).
           success(function(){
             success = true;
@@ -841,7 +866,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.rows_selected = false;
     $scope.totalRows = 0;
     $scope.alerts = [];
-    $scope.assignment = {};
+    $scope.assignment = {type:'',user:''};
     
     $scope.params = {
       offset:0,
@@ -1088,6 +1113,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       }, 2000);
     };
     
+        
     /**
      * assign() creates new assignment
      * 
@@ -1095,19 +1121,41 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
      * @return NULL
      */
     $scope.assign = function(){
+      
+      var success = true;
+      
       for(var i = 0; i < $scope.selected_files.length; i+=1){
-        ppdpAPIService.file.delete($scope.selected_files[i]);
+        //ppdpAPIService.assignment.create($scope.selected_batches[i]);
+        
+        $scope.assignment.file = $scope.files[i];
+        
+        console.log($scope.assignment);
+        
+        ppdpAPIService.assignment.create($scope.assignment).
+          success(function(){
+            success = true;
+          }).
+          error(function(data, status) {
+            $scope.alerts.push({
+              message:'Trouble connecting to server.',
+              level:'warning',
+              debug_data:status+ ' : ' + data
+            });
+          });
+          
         $scope.update_results();
       }
-      $('#deleteModal').modal('hide');
-      $scope.selected_files = [];
-      
-      //if succesful show message to user
-      $scope.alerts.push({
-        message:'Delete successful!',
-        level:'success'
-      }); 
-      
+      $('#assignModal').modal('hide');
+      $scope.selected_batches = [];
+    
+      if (success){
+        //if succesful show message to user
+        $scope.alerts.push({
+          message:'Assignment created!',
+          level:'success'
+        });
+      }
+       
       //after alert has been on screen for 2 seconds it is removed
       $timeout(function(){
         $('.alert').bind('closed.bs.alert', function () {
@@ -1115,7 +1163,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
         });
         $(".alert").alert('close');
       }, 2000);
-    };
+    }
     
     /**
      * 'offset' change event

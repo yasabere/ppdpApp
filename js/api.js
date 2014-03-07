@@ -29,13 +29,17 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
     /** Object Classes */
     function assignmentObj(){
-      this.user = {first_name:"John", last_name: "Doe"};
-      this.type = {type_id : 1, name : "Data Entry"};
-      this.file = {file_id:"2",name : "file 1"};
+      this.id = 2;
+      this.users = [{first_name:"John", last_name: "Doe"}];
+      this.type = {id : 1, name : "Data Entry"};
+      this.file = {id:"2",name : "file 1", url:''};
+      this.doc = {id:3};
+      this.batch = {id:2};
       this.date_created = "11/5/2013 6:08 PM";
       this.date_completed = "";
       this.date_due = "1/5/2014 6:08 PM";
-      this.status = "Incomplete"
+      this.creator = {first_name:"John", last_name: "Doe"};
+      this.assigned = true;
     }
     
     function batchObj(){
@@ -116,17 +120,17 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
      */
     sharedService.toggle_select = function(_array,index){
       
-      if(typeof _array[index]['selected'] == 'undefined') {
+      //if(typeof _array[index]['selected'] == 'undefined') {
         if (_array[index]['selected']){
          _array[index]['selected'] = false;
         }
         else{
           _array[index]['selected'] = true;
         }
-      }
-      else {
-          _array[index]['selected'] = true;
-      }
+      //}
+      //else {
+          //_array[index]['selected'] = true;
+      //}
       
       
      
@@ -682,7 +686,6 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         for (i=8; i > 0; i-=1){
           var _assignment = new assignmentObj();
     
-          _assignment.name+=" "+i;
           _assignment.date_created = '11/5/201' + Math.ceil(3 + Math.random() * 2) + ' 6:08 PM';
           _assignment.date_due = random_datetime();
           rand_int = Math.ceil(Math.random() * (sharedService.users.length-1));

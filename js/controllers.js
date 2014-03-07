@@ -1127,10 +1127,10 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       for(var i = 0; i < $scope.selected_files.length; i+=1){
         //ppdpAPIService.assignment.create($scope.selected_batches[i]);
         
-        $scope.assignment.file = $scope.files[i];
+        $scope.assignment.file = jQuery.extend(true,{}, $scope.files[i]);
         
-        console.log($scope.assignment.file);
-        
+        console.log($scope.assignment);
+            
         ppdpAPIService.assignment.create($scope.assignment).
           success(function(){
             success = true;
@@ -1141,6 +1141,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
               level:'warning',
               debug_data:status+ ' : ' + data
             });
+            
           });
           
         $scope.update_results();

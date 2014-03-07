@@ -115,12 +115,20 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
      * @return <Array> subset_array
      */
     sharedService.toggle_select = function(_array,index){
-      if (_array[index]['selected']){
-       _array[index]['selected'] = false;
+      
+      if(typeof _array[index]['selected'] == 'undefined') {
+        if (_array[index]['selected']){
+         _array[index]['selected'] = false;
+        }
+        else{
+          _array[index]['selected'] = true;
+        }
       }
-      else{
-        _array[index]['selected'] = true;
+      else {
+          _array[index]['selected'] = true;
       }
+      
+      
      
     }
 
@@ -615,53 +623,6 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       _document.status = statuses.randomElement();
     });
 
-    //make files for system
-    var file_statuses = ['Requires Entry', "Complete"];
-    var _fileModel = new sharedService.fileModel();
-
-    for (i=8; i > 0; i-=1){
-      var _file = new fileObj();
-      var rand_int;
-      _file.name+=" "+i;
-      _file.date_created = random_datetime()
-      rand_int = Math.ceil(Math.random() * (sharedService.users.length-1));
-      _file.entry_clerk = sharedService.users[ rand_int ];
-      _file.assigned = [true,false][Math.round(Math.random() * 1)];
-      _file.file_size = (5 + Math.round(Math.random() * 4)) +""+ (1 + Math.round(Math.random() * 8)) + "kb";
-      _file.status = file_statuses.randomElement();
-      _fileModel.create(_file);
-    }
-
-    //make batches for the system
-    var batch_statuses = ['Incomplete', 'Complete'];
-    var _batchModel = new sharedService.batchModel();
-    
-    var months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Nov',
-      'Dec'
-      ];
-
-    for (i=8; i > 0; i-=1){
-      var _batch = new batchObj();
-      var rand_int;
-      _batch.name= months[i];
-      _batch.date_created = '11/5/201' + Math.ceil(3 + Math.random() * 2) + ' 6:08 PM';
-      rand_int = Math.ceil(Math.random() * (sharedService.users.length-1));
-      _batch.entry_clerk = sharedService.users[ rand_int ];
-      _batch.assigned = [true,false][Math.round(Math.random() * 1)];
-      _batch.status = batch_statuses.randomElement();
-      _batchModel.create(_batch);
-    }
-    
     //make assignments for the system
     var assignment_statuses = ['Incomplete', 'Complete'];
     var _assignmentModel = new sharedService.assignmentModel();
@@ -671,18 +632,67 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         sharedService.users = data;
         console.log(sharedService.users);
         
+        //make files for system
+        var file_statuses = ['Requires Entry', "Complete"];
+        var _fileModel = new sharedService.fileModel();
+    
         for (i=8; i > 0; i-=1){
-        var _assignment = new assignmentObj();
-  
-        _assignment.name+=" "+i;
-        _assignment.date_created = '11/5/201' + Math.ceil(3 + Math.random() * 2) + ' 6:08 PM';
-        _assignment.date_due = random_datetime();
-        rand_int = Math.ceil(Math.random() * (sharedService.users.length-1));
-        _assignment.user = sharedService.users[ rand_int ];
-        _assignment.assigned = [true,false][Math.round(Math.random() * 1)];
-        _assignment.status = assignment_statuses.randomElement();
-        _assignmentModel.create(_assignment);
-    }
+          var _file = new fileObj();
+          var rand_int;
+          _file.name+=" "+i;
+          _file.date_created = random_datetime()
+          rand_int = Math.ceil(Math.random() * (sharedService.users.length-1));
+          _file.entry_clerk = sharedService.users[ rand_int ];
+          _file.assigned = [true,false][Math.round(Math.random() * 1)];
+          _file.file_size = (5 + Math.round(Math.random() * 4)) +""+ (1 + Math.round(Math.random() * 8)) + "kb";
+          _file.status = file_statuses.randomElement();
+          _fileModel.create(_file);
+        }
+    
+        //make batches for the system 
+        var batch_statuses = ['Incomplete', 'Complete'];
+        var _batchModel = new sharedService.batchModel();
+        
+        var months = [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Nov',
+          'Dec'
+          ];
+    
+        for (i=8; i > 0; i-=1){
+          var _batch = new batchObj();
+          var rand_int;
+          _batch.name= months[i];
+          _batch.date_created = '11/5/201' + Math.ceil(3 + Math.random() * 2) + ' 6:08 PM';
+          rand_int = Math.ceil(Math.random() * (sharedService.users.length-1));
+          _batch.entry_clerk = sharedService.users[ rand_int ];
+          _batch.assigned = [true,false][Math.round(Math.random() * 1)];
+          _batch.status = batch_statuses.randomElement();
+          _batchModel.create(_batch);
+        }
+        
+        for (i=8; i > 0; i-=1){
+          var _assignment = new assignmentObj();
+    
+          _assignment.name+=" "+i;
+          _assignment.date_created = '11/5/201' + Math.ceil(3 + Math.random() * 2) + ' 6:08 PM';
+          _assignment.date_due = random_datetime();
+          rand_int = Math.ceil(Math.random() * (sharedService.users.length-1));
+          _assignment.user = sharedService.users[ rand_int ];
+          _assignment.assigned = [true,false][Math.round(Math.random() * 1)];
+          _assignment.status = assignment_statuses.randomElement();
+          _assignmentModel.create(_assignment);
+        }
+        
+        
       });
       
     

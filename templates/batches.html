@@ -35,6 +35,12 @@
           <div class="tab-pane active" id="batches">
             <master-Table columns="columns" data="batches" table-Row-Click="details" table-Row-Select="toggle_select" search-Query="query">
             </master-Table>
+            
+             <div class="list-group">
+                <!-- Links to detail level -->
+                <a ng-repeat="file in selected_batches">{{ file }}</a><br><br>
+             </div>
+            
           </div>
         
         </div>
@@ -129,3 +135,4 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+

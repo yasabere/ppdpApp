@@ -1129,7 +1129,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
         
         $scope.assignment.file = $scope.files[i];
         
-        console.log($scope.assignment);
+        console.log($scope.assignment.file);
         
         ppdpAPIService.assignment.create($scope.assignment).
           success(function(){

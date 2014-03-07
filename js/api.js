@@ -1095,7 +1095,12 @@ ppdpAPI.run(function($httpBackend, $filter) {
   $httpBackend.whenDELETE('file/delete').respond(function(method,url,data) {
     console.log("Deleting file");
     
-    files.splice(files[angular.fromJson(data).id], 1);
+    for(var i = 0; i < files.length ;i +=1){
+      if (files[i].id == angular.fromJson(data).id){
+        files.splice(i, 1);
+      }
+    }
+    
     return [200, {}, {}];
   });
   
@@ -1155,6 +1160,7 @@ ppdpAPI.run(function($httpBackend, $filter) {
     console.log("Deleting newspaper");
     
     newspapers.splice(newspapers[angular.fromJson(data).id], 1);
+
     return [200, {}, {}];
   });
   

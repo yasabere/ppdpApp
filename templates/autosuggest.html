@@ -1,6 +1,7 @@
 <div class="btn-group">
     
   <input type="text" class="form-control" placeholder="{{placeholder}}" ng-model="model" data-toggle="dropdown">
+  <span style="position:absolute; right: 10px; top: 8px;" ng-click="model = ''" ><b>x</b></span>
 
   <ul class="dropdown-menu" role="menu" >
     <li ng-repeat="option in options | filter:model" ng-click="select(option)"><a>{{option.name}}</a></li>

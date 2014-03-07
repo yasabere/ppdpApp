@@ -92,27 +92,38 @@
       </div>
       <div class="modal-body" style="text-align:center;">
         <!-- Single button -->
+        <label>Assignee</label> <span class="text-danger"><b>*</b></span><br/>
         <dropdown 
-          ng-Model = "test2"
+          ng-Model = "assignment.assignment_type"
           placeholder = " 'Select Task' "
           options = " [{text:'Code', value:1}, {text:'Tie Break',value:2}] "
           return-Object = " 'true' "
         >
         </dropdown>
-        <dropdown 
-          ng-Model = "test"
-          placeholder = " 'Select Assignee' "
-          options = "users"
-          text_field = " 'name' "
-          return-Object = " 'true' "
-        >
-        </dropdown>
+        <br/>
+        <br/>
+        <div>
+          <label>Assignee</label> <span class="text-danger"><b>*</b></span><br/>
+          <dropdown 
+            ng-Model = "assignment.user"
+            placeholder = " 'Select Assignee' "
+            options = "users"
+            text_field = " 'name' "
+            return-Object = " 'true' "
+          >
+          </dropdown>
+        </div>
+        <br/>
+        <br/>
+        <div>
+          <label>Due Date</label> <span class="text-danger"><b>*</b></span><br/>
+          <input name="date" type="date" class="form-control" id="inputDate" value="11/04/2014" ng-model="doc.date" required>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary" ng-click="assign()" >Assign</button>
       </div>
-      {{assign}}
       
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

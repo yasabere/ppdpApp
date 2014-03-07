@@ -309,14 +309,13 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
   function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
     
     // Global variables for controller
-    
-    // FIXME: currently have to instantiate
     $scope.batches = [];
     $scope.users = [];
     $scope.selected_batches = [];
     $scope.alerts = [];
     $scope.rows_selected = false;
     $scope.totalRows = 0;
+    $scope.assignment = {assignment_type:'',user:''};
     
     $scope.params = {
       offset:0,
@@ -570,7 +569,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       
       for(var i = 0; i < $scope.selected_batches.length; i+=1){
         //ppdpAPIService.assignment.create($scope.selected_batches[i]);
-        ppdpAPIService.assignment.create({}).
+        ppdpAPIService.assignment.create($scope.assignment).
           success(function(){
             success = true;
           }).

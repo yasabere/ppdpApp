@@ -592,9 +592,13 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
         
         $scope.assignment.batch = $scope.batches[i];
         
+        //create new request object to be sent to api
+        var assignment_request = jQuery.extend( true, {},$scope.assignment);
+        
+        
         console.log($scope.assignment);
         
-        ppdpAPIService.assignment.create($scope.assignment).
+        ppdpAPIService.assignment.create(assignment_request).
           success(function(){
             success = true;
           }).
@@ -1124,14 +1128,16 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       
       var success = true;
       
+      //send a create request to api for each selected file
       for(var i = 0; i < $scope.selected_files.length; i+=1){
-        //ppdpAPIService.assignment.create($scope.selected_batches[i]);
+
+        $scope.assignment.file = $scope.files[i];
         
-        $scope.assignment.file = jQuery.extend(true,{}, $scope.files[i]);
-        
-        console.log($scope.assignment);
+        //create new request object to be sent to api
+        var assignment_request = jQuery.extend( true, {},$scope.assignment);
             
-        ppdpAPIService.assignment.create($scope.assignment).
+        //send create request to api
+        ppdpAPIService.assignment.create(assignment_request).
           success(function(){
             success = true;
           }).
@@ -1149,6 +1155,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       $('#assignModal').modal('hide');
       $scope.selected_batches = [];
     
+      //of sucessful in creating assignments notify user
       if (success){
         //if succesful show message to user
         $scope.alerts.push({
@@ -1413,8 +1420,11 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
         type:'',
     };
     
+    $scope.assignment = {name:'Tiebreak', id:3};
+    
     //variable to keep track of recently searched documents for navigation 
     $scope.documents = [];
+    $scope.users = [];
     
     //keep track of url variables
     $scope.old_params = jQuery.extend(true, {}, $routeParams);
@@ -1457,6 +1467,16 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
             success(function(data, status) {
               //load data into doc
               $scope.doc = jQuery.extend(true, {}, data[0]);
+              
+              //if document needs tiebreak
+              if(true){
+                $scope.button_functions.push({
+                  text : 'Assign',
+                  glyphicon : 'folder-close',
+                  function_callback : function(){$('#assignModal').modal('toggle')}, 
+                });
+              }
+              
             }).
             error(function(data, status) {
               $scope.alerts.push({
@@ -1494,6 +1514,33 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     }
     
     $scope.update_results();
+    
+    /**
+     * update_users() Updates list of users
+     *
+     * @return NULL
+     */
+    $scope.update_users = function(){
+      //call retrieve api function
+      ppdpAPIService.user.retrieve({}).
+        success(function(data, status) {
+          //load data into batch
+          
+          for(var i = 0;i < data.length; i+=1){
+            $scope.users.push({name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id});
+          }
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+    }
+    
+    $scope.update_users();
 
     /** directive masterTopMenu data. 
      *  
@@ -1643,6 +1690,55 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           }
       });
     };
+    
+    /**
+     * assign() creates new assignment
+     * 
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.assign = function(){
+      
+      var success = true;
+      
+      $scope.assignment.document = $scope.doc;
+      
+      //create new request object to be sent to api
+      var assignment_request = jQuery.extend( true, {},$scope.assignment);
+          
+      //send create request to api
+      ppdpAPIService.assignment.create(assignment_request).
+        success(function(){
+          success = true;
+        }).
+        error(function(data, status) {
+          $scope.urgent_alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+          
+        });
+ 
+      $('#assignModal').modal('hide');
+    
+      //of sucessful in creating assignments notify user
+      if (success){
+        //if succesful show message to user
+        $scope.alerts.push({
+          message:'Assignment created!',
+          level:'success'
+        });
+      }
+       
+      //after alert has been on screen for 2 seconds it is removed
+      $timeout(function(){
+        $('.alert').bind('closed.bs.alert', function () {
+          $scope.alerts = [];
+        });
+        $(".alert").alert('close');
+      }, 2000);
+    }
     
     //events
     

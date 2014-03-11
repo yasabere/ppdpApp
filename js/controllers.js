@@ -119,18 +119,27 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
         //row value 
         value: function(row){
           
+          //the value of the column which will be shown for each row
           var value;
           
+          //depending on what type of assignment it is give the row a specific kind of title
           switch(row.type.id){
             case 1:
-              value = row.type.name+" of "+row.file.name;
+              //for dataentry of files
+              value = "Data entry of "+row.file.name;
+              
               break;
             case 2:
-              value = row.type.name+" of "+row.batch.name;
+              //for coding of batches
+              value = "Coding of batch "+row.batch.name;
+              
               break;
             case 3:
-              value = row.type.name+" of "+row.document.name;
+              //for tiebreaking
+              value = "Tiebreak of Newsclip "+row.document.id;
+              
               break;
+              
             default:
               value = 'unknown';
               break;
@@ -240,9 +249,30 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
      * @param <String> index
      * @return NULL
      */
-    $scope.details = function(){
-      $location.path("/assignment");
-    }
+    $scope.details = function(id){
+      
+      alert(JSON.stringify($scope.assignments[id]));
+      
+      //depending on what is clicked the user should be taken to different places
+      switch($scope.assignments[id].type.id){
+            case 1:
+              //if the type is data entry bring up popup modal which allows them to download the files and start creating new documents
+              $location.path('newsclips');
+              break;
+            case 2:
+              //if the type is coding take user to the batch page so they can begin coding
+              $location.path('newsclips');
+              break;
+            case 3:
+              //if the type is tiebraking take the user to the newsclip page
+              $location.path('newsclip/'+$scope.assignments[id].document.id);
+              break;
+            default:
+              
+              break;
+    
+      }
+    };
     
     /**
      * delete() deletes selected items

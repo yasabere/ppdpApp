@@ -504,7 +504,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
       this.login = function(_account){
         var request = {
-          method: 'Delete',
+          method: 'POST',
           url: api_url('document') + 'account/login',
           data:_account,
         };
@@ -820,7 +820,7 @@ if (enable_mock_api){
         if(data.password == 'abc123' && data.username == 'admin@temple.edu'){
           
           loggedin = true;
-          return [200, {}, {}];
+          return [200, users[0], {}];
         }
         else{
           return [404, {error:'password not found'}, {}];

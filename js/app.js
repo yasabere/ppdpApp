@@ -92,3 +92,6 @@ ppdpApp.config(['$routeProvider',
 **********************************************************************
 
  */
+ ppdpApp.run(function ($rootScope, $location) {
+   $rootScope.account = {accountId:'test'};
+ });

@@ -1,204 +1,46 @@
 <div class="panel panel-default">
-  <div class="panel-body">
-
-    <div class="row" ng-show="selected_documents.length == 0">
-
-      <div class="col-xs-12 col-sm-3 col-md-3">
-          <h3 style="margin-top: 7px; margin-bottom: 0px;">Dashboard</h3>
-      </div>
-
-      <div class="col-xs-12 col-sm-9 col-md-9">
-        <span class="pull-left">
-          
-          <div class="btn-group" style="inline-block">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <input type="checkbox" style="z-index:10; margin:0px"> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">All</a></li>
-              <li><a href="#">None</a></li>
-              <li><a href="#">Unresolved</a></li>
-            </ul>
-          </div>
-
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#assignAllModal">
-             <span class="glyphicon glyphicon-folder-close"></span>
-          </button>
-
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#publishModal">
-             <span class="glyphicon glyphicon-transfer"></span>
-          </button>
-
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteAllModal">
-            <span class="glyphicon glyphicon-trash"></span>
-          </button>
-
-        </span>
-
-        <span class="pull-left" style="display:inline-block; margin-left:5px">
-          <div class="input-group" style="width:200px; ">
-            <input type="text" class="form-control" placeholder="Search" >
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-default" >
-                <span class="glyphicon glyphicon-search"></span>
-              </button>
-            </div>
-          </div>
-        </span>
-
-        <span class="pull-right">
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              Filter <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">All</a></li>
-              <li><a href="#">Unresolved</a></li>
-              <li><a href="#">Resolved</a></li>
-              <li><a href="#">Published</a></li>
-              <li><a href="#">Status</a></li>
-            </ul>
-          </div>
-       
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <b>1</b>-<b>50</b> of <b>265</b> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Newest</a></li>
-              <li><a href="#">Oldest</a></li>
-            </ul>
-          </div>
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-chevron-left"></span>
-            </button>
-           
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-chevron-right"></span>
-            </button>
-          </div>
-        </span>
-      </div>
-    </div>
-
-    <div class= "row" ng-show="selected_documents.length > 0">
-      <div class="col-xs-12 col-sm-3 col-md-3">
-          <h3 style="margin-top: 7px; margin-bottom: 0px;">Dashboard</h3>
-      </div>
-
-      <div class="col-xs-12 col-sm-9 col-md-9">
-    
-        <div class="btn-group" style="inline-block">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <input type="checkbox" style="z-index:10; margin:0px"> <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">All</a></li>
-            <li><a href="#">None</a></li>
-            <li><a href="#">Unresolved</a></li>
-          </ul>
-        </div>
-
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#assignModal">
-           Assign <span class="glyphicon glyphicon-folder-close"></span>
-        </button>
-
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#publishModal">
-           Publish <span class="glyphicon glyphicon-transfer"></span>
-        </button>
-
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteModal">
-          Remove <span class="glyphicon glyphicon-Remove"></span>
-        </button>
-
-        <span class="pull-right">
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <b>1</b>-<b>50</b>  of <b>265</b> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Newest</a></li>
-              <li><a href="#">Oldest</a></li>
-            </ul>
-          </div>
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-chevron-left"></span>
-            </button>
-           
-            <button type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-chevron-right"></span>
-            </button>
-          </div>
-        </span>
-      </div>
-    </div>
-  </div>
+  <master-Top-Menu 
+  title=" 'Dashboard' " 
+  selected-Data="selected_documents"
+  data="documents"
+  button-Functions="button_functions" 
+  back-Function="back"
+  params = "params"
+  total-rows=" totalRows "
+  toggle-select-all-function="toggle_select_all"
+  page_description = "title"
+  >
+  </master-Top-Menu>
 </div>
 <div class="panel ">
   <div class="panel-body">
     <div class="row">
 
       <div class="col-xs-12 col-sm-3 col-md-3">
-        <!-- Nav tabs -->
-        <ul class="nav nav-pills nav-stacked">
-          <li ><a href="home.html">Documents</a>
-            <ul>  
-              <li><a href="document.html" >Create</a></li>
-            </ul>
-          </li>
-          <li class="active"><a href="batches.html" >Batches</a></li>
-          <li> 
-            <a href="files.html" >Files</a>
-          </li>
-          <li><a href="assignments.html" >Assignments</a></li>
-        </ul>
+      
+        <master-Menu>
+        </master-Menu>
+        
         <hr/>
         <h4>Directions</h4>
         <ul>
           <li ng-repeat="direction in directions">{{direction}}</li>
         </ul>
-
       </div>
 
       <div class="col-xs-12 col-sm-9 col-md-9">
         <!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active" id="documents">
-            <h3>Batch 48</h3>
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-  
-                    <td>Select</td>
-                    <td>Name</td>
-                    <td>Date Created</td>
-                    <td>Creator</td>
-                    <td>Status</td>
-                    <td>Assigned</td>
-
-                  </tr>
-       
-                </head>
-                <tbody>
-                  <tr ng-repeat="_document in documents">
-  
-                    <td><input type="checkbox" ng-click="toggle_select($index)"></td>
-                    <td ng-click="details()">{{_document.name}}</td>
-                    <td ng-click="details()">{{_document.date_created}}</td>
-                    <td ng-click="details()">{{_document.entry_clerk.first_name}}</td>
-                    <td ng-click="details()">{{_document.status}}</td>
-                    <td ng-click="details($index)">{{ obj = {true:"",false:"Assigned"}; obj[_document.assigned] }}</td>
-
-                  </tr>
-       
-                </tbody>
-              </table>
+          
+            <master-Alerts alerts="alerts">
+            </master-Alerts>
+            
+            <h4>Batch {{batch.id}} - {{batch.name}}</h4>
+            
+            <master-Table columns="columns" data="documents" table-Row-Click="details" table-Row-Select="toggle_select" search-Query="params.query">
+            </master-Table>
+            
           </div>
         
         </div>
@@ -209,3 +51,97 @@
 
   </div><!-- /.panel-body -->
 </div><!-- /.panel -->
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="deleteModalLabel">Delete</h4>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete {{selected_documents.length}} news clips
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="delete()">Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="batchModal" tabindex="-1" role="dialog" aria-labelledby="batchModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="deleteModalLabel">Add Newsclip to Batch</h4>
+      </div>
+      <div class="modal-body">
+        <!-- Single button -->
+        <searchable-Dropdown
+          name = "batch"
+          ng-model = "batch"
+          options = "batches"
+          return-Object = " 'true' "
+          placeholder = " 'Select a batch' "
+          required
+        >
+        </searchable-Dropdown>
+        {{batch}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="assignModal" tabindex="-1" role="dialog" aria-labelledby="assignModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="deleteModalLabel">Create A Batch Assignment</h4>
+      </div>
+      <div class="modal-body" style="text-align:center;">
+        <!-- Single button -->
+        <label>Task</label> <span class="text-danger"><b>*</b></span><br/>
+        <dropdown 
+          ng-Model = "assignment.type"
+          placeholder = " 'Select Task' "
+          text_field = " 'name' "
+          text_value = " 'id' "
+          options = " [{name:'Tiebreak', id:3}] "
+          return-Object = " 'true' "
+        >
+        </dropdown>
+        <br/>
+        <br/>
+        <div>
+          <label>Assignee</label> <span class="text-danger"><b>*</b></span><br/>
+          <dropdown 
+            ng-Model = "assignment.user"
+            placeholder = " 'Select Assignee' "
+            options = "users"
+            text_field = " 'name' "
+            return-Object = " 'true' "
+          >
+          </dropdown>
+        </div>
+        <br/>
+        <div>
+          <label>Due Date</label> <span class="text-danger"><b>*</b></span><br/>
+          <input name="date" type="date" class="form-control" id="inputDate" value="11/04/2014" ng-model="assignment.date_due" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="assign()" >Assign</button>
+      </div>
+      
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

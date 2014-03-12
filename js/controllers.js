@@ -367,12 +367,313 @@ ppdpControllers.controller('autosuggest', ['$scope',
   }]
 );
 
-/** Controller: batch */ 
-ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams) {
+/** Controller: batch */
+ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout',
+  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
     console.log('batch');
     
-    // TODO: -- need to implement
+    // Global variables for controller
+    
+    //batch to be shown on screen
+    $scope.batch = {};
+    
+    //newsclips to be shown in table
+    $scope.documents = [];
+    
+    //batches to be shown in dropdown when adding to batch
+    $scope.batches = [];
+    
+    //documents which bave been check boxed
+    $scope.selected_documents = [];
+    
+    //alerts to be shown on screen
+    $scope.alerts = [];
+    
+    //page title to show up in top menu
+    $scope.title = "";
+    
+    //handle url parameters from previous page
+    $scope.params = jQuery.extend(true, {offset:0,limit:5}, $routeParams );
+    $scope.params.offset = parseInt($scope.params.offset);
+    $scope.params.limit = parseInt($scope.params.limit);
+    console.log($scope.params);
+    
+    //call retrieve api function
+    ppdpAPIService.batch.retrieve({id:$routeParams.batchId}).
+      success(function(data, status) {
+        //load data into batch
+        $scope.batch = data[0];
+        $scope.title = "Batch " + $scope.batch.id + ' |';
+        
+      }).
+      error(function(data, status) {
+        $scope.alerts.push({
+          message:'Trouble connecting to server.',
+          level:'warning',
+          debug_data:status+ ' : ' + data
+        });
+    });
+    
+
+    // set the directions to show up on page
+    $scope.directions = [];
+    $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
+    $scope.directions.push('Click batch to view its\' contents');
+    
+    /**
+     * update_batches() Updates batches to be shown when batch
+     *
+     * @return NULL
+     */
+    $scope.update_batches = function(){
+      //call retrieve api function
+      ppdpAPIService.batch.retrieve($scope.params).
+        success(function(data, status) {
+          //load data into batch
+          $scope.batches = data;
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+    };
+    
+    $scope.update_batches();
+    
+    /**
+     * update_results() Updates document data with new search 
+     *
+     * @return NULL
+     */
+    $scope.update_results = function(){
+      //call retrieve api function
+      ppdpAPIService.doc.retrieve($scope.params).
+        success(function(data, status) {
+          //load data into users
+          $scope.documents = data;
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+      
+      //call retrieve api function get total num
+      ppdpAPIService.doc.totalNum($scope.params).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.totalRows = data.totalnum;
+          console.log($scope.totalRows);
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+    };
+    
+    $scope.update_results();
+    
+    /** directive masterTopMenu data. 
+     *  
+     *  buttons to show up in menu
+     * 
+     */
+    $scope.button_functions = [
+      {
+        text : 'Add to Batch',
+        glyphicon : 'folder-close',
+        function_callback : function(){$('#batchModal').modal('toggle')}, 
+      },
+      {
+        text : 'Remove',
+        glyphicon : 'trash',
+        function_callback : function(){$('#deleteModal').modal('toggle')}, 
+      }
+    ];
+    
+    
+    /** directive masterTable data. 
+     *  
+     *  text is text which shows up in table column header
+     *  value is function which returns text which will show up table data under column. it excepts row parameter which data about document
+     * 
+     */
+    $scope.columns = [
+      {
+        //header text to be shown for column
+        text:'Headline', 
+        //row value 
+        value: function(row){
+          return row.headline;
+        },
+        //function which is called when row is clicked
+        click: function(id, row){
+          $scope.details(id);
+        },
+        //attributes for rows
+        attributes:[],
+        //data field name
+        field_text: 'headline' 
+      },
+      { 
+        text:'Newspaper', 
+        value: function(row){
+          return row.newspaper;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'test',
+        field_text: 'newspaper'
+      },
+      { 
+        text:'Date Created',
+        value: function(row){
+          return row.date_created;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'date_created'
+      },
+      {
+        text:'Creator',
+        value: function(row){
+          return row.entry_clerk.first_name;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'entry_clerk.first_name'
+      },
+      {
+        text:'Status',
+        value: function(row){
+          return row.status;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'status'
+      },
+      {
+        text:'Assigned',
+        value: function(row){
+          return (row.assigned)?'Unassigned':'Assigned';
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'assigned'
+      },
+      {
+        text:'ID',
+        value: function(row){
+          return row.id;
+        },
+        click: function(id, row){
+          $scope.details(id);
+        },
+        attributes:'',
+        field_text: 'id'
+      }
+    ];
+
+    /**
+     * toggle_select() Update selected property of batch and
+     * updates selected_batches based on id of batch passed in index
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.toggle_select = function(index){
+      ppdpAPIService.toggle_select($scope.documents,index);
+      $scope.selected_documents = ppdpAPIService.get_selected_subset($scope.documents);
+    };
+    
+    /**
+     * toggle_select_all() Selects all documents
+     *
+     * @return NULL
+     */
+    $scope.toggle_select_all = function(){
+      
+      var i = 0;
+      for(i = 0 ;i < $scope.documents.length; i+=1){
+        ppdpAPIService.toggle_select($scope.documents,i);
+        $scope.selected_documents = ppdpAPIService.get_selected_subset($scope.documents);
+      }
+      
+    };
+    
+    // FIXME: need to implement the angular way
+    /**
+     * details() redirect to batch
+     * id in url is based on passed index
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.details = function(id){
+      $location.path("/newsclip/"+(id+$scope.params.offset)).search($scope.params);
+    };
+    
+    /**
+     * delete() deletes selected items
+     * 
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.delete = function(){
+      for(var i = 0; i < $scope.selected_documents.length; i+=1){
+        ppdpAPIService.doc.delete($scope.selected_documents[i]);
+        $scope.update_results();
+      }
+      $scope.selected_documents = [];
+      $('#deleteModal').modal('hide');
+      
+      //if succesful show message to user
+      $scope.alerts.push({
+        message:'Delete successful!',
+        level:'success'
+      }); 
+      
+      //after alert has been on screen for 2 seconds it is removed
+      $timeout(function(){
+        $('.alert').bind('closed.bs.alert', function () {
+          $scope.alerts = [];
+        });
+        $(".alert").alert('close');
+      }, 2000);
+    };
+
+    /**
+     * 'params' change event
+     * 
+     * when params changes page should change to newsclip with id equaling offset id
+     * This will also upate the query string
+     * 
+     */
+    $scope.$watch('params', function() {
+      $scope.update_results();
+      return $scope.params;
+    }, true); // initialize the watch
     
   }]
 );
@@ -598,7 +899,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
      * @return NULL
      */
     $scope.details = function(id){
-      $location.path("/newsclip/"+(id+$scope.params.offset)).search($scope.params);
+      $location.path("/batch/"+(id+$scope.params.offset)).search($scope.params);
     }
     
     /**
@@ -1303,8 +1604,8 @@ ppdpControllers.controller('home', ['$scope', '$routeParams', 'ppdpAPIService', 
 );
 
 /** Controller: login */
-ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppdpAPIService',
-  function($scope, $routeParams, $location, ppdpAPIService) {
+ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$location', 'ppdpAPIService',
+  function($rootScope, $scope, $routeParams, $location, ppdpAPIService) {
     
     // Global variables for controller
     $scope.alerts = [];
@@ -1345,6 +1646,8 @@ ppdpControllers.controller('login', ['$scope', '$routeParams', '$location', 'ppd
       else{
         ppdpAPIService.account.login($scope.account).
           success(function(data, status){
+            
+            $rootScope.account = data;
             
             //show user alert stating they have successfully logged in
             $scope.alerts.push({
@@ -1398,13 +1701,13 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
           href: 'create_newsclip',
           path:['/create_newsclip','/newsclip']
         }],
-        path:['/','/newsclips','/newsclip/0']
+        path:['/','/newsclips','/newsclip']
       },
       {
         title: 'Batches',
         href: 'batches',
         menu:[],
-        path:'/batches'
+        path:['/batches','/batch']
       },
       {
         title: 'Files',
@@ -1438,6 +1741,8 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
     $scope.menu.forEach(function(link) {
       
       var has_link = false;
+      
+      //alert($location.path());
       
       //console.log(link.menu);
       link.menu.forEach(function(sub_link) {
@@ -1487,6 +1792,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       limit:1,
       query:''
     });
+
     
     // TODO: -- swap out for something that makes sense
     $scope.tiebreaker = false;
@@ -1621,7 +1927,14 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
      */
     $scope.back = function(){
       console.log("back");
-      $location.path("/newsclips").search($scope.old_params);
+      
+      //check if params has batchId go back to batch if not go to newsclips
+      if (typeof($routeParams.batchId) !== 'undefined'){
+        $location.path("/batch/" + $routeParams.batchId).search($scope.old_params);
+      }
+      else{
+        $location.path("/newsclips").search($scope.old_params);
+      }
     };
     
     /**
@@ -1838,11 +2151,11 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     //alerts to be shown on screen
     $scope.alerts = [];
     
+    //handle url parameters from previous page
     $scope.params = jQuery.extend(true, {offset:0,limit:5}, $routeParams );
     $scope.params.offset = parseInt($scope.params.offset);
     $scope.params.limit = parseInt($scope.params.limit);
     console.log($scope.params);
-    //$scope.num_items
 
     // set the directions to show up on page
     $scope.directions = [];

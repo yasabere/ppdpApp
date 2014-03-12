@@ -264,7 +264,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
           break;
         case 2:
           //if the type is coding take user to the batch page so they can begin coding
-          $location.path('newsclips');
+          $location.path('batch/'+$scope.assignments[id].batch.id);
           break;
         case 3:
           //if the type is tiebraking take the user to the newsclip page
@@ -331,8 +331,13 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
      * 
      */
     $scope.create_newsclips_link = function() {
+      
+      $('#downloadModal').on('hidden.bs.modal', function (e) {
+        $location.path("create_newsclip");
+        $scope.$apply();
+      })
+      
       $('#downloadModal').modal('hide');
-      //$location.path("create_newsclips");
     }; 
     
   }]
@@ -592,8 +597,8 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
      * @param <String> index
      * @return NULL
      */
-    $scope.details = function(){
-      $location.path("batch.html");
+    $scope.details = function(id){
+      $location.path("/newsclip/"+(id+$scope.params.offset)).search($scope.params);
     }
     
     /**
@@ -2055,7 +2060,6 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
      * @return NULL
      */
     $scope.details = function(id){
-      console.log($scope.params);
       $location.path("/newsclip/"+(id+$scope.params.offset)).search($scope.params);
     };
     

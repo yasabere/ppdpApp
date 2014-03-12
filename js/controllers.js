@@ -61,17 +61,17 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       ppdpAPIService.assignment.retrieve($scope.params).
         success(function(data, status) {
 
-          //load data into users
+          //load data into assignments
           $scope.assignments = data;
         
         }).
-      error(function(data, status) {
-        $scope.alerts.push({
-          message:'Trouble connecting to server.',
-          level:'warning',
-          debug_data:status+ ' : ' + data
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
         });
-      });
       
       //call retrieve api function get total num
       ppdpAPIService.assignment.totalNum($scope.params).
@@ -255,21 +255,28 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       
       //depending on what is clicked the user should be taken to different places
       switch($scope.assignments[id].type.id){
-            case 1:
-              //if the type is data entry bring up popup modal which allows them to download the files and start creating new documents
-              $location.path('newsclips');
-              break;
-            case 2:
-              //if the type is coding take user to the batch page so they can begin coding
-              $location.path('newsclips');
-              break;
-            case 3:
-              //if the type is tiebraking take the user to the newsclip page
-              $location.path('newsclip/'+$scope.assignments[id].document.id);
-              break;
-            default:
-              
-              break;
+        case 1:
+          //if the type is data entry bring up popup modal which allows them to download the files and start creating new documents
+          //popup modal
+          $('#downloadModal').modal('toggle');
+          $scope.downloadName = $scope.assignments[id].file.name;
+          $scope.downloadLink = $scope.assignments[id].file.href;
+          break;
+        case 2:
+          //if the type is coding take user to the batch page so they can begin coding
+          $location.path('newsclips');
+          break;
+        case 3:
+          //if the type is tiebraking take the user to the newsclip page
+          $location.path('newsclip/'+$scope.assignments[id].document.id);
+          break;
+        default:
+          //if the type is unrecognizable display an error
+          $scope.alerts.push({
+            message:'There was a problem on the server',
+            level:'warning'
+          });
+          break;
     
       }
     };
@@ -316,6 +323,17 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       $scope.update_results();
       return $scope.params;
     }, true); // initialize the watch
+    
+    /**
+     * '$location.path' change event
+     * 
+     * hack to fix gray background on screen
+     * 
+     */
+    $scope.create_newsclips_link = function() {
+      $('#downloadModal').modal('hide');
+      //$location.path("create_newsclips");
+    }; 
     
   }]
 );

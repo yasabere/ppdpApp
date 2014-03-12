@@ -1,6 +1,36 @@
+//Global Settings
+
+//Variable which sets whether mock api is avaiable for use
+var enable_mock_api = true;
+
+//link to live server api
+var api_url_string = "https://np-stem.temple.edu/cis4396-S02/";
+
+//object containing name of each resource which tells whether the js api should access live server api_url_string or mock api
+var resources = {
+  'assignment' : {use_mock:true}, 
+  'batch' : {use_mock:true},
+  'document' : {use_mock:true},
+  'file' : {use_mock:true}, 
+  'newspaper' : {use_mock:true}, 
+  'role' : {use_mock:true}, 
+  'user' : {use_mock:true},
+  };
+
+/**
+ * api_url() returns the url to the server depending on the url settings
+ * 
+ * @param  <string> resource_name
+ * @return <string> url
+ */
+var api_url = function(resource_name){
+  return (resources[resource_name].use_mock && enable_mock_api)?'':api_url_string;
+};
+
+
 var ppdpAPI = angular.module('ppdpAPI', ['ngMockE2E']);
  
- //registers ppdpAPIService
+ //register ppdpAPIService
 ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
     
     console.log("loaded");
@@ -14,9 +44,6 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
     sharedService.files = [];
     sharedService.roles = [];
     sharedService.newspapers = [];
-    
-    //api url
-    var api_url = '';
     
     /** Private functions */
     Array.prototype.randomElement = function () {
@@ -141,7 +168,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.create = function(_assignment){
         var request = {
           method: 'POST',
-          url: api_url + 'assignment/create',
+          url: api_url('assignment') + 'assignment/create',
           data: _assignment,
         };
         
@@ -152,7 +179,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.retrieve = function(_assignment){
         var request = {
           method: 'GET',
-          url: api_url + 'assignment/retrieve',
+          url: api_url('document') + 'assignment/retrieve',
           data: _assignment,
         };
         
@@ -163,7 +190,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.update = function(_assignment){
         var request = {
           method: 'POST',
-          url: api_url + 'assignment/update',
+          url: api_url('document') + 'assignment/update',
           data: _assignment,
         };
         
@@ -173,7 +200,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.delete = function(_assignment){
         var request = {
           method: 'Delete',
-          url: api_url + 'assignment/delete',
+          url: api_url('document') + 'assignment/delete',
           data: _assignment,
         };
         
@@ -183,7 +210,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.totalNum = function(params){
         var request = {
           method: 'GET',
-          url: api_url + 'assignment/totalnum',
+          url: api_url('document') + 'assignment/totalnum',
           data: params
         };
         
@@ -197,7 +224,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.create = function(_batch){
         var request = {
           method: 'POST',
-          url: api_url + 'batch/create',
+          url: api_url('document') + 'batch/create',
           data: _batch,
         };
         
@@ -207,7 +234,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.retrieve = function(_batch){
         var request = {
           method: 'GET',
-          url: api_url + 'batch/retrieve',
+          url: api_url('document') + 'batch/retrieve',
           data: _batch,
         };
         
@@ -217,7 +244,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.update = function(_batch){
         var request = {
           method: 'POST',
-          url: api_url + 'batch/update',
+          url: api_url('document') + 'batch/update',
           data: _batch,
         };
         
@@ -227,7 +254,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.delete = function(_batch){
         var request = {
           method: 'Delete',
-          url: api_url + 'batch/delete',
+          url: api_url('document') + 'batch/delete',
           data: _batch,
         };
         
@@ -237,7 +264,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.totalNum = function(params){
         var request = {
           method: 'GET',
-          url: api_url + 'batch/totalnum',
+          url: api_url('document') + 'batch/totalnum',
           data: params
         };
         
@@ -265,7 +292,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
         var request = {
           method: 'POST',
-          url: api_url + 'document/create',
+          url: api_url('document') + 'document/create',
           data: _document,
         };
         
@@ -276,7 +303,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           
         var request = {
           method: 'GET',
-          url: api_url + 'document/retrieve',
+          url: api_url('document') + 'document/retrieve',
           data: _doc,
         };
         
@@ -287,7 +314,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
         var request = {
           method: 'POST',
-          url: api_url + 'document/update',
+          url: api_url('document') + 'document/update',
           data: _doc,
         };
         
@@ -297,7 +324,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.delete = function(_doc){
         var request = {
           method: 'Delete',
-          url: api_url + 'document/delete',
+          url: api_url('document') + 'document/delete',
           data: _doc,
         };
         
@@ -307,14 +334,14 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.totalNum = function(params){
         var request = {
           method: 'GET',
-          url: api_url + 'document/totalnum',
+          url: api_url('document') + 'document/totalnum',
           data: params
         };
         
         return $http(request);
       }
       
-    }
+    };
     sharedService.doc = new sharedService.documentModel();
 
     sharedService.fileModel = function(){
@@ -322,7 +349,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
         var request = {
           method: 'POST',
-          url: api_url + 'file/create',
+          url: api_url('document') + 'file/create',
           data: _file,
         };
         
@@ -333,7 +360,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           
         var request = {
           method: 'GET',
-          url: api_url + 'file/retrieve',
+          url: api_url('document') + 'file/retrieve',
           data: _file,
         };
         
@@ -343,7 +370,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.update = function(_file){
         var request = {
           method: 'POST',
-          url: api_url + 'file/update',
+          url: api_url('document') + 'file/update',
           data: _file,
         };
         
@@ -353,7 +380,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.delete = function(_file){
         var request = {
           method: 'Delete',
-          url: api_url + 'file/delete',
+          url: api_url('document') + 'file/delete',
           data: _file,
         };
         
@@ -363,7 +390,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.totalNum = function(params){
         var request = {
           method: 'GET',
-          url: api_url + 'file/totalnum',
+          url: api_url('document') + 'file/totalnum',
           data: params
         };
         
@@ -386,7 +413,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.update = function(_newspaper){
         var request = {
           method: 'POST',
-          url: api_url + 'newspaper/update',
+          url: api_url('document') + 'newspaper/update',
           data: _newspaper,
         };
         
@@ -396,7 +423,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.delete = function(_newspaper){
         var request = {
           method: 'Delete',
-          url: api_url + 'newspaper/delete',
+          url: api_url('document') + 'newspaper/delete',
           data: _newspaper,
         };
         
@@ -423,7 +450,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.create = function(_user){
         var request = {
           method: 'POST',
-          url: api_url + 'user/create',
+          url: api_url('user') + 'user/create',
           data: _user,
         };
         
@@ -434,7 +461,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
         var request = {
           method: 'GET',
-          url: api_url + 'user/retrieve',
+          url: api_url('user') + 'user/retrieve',
           data: _user,
         };
         
@@ -444,7 +471,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.update = function(_user){
         var request = {
           method: 'POST',
-          url: api_url + 'user/update',
+          url: api_url('user') + 'user/update',
           data: _user,
         };
         
@@ -454,7 +481,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.delete = function(_user){
         var request = {
           method: 'Delete',
-          url: api_url + 'user/delete',
+          url: api_url('user') + 'user/delete',
           data: _user,
         };
         
@@ -464,7 +491,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.totalNum = function(params){
         var request = {
           method: 'GET',
-          url: api_url + 'user/totalnum',
+          url: api_url('user') + 'user/totalnum',
           data: params
         };
         
@@ -478,7 +505,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.login = function(_account){
         var request = {
           method: 'Delete',
-          url: api_url + 'account/login',
+          url: api_url('document') + 'account/login',
           data:_account,
         };
         
@@ -488,7 +515,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.logout = function(_account){
         var request = {
           method: 'GET',
-          url: api_url + 'account/logout',
+          url: api_url('document') + 'account/logout',
         };
         
         return $http(request);
@@ -497,7 +524,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.isloggedin = function(){
         var request = {
           method: 'GET',
-          url: api_url + 'account/isloggedin',
+          url: api_url('document') + 'account/isloggedin',
         };
         
         return $http(request);
@@ -737,549 +764,552 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 });
 
 //fake backend for unit testing
-ppdpAPI.run(function($httpBackend, $filter) {
-  
-  //allow all template pages to not be intercepted by httpbackend
-  var i = 0;
-  var templates = [
-    'alerts',
-    'assignments',
-    'autosuggest',
-    'batch',
-    'batches',
-    'create_newsclip',
-    'dropdown',
-    'files',
-    'footer',
-    'header',
-    'login',
-    'newsclip',
-    'newsclips',
-    'searchable_dropdown',
-    'sidebarmenu',
-    'table',
-    'tie_break_newsclip',
-    'topmenu',
-    'user',
-    'users',
-    ];
-  for(i = 0;i < templates.length;i+=1){
-    $httpBackend.whenGET( 'templates/' + templates[i] + '.html').passThrough();
-  }
-  
-  //resource arrays
-  var assignments = [];
-  var batches = [];
-  var documents = [];
-  var files = [];
-  var newspapers = [];
-  var roles = [];
-  var users = [];
-  //var account = {password:''};
-  var loggedinuser = {};
-  var loggedin = false;
-  
-  //account
-  $httpBackend.whenPOST('account/login').respond(function(method,url,data) {
+if (enable_mock_api){
+  ppdpAPI.run(function($httpBackend, $filter) {
     
-    console.log(method);
-    console.log(url);
-    console.log(data);
+    //allow all template pages to not be intercepted by httpbackend
+    var i = 0;
+    var templates = [
+      'alerts',
+      'assignments',
+      'autosuggest',
+      'batch',
+      'batches',
+      'create_newsclip',
+      'dropdown',
+      'files',
+      'footer',
+      'header',
+      'login',
+      'newsclip',
+      'newsclips',
+      'searchable_dropdown',
+      'sidebarmenu',
+      'table',
+      'tie_break_newsclip',
+      'topmenu',
+      'user',
+      'users',
+      ];
+    for(i = 0;i < templates.length;i+=1){
+      $httpBackend.whenGET( 'templates/' + templates[i] + '.html').passThrough();
+    }
     
-    data = angular.fromJson(data);
+    //resource arrays
+    var assignments = [];
+    var batches = [];
+    var documents = [];
+    var files = [];
+    var newspapers = [];
+    var roles = [];
+    var users = [];
+    //var account = {password:''};
+    var loggedinuser = {};
+    var loggedin = false;
     
-    if (typeof data.password !== undefined && typeof data.username !== undefined){
-      if(data.password == 'abc123' && data.username == 'admin@temple.edu'){
-        
-        loggedin = true;
-        return [200, {}, {}];
+    //account
+    $httpBackend.whenPOST('account/login').respond(function(method,url,data) {
+      
+      console.log(method);
+      console.log(url);
+      console.log(data);
+      
+      data = angular.fromJson(data);
+      
+      if (typeof data.password !== undefined && typeof data.username !== undefined){
+        if(data.password == 'abc123' && data.username == 'admin@temple.edu'){
+          
+          loggedin = true;
+          return [200, {}, {}];
+        }
+        else{
+          return [404, {error:'password not found'}, {}];
+        }
+      }
+      
+    });
+    
+    $httpBackend.whenGET('account/logout').respond(function(method,url,data) {
+      loggedin = false;
+      return [200, {}, {}];
+    });
+  
+    //assignment
+    $httpBackend.whenPOST('assignment/create').respond(function(method,url,data) {
+      console.log("Creating assignment");
+      data = angular.fromJson(data);
+      data.id = assignments.length;
+      assignments.push(data);
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenGET('assignment/retrieve').respond(function(method,url,data) {
+      console.log("Retrieving assignment");
+      
+      var return_data = assignments.slice(0);
+      var offset = 0;
+      var limit = 50;
+      
+      data = angular.fromJson(data);
+      
+      if (data.id){
+        return_data = $filter('filter')(return_data,{id:data.id} );
       }
       else{
-        return [404, {error:'password not found'}, {}];
-      }
-    }
-    
-  });
-  
-  $httpBackend.whenGET('account/logout').respond(function(method,url,data) {
-    loggedin = false;
-    return [200, {}, {}];
-  });
-
-  //assignment
-  $httpBackend.whenPOST('assignment/create').respond(function(method,url,data) {
-    console.log("Creating assignment");
-    data = angular.fromJson(data);
-    data.id = assignments.length;
-    assignments.push(data);
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenGET('assignment/retrieve').respond(function(method,url,data) {
-    console.log("Retrieving assignment");
-    
-    var return_data = assignments.slice(0);
-    var offset = 0;
-    var limit = 50;
-    
-    data = angular.fromJson(data);
-    
-    if (data.id){
-      return_data = $filter('filter')(return_data,{id:data.id} );
-    }
-    else{
-      
-      if ( data.offset !== undefined){
-        offset = data.offset;
+        
+        if ( data.offset !== undefined){
+          offset = data.offset;
+        }
+        
+        if ( data.limit !== undefined){
+          limit = data.limit;
+        }
+        
+        if ( data.query !== undefined){
+          return_data = $filter('filter')(return_data,data.query );
+        }
+        
+        return_data = return_data.slice(offset,offset+limit);
+        
       }
       
-      if ( data.limit !== undefined){
-        limit = data.limit;
-      }
+      console.log(return_data);
       
-      if ( data.query !== undefined){
+      return [200, return_data, {}];
+    });
+    
+    $httpBackend.whenPOST('assignment/update').respond(function(method,url,data) {
+      console.log("Updating assignment");
+      data = angular.fromJson(data);
+      assignments[data.id] = data;
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenDELETE('assignment/delete').respond(function(method,url,data) {
+      console.log("Deleting assignment");
+      
+      assignments.splice(assignments[angular.fromJson(data).id], 1);
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenGET('assignment/totalnum').respond(function(method,url,data) {
+      console.log("Retrieving total num");
+      
+      var return_data = assignments.slice(0);
+      var offset = 0;
+      var limit = 50;
+      
+      data = angular.fromJson(data);
+      
+      console.log(data);
+      
+      if ( typeof data.query !== undefined){
         return_data = $filter('filter')(return_data,data.query );
       }
+  
+      console.log(data);
+  
+      return [200, {totalnum : return_data.length}, {}];
+    });
+    
+    //batch
+    $httpBackend.whenPOST('batch/create').respond(function(method,url,data) {
+      console.log("Creating batch");
+      data = angular.fromJson(data);
+      data.id = batches.length;
+      batches.push(data);
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenGET('batch/retrieve').respond(function(method,url,data) {
+      console.log("Retrieving batch");
       
-      return_data = return_data.slice(offset,offset+limit);
+      var return_data = batches.slice(0);
+      var offset = 0;
+      var limit = 50;
       
-    }
-    
-    console.log(return_data);
-    
-    return [200, return_data, {}];
-  });
-  
-  $httpBackend.whenPOST('assignment/update').respond(function(method,url,data) {
-    console.log("Updating assignment");
-    data = angular.fromJson(data);
-    assignments[data.id] = data;
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenDELETE('assignment/delete').respond(function(method,url,data) {
-    console.log("Deleting assignment");
-    
-    assignments.splice(assignments[angular.fromJson(data).id], 1);
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenGET('assignment/totalnum').respond(function(method,url,data) {
-    console.log("Retrieving total num");
-    
-    var return_data = assignments.slice(0);
-    var offset = 0;
-    var limit = 50;
-    
-    data = angular.fromJson(data);
-    
-    console.log(data);
-    
-    if ( typeof data.query !== undefined){
-      return_data = $filter('filter')(return_data,data.query );
-    }
-
-    console.log(data);
-
-    return [200, {totalnum : return_data.length}, {}];
-  });
-  
-  //batch
-  $httpBackend.whenPOST('batch/create').respond(function(method,url,data) {
-    console.log("Creating batch");
-    data = angular.fromJson(data);
-    data.id = batches.length;
-    batches.push(data);
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenGET('batch/retrieve').respond(function(method,url,data) {
-    console.log("Retrieving batch");
-    
-    var return_data = batches.slice(0);
-    var offset = 0;
-    var limit = 50;
-    
-    data = angular.fromJson(data);
-    
-    if (data.id){
-      return_data = $filter('filter')(return_data,{id:data.id} );
-    }
-    else{
+      data = angular.fromJson(data);
       
-      if ( data.offset !== undefined){
-        offset = data.offset;
+      if (data.id){
+        return_data = $filter('filter')(return_data,{id:data.id} );
+      }
+      else{
+        
+        if ( data.offset !== undefined){
+          offset = data.offset;
+        }
+        
+        if ( data.limit !== undefined){
+          limit = data.limit;
+        }
+        
+        if ( data.query !== undefined){
+          return_data = $filter('filter')(return_data,data.query );
+        }
+        
+        return_data = return_data.slice(offset,offset+limit);
+        
       }
       
-      if ( data.limit !== undefined){
-        limit = data.limit;
-      }
+      console.log(return_data);
       
-      if ( data.query !== undefined){
+      return [200, return_data, {}];
+    });
+    
+    $httpBackend.whenPOST('batch/update').respond(function(method,url,data) {
+      console.log("Updating batch");
+      data = angular.fromJson(data);
+      batches[data.id] = data;
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenDELETE('batch/delete').respond(function(method,url,data) {
+      console.log("Deleting document");
+      
+      batches.splice(documents[angular.fromJson(data).id], 1);
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenGET('batch/totalnum').respond(function(method,url,data) {
+      console.log("Retrieving total num");
+      
+      var return_data = batches.slice(0);
+      var offset = 0;
+      var limit = 50;
+      
+      data = angular.fromJson(data);
+      
+      console.log(data);
+      
+      if ( typeof data.query !== undefined){
         return_data = $filter('filter')(return_data,data.query );
       }
+  
+      console.log(data);
+  
+      return [200, {totalnum : return_data.length}, {}];
+    });
+    
+    //document
+    
+    $httpBackend.whenPOST('document/create').respond(function(method,url,data) {
+      console.log("Creating document");
+      data = angular.fromJson(data);
+      data.id = documents.length;
+      documents.push(data);
+      return [200, data, {}];
+    });
+    
+    $httpBackend.whenGET('document/retrieve').respond(function(method,url,data) {
+      console.log("Retrieving document");
       
-      return_data = return_data.slice(offset,offset+limit);
+      var return_data = documents.slice(0);
+      var offset = 0;
+      var limit = 50;
       
-    }
-    
-    console.log(return_data);
-    
-    return [200, return_data, {}];
-  });
-  
-  $httpBackend.whenPOST('batch/update').respond(function(method,url,data) {
-    console.log("Updating batch");
-    data = angular.fromJson(data);
-    batches[data.id] = data;
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenDELETE('batch/delete').respond(function(method,url,data) {
-    console.log("Deleting document");
-    
-    batches.splice(documents[angular.fromJson(data).id], 1);
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenGET('batch/totalnum').respond(function(method,url,data) {
-    console.log("Retrieving total num");
-    
-    var return_data = batches.slice(0);
-    var offset = 0;
-    var limit = 50;
-    
-    data = angular.fromJson(data);
-    
-    console.log(data);
-    
-    if ( typeof data.query !== undefined){
-      return_data = $filter('filter')(return_data,data.query );
-    }
-
-    console.log(data);
-
-    return [200, {totalnum : return_data.length}, {}];
-  });
-  
-  //document
-  
-  $httpBackend.whenPOST('document/create').respond(function(method,url,data) {
-    console.log("Creating document");
-    data = angular.fromJson(data);
-    data.id = documents.length;
-    documents.push(data);
-    return [200, data, {}];
-  });
-  
-  $httpBackend.whenGET('document/retrieve').respond(function(method,url,data) {
-    console.log("Retrieving document");
-    
-    var return_data = documents.slice(0);
-    var offset = 0;
-    var limit = 50;
-    
-    data = angular.fromJson(data);
-    
-    if (data.id){
-      return_data = $filter('filter')(return_data,{id:data.id} );
-    }
-    else{
+      data = angular.fromJson(data);
       
-      if ( data.offset !== undefined){
-        offset = data.offset;
+      if (data.id){
+        return_data = $filter('filter')(return_data,{id:data.id} );
+      }
+      else{
+        
+        if ( data.offset !== undefined){
+          offset = data.offset;
+        }
+        
+        if ( data.limit !== undefined){
+          limit = data.limit;
+        }
+        
+        if ( data.query !== undefined){
+          return_data = $filter('filter')(return_data,data.query );
+        }
+        
+        return_data = return_data.slice(offset,offset+limit);
+        
       }
       
-      if ( data.limit !== undefined){
-        limit = data.limit;
-      }
+      console.log(return_data);
       
-      if ( data.query !== undefined){
+      return [200, return_data, {}];
+    });
+    
+    $httpBackend.whenPOST('document/update').respond(function(method,url,data) {
+      console.log("Updating document");
+      data = angular.fromJson(data);
+      documents[data.id] = data;
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenDELETE('document/delete').respond(function(method,url,data) {
+      console.log("Deleting document");
+      
+      documents.splice(documents[angular.fromJson(data).id], 1);
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenGET('document/totalnum').respond(function(method,url,data) {
+      console.log("Retrieving total num");
+      
+      var return_data = documents.slice(0);
+      var offset = 0;
+      var limit = 50;
+      
+      data = angular.fromJson(data);
+      
+      console.log(data);
+      
+      if ( typeof data.query !== undefined){
         return_data = $filter('filter')(return_data,data.query );
       }
+  
+      console.log(data);
+  
+      return [200, {totalnum : return_data.length}, {}];
+    });
+    
+    //file
+    $httpBackend.whenPOST('file/create').respond(function(method,url,data) {
+      console.log("Creating file");
+      data = angular.fromJson(data)
+      data.id = files.length;
+      files.push(data);
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenGET('file/retrieve').respond(function(method,url,data) {
+      console.log("Retrieving files");
       
-      return_data = return_data.slice(offset,offset+limit);
+      var return_data = files.slice(0);
+      var offset = 0;
+      var limit = 50;
       
-    }
-    
-    console.log(return_data);
-    
-    return [200, return_data, {}];
-  });
-  
-  $httpBackend.whenPOST('document/update').respond(function(method,url,data) {
-    console.log("Updating document");
-    data = angular.fromJson(data);
-    documents[data.id] = data;
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenDELETE('document/delete').respond(function(method,url,data) {
-    console.log("Deleting document");
-    
-    documents.splice(documents[angular.fromJson(data).id], 1);
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenGET('document/totalnum').respond(function(method,url,data) {
-    console.log("Retrieving total num");
-    
-    var return_data = documents.slice(0);
-    var offset = 0;
-    var limit = 50;
-    
-    data = angular.fromJson(data);
-    
-    console.log(data);
-    
-    if ( typeof data.query !== undefined){
-      return_data = $filter('filter')(return_data,data.query );
-    }
-
-    console.log(data);
-
-    return [200, {totalnum : return_data.length}, {}];
-  });
-  
-  //file
-  $httpBackend.whenPOST('file/create').respond(function(method,url,data) {
-    console.log("Creating file");
-    data = angular.fromJson(data)
-    data.id = files.length;
-    files.push(data);
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenGET('file/retrieve').respond(function(method,url,data) {
-    console.log("Retrieving files");
-    
-    var return_data = files.slice(0);
-    var offset = 0;
-    var limit = 50;
-    
-    data = angular.fromJson(data);
-    
-    if (data.id){
-      return_data = $filter('filter')(return_data,{id:data.id} );
-    }
-    else{
+      data = angular.fromJson(data);
       
-      if ( data.offset !== undefined){
-        offset = data.offset;
+      if (data.id){
+        return_data = $filter('filter')(return_data,{id:data.id} );
+      }
+      else{
+        
+        if ( data.offset !== undefined){
+          offset = data.offset;
+        }
+        
+        if ( data.limit !== undefined){
+          limit = data.limit;
+        }
+        
+        if ( data.query !== undefined){
+          return_data = $filter('filter')(return_data,data.query );
+        }
+        
+        return_data = return_data.slice(offset,offset+limit);
+        
       }
       
-      if ( data.limit !== undefined){
-        limit = data.limit;
+      console.log(return_data);
+      
+      return [200, return_data, {}];
+    });
+    
+    $httpBackend.whenPOST('file/update').respond(function(method,url,data) {
+      console.log("Updating file");
+      data = angular.fromJson(data)
+      files[data.id] = data;
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenDELETE('file/delete').respond(function(method,url,data) {
+      console.log("Deleting file");
+      
+      for(var i = 0; i < files.length ;i +=1){
+        if (files[i].id == angular.fromJson(data).id){
+          files.splice(i, 1);
+        }
       }
       
-      if ( data.query !== undefined){
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenGET('file/totalnum').respond(function(method,url,data) {
+      console.log("Retrieving total num");
+      
+      var return_data = files.slice(0);
+      var offset = 0;
+      var limit = 50;
+      
+      data = angular.fromJson(data);
+      
+      console.log(data);
+      
+      if ( typeof data.query !== undefined){
         return_data = $filter('filter')(return_data,data.query );
       }
-      
-      return_data = return_data.slice(offset,offset+limit);
-      
-    }
-    
-    console.log(return_data);
-    
-    return [200, return_data, {}];
-  });
   
-  $httpBackend.whenPOST('file/update').respond(function(method,url,data) {
-    console.log("Updating file");
-    data = angular.fromJson(data)
-    files[data.id] = data;
-    return [200, {}, {}];
-  });
+      console.log(data);
   
-  $httpBackend.whenDELETE('file/delete').respond(function(method,url,data) {
-    console.log("Deleting file");
+      return [200, {totalnum : return_data.length}, {}];
+    });
     
-    for(var i = 0; i < files.length ;i +=1){
-      if (files[i].id == angular.fromJson(data).id){
-        files.splice(i, 1);
+    //newspaper
+    $httpBackend.whenPOST('newspaper/create').respond(function(method,url,data) {
+      console.log("Creating newspaper");
+      data = angular.fromJson(data)
+      data.id = newspapers.length;
+      newspapers.push(data);
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenGET('newspaper/retrieve').respond(function(method,url,data) {
+      console.log("Retrieving newspaper");
+      
+      var return_data = newspapers;
+      
+      data = angular.fromJson(data)
+      
+      if (data.id){
+        return_data = return_data.slice(data.id,data.id+1);
+      } 
+      
+      console.log(return_data);
+      
+      return [200, return_data, {}];
+    });
+    
+    $httpBackend.whenPOST('newspaper/update').respond(function(method,url,data) {
+      console.log("Updating newspaper");
+      data = angular.fromJson(data)
+      newspapers[data.id] = data;
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenDELETE('newspaper/delete').respond(function(method,url,data) {
+      console.log("Deleting newspaper");
+      
+      newspapers.splice(newspapers[angular.fromJson(data).id], 1);
+  
+      return [200, {}, {}];
+    });
+    
+    //role
+    $httpBackend.whenPOST('role/create').respond(function(method,url,data) {
+      console.log("Creating role");
+      data = angular.fromJson(data)
+      data.id = roles.length;
+      roles.push(data);
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenGET('role/retrieve').respond(function(method,url,data) {
+      console.log("Retrieving role");
+      
+      var return_data = roles;
+      
+      data = angular.fromJson(data)
+      
+      if (data.id){
+        return_data = return_data.slice(data.id,data.id+1);
+      } 
+      
+      console.log(return_data);
+      
+      return [200, return_data, {}];
+    });
+    
+    $httpBackend.whenPOST('role/update').respond(function(method,url,data) {
+      console.log("Updating role");
+      data = angular.fromJson(data)
+      roles[data.id] = data;
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenDELETE('role/delete').respond(function(method,url,data) {
+      console.log("Deleting role");
+      
+      roles.splice(roles[angular.fromJson(data).id], 1);
+      return [200, {}, {}];
+    });
+    
+    //user
+    $httpBackend.whenPOST('user/create').respond(function(method,url,data) {
+      console.log("Creating user");
+      data = angular.fromJson(data)
+      data.id = users.length;
+      users.push(data);
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenGET('user/retrieve').respond(function(method,url,data) {
+      console.log("Retrieving user");
+      
+      var return_data = users.slice(0);
+      
+      var offset = 0;
+      var limit = 50;
+      
+      data = angular.fromJson(data);
+      
+      if (data.id){
+        return_data = $filter('filter')(return_data,{id:data.id} );
       }
-    }
-    
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenGET('file/totalnum').respond(function(method,url,data) {
-    console.log("Retrieving total num");
-    
-    var return_data = files.slice(0);
-    var offset = 0;
-    var limit = 50;
-    
-    data = angular.fromJson(data);
-    
-    console.log(data);
-    
-    if ( typeof data.query !== undefined){
-      return_data = $filter('filter')(return_data,data.query );
-    }
-
-    console.log(data);
-
-    return [200, {totalnum : return_data.length}, {}];
-  });
-  
-  //newspaper
-  $httpBackend.whenPOST('newspaper/create').respond(function(method,url,data) {
-    console.log("Creating newspaper");
-    data = angular.fromJson(data)
-    data.id = newspapers.length;
-    newspapers.push(data);
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenGET('newspaper/retrieve').respond(function(method,url,data) {
-    console.log("Retrieving newspaper");
-    
-    var return_data = newspapers;
-    
-    data = angular.fromJson(data)
-    
-    if (data.id){
-      return_data = return_data.slice(data.id,data.id+1);
-    } 
-    
-    console.log(return_data);
-    
-    return [200, return_data, {}];
-  });
-  
-  $httpBackend.whenPOST('newspaper/update').respond(function(method,url,data) {
-    console.log("Updating newspaper");
-    data = angular.fromJson(data)
-    newspapers[data.id] = data;
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenDELETE('newspaper/delete').respond(function(method,url,data) {
-    console.log("Deleting newspaper");
-    
-    newspapers.splice(newspapers[angular.fromJson(data).id], 1);
-
-    return [200, {}, {}];
-  });
-  
-  //role
-  $httpBackend.whenPOST('role/create').respond(function(method,url,data) {
-    console.log("Creating role");
-    data = angular.fromJson(data)
-    data.id = roles.length;
-    roles.push(data);
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenGET('role/retrieve').respond(function(method,url,data) {
-    console.log("Retrieving role");
-    
-    var return_data = roles;
-    
-    data = angular.fromJson(data)
-    
-    if (data.id){
-      return_data = return_data.slice(data.id,data.id+1);
-    } 
-    
-    console.log(return_data);
-    
-    return [200, return_data, {}];
-  });
-  
-  $httpBackend.whenPOST('role/update').respond(function(method,url,data) {
-    console.log("Updating role");
-    data = angular.fromJson(data)
-    roles[data.id] = data;
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenDELETE('role/delete').respond(function(method,url,data) {
-    console.log("Deleting role");
-    
-    roles.splice(roles[angular.fromJson(data).id], 1);
-    return [200, {}, {}];
-  });
-  
-  //user
-  $httpBackend.whenPOST('user/create').respond(function(method,url,data) {
-    console.log("Creating user");
-    data = angular.fromJson(data)
-    data.id = users.length;
-    users.push(data);
-    return [200, {}, {}];
-  });
-  
-  $httpBackend.whenGET('user/retrieve').respond(function(method,url,data) {
-    console.log("Retrieving user");
-    
-    var return_data = users.slice(0);
-    
-    var offset = 0;
-    var limit = 50;
-    
-    data = angular.fromJson(data);
-    
-    if (data.id){
-      return_data = $filter('filter')(return_data,{id:data.id} );
-    }
-    else{
-      
-      if ( data.offset !== undefined){
-        offset = data.offset;
+      else{
+        
+        if ( data.offset !== undefined){
+          offset = data.offset;
+        }
+        
+        if ( data.limit !== undefined){
+          limit = data.limit;
+        }
+        
+        if ( data.query !== undefined){
+          return_data = $filter('filter')(return_data,data.query );
+        }
+        
+        return_data = return_data.slice(offset,offset+limit);
+        
       }
       
-      if ( data.limit !== undefined){
-        limit = data.limit;
-      }
+      console.log(return_data);
       
-      if ( data.query !== undefined){
+      return [200, return_data, {}];
+    });
+    
+    $httpBackend.whenPOST('user/update').respond(function(method,url,data) {
+      console.log("Updating user");
+      data = angular.fromJson(data)
+      users[data.id] = data;
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenDELETE('user/delete').respond(function(method,url,data) {
+      console.log("Deleting user");
+      
+      users.splice(users[angular.fromJson(data).id], 1);
+      return [200, {}, {}];
+    });
+    
+    $httpBackend.whenGET('user/totalnum').respond(function(method,url,data) {
+      console.log("Retrieving total num");
+      
+      var return_data = users.slice(0);
+      var offset = 0;
+      var limit = 50;
+      
+      data = angular.fromJson(data);
+      
+      console.log(data);
+      
+      if ( typeof data.query !== undefined){
         return_data = $filter('filter')(return_data,data.query );
       }
-      
-      return_data = return_data.slice(offset,offset+limit);
-      
-    }
-    
-    console.log(return_data);
-    
-    return [200, return_data, {}];
-  });
   
-  $httpBackend.whenPOST('user/update').respond(function(method,url,data) {
-    console.log("Updating user");
-    data = angular.fromJson(data)
-    users[data.id] = data;
-    return [200, {}, {}];
-  });
+      console.log(data);
   
-  $httpBackend.whenDELETE('user/delete').respond(function(method,url,data) {
-    console.log("Deleting user");
-    
-    users.splice(users[angular.fromJson(data).id], 1);
-    return [200, {}, {}];
-  });
+      return [200, {totalnum : return_data.length}, {}];
+    });
   
-  $httpBackend.whenGET('user/totalnum').respond(function(method,url,data) {
-    console.log("Retrieving total num");
-    
-    var return_data = users.slice(0);
-    var offset = 0;
-    var limit = 50;
-    
-    data = angular.fromJson(data);
-    
-    console.log(data);
-    
-    if ( typeof data.query !== undefined){
-      return_data = $filter('filter')(return_data,data.query );
-    }
-
-    console.log(data);
-
-    return [200, {totalnum : return_data.length}, {}];
   });
+}
 
-});

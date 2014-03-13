@@ -71,6 +71,13 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
             level:'warning',
             debug_data:status+ ' : ' + data
           });
+          
+          switch(status){
+            case 401:
+              $location.path('login');
+            break;
+          }
+          
         });
       
       //call retrieve api function get total num
@@ -1552,9 +1559,22 @@ ppdpControllers.controller('footer', ['$scope', '$routeParams', 'ppdpAPIService'
 );
 
 /** Controller: header */
-ppdpControllers.controller('header', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams) {
+ppdpControllers.controller('header', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$rootScope',
+  function($scope, $routeParams, ppdpAPIService, $location, $rootScope) {
     console.log('header');
+    
+    $scope.logout = function(){
+      
+      ppdpAPIService.account.logout().
+        success(function(data, status){
+          $rootScope.user_account = 'undefined';
+          $location.path('login');
+        }).
+        error(function(data, status){
+        });
+      
+    };
+    
   }]
 );
 
@@ -1647,7 +1667,7 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
         ppdpAPIService.account.login($scope.account).
           success(function(data, status){
             
-            $rootScope.account = data;
+            $rootScope.user_account = data;
             
             //show user alert stating they have successfully logged in
             $scope.alerts.push({

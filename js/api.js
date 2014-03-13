@@ -820,7 +820,7 @@ if (enable_mock_api){
         if(data.password == 'abc123' && data.username == 'admin@temple.edu'){
           
           loggedin = true;
-          return [200, users[0], {}];
+          return [200, users[1], {}];
         }
         else{
           return [404, {error:'password not found'}, {}];

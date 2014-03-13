@@ -92,6 +92,10 @@ ppdpApp.config(['$routeProvider',
 **********************************************************************
 
  */
- ppdpApp.run(function ($rootScope, $location) {
-   $rootScope.account = {accountId:'test'};
+ ppdpApp.run(function ($rootScope, $location, ppdpAPIService) {
+   $rootScope.user_account = 'undefined';
+   
+   //check if logged in
+      //if logged in store user data 
+      // if not logged route user to login page
  });

@@ -1,0 +1,12 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    {{selected_value}} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li ng-repeat="option in options | filter:query" class="{{option.class}}"><a ng-show=" (option.class != 'divider') " ng-click="select(option)">{{option[text_field]}}</a></li>
+    <li class="divider"></li>
+    <li>
+      <input type="text" class="form-control" placeholder="{{placeholder}}" ng-model="query" data-toggle="dropdown">
+    </li>
+  </ul>
+</div>

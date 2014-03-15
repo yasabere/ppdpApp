@@ -4,15 +4,16 @@
 var enable_mock_api = true;
 
 //link to live server api
-var api_url_string = "https://np-stem.temple.edu/cis4396-S02/";
+var api_url_string = "https://np-stem.temple.edu/cis4396-S02/api/";
 
 //object containing name of each resource which tells whether the js api should access live server api_url_string or mock api
 var resources = {
+  'account' : {use_mock:true},
   'assignment' : {use_mock:true}, 
   'batch' : {use_mock:true},
   'document' : {use_mock:true},
   'file' : {use_mock:true}, 
-  'newspaper' : {use_mock:true}, 
+  'newspaper' : {use_mock:false}, 
   'role' : {use_mock:true}, 
   'user' : {use_mock:true},
   };
@@ -154,13 +155,6 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         else{
           _array[index]['selected'] = true;
         }
-      //}
-      //else {
-          //_array[index]['selected'] = true;
-      //}
-      
-      
-     
     }
 
     /** Model Functions */
@@ -179,7 +173,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.retrieve = function(_assignment){
         var request = {
           method: 'GET',
-          url: api_url('document') + 'assignment/retrieve',
+          url: api_url('assignment') + 'assignment/retrieve',
           data: _assignment,
         };
         
@@ -190,7 +184,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.update = function(_assignment){
         var request = {
           method: 'POST',
-          url: api_url('document') + 'assignment/update',
+          url: api_url('assignment') + 'assignment/update',
           data: _assignment,
         };
         
@@ -200,7 +194,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.delete = function(_assignment){
         var request = {
           method: 'Delete',
-          url: api_url('document') + 'assignment/delete',
+          url: api_url('assignment') + 'assignment/delete',
           data: _assignment,
         };
         
@@ -224,7 +218,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.create = function(_batch){
         var request = {
           method: 'POST',
-          url: api_url('document') + 'batch/create',
+          url: api_url('batch') + 'batch/create',
           data: _batch,
         };
         
@@ -234,7 +228,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.retrieve = function(_batch){
         var request = {
           method: 'GET',
-          url: api_url('document') + 'batch/retrieve',
+          url: api_url('batch') + 'batch/retrieve',
           data: _batch,
         };
         
@@ -244,7 +238,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.update = function(_batch){
         var request = {
           method: 'POST',
-          url: api_url('document') + 'batch/update',
+          url: api_url('batch') + 'batch/update',
           data: _batch,
         };
         
@@ -254,7 +248,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.delete = function(_batch){
         var request = {
           method: 'Delete',
-          url: api_url('document') + 'batch/delete',
+          url: api_url('batch') + 'batch/delete',
           data: _batch,
         };
         
@@ -349,7 +343,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
         var request = {
           method: 'POST',
-          url: api_url('document') + 'file/create',
+          url: api_url('file') + 'file/create',
           data: _file,
         };
         
@@ -360,7 +354,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           
         var request = {
           method: 'GET',
-          url: api_url('document') + 'file/retrieve',
+          url: api_url('file') + 'file/retrieve',
           data: _file,
         };
         
@@ -370,7 +364,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.update = function(_file){
         var request = {
           method: 'POST',
-          url: api_url('document') + 'file/update',
+          url: api_url('file') + 'file/update',
           data: _file,
         };
         
@@ -380,7 +374,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.delete = function(_file){
         var request = {
           method: 'Delete',
-          url: api_url('document') + 'file/delete',
+          url: api_url('file') + 'file/delete',
           data: _file,
         };
         
@@ -401,19 +395,29 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
     
     sharedService.newspaperModel = function(){
       this.create = function(_newspaper){
-        sharedService.newspapers.push(_newspaper);
-        return true;
+        var request = {
+          method: 'POST',
+          url: api_url('newspaper') + 'newspaper/create',
+          data: _newspaper,
+        };
+        
+        return $http(request);
       }
 
       this.retrieve = function(query){
-        console.log(sharedService.newspapers[0]);
-        return sharedService.newspapers;
+        var request = {
+          method: 'GET',
+          url: api_url('newspaper') + 'newspaper/retrieve',
+          data: _newspaper,
+        };
+        
+        return $http(request);
       }
 
       this.update = function(_newspaper){
         var request = {
           method: 'POST',
-          url: api_url('document') + 'newspaper/update',
+          url: api_url('newspaper') + 'newspaper/update',
           data: _newspaper,
         };
         
@@ -423,7 +427,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.delete = function(_newspaper){
         var request = {
           method: 'Delete',
-          url: api_url('document') + 'newspaper/delete',
+          url: api_url('newspaper') + 'newspaper/delete',
           data: _newspaper,
         };
         
@@ -436,13 +440,13 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.create = function(_role){
         sharedService.roles.push(_role);
         return true;
-      }
+      };
 
       this.retrieve = function(_role){
         console.log(sharedService.roles[0]);
         return sharedService.roles;
-      }
-    }
+      };
+    };
     sharedService.role = new sharedService.roleModel();
     
     sharedService.userModel = function(){
@@ -791,8 +795,81 @@ if (enable_mock_api){
       'user',
       'users',
       ];
+    
+    //allow all api calls to not be intercepted by httpbackend  
     for(i = 0;i < templates.length;i+=1){
       $httpBackend.whenGET( 'templates/' + templates[i] + '.html').passThrough();
+    }
+    
+    var controller_methods = {
+        'account' : [
+          'login',
+          'logout',
+          'isloggedin'
+        ],
+        'assignment' : [
+          'create',
+          'retrieve',
+          'update',
+          'delete',
+          'totalnum'
+        ],
+        'batch' : [
+          'create',
+          'retrieve',
+          'update',
+          'delete',
+          'totalnum'
+        ],
+        'document' : [
+          'create',
+          'retrieve',
+          'update',
+          'delete',
+          'totalnum'
+        ],
+        'file' : [
+          'create',
+          'retrieve',
+          'update',
+          'delete',
+          'totalnum'
+          ],
+        'newspaper' : [
+          'create',
+          'retrieve',
+          'update',
+          'delete',
+          'totalnum'
+        ],
+        'role' : [
+          'create',
+          'retrieve',
+          'update',
+          'delete',
+          'totalnum'
+        ],
+        'user' : [
+          'create',
+          'retrieve',
+          'update',
+          'delete',
+          'totalnum'
+        ]};
+      
+    for(var controller_method in controller_methods){
+      
+      for( var j = 0; j < controller_methods[controller_method].length; j+=1 ){
+        
+        var http_request_url = api_url_string + controller_method + '/' + controller_methods[controller_method][j];
+        
+        if (resources[controller_method].use_mock == false){
+          $httpBackend.whenGET( http_request_url ).passThrough();
+          console.log(http_request_url);
+        }
+        
+      }
+      
     }
     
     //resource arrays

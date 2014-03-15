@@ -1715,43 +1715,44 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
     $scope.menu = [
       {
         title: 'Newsclips',
-        href: 'newsclips',
+        href: '#/newsclips',
         menu:[{
           title: 'Create',
-          href: 'create_newsclip',
+          href: '#/create_newsclip',
           path:['/create_newsclip','/newsclip']
         }],
         path:['/','/newsclips','/newsclip']
       },
       {
         title: 'Batches',
-        href: 'batches',
+        href: '#/batches',
         menu:[],
         path:['/batches','/batch']
       },
       {
         title: 'Files',
-        href: 'files',
+        href: '#/files',
         menu:[{
           title: 'Upload',
-          href: 'upload',
-          path:'/upload'
+          href: 'javascript:void(0)',
+          path:'#/upload',
+          click: function(){$('#createFileModal').modal('toggle')}
         }],
         path:'/files'
       },
       {
         title: 'Assignments',
-        href: 'assignments',
+        href: '#/assignments',
         path:'/assignments',
         menu:[]
       },
       {
         title: 'Users',
-        href: 'users',
+        href: '#/users',
         path:'/users',
         menu:[{
           title: 'Add User',
-          href: 'create_user',
+          href: '#/create_user',
           path:['/create_user']
         }],
       },

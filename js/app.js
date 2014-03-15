@@ -2,7 +2,8 @@ var ppdpApp = angular.module('ppdpApp', [
   'ngRoute',
   'ppdpControllers',
   'ppdpDirectives',
-  'ppdpAPI'
+  'ppdpAPI',
+  'angularFileUpload'
 ]);
 
  /*

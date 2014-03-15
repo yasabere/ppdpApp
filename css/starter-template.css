@@ -5,3 +5,12 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
+
+.drop-box {
+	background: #FBFBF8;
+	border: 5px dashed #EEE;
+	width: 100%;
+	height: 65px; 
+	text-align: center;
+	padding: 35px; 
+}

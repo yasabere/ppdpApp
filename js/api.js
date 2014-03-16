@@ -438,13 +438,23 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
     sharedService.roleModel = function(){
       this.create = function(_role){
-        sharedService.roles.push(_role);
-        return true;
+        var request = {
+          method: 'POST',
+          url: api_url('role') + 'role/create',
+          data: _role,
+        };
+        
+        return $http(request);
       };
 
       this.retrieve = function(_role){
-        console.log(sharedService.roles[0]);
-        return sharedService.roles;
+        var request = {
+          method: 'GET',
+          url: api_url('role') + 'role/retrieve',
+          data: _newspaper,
+        };
+        
+        return $http(request);
       };
     };
     sharedService.role = new sharedService.roleModel();

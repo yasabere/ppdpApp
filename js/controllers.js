@@ -1023,9 +1023,10 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
         $scope.newspapers = data;
       }).
       error(function(data, status){
-        $scope.alerts.push({
+        $scope.urgent_alerts.push({
           message:'Error connecting to server',
-          level:'warning',  
+          level:'warning',
+          debug_data: status+ ' : ' + data
         }); 
       });
     
@@ -1489,7 +1490,12 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     
     $scope.upload_file = function(files){
       
-      for(var i = 0 ; i < files; i+=1){
+      console.log(files);
+
+      
+      for(var i = 0 ; i < files.length; i+=1){
+        
+        alert('fuck');
         
         console.log(files[i]);
         
@@ -1861,10 +1867,11 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       success(function(data, status){
         $scope.newspapers = data;
       }).
-      error(function(data, status){
-        $scope.alerts.push({
+      error(function(data, status, headers){
+        $scope.urgent_alerts.push({
           message:'Error connecting to server',
-          level:'warning',  
+          level:'warning',
+          debug_data: status+ ' : ' + data 
         }); 
       });
     
@@ -2610,7 +2617,19 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
     
     $scope.user = {};
     $scope.users = [];
-    $scope.roles = ppdpAPIService.role.retrieve({});
+    
+    //retrieve all roles
+    ppdpAPIService.role.retrieve({}).
+      success(function(data, status){
+        $scope.roles = data;
+      }).
+      error(function(data, status){
+        $scope.urgent_alerts.push({
+          message:'Error connecting to server',
+          level:'warning',
+          debug_data: status+ ' : ' + data
+        }); 
+      });
     
     //keep track of url variables
     $scope.old_params = jQuery.extend(true, {}, $routeParams);

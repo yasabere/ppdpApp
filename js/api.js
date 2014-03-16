@@ -404,7 +404,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         return $http(request);
       }
 
-      this.retrieve = function(query){
+      this.retrieve = function(_newspaper){
         var request = {
           method: 'GET',
           url: api_url('newspaper') + 'newspaper/retrieve',

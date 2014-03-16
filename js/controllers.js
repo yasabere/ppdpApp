@@ -1018,7 +1018,16 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
     $scope.urgent_alerts = [];
     
     //news papers to be displayed in 'Newspaper' dropdown
-    $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
+    ppdpAPIService.newspaper.retrieve({}).
+      success(function(data, status){
+        $scope.newspapers = data;
+      }).
+      error(function(data, status){
+        $scope.alerts.push({
+          message:'Error connecting to server',
+          level:'warning',  
+        }); 
+      });
     
     //json representation of 
     $scope.doc = {
@@ -1478,6 +1487,31 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       }, 2000);
     };
     
+    $scope.upload_file = function(files){
+      
+      for(var i = 0 ; i < files; i+=1){
+        
+        console.log(files[i]);
+        
+        //call retrieve api function get total num
+        ppdpAPIService.file.create({}).
+          success(function(data, status) {
+    
+            alert(status);
+            
+            
+          }).
+          error(function(data, status) {
+            $scope.alerts.push({
+              message:'Trouble connecting to server. Files could not be uploaded',
+              level:'warning',
+              debug_data:status+ ' : ' + data
+            });
+        });
+      }
+      
+    }
+    
         
     /**
      * assign() creates new assignment
@@ -1823,7 +1857,16 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     $scope.urgent_alerts = [];
     
     //news papers to be displayed in 'Newspaper' dropdown
-    $scope.newspapers = ppdpAPIService.newspaper.retrieve({});
+    ppdpAPIService.newspaper.retrieve({}).
+      success(function(data, status){
+        $scope.newspapers = data;
+      }).
+      error(function(data, status){
+        $scope.alerts.push({
+          message:'Error connecting to server',
+          level:'warning',  
+        }); 
+      });
     
     // set the directions to show up on page
     $scope.directions = [];

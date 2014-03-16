@@ -1398,7 +1398,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
         click: function(id, row){
           $scope.details(id);
         },
-        attributes:'test',
+        attributes:'',
         field_text: 'file_size'
       },
       { 
@@ -1491,21 +1491,20 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.upload_file = function(files){
       
       console.log(files);
-
+      var successful = true;
+      var _file;
       
       for(var i = 0 ; i < files.length; i+=1){
         
-        alert('fuck');
-        
-        console.log(files[i]);
-        
         //call retrieve api function get total num
-        ppdpAPIService.file.create({}).
+        _file = {
+          name :  files[i].name
+        };
+        
+        ppdpAPIService.file.create(_file).
           success(function(data, status) {
-    
-            alert(status);
-            
-            
+            $scope.update_results();
+            successful = true;
           }).
           error(function(data, status) {
             $scope.alerts.push({
@@ -1513,7 +1512,28 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
               level:'warning',
               debug_data:status+ ' : ' + data
             });
+            
+            successful = false;
         });
+      }
+      
+      if (successful){
+      
+        $scope.alerts = [];
+        
+        //if succesful show message to user
+        $scope.alerts.push({
+          message:'suuccessfully Uploaded ' + files.length + ' file(s)',
+          level:'success'
+        }); 
+        
+        //after alert has been on screen for 2 seconds it is removed
+        $timeout(function(){
+          $('.alert').bind('closed.bs.alert', function () {
+            $scope.alerts = [];
+          });
+          $(".alert").alert('close');
+        }, 2000);
       }
       
     }

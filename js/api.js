@@ -15,7 +15,7 @@ var resources = {
   'file' : {use_mock:true}, 
   'newspaper' : {use_mock:false}, 
   'role' : {use_mock:true}, 
-  'user' : {use_mock:true},
+  'user' : {use_mock:false},
   };
 
 /**
@@ -484,7 +484,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
       this.update = function(_user){
         var request = {
-          method: 'POST',
+          method: 'PUT',
           url: api_url('user') + 'user/update',
           data: _user,
         };
@@ -503,9 +503,12 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       }
       
       this.totalNum = function(params){
+        
+        params['totalnum'] = true;
+        
         var request = {
           method: 'GET',
-          url: api_url('user') + 'user/totalnum',
+          url: api_url('user') + 'user/retrieve',
           data: params
         };
         
@@ -1363,7 +1366,7 @@ if (enable_mock_api){
       return [200, return_data, {}];
     });
     
-    $httpBackend.whenPOST('user/update').respond(function(method,url,data) {
+    $httpBackend.whenPUT('user/update').respond(function(method,url,data) {
       console.log("Updating user");
       data = angular.fromJson(data)
       users[data.id] = data;

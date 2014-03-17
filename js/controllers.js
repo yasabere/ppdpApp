@@ -2668,7 +2668,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
         $scope.users = data;
           
         //get data for doc
-        ppdpAPIService.user.retrieve({id:$scope.users[$routeParams.userId].id}).
+        ppdpAPIService.user.retrieve({email:$scope.users[$routeParams.userId].email}).
           success(function(data, status) {
             //load data into doc
             $scope.user = jQuery.extend(true, {}, data[0]);
@@ -2703,7 +2703,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
         $scope.alerts.push({
           message:'Trouble connecting to server.',
           level:'warning',
-          debug_data:status+ ' : ' + data
+          debug_data: status+ ' : ' + data
         });
     });
     

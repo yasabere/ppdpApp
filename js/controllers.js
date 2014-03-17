@@ -1876,7 +1876,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
 
     
     // TODO: -- swap out for something that makes sense
-    $scope.tiebreaker = false;
+    $scope.tiebreaker = $routeParams.tiebreak;
     
     //alerts to be displayed on screen
     $scope.alerts = [];

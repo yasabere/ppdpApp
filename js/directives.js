@@ -77,9 +77,13 @@ ppdpDirectives.directive('masterTopMenu', function(ppdpAPIService){
        data: '=data',
        params: '=params',
        totalrows: '=totalRows',
-       page_description: '=pageDescription'
+       page_description: '=pageDescription',
+       show_paging: '=showPaging'
      },
      controller: 'topmenu',
+     compile: function(element, attrs){
+        if (!attrs.showPaging) { attrs.showPaging = 'true'; }
+     }
    } 
 });
 
@@ -98,6 +102,7 @@ ppdpDirectives.directive('dropdown', function(){
       returnObject: "=returnObject"
      },
      controller:'dropdown',
+     
      compile: function(element, attrs){
        if (!attrs.textField) { attrs.textField = 'text'; }
        if (!attrs.valueField) { attrs.valueField = 'value'; }

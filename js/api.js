@@ -326,6 +326,9 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       }
       
       this.totalNum = function(params){
+        
+        params.totalnum = true;
+        
         var request = {
           method: 'GET',
           url: api_url('document') + 'document/totalnum',
@@ -505,6 +508,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.totalNum = function(params){
         
         params['totalnum'] = true;
+        
+        console.log(params);
         
         var request = {
           method: 'GET',
@@ -878,7 +883,7 @@ if (enable_mock_api){
         
         if (resources[controller_method].use_mock == false){
           $httpBackend.whenGET( http_request_url ).passThrough();
-          console.log(http_request_url);
+          //console.log(http_request_url);
         }
         
       }
@@ -999,7 +1004,7 @@ if (enable_mock_api){
   
       console.log(data);
   
-      return [200, {totalnum : return_data.length}, {}];
+      return [200, {total : return_data.length}, {}];
     });
     
     //batch
@@ -1077,7 +1082,7 @@ if (enable_mock_api){
   
       console.log(data);
   
-      return [200, {totalnum : return_data.length}, {}];
+      return [200, {total : return_data.length}, {}];
     });
     
     //document
@@ -1156,7 +1161,7 @@ if (enable_mock_api){
   
       console.log(data);
   
-      return [200, {totalnum : return_data.length}, {}];
+      return [200, {total : return_data.length}, {}];
     });
     
     //file
@@ -1239,7 +1244,7 @@ if (enable_mock_api){
   
       console.log(data);
   
-      return [200, {totalnum : return_data.length}, {}];
+      return [200, {total : return_data.length}, {}];
     });
     
     //newspaper
@@ -1397,7 +1402,7 @@ if (enable_mock_api){
   
       console.log(data);
   
-      return [200, {totalnum : return_data.length}, {}];
+      return [200, {total : return_data.length}, {}];
     });
   
   });

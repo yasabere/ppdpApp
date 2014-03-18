@@ -97,7 +97,7 @@
          {{button.text}} <span class="glyphicon glyphicon-{{button.glyphicon}}"></span>
       </button> </span>
 
-      <span class="pull-right">
+      <span class="pull-right" ng-show="show_paging">
         <div class="btn-group">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="">
             <span class="text-muted">{{page_description}} </span> <b>{{params.offset + 1}}</b> of <b>{{ num_rows }}</b> <span class="caret"></span>

@@ -3,7 +3,8 @@ var ppdpApp = angular.module('ppdpApp', [
   'ppdpControllers',
   'ppdpDirectives',
   'ppdpAPI',
-  'angularFileUpload'
+  'angularFileUpload',
+  'ngTagsInput'
 ]);
 
  /*

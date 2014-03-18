@@ -106,15 +106,11 @@
         <br/>
         <br/>
         <div>
-          <label>Assignee</label> <span class="text-danger"><b>*</b></span><br/>
-          <dropdown 
-            ng-Model = "assignment.user"
-            placeholder = " 'Select Assignee' "
-            options = "users"
-            text_field = " 'name' "
-            return-Object = " 'true' "
-          >
-          </dropdown>
+          <label>Assignees</label> <span class="text-danger"><b>*</b></span><br/>
+          <div ng-repeat=" user in users">
+            <input type="checkbox" ng-model="user.selected">
+            {{user.name}}
+          </div>
         </div>
         <br/>
         <div>

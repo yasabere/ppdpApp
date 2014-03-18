@@ -85,7 +85,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
         success(function(data, status) {
   
           //load data into users
-          $scope.totalRows = data.totalnum;
+          $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
@@ -477,7 +477,7 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
         success(function(data, status) {
   
           //load data into users
-          $scope.totalRows = data.totalnum;
+          $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
@@ -696,7 +696,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.alerts = [];
     $scope.rows_selected = false;
     $scope.totalRows = 0;
-    $scope.assignment = {type:'',user:''};
+    $scope.assignment = {type:'',users:''};
     
     $scope.params = {
       offset:0,
@@ -737,7 +737,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
         success(function(data, status) {
   
           //load data into users
-          $scope.totalRows = data.totalnum;
+          $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
@@ -948,32 +948,39 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       
       var success = true;
       
+      //for each selected batch create the new assignment
       for(var i = 0; i < $scope.selected_batches.length; i+=1){
-        //ppdpAPIService.assignment.create($scope.selected_batches[i]);
-        
+
         $scope.assignment.batch = $scope.batches[i];
         
         //create new request object to be sent to api
         var assignment_request = jQuery.extend( true, {},$scope.assignment);
-        
-        
-        console.log($scope.assignment);
-        
+
+        //call create assignment api function and pass the assignment request object
         ppdpAPIService.assignment.create(assignment_request).
           success(function(){
+            
             success = true;
           }).
           error(function(data, status) {
+          
+            //show user that there was an error
             $scope.alerts.push({
               message:'Trouble connecting to server.',
               level:'warning',
               debug_data:status+ ' : ' + data
             });
+            
           });
           
+        //refresh results after assignment is completed in case they chaned
         $scope.update_results();
       }
+      
+      //close modal
       $('#assignModal').modal('hide');
+      
+      //set all batches to non selected
       $scope.selected_batches = [];
     
       if (success){
@@ -1280,7 +1287,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
         success(function(data, status) {
   
           //load data into users
-          $scope.totalRows = data.totalnum;
+          $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
@@ -1950,7 +1957,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
         success(function(data, status) {
   
           //load data into users
-          $scope.totalRows = data.totalnum;
+          $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
@@ -2303,7 +2310,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         success(function(data, status) {
   
           //load data into users
-          $scope.totalRows = data.totalnum;
+          $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
@@ -2637,6 +2644,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
     
     $scope.user = {};
     $scope.users = [];
+    $scope.totalRows = 0;
     
     //retrieve all roles
     ppdpAPIService.role.retrieve({}).
@@ -2660,52 +2668,65 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
       query:''
     });
     
-    //call retrieve api function
-    ppdpAPIService.user.retrieve({offset:0, limit:$routeParams.userId+1, query:$scope.old_params.query}).
-      success(function(data, status) {
-
-        //load data into users
-        $scope.users = data;
-          
-        //get data for doc
-        ppdpAPIService.user.retrieve({email:$scope.users[$routeParams.userId].email}).
-          success(function(data, status) {
-            //load data into doc
-            $scope.user = jQuery.extend(true, {}, data[0]);
-          }).
-          error(function(data, status) {
-            $scope.alerts.push({
-              message:'Trouble connecting to server.',
-              level:'warning',
-              debug_data:status+ ' : ' + data
-            });
-          });
-        
-      }).
-      error(function(data, status) {
-        $scope.alerts.push({
-          message:'Trouble connecting to server.',
-          level:'warning',
-          debug_data:status+ ' : ' + data
-        });
-    });
+    /**
+     * update_results() Updates document data with new search 
+     *
+     * @return NULL
+     */
+    $scope.update_results = function(){
     
-    //call retrieve api function get total num
-    ppdpAPIService.user.totalNum({query:$routeParams.query}).
-      success(function(data, status) {
-
-        //load data into users
-        $scope.totalRows = data.totalnum;
-        console.log($scope.totalRows);
-        
-      }).
-      error(function(data, status) {
-        $scope.alerts.push({
-          message:'Trouble connecting to server.',
-          level:'warning',
-          debug_data: status+ ' : ' + data
-        });
-    });
+      //call retrieve api function
+      ppdpAPIService.user.retrieve({offset:0, limit:$routeParams.userId+1, query:$scope.old_params.query}).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.users = data;
+            
+          //get data for doc
+          ppdpAPIService.user.retrieve({email:$scope.users[$routeParams.userId].email}).
+            success(function(data, status) {
+              //load data into doc
+              $scope.user = jQuery.extend(true, {}, data[$routeParams.userId]);
+            }).
+            error(function(data, status) {
+              $scope.alerts.push({
+                message:'Trouble connecting to server.',
+                level:'warning',
+                debug_data:status+ ' : ' + data
+              });
+            });
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+      
+      //call retrieve api function get total num
+      ppdpAPIService.user.totalNum({offset:0,limit:100000,query:$routeParams.query}).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.totalRows = data.total;
+          console.log(data);
+          console.log($scope.totalRows);
+          console.log('shit');
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data: status+ ' : ' + data
+          });
+      });
+    
+    }
+    
+    $scope.update_results();
     
     /** directive masterTopMenu data. 
      *  
@@ -2852,7 +2873,7 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
           
         
         }).
-      error(function(data, status) {
+        error(function(data, status) {
         $scope.alerts.push({
           message:'Trouble connecting to server.',
           level:'warning',
@@ -2865,8 +2886,8 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
         success(function(data, status) {
   
           //load data into users
-          $scope.totalRows = data.totalnum;
-          console.log($scope.totalRows);
+          $scope.totalRows = data.total;
+          console.log('fuck ',data);
           
         }).
         error(function(data, status) {

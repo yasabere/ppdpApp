@@ -235,8 +235,8 @@
       </div>
       <div class="modal-body">
         <!-- Single button -->
-        <div class="btn-group">
-          <input type="text" class="form-control" placeholder="Select a Batch" class="form-control dropdown-toggle" data-toggle="dropdown" style="width:100%" />
+        <div class="btn-group" style="display:inline-block">
+          <input type="text" class="form-control" placeholder="Select a Batch" class="form-control dropdown-toggle" data-toggle="dropdown"/>
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">file 1</a></li>
             <li><a href="#">file 2</a></li>
@@ -244,11 +244,14 @@
             <li class="divider"></li>
             <li><a href="#">Add to new batch</a></li>
           </ul>
+          
         </div>
+        <input name="NewBatchName" type="text" class="form-control" placeholder="Enter new batch name" style="display:inline-block; width:200px">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Add Batch</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

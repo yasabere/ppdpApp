@@ -15,7 +15,7 @@ var resources = {
   'file' : {use_mock:true}, 
   'newspaper' : {use_mock:false}, 
   'role' : {use_mock:true}, 
-  'user' : {use_mock:false},
+  'user' : {use_mock:true},
   };
 
 /**
@@ -527,7 +527,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.login = function(_account){
         var request = {
           method: 'POST',
-          url: api_url('document') + 'account/login',
+          url: api_url('account') + 'account/login',
           data:_account,
         };
         
@@ -537,7 +537,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.logout = function(_account){
         var request = {
           method: 'GET',
-          url: api_url('document') + 'account/logout',
+          url: api_url('account') + 'account/logout',
         };
         
         return $http(request);
@@ -546,7 +546,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       this.isloggedin = function(){
         var request = {
           method: 'GET',
-          url: api_url('document') + 'account/isloggedin',
+          url: api_url('account') + 'account/getcurrentuser',
         };
         
         return $http(request);

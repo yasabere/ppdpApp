@@ -135,22 +135,27 @@
         </dropdown>
         <br/>
         <br/>
+        <!-- User selects assignees -->
         <div>
-          <label>Assignee</label> <span class="text-danger"><b>*</b></span><br/>
-          <dropdown 
-            ng-Model = "assignment.user"
-            placeholder = " 'Select Assignee' "
-            options = "users"
-            text_field = " 'name' "
-            return-Object = " 'true' "
-          >
-          </dropdown>
+          <label>Assignees</label> <span class="text-danger"><b>*</b></span><br/>
+          <div ng-repeat=" user in users">
+            <input type="checkbox" ng-model="user.selected">
+            {{user.name}}
+          </div>
         </div>
+        
         <br/>
+        
         <div>
           <label>Due Date</label> <span class="text-danger"><b>*</b></span><br/>
           <input name="date" type="date" class="form-control" id="inputDate" value="11/04/2014" ng-model="assignment.date_due" required>
         </div>
+        
+        <br/>
+        
+        <master-Alerts alerts="assign_alerts">
+        </master-Alerts>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

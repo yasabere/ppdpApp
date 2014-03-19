@@ -6,22 +6,188 @@ Controllers for each page in application
 var ppdpControllers = angular.module('ppdpControllers', []);
 
 /** Controller: add_user */ 
-ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams) {
+ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('add user');
     
-    // TODO: -- need to implement fill in code
+    //global variables
+    $scope.alerts = [];
+    $scope.state = 'create';
     
-  }]
-);
-
-/** Controller: assignment */ 
-ppdpControllers.controller('assignment', ['$scope', '$routeParams', 'ppdpAPIService',
-  function($scope, $routeParams) {
-    console.log('newsclips');
+    $scope.user = {};
+    $scope.users = [];
+    $scope.totalRows = 0;
+    $scope.show_paging = false;
     
-    // TODO: -- need to implement fill in code
+    //retrieve all roles
+    ppdpAPIService.role.retrieve({}).
+      success(function(data, status){
+        $scope.roles = data;
+      }).
+      error(function(data, status){
+        $scope.urgent_alerts.push({
+          message:'Error connecting to server',
+          level:'warning',
+          debug_data: status+ ' : ' + data
+        }); 
+      });
     
+    //keep track of url variables
+    $scope.old_params = jQuery.extend(true, {}, $routeParams);
+    $scope.params = jQuery.extend(true, {}, $routeParams);
+    jQuery.extend(true, $scope.params, {
+      offset:parseInt($routeParams.userId),
+      limit:1,
+      query:''
+    });
+    
+    /**
+     * update_results() Updates document data with new search 
+     *
+     * @return NULL
+     */
+    $scope.update_results = function(){
+    
+      //call retrieve api function
+      ppdpAPIService.user.retrieve({offset:0, limit:$routeParams.userId+1, query:$scope.old_params.query}).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.users = data;
+            
+          //get data for doc
+          ppdpAPIService.user.retrieve({email:$scope.users[$routeParams.userId].email}).
+            success(function(data, status) {
+              //load data into doc
+              $scope.user = jQuery.extend(true, {}, data[$routeParams.userId]);
+            }).
+            error(function(data, status) {
+              $scope.alerts.push({
+                message:'Trouble connecting to server.',
+                level:'warning',
+                debug_data:status+ ' : ' + data
+              });
+            });
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:status+ ' : ' + data
+          });
+      });
+      
+      //call retrieve api function get total num
+      ppdpAPIService.user.totalNum({offset:0,limit:100000,query:$routeParams.query}).
+        success(function(data, status) {
+  
+          //load data into users
+          $scope.totalRows = data.total;
+          console.log(data);
+          console.log($scope.totalRows);
+          console.log('shit');
+          
+        }).
+        error(function(data, status) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data: status+ ' : ' + data
+          });
+      });
+    
+    }
+    
+    $scope.update_results();
+    
+    /** directive masterTopMenu data. 
+     *  
+     *  buttons to show up in menu
+     * 
+     */
+    $scope.button_functions = [
+    ];
+    
+    /**
+     * back() redirect to users
+     *
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.back = function(){
+      console.log("back");
+      $location.path("/users").search($scope.old_params);
+    }
+    
+    $scope.save = function(){
+      $(".alert").alert('close');
+      
+      //remove all previous alerts
+      $scope.alerts = [];
+      
+      console.log($scope.create_user_form);
+      
+      //call update api function
+      if ($scope.create_user_form.$invalid){
+        $scope.alerts.push({
+          message:'All fields with * must be filled in',
+          level:'danger',
+        }); 
+      }
+      else{
+        ppdpAPIService.user[$scope.state]($scope.user).
+          success(function(data, status) {
+   
+            //if succesful show message to user
+            $scope.alerts.push({
+              message:'Save successful!',
+              level:'success',
+              debug_data: $scope.user
+            }); 
+            
+            $scope.state = 'update';
+            
+            console.log($scope.user);
+            
+          }).
+          error(function(data, status) {
+            
+            switch(status){
+              
+              case 403:
+                
+                $scope.alerts.push({
+                  message:'Trouble connecting to server.',
+                  level:'warning',  
+                  debug_data: status+ ' : ' + data
+                });
+                
+                break;
+              
+              case 404:
+                
+                $scope.alerts.push({
+                  message:'Trouble connecting to server.',
+                  level:'warning',
+                  debug_data:status+ ' : ' + data
+                });
+                
+                break;
+                
+              default:
+              
+                $scope.alerts.push({
+                  message:'Unknown problem.',
+                  level:'warning',
+                  debug_data:status+ ' : ' + data
+                });
+              
+                break;
+            }
+        });
+      }
+    };
    
   }]
 );
@@ -166,15 +332,22 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
         field_text: 'name' 
       },
       { 
-        text:'Assignee', 
+        text:'Assignees', 
         value: function(row){
-          return row.user.first_name;
+          
+          var string = "";
+          
+          for(var i = 0;i < row.users.length;i+=1){
+            string += row.users[i].first_name + ((i < row.users.length - 1)?', ':'');
+          }
+          
+          return string;
         },
         click: function(id, row){
           $scope.details(id);
         },
         attributes:'test',
-        field_text: 'user.first_name'
+        field_text: 'users'
       },
       { 
         text:'Date Assigned',
@@ -257,9 +430,6 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
      * @return NULL
      */
     $scope.details = function(id){
-      
-      alert(JSON.stringify($scope.assignments[id]));
-      
       //depending on what is clicked the user should be taken to different places
       switch($scope.assignments[id].type.id){
         case 1:
@@ -694,9 +864,10 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.users = [];
     $scope.selected_batches = [];
     $scope.alerts = [];
+    $scope.assign_alerts = [];
     $scope.rows_selected = false;
     $scope.totalRows = 0;
-    $scope.assignment = {type:'',users:''};
+    $scope.assignment = {type:'',users:[]};
     
     $scope.params = {
       offset:0,
@@ -764,7 +935,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
           //load data into batch
           
           for(var i = 0;i < data.length; i+=1){
-            $scope.users.push({name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id});
+            $scope.users.push({first_name:data[i].first_name, last_name:data[i].last_name, name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id});
           }
           
         }).
@@ -948,6 +1119,43 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       
       var success = true;
       
+      $scope.assign_alerts = [];
+      
+      //validate form
+      var user_selected = false;
+      var error_found = false;
+      
+      //check if type selected
+      if ($scope.assignment.type === '' ){
+        $scope.assign_alerts.push({
+          message:'Task must be selected',
+          level:'danger',
+        });
+        
+        error_found = true;
+      }
+      
+      //check if user selected
+      for(var j = 0 ; j < $scope.users.length; j+=1){
+        
+        if ($scope.users[j].selected){
+          user_selected = true;
+        }
+        
+      }
+      if (!user_selected){
+        $scope.assign_alerts.push({
+          message:'one or assignees must be checked',
+          level:'danger',
+        });
+        
+        error_found = true;
+      }
+      
+      if (error_found === true){
+        return false;
+      }
+      
       //for each selected batch create the new assignment
       for(var i = 0; i < $scope.selected_batches.length; i+=1){
 
@@ -955,6 +1163,15 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
         
         //create new request object to be sent to api
         var assignment_request = jQuery.extend( true, {},$scope.assignment);
+        
+        //add each selected user to the request
+        for(var j = 0 ; j < $scope.users.length; j+=1){
+          
+          if ($scope.users[j].selected){
+            assignment_request.users.push($scope.users[j]);
+          }
+          
+        }
 
         //call create assignment api function and pass the assignment request object
         ppdpAPIService.assignment.create(assignment_request).
@@ -1023,6 +1240,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
     $scope.saved = false;
     $scope.alerts = [];
     $scope.urgent_alerts = [];
+    $scope.state = 'create';
     
     //news papers to be displayed in 'Newspaper' dropdown
     ppdpAPIService.newspaper.retrieve({}).
@@ -1086,23 +1304,25 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
       }
       else{
         //call update api function
-        ppdpAPIService.doc.create($scope.doc).
+        ppdpAPIService.doc[$scope.state]($scope.doc).
           success(function(data, status) {
             
             //set saved to true
             $scope.saved = true;
             
-            //update created document
-            $scope.doc = data;
-   
             //tell user that request was successful
             $scope.alerts.push({
               message:'Save successful!',
               level:'success',  
             }); 
             
-            //add functions to topmenu
-            $scope.button_functions = [
+            if ($scope.state == 'create'){
+            
+              //update created document
+              $scope.doc = data;
+     
+              //add functions to topmenu
+              $scope.button_functions = [
               {
                 text : 'Add to Batch',
                 glyphicon : 'folder-close',
@@ -1114,6 +1334,9 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
                 function_callback : function(){$('#deleteModal').modal('toggle')}, 
               }
             ];
+            }
+            
+            $scope.state = 'update';
             
           }).
           error(function(data, status) {
@@ -1248,7 +1471,8 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.rows_selected = false;
     $scope.totalRows = 0;
     $scope.alerts = [];
-    $scope.assignment = {type:'',user:''};
+    $scope.assign_alerts = [];
+    $scope.assignment = {type:'',users:[]};
     
     $scope.params = {
       offset:0,
@@ -1314,7 +1538,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
           //load data into batch
           
           for(var i = 0;i < data.length; i+=1){
-            $scope.users.push({name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id});
+            $scope.users.push({first_name:data[i].first_name, last_name:data[i].last_name, name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id});
           }
           
         }).
@@ -1555,7 +1779,41 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.assign = function(){
       
       var success = true;
+      $scope.assign_alerts = [];
+      //validate form
+      var user_selected = false;
+      var error_found = false;
       
+      //check if type selected
+      if ($scope.assignment.type === '' ){
+        $scope.assign_alerts.push({
+          message:'Task must be selected',
+          level:'danger',
+        });
+        
+        error_found = true;
+      }
+      
+      //check if user selected
+      for(var j = 0 ; j < $scope.users.length; j+=1){
+        
+        if ($scope.users[j].selected){
+          user_selected = true;
+        }
+        
+      }
+      if (!user_selected){
+        $scope.assign_alerts.push({
+          message:'one or assignees must be checked',
+          level:'danger',
+        });
+        
+        error_found = true;
+      }
+      
+      if (error_found === true){
+        return false;
+      }
       //send a create request to api for each selected file
       for(var i = 0; i < $scope.selected_files.length; i+=1){
 
@@ -1563,7 +1821,16 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
         
         //create new request object to be sent to api
         var assignment_request = jQuery.extend( true, {},$scope.assignment);
-            
+        
+        //add each selected user to the request
+        for(j = 0 ; j < $scope.users.length; j+=1){
+          
+          if ($scope.users[j].selected){
+            assignment_request.users.push($scope.users[j]);
+          }
+          
+        }
+
         //send create request to api
         ppdpAPIService.assignment.create(assignment_request).
           success(function(){
@@ -1769,7 +2036,6 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
           });
       }
     }
-    // TODO: -- need to implement
     
   }]
 );
@@ -1819,8 +2085,8 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
         path:'/users',
         menu:[{
           title: 'Add User',
-          href: '#/create_user',
-          path:['/create_user']
+          href: '#/add_user',
+          path:['/add_user']
         }],
       },
     ];
@@ -1866,7 +2132,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
         type:'',
     };
     
-    $scope.assignment = {name:'Tiebreak', id:3};
+    $scope.assignment = {type:'', id:3, users:['']};
     
     //variable to keep track of recently searched documents for navigation 
     $scope.documents = [];
@@ -1888,6 +2154,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     //alerts to be displayed on screen
     $scope.alerts = [];
     $scope.urgent_alerts = [];
+    $scope.assign_alerts = [];
     
     //news papers to be displayed in 'Newspaper' dropdown
     ppdpAPIService.newspaper.retrieve({}).
@@ -1984,7 +2251,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           //load data into batch
           
           for(var i = 0;i < data.length; i+=1){
-            $scope.users.push({name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id});
+            $scope.users.push({first_name:data[i].first_name, last_name:data[i].last_name, name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id});
           }
           
         }).
@@ -2164,8 +2431,36 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     $scope.assign = function(){
       
       var success = true;
-      
+
       $scope.assignment.document = $scope.doc;
+      
+      //validate form
+      var user_selected = false;
+      var error_found = false;
+      
+      //check if type selected
+      if ($scope.assignment.type === '' ){
+        $scope.assign_alerts.push({
+          message:'Task must be selected',
+          level:'danger',
+        });
+        
+        error_found = true;
+      }
+      
+      //check if user selected
+      if ($scope.assignment.users[0] === ''){
+        $scope.assign_alerts.push({
+          message:'one or assignees must be checked',
+          level:'danger',
+        });
+        
+        error_found = true;
+      }
+      
+      if (error_found === true){
+        return false;
+      }
       
       //create new request object to be sent to api
       var assignment_request = jQuery.extend( true, {},$scope.assignment);
@@ -2189,7 +2484,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       //of sucessful in creating assignments notify user
       if (success){
         //if succesful show message to user
-        $scope.alerts.push({
+        $scope.urgent_alerts.push({
           message:'Assignment created!',
           level:'success'
         });
@@ -2223,9 +2518,6 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       return $scope.params.offset;
     }); // initialize the watch
       
-    
-          
-    // TODO: -- need to finish implementation
     
   }]
 );
@@ -2342,7 +2634,6 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         function_callback : function(){$('#deleteModal').modal('toggle')}, 
       }
     ];
-    
     
     /** directive masterTable data. 
      *  
@@ -2734,11 +3025,6 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
      * 
      */
     $scope.button_functions = [
-      {
-        text : 'Assign',
-        glyphicon : 'folder-close',
-        function_callback : function(){$('#assignModal').modal('toggle')}, 
-      },
     ];
     
     /**
@@ -2847,6 +3133,7 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.users = [];
     $scope.selected_users = [];
     $scope.rows_selected = false;
+    $scope.show_paging = true;
     
     $scope.params = jQuery.extend(true, {offset:0,limit:10}, $routeParams );
     $scope.params.offset = parseInt($scope.params.offset);
@@ -2907,11 +3194,6 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
      * 
      */
     $scope.button_functions = [
-      {
-        text : 'Assign',
-        glyphicon : 'folder-close',
-        function_callback : function(){$('#assignModal').modal('toggle')}, 
-      },
     ];
     
     /** directive masterTable data. 

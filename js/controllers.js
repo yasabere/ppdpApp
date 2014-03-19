@@ -585,7 +585,7 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
       }).
       error(function(data, status) {
         $scope.alerts.push({
-          message:'Trouble connecting to server.',
+          message:'Trouble connecting to server. Could not retrieve batch data',
           level:'warning',
           debug_data:status+ ' : ' + data
         });
@@ -636,7 +636,7 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
         }).
         error(function(data, status) {
           $scope.alerts.push({
-            message:'Trouble connecting to server.',
+            message:'Trouble connecting to server. Could not retrieve newsclips.',
             level:'warning',
             debug_data:status+ ' : ' + data
           });
@@ -653,7 +653,7 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
         }).
         error(function(data, status) {
           $scope.alerts.push({
-            message:'Trouble connecting to server.',
+            message:'Trouble connecting to server. Could not retrieve newsclips stat data.',
             level:'warning',
             debug_data:status+ ' : ' + data
           });
@@ -864,10 +864,12 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.users = [];
     $scope.selected_batches = [];
     $scope.alerts = [];
+    $scope.create_batch_alerts = [];
     $scope.assign_alerts = [];
     $scope.rows_selected = false;
     $scope.totalRows = 0;
     $scope.assignment = {type:'',users:[]};
+    $scope.new_batch_object = {name:''}
     
     $scope.params = {
       offset:0,
@@ -1216,6 +1218,67 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
         $(".alert").alert('close');
       }, 2000);
     }
+    
+    /**
+     * create() creates selected items
+     * 
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.create = function(){
+   
+      //validate new batch object and tell user if there was a user error
+      if($scope.new_batch_object.name !== ''){
+        
+        //try to create batch
+        ppdpAPIService.batch.create($scope.new_batch_object).
+          success(function(data, status){
+            
+            $scope.update_results();
+            $('#createBatchModal').modal('hide');
+            
+            //if succesful show message to user
+            $scope.alerts.push({
+              message:'New batch successfully created',
+              level:'success'
+            });
+            
+            //after alert has been on screen for 2 seconds it is removed
+            $timeout(function(){
+              $('.alert').bind('closed.bs.alert', function () {
+                $scope.alerts = [];
+              });
+              $(".alert").alert('close');
+            }, 2000);
+            
+            //reset $scope.new_batch_object
+            $scope.new_batch_object = {};
+                
+          }).
+          error(function(data, status){
+            
+            //if failure show user on create batch screen
+            $scope.alerts.push({
+              message:'Batch could not be created',
+              level:'danger',
+              debug_data:status+ ' : ' + data
+            });
+            
+          });
+          
+      }
+      else{
+        
+        $scope.create_batch_alerts = [];
+        
+        //alert user that there is a user error
+        $scope.create_batch_alerts.push({
+          message:'Please enter a batch name',
+          level:'danger'
+        });
+      }
+      
+    };
     
     /**
      * 'params' change event
@@ -2050,7 +2113,7 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
         title: 'Newsclips',
         href: '#/newsclips',
         menu:[{
-          title: 'Create',
+          title: 'Create Newsclip',
           href: '#/create_newsclip',
           path:['/create_newsclip','/newsclip']
         }],
@@ -2059,7 +2122,12 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
       {
         title: 'Batches',
         href: '#/batches',
-        menu:[],
+        menu:[{
+          title: 'Create Batch',
+          href: 'javascript:void(0)',
+          path:'#/create_batch',
+          click: function(){$('#createBatchModal').modal('toggle')}
+        }],
         path:['/batches','/batch']
       },
       {

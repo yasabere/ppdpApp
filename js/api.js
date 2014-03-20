@@ -4,7 +4,7 @@
 var enable_mock_api = false;
 
 //link to live server api
-var api_url_string = "http://localhost:26087/api/";
+var api_url_string = "http://np-stem.tu.temple.edu/cis4396-S02/api/";//"http://localhost:26087/api/";
 
 //object containing name of each resource which tells whether the js api should access live server api_url_string or mock api
 var resources = {
@@ -165,7 +165,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'POST',
           url: api_url('assignment') + 'assignment/create',
-          data: _assignment,
+          data: "'" + JSON.stringify(_assignment) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -189,7 +189,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'POST',
           url: api_url('assignment') + 'assignment/update',
-          params: _assignment,
+          params: "'" + JSON.stringify(_assignment) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -233,7 +233,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'POST',
           url: api_url('batch') + 'batch/create',
-          data: _batch,
+          data: "'" + JSON.stringify(_batch) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -266,7 +266,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'Delete',
           url: api_url('batch') + 'batch/delete',
-          data: _batch,
+          data: "'" + JSON.stringify(_batch) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -335,7 +335,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'POST',
           url: api_url('document') + 'document/create',
-          data: _document,
+          data:  "'" + JSON.stringify(_document) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -416,7 +416,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'GET',
           url: api_url('file') + 'file/retrieve',
-          data: _file,
+          params: _file,
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -427,7 +427,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'POST',
           url: api_url('file') + 'file/update',
-          data: _file,
+          data:  "'" + JSON.stringify(_file) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -436,9 +436,9 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
       this.delete = function(_file){
         var request = {
-          method: 'Delete',
+          method: 'DELETE',
           url: api_url('file') + 'file/delete',
-          data: _file,
+          data:  "'" + JSON.stringify(_file) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -455,8 +455,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
         var request = {
           method: 'GET',
-          url: api_url('document') + 'file/retrieve',
-          data: params,
+          url: api_url('file') + 'file/retrieve',
+          params: params,
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -603,7 +603,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'POST',
           url: api_url('account') + 'account/login',
-          data:_account,
+          data: "'" + JSON.stringify(_account) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         

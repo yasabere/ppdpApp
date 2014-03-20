@@ -13,6 +13,7 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
     //global variables
     $scope.alerts = [];
     $scope.state = 'create';
+    $scope.state = 'create';
     
     $scope.user = {};
     $scope.users = [];
@@ -1755,7 +1756,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.details = function(id,option){
       $('#downloadModal').modal('toggle');
       $scope.downloadName = $scope.files[id].name;
-      $scope.downloadLink = $scope.files[id].href;
+      $scope.downloadLink = $scope.files[id].url;
     };
     
     /**
@@ -2647,7 +2648,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.alerts = [];
     
     //handle url parameters from previous page
-    $scope.params = jQuery.extend(true, {offset:0,limit:5}, $routeParams );
+    $scope.params = jQuery.extend(true, {offset:0,limit:10}, $routeParams );
     $scope.params.offset = parseInt($scope.params.offset);
     $scope.params.limit = parseInt($scope.params.limit);
     console.log($scope.params);
@@ -3083,6 +3084,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
           ppdpAPIService.user.retrieve({email:$scope.users[$routeParams.userId].email}).
             success(function(data, status) {
               //load data into doc
+			  alert("test");
               $scope.user = jQuery.extend(true, {}, data[$routeParams.userId]);
             }).
             error(function(data, status) {

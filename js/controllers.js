@@ -176,6 +176,8 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
                 
               default:
               
+                console.log($scope.user);
+              
                 $scope.alerts.push({
                   message:'Unknown problem.',
                   level:'warning',

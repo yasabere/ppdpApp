@@ -543,7 +543,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'POST',
           url: api_url('user') + 'user/create',
-          data: _user,
+          data: "'" + JSON.stringify(_user) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -564,8 +564,17 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         return $http(request);
       }
 
-
-
+      this.update = function(_user){
+        var request = {
+          method: 'PUT',
+          url: api_url('user') + 'user/update',
+          data: "'" + JSON.stringify(_user) + "'",
+          headers: {'Content-Type': 'application/json'}
+        };
+        
+        return $http(request);
+      }
+      
       this.totalNum = function(params){
         
         params = jQuery.extend(true, {}, params);

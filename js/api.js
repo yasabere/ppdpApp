@@ -4,7 +4,7 @@
 var enable_mock_api = false;
 
 //link to live server api
-var api_url_string = "https://np-stem.temple.edu/cis4396-S02/api/";
+var api_url_string = "http://localhost:26087/api/";
 
 //object containing name of each resource which tells whether the js api should access live server api_url_string or mock api
 var resources = {
@@ -158,12 +158,15 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
     }
 
     /** Model Functions */
+    //$http.defaults.useXDomain = true;
+    
     sharedService.assignmentModel = function(){
       this.create = function(_assignment){
         var request = {
           method: 'POST',
           url: api_url('assignment') + 'assignment/create',
           data: _assignment,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -174,7 +177,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'GET',
           url: api_url('assignment') + 'assignment/retrieve',
-          data: _assignment,
+          params: _assignment,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request); 
@@ -185,7 +189,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'POST',
           url: api_url('assignment') + 'assignment/update',
-          data: _assignment,
+          params: _assignment,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -196,16 +201,24 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'Delete',
           url: api_url('assignment') + 'assignment/delete',
           data: _assignment,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
       }
 
       this.totalNum = function(params){
+        
+        params = jQuery.extend(true, {}, params);
+        
+        params['totalnum'] = true;
+        params['limit'] = 1000000;
+        
         var request = {
           method: 'GET',
-          url: api_url('document') + 'assignment/totalnum',
-          data: params
+          url: api_url('document') + 'assignment/retrieve',
+          params: params,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -220,6 +233,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('batch') + 'batch/create',
           data: _batch,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -229,7 +243,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'GET',
           url: api_url('batch') + 'batch/retrieve',
-          data: _batch,
+          params: _batch,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -240,6 +255,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('batch') + 'batch/update',
           data: _batch,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -250,16 +266,24 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'Delete',
           url: api_url('batch') + 'batch/delete',
           data: _batch,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);  
       }
       
       this.totalNum = function(params){
+
+        params = jQuery.extend(true, {}, params);
+        
+        params['totalnum'] = true;
+        params['limit'] = 1000000;
+        
         var request = {
           method: 'GET',
-          url: api_url('batch') + 'batch/totalnum',
-          data: params
+          url: api_url('batch') + 'batch/retrieve',
+          params: params,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -269,7 +293,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'GET',
           url: api_url('batch') + 'batch/adddocument',
-          data: params
+          data: params,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -279,7 +304,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'GET',
           url: api_url('batch') + 'batch/removedocument',
-          data: params
+          data: params,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -308,6 +334,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('document') + 'document/create',
           data: _document,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -318,7 +345,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'GET',
           url: api_url('document') + 'document/retrieve',
-          data: _doc,
+          params: _doc,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -330,6 +358,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('document') + 'document/update',
           data: _doc,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -340,6 +369,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'Delete',
           url: api_url('document') + 'document/delete',
           data: _doc,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -347,12 +377,16 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
       
       this.totalNum = function(params){
         
-        params.totalnum = true;
+        params = jQuery.extend(true, {}, params);
+        
+        params['totalnum'] = true;
+        params['limit'] = 1000000;
         
         var request = {
           method: 'GET',
-          url: api_url('document') + 'document/totalnum',
-          data: params
+          url: api_url('document') + 'document/retrieve',
+          params: params,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -368,6 +402,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('file') + 'file/create',
           data: _file,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -379,6 +414,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'GET',
           url: api_url('file') + 'file/retrieve',
           data: _file,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -389,6 +425,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('file') + 'file/update',
           data: _file,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -399,16 +436,24 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'Delete',
           url: api_url('file') + 'file/delete',
           data: _file,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
       }
       
       this.totalNum = function(params){
+        
+        params = jQuery.extend(true, {}, params);
+        
+        params['totalnum'] = true;
+        params['limit'] = 1000000;
+        
         var request = {
           method: 'GET',
-          url: api_url('document') + 'file/totalnum',
-          data: params
+          url: api_url('document') + 'file/retrieve',
+          data: params,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -422,6 +467,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('newspaper') + 'newspaper/create',
           data: _newspaper,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -431,7 +477,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'GET',
           url: api_url('newspaper') + 'newspaper/retrieve',
-          data: _newspaper,
+          params: _newspaper,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -442,6 +489,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('newspaper') + 'newspaper/update',
           data: _newspaper,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -452,6 +500,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'Delete',
           url: api_url('newspaper') + 'newspaper/delete',
           data: _newspaper,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -465,6 +514,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('role') + 'role/create',
           data: _role,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -474,7 +524,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'GET',
           url: api_url('role') + 'role/retrieve',
-          data: _role,
+          params: _role,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -489,7 +540,10 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('user') + 'user/create',
           data: _user,
+          headers: {'Content-Type': 'application/json'}
         };
+        
+        console.log('body: ', _user);
         
         return $http(request);
       }
@@ -499,7 +553,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'GET',
           url: api_url('user') + 'user/retrieve',
-          data: _user,
+          params: _user,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);
@@ -509,12 +564,16 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
 
       this.totalNum = function(params){
         
+        params = jQuery.extend(true, {}, params);
+        
         params['totalnum'] = true;
+        params['limit'] = 1000000;
       
         var request = {
           method: 'GET',
           url: api_url('user') + 'user/retrieve',
-          data: params
+          params: params,
+          headers: {'Content-Type': 'application/json'}
         };
         
         console.log(request);
@@ -531,6 +590,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('account') + 'account/login',
           data:_account,
+          headers: {'Content-Type': 'application/json'}
         };
         
         return $http(request);

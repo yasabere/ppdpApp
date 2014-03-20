@@ -135,7 +135,7 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
         }); 
       }
       else{
-        ppdpAPIService.user[$scope.state]($scope.user).
+        ppdpAPIService.user.create($scope.user).
           success(function(data, status) {
    
             //if succesful show message to user

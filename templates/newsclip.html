@@ -234,17 +234,43 @@
         <h4 class="modal-title" id="deleteModalLabel">Add Newsclip to Batch</h4>
       </div>
       <div class="modal-body">
-        <!-- Single button -->
-        <div class="btn-group" style="display:inline-block">
-          <input type="text" class="form-control" placeholder="Select a Batch" class="form-control dropdown-toggle" data-toggle="dropdown"/>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">file 1</a></li>
-            <li><a href="#">file 2</a></li>
-            <li><a href="#">file 3</a></li>
-          </ul>
-          
-        </div>
-
+      
+        <label>Select a batch to add to</label> <span class="text-danger"><b>*</b></span><br/>
+        <select 
+						class = "selectpicker" 
+						data-live-search = "true" 
+						data-size = "7"
+						data-show-subtext="true" 
+						title='Select a batch to add to'
+					>
+					<optgroup label="2015">
+					  <option data-subtext="2015">Sep</option>
+					  <option data-subtext="2015">Nov</option>
+					  <option data-subtext="2015">Dec</option>
+					</optgroup>
+					<optgroup label="2014">
+					  <option data-subtext="2014">Sep</option>
+					  <option data-subtext="2014">Nov</option>
+					  <option data-subtext="2014">Dec</option>
+					</optgroup>
+					<optgroup label="2013" disabled>
+					  <option data-subtext="2013">Sep</option>
+					  <option data-subtext="2013">Nov</option>
+					  <option data-subtext="2013">Dec</option>
+					</optgroup>
+				</select>
+				
+				<select 
+				  ng-model="color" 
+				  ng-options="batch.name group by batch.name for batch in batches"
+				  class = "selectpicker" 
+					data-live-search = "true" 
+					data-size = "7"
+					data-show-subtext="true" 
+					title='Select a batch to add to'
+				  >
+        </select>
+			
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

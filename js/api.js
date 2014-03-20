@@ -213,6 +213,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
         params['totalnum'] = true;
         params['limit'] = 1000000;
+        params['offset'] = 0;
         
         var request = {
           method: 'GET',
@@ -278,6 +279,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
         params['totalnum'] = true;
         params['limit'] = 1000000;
+        params['offset'] = 0;
         
         var request = {
           method: 'GET',
@@ -381,6 +383,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
         params['totalnum'] = true;
         params['limit'] = 1000000;
+        params['offset'] = 0;
         
         var request = {
           method: 'GET',
@@ -448,6 +451,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
         params['totalnum'] = true;
         params['limit'] = 1000000;
+        params['offset'] = 0;
         
         var request = {
           method: 'GET',
@@ -543,7 +547,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           headers: {'Content-Type': 'application/json'}
         };
         
-        console.log('body: ', _user);
+        //console.log('body: ', JSON.stringify(_user));
         
         return $http(request);
       }
@@ -568,6 +572,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         
         params['totalnum'] = true;
         params['limit'] = 1000000;
+        params['offset'] = 0;
       
         var request = {
           method: 'GET',

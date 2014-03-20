@@ -1481,6 +1481,10 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
       });
     };
     
+    $('.selectpicker').selectpicker({
+        'selectedText': 'cat'
+    });
+    
   }]
 );
 
@@ -2208,6 +2212,10 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     $scope.documents = [];
     $scope.users = [];
     $scope.batches = [];
+    $scope.policy_codes = [];
+    for(var k = 1 ; k <25 ;k+=1){
+      $scope.policy_codes.push(k);
+    }
     
     //keep track of url variables
     $scope.old_params = jQuery.extend(true, {}, $routeParams);

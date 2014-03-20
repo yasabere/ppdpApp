@@ -60,7 +60,17 @@
                 <label>Type</label> <span class="text-danger"><b>*</b></span><br/>
                 <dropdown 
                   ng-Model = "doc.type" 
-                  options = "[{text:'Article', value:'Article', class:''}, {text:'Editorial', value:'Editorial', class:''}, {text:'',value:'', class:'divider'}, {text:'Other - Note in Comments', value:'Other', class:''}]"
+                  options = "
+                  [{text:'Article', value:'Article', class:''},
+                  {text:'Editorial', value:'Editorial', class:''},
+                  {text:'Opinion', value:'Opinion', class:''},
+                  {text:'Letter', value:'Letter', class:''},
+                  {text:'Photograph', value:'Photograph', class:''},
+                  {text:'Newswire Story', value:'Newswire Story', class:''},
+                  {text:'Cartoon', value:'Cartoon', class:''},
+                  {text:'Broadcast Transcript', value:'Broadcast Transcript', class:''},
+                  {text:'',value:'', class:'divider'},
+                  {text:'Other - Note in Comments', value:'Other', class:''}]"
                 >
                 </dropdown>
                 <br/>
@@ -78,18 +88,39 @@
 
               <div style="display:inline-block; margin-left:0px;">  
                 <label>Policy Code</label> <span class="text-danger"><b>*</b></span><br/>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    Select a Policy Code<span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                  </ul>
-                </div>
+                <select 
+        				  ng-model="doc.policy_code"
+        				  class = "selectpicker" 
+        					data-live-search = "true" 
+        					data-size = "7"
+        					data-show-subtext="true" 
+        					title='Select a topic'
+        				  >
+        				  <option data-subtext="Policy Code Description">1</option>
+        				  <option data-subtext="Policy Code Description">2</option>
+        				  <option data-subtext="Policy Code Description">3</option>
+        				  <option data-subtext="Policy Code Description">4</option>
+        				  <option data-subtext="Policy Code Description">5</option>
+        				  <option data-subtext="Policy Code Description">6</option>
+        				  <option data-subtext="Policy Code Description">7</option>
+        				  <option data-subtext="Policy Code Description">8</option>
+        				  <option data-subtext="Policy Code Description">9</option>
+        				  <option data-subtext="Policy Code Description">10</option>
+        				  <option data-subtext="Policy Code Description">11</option>
+        				  <option data-subtext="Policy Code Description">12</option>
+        				  <option data-subtext="Policy Code Description">13</option>
+        				  <option data-subtext="Policy Code Description">14</option>
+        				  <option data-subtext="Policy Code Description">15</option>
+        				  <option data-subtext="Policy Code Description">16</option>
+        				  <option data-subtext="Policy Code Description">17</option>
+        				  <option data-subtext="Policy Code Description">18</option>
+        				  <option data-subtext="Policy Code Description">19</option>
+        				  <option data-subtext="Policy Code Description">20</option>
+        				  <option data-subtext="Policy Code Description">21</option>
+        				  <option data-subtext="Policy Code Description">22</option>
+        				  <option data-subtext="Policy Code Description">23</option>
+        				  <option data-subtext="Policy Code Description">24</option>
+                </select>
               </div>
 
               <br/><br/>

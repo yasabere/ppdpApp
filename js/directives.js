@@ -54,7 +54,8 @@ ppdpDirectives.directive('masterTable', function(ppdpAPIService){
        data: '=data',
        query: '=searchQuery',
        tableRowClick: '=tableRowClick',
-       tableRowSelect: '=tableRowSelect'
+       tableRowSelect: '=tableRowSelect',
+       loading: '=loading'
      },
      controller: 'table',
    } 

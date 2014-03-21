@@ -2637,6 +2637,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     
     //newsclips to be shown in table
     $scope.documents = [];
+    $scope.documents_loading = true;
     
     //batches to be shown in dropdown when adding to batch
     $scope.batches = [];
@@ -2688,11 +2689,14 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
      * @return NULL
      */
     $scope.update_results = function(){
+      $scope.documents_loading = true;
+      
       //call retrieve api function
       ppdpAPIService.doc.retrieve($scope.params).
         success(function(data, status) {
           //load data into users
           $scope.documents = data;
+          $scope.documents_loading = false;
           
         }).
         error(function(data, status) {
@@ -2701,12 +2705,13 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
             level:'warning',
             debug_data:status+ ' : ' + data
           });
+          $scope.documents_loading = false;
       });
       
       //call retrieve api function get total num
       ppdpAPIService.doc.totalNum($scope.params).
         success(function(data, status) {
-  
+        
           //load data into users
           $scope.totalRows = data.total;
           console.log($scope.totalRows);

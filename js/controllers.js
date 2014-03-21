@@ -22,14 +22,15 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
     
     //retrieve all roles
     ppdpAPIService.role.retrieve({}).
-      success(function(data, status){
+      success(function(data, status, headers, config){
         $scope.roles = data;
       }).
-      error(function(data, status){
+      error(function(data, status, headers, config){
         $scope.urgent_alerts.push({
           message:'Error connecting to server',
           level:'warning',
-          debug_data: 'roles retrieve' + ' : ' + status+ ' : ' + data
+          debug_data: 'roles retrieve' + ' : ' + status+ ' : ' + data,
+          config: config
         }); 
       });
     
@@ -51,27 +52,28 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
     
       //call retrieve api function
       ppdpAPIService.user.retrieve({offset:0, limit:$routeParams.userId+1, query:$scope.old_params.query}).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
   
           //load data into users
           $scope.users = data;
             
           //get data for doc
           ppdpAPIService.user.retrieve({email:$scope.users[$routeParams.userId].email}).
-            success(function(data, status) {
+            success(function(data, status, headers, config) {
               //load data into doc
               $scope.user = jQuery.extend(true, {}, data[$routeParams.userId]);
             }).
-            error(function(data, status) {
+            error(function(data, status, headers, config) {
               $scope.alerts.push({
                 message:'Trouble connecting to server.',
                 level:'warning',
-                debug_data:'user retrieve' + ' : ' + status+ ' : ' + data
+                debug_data:'user retrieve' + ' : ' + status+ ' : ' + data,
+                config: config
               });
             });
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
@@ -81,7 +83,7 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
       
       //call retrieve api function get total num
       ppdpAPIService.user.totalNum({offset:0,limit:100000,query:$routeParams.query}).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
   
           //load data into users
           $scope.totalRows = data.total;
@@ -89,11 +91,12 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
           console.log($scope.totalRows);
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data: 'user retrieve totalnum' + ' : ' + status+ ' : ' + data
+            debug_data: 'user retrieve totalnum' + ' : ' + status+ ' : ' + data,
+            config: config
           });
       });
     
@@ -137,7 +140,7 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
       }
       else{
         ppdpAPIService.user.create($scope.user).
-          success(function(data, status) {
+          success(function(data, status, headers, config) {
    
             //if succesful show message to user
             $scope.alerts.push({
@@ -151,7 +154,7 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
             console.log($scope.user);
             
           }).
-          error(function(data, status) {
+          error(function(data, status, headers, config) {
             
             switch(status){
               
@@ -160,7 +163,8 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
                 $scope.alerts.push({
                   message:'Trouble connecting to server.',
                   level:'warning',  
-                  debug_data: status+ ' : ' + data
+                  debug_data: status+ ' : ' + data,
+                  config: config
                 });
                 
                 break;
@@ -170,7 +174,8 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
                 $scope.alerts.push({
                   message:'Trouble connecting to server.',
                   level:'warning',
-                  debug_data:status+ ' : ' + data
+                  debug_data: status+ ' : ' + data,
+                  config: config
                 });
                 
                 break;
@@ -227,17 +232,18 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
     $scope.update_results = function(){
       //call retrieve api function
       ppdpAPIService.assignment.retrieve($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
 
           //load data into assignments
           $scope.assignments = data;
         
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
           
           switch(status){
@@ -250,18 +256,19 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       
       //call retrieve api function get total num
       ppdpAPIService.assignment.totalNum($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
   
           //load data into users
           $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
         });
     }
@@ -453,7 +460,8 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
           //if the type is unrecognizable display an error
           $scope.alerts.push({
             message:'There was a problem on the server',
-            level:'warning'
+            level:'warning',
+            config: config
           });
           break;
     
@@ -555,6 +563,7 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
     
     //batch to be shown on screen
     $scope.batch = {};
+    $scope.batches_loading = true;
     
     //newsclips to be shown in table
     $scope.documents = [];
@@ -576,20 +585,25 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.params.offset = parseInt($scope.params.offset);
     $scope.params.limit = parseInt($scope.params.limit);
     console.log($scope.params);
+    $scope.batches_loading = true;
     
     //call retrieve api function
     ppdpAPIService.batch.retrieve({id:$routeParams.batchId}).
-      success(function(data, status) {
+      success(function(data, status, headers, config) {
+        $scope.batches_loading = false;
+        
         //load data into batch
         $scope.batch = data[0];
         $scope.title = "Batch " + $scope.batch.id + ' |';
         
       }).
-      error(function(data, status) {
+      error(function(data, status, headers, config) {
+        $scope.batches_loading = false;
         $scope.alerts.push({
           message:'Trouble connecting to server. Could not retrieve batch data',
           level:'warning',
-          debug_data:status+ ' : ' + data
+          debug_data: status+ ' : ' + data,
+          config: config
         });
     });
     
@@ -607,16 +621,17 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.update_batches = function(){
       //call retrieve api function
       ppdpAPIService.batch.retrieve($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
           //load data into batch
           $scope.batches = data;
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
     };
@@ -631,33 +646,35 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.update_results = function(){
       //call retrieve api function
       ppdpAPIService.doc.retrieve($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
           //load data into users
           $scope.documents = data;
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server. Could not retrieve newsclips.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
       
       //call retrieve api function get total num
       ppdpAPIService.doc.totalNum($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
   
           //load data into users
           $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server. Could not retrieve newsclips stat data.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
     };
@@ -863,6 +880,8 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     
     // Global variables for controller
     $scope.batches = [];
+    $scope.batches_loading = true;
+    
     $scope.users = [];
     $scope.selected_batches = [];
     $scope.alerts = [];
@@ -890,37 +909,42 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
      * @return NULL
      */
     $scope.update_results = function(){
+      $scope.batches_loading = true;
+      
       //call retrieve api function
       ppdpAPIService.batch.retrieve($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
 
           //load data into users
           $scope.batches = data;
-          
+          $scope.batches_loading = false;
         
         }).
-        error(function(data, status) {
-        $scope.alerts.push({
-          message:'Trouble connecting to server.',
-          level:'warning',
-          debug_data:status+ ' : ' + data
+        error(function(data, status, headers, config) {
+          $scope.batches_loading = false;
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data: status+ ' : ' + data,
+            config: config
+          });
         });
-      });
       
       //call retrieve api function get total num
       ppdpAPIService.batch.totalNum($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
   
           //load data into users
           $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
         });
     }
@@ -935,7 +959,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.update_users = function(){
       //call retrieve api function
       ppdpAPIService.user.retrieve($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
           //load data into batch
           
           for(var i = 0;i < data.length; i+=1){
@@ -943,11 +967,12 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
           }
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
     }
@@ -1183,13 +1208,14 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
             
             success = true;
           }).
-          error(function(data, status) {
+          error(function(data, status, headers, config) {
           
             //show user that there was an error
             $scope.alerts.push({
               message:'Trouble connecting to server.',
               level:'warning',
-              debug_data:status+ ' : ' + data
+              debug_data: status+ ' : ' + data,
+              config: config
             });
             
           });
@@ -1234,7 +1260,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
         
         //try to create batch
         ppdpAPIService.batch.create($scope.new_batch_object).
-          success(function(data, status){
+          success(function(data, status, headers, config){
             
             $scope.update_results();
             $('#createBatchModal').modal('hide');
@@ -1257,13 +1283,14 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
             $scope.new_batch_object = {};
                 
           }).
-          error(function(data, status){
+          error(function(data, status, headers, config){
             
             //if failure show user on create batch screen
             $scope.alerts.push({
               message:'Batch could not be created',
               level:'danger',
-              debug_data:status+ ' : ' + data
+              debug_data: status+ ' : ' + data,
+              config: config
             });
             
           });
@@ -1309,14 +1336,15 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
     
     //news papers to be displayed in 'Newspaper' dropdown
     ppdpAPIService.newspaper.retrieve({}).
-      success(function(data, status){
+      success(function(data, status, headers, config){
         $scope.newspapers = data;
       }).
-      error(function(data, status){
+      error(function(data, status, headers, config){
         $scope.urgent_alerts.push({
           message:'Error connecting to server',
           level:'warning',
-          debug_data: status+ ' : ' + data
+          debug_data: status+ ' : ' + data,
+          config: config
         }); 
       });
     
@@ -1370,7 +1398,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
       else{
         //call update api function
         ppdpAPIService.doc[$scope.state]($scope.doc).
-          success(function(data, status) {
+          success(function(data, status, headers, config) {
             
             //set saved to true
             $scope.saved = true;
@@ -1404,14 +1432,15 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
             $scope.state = 'update';
             
           }).
-          error(function(data, status) {
+          error(function(data, status, headers, config) {
             
             switch($scope.status){
               case 404:
                 
                 $scope.alerts.push({
                   message:'Trouble connecting to server.',
-                  level:'warning',  
+                  level:'warning',
+                  config: config  
                 }); 
                 
               break;
@@ -1429,7 +1458,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
     $scope.delete = function(){
       //call update api function
       ppdpAPIService.doc.delete($scope.doc).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
  
           //if succesful show message to user
           $scope.urgent_alerts.push({
@@ -1445,7 +1474,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
           }, 1000);
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           
           switch(status){
             
@@ -1454,7 +1483,8 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
               $scope.urgent_alerts.push({
                 message:'Trouble connecting to server.',
                 level:'warning',  
-                debug_data: status+ ' : ' + data
+                debug_data: status+ ' : ' + data,
+                config: config
               });
               
               break;
@@ -1464,7 +1494,8 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
               $scope.urgent_alerts.push({
                 message:'Trouble connecting to server.',
                 level:'warning',
-                debug_data:status+ ' : ' + data
+                debug_data: status+ ' : ' + data,
+                config: config
               });
               
               break;
@@ -1474,7 +1505,8 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
               $scope.urgent_alerts.push({
                 message:'Unknown problem.',
                 level:'warning',
-                debug_data:status+ ' : ' + data
+                debug_data: status+ ' : ' + data,
+                config: config
               });
             
               break;
@@ -1534,7 +1566,11 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     // Global variables for controller
     
     // FIXME: currently have to instantiate
+    
+    //files which will be shown on table
     $scope.files = [];
+    $scope.files_loading = true;
+    
     $scope.users = [];
     $scope.selected_files = [];
     $scope.rows_selected = false;
@@ -1560,35 +1596,41 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
      * @return NULL
      */
     $scope.update_results = function(){
+      $scope.files_loading = true;
+      
       //call retrieve api function
       ppdpAPIService.file.retrieve($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
+          $scope.files_loading = false;
           //load data into files
           $scope.files = data;
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
+          $scope.files_loading = false;
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
       
       //call retrieve api function get total num
       ppdpAPIService.file.totalNum($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
   
           //load data into users
           $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
     }
@@ -1603,7 +1645,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.update_users = function(){
       //call retrieve api function
       ppdpAPIService.user.retrieve($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
           //load data into batch
           
           for(var i = 0;i < data.length; i+=1){
@@ -1611,11 +1653,12 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
           }
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
     }
@@ -1802,15 +1845,16 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
         };
         
         ppdpAPIService.file.create(_file).
-          success(function(data, status) {
+          success(function(data, status, headers, config) {
             $scope.update_results();
             successful = true;
           }).
-          error(function(data, status) {
+          error(function(data, status, headers, config) {
             $scope.alerts.push({
               message:'Trouble connecting to server. Files could not be uploaded',
               level:'warning',
-              debug_data:status+ ' : ' + data
+              debug_data: status+ ' : ' + data,
+              config: config
             });
             
             successful = false;
@@ -1905,11 +1949,12 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
           success(function(){
             success = true;
           }).
-          error(function(data, status) {
+          error(function(data, status, headers, config) {
             $scope.alerts.push({
               message:'Trouble connecting to server.',
               level:'warning',
-              debug_data:status+ ' : ' + data
+              debug_data: status+ ' : ' + data,
+              config: config
             });
             
           });
@@ -1969,11 +2014,11 @@ ppdpControllers.controller('header', ['$scope', '$routeParams', 'ppdpAPIService'
     $scope.logout = function(){
       
       ppdpAPIService.account.logout().
-        success(function(data, status){
+        success(function(data, status, headers, config){
           $rootScope.user_account = 'undefined';
           $location.path('login');
         }).
-        error(function(data, status){
+        error(function(data, status, headers, config){
         });
       
     };
@@ -2068,7 +2113,7 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
       }
       else{
         ppdpAPIService.account.login($scope.account).
-          success(function(data, status){
+          success(function(data, status, headers, config){
             
             $rootScope.user_account = data;
             
@@ -2081,12 +2126,12 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
             //send user to assignments page
             $location.path('assignments');
           }).
-          error(function(data, status){
+          error(function(data, status, headers, config){
             
             console.log(data);
             
             switch(status){
-              case 404:
+              case 403:
                 $scope.alerts.push({
                   message:'No account with password was found.',
                   level:'danger'
@@ -2097,7 +2142,8 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
                 $scope.alerts.push({
                   message:'Trouble connecting to server.',
                   level:'warning',
-                  debug_data:status+ ' : ' + data
+                  debug_data: status+ ' : ' + data,
+                  config: config
                 });
                 break;
             }
@@ -2238,14 +2284,15 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     
     //news papers to be displayed in 'Newspaper' dropdown
     ppdpAPIService.newspaper.retrieve({}).
-      success(function(data, status){
+      success(function(data, status, headers, config){
         $scope.newspapers = data;
       }).
-      error(function(data, status, headers){
+      error(function(data, status, headers, config){
         $scope.urgent_alerts.push({
           message:'Error connecting to server',
           level:'warning',
-          debug_data: status+ ' : ' + data 
+          debug_data: status+ ' : ' + data,
+          config: config
         }); 
       });
     
@@ -2262,13 +2309,13 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       
       //retrieve a list of documents based off of what is in the uri parameters 
       ppdpAPIService.doc.retrieve({offset:0, limit:$routeParams.docId+1, query:$scope.old_params.query}).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
 
           $scope.documents = data;
           
           //get data for doc
           ppdpAPIService.doc.retrieve({id:data[$routeParams.docId].id}).
-            success(function(data, status) {
+            success(function(data, status, headers, config) {
               //load data into doc
               $scope.doc = jQuery.extend(true, {}, data[0]);
               
@@ -2282,37 +2329,40 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
               }
               
             }).
-            error(function(data, status) {
+            error(function(data, status, headers, config) {
               $scope.alerts.push({
                 message:'Trouble connecting to server.',
                 level:'warning',
-                debug_data:status+ ' : ' + data
+                debug_data: status+ ' : ' + data,
+                config: config
               });
           });
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
       
       //call retrieve api function get total num
       ppdpAPIService.doc.totalNum({query:$routeParams.query}).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
   
           //load data into users
           $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
     }
@@ -2327,7 +2377,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     $scope.update_users = function(){
       //call retrieve api function
       ppdpAPIService.user.retrieve({}).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
           //load data into batch
           
           for(var i = 0;i < data.length; i+=1){
@@ -2335,11 +2385,12 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           }
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
     }
@@ -2354,16 +2405,17 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     $scope.update_batches = function(){
       //call retrieve api function
       ppdpAPIService.batch.retrieve($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
           //load data into batch
           $scope.batches = data;
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
     };
@@ -2420,7 +2472,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       
       //call update api function
       ppdpAPIService.doc.update($scope.doc).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
  
           //if succesful show message to user
           $scope.alerts.push({
@@ -2433,7 +2485,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           console.log($scope.doc);
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           
           switch(status){
             
@@ -2451,7 +2503,8 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
               $scope.alerts.push({
                 message:'Trouble connecting to server.',
                 level:'warning',
-                debug_data:status+ ' : ' + data
+                debug_data: status+ ' : ' + data,
+                config: config
               });
               
               break;
@@ -2461,7 +2514,8 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
               $scope.alerts.push({
                 message:'Unknown problem.',
                 level:'warning',
-                debug_data:status+ ' : ' + data
+                debug_data: status+ ' : ' + data,
+            config: config
               });
             
               break;
@@ -2473,7 +2527,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     $scope.delete = function(){
       //call update api function
       ppdpAPIService.doc.delete($scope.doc).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
  
           //if succesful show message to user
           $scope.urgent_alerts.push({
@@ -2489,7 +2543,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           }, 1000);
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           
           switch(status){
             
@@ -2508,7 +2562,8 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
               $scope.urgent_alerts.push({
                 message:'Trouble connecting to server.',
                 level:'warning',
-                debug_data:status+ ' : ' + data
+                debug_data: status+ ' : ' + data,
+                config: config
               });
               
               break;
@@ -2518,7 +2573,8 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
               $scope.urgent_alerts.push({
                 message:'Unknown problem.',
                 level:'warning',
-                debug_data:status+ ' : ' + data
+                debug_data: status+ ' : ' + data,
+            config: config
               });
             
               break;
@@ -2574,11 +2630,12 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
         success(function(){
           success = true;
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.urgent_alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
           
         });
@@ -2667,16 +2724,17 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.update_batches = function(){
       //call retrieve api function
       ppdpAPIService.batch.retrieve($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
           //load data into batch
           $scope.batches = data;
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
     };
@@ -2693,35 +2751,37 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       
       //call retrieve api function
       ppdpAPIService.doc.retrieve($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
           //load data into users
           $scope.documents = data;
           $scope.documents_loading = false;
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
           $scope.documents_loading = false;
       });
       
       //call retrieve api function get total num
       ppdpAPIService.doc.totalNum($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
         
           //load data into users
           $scope.totalRows = data.total;
           console.log($scope.totalRows);
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
     };
@@ -3051,14 +3111,15 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
     
     //retrieve all roles
     ppdpAPIService.role.retrieve({}).
-      success(function(data, status){
+      success(function(data, status, headers, config){
         $scope.roles = data;
       }).
-      error(function(data, status){
+      error(function(data, status, headers, config){
         $scope.urgent_alerts.push({
           message:'Error connecting to server',
           level:'warning',
-          debug_data: status+ ' : ' + data
+          debug_data: status+ ' : ' + data,
+          config: config
         }); 
       });
     
@@ -3080,41 +3141,42 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
     
       //call retrieve api function
       ppdpAPIService.user.retrieve({offset:0, limit:parseInt($routeParams.userId+1), query:$scope.old_params.query}).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
   
           //load data into users
           $scope.users = data;
             
           //get data for doc
           ppdpAPIService.user.retrieve({email:$scope.users[$routeParams.userId].email}).
-            success(function(data, status) {
+            success(function(data, status, headers, config) {
               //load data into doc
-			  alert("test");
               $scope.user = jQuery.extend(true, {}, data[$routeParams.userId]);
             }).
-            error(function(data, status) {
+            error(function(data, status, headers, config) {
               $scope.alerts.push({
                 message:'Trouble connecting to server.',
                 level:'warning',
-                debug_data:status+ ' : ' + data
+                debug_data: status+ ' : ' + data,
+                config: config
               });
             });
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           
           console.log('fucking fuck',{offset:0, limit:parseInt($routeParams.userId+1), query:$scope.old_params.query})
           
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
-            debug_data:status+ ' : ' + data
+            debug_data: status+ ' : ' + data,
+            config: config
           });
       });
       
       //call retrieve api function get total num
       ppdpAPIService.user.totalNum({offset:0,limit:100000,query:$routeParams.query}).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
   
           //load data into users
           $scope.totalRows = data.total;
@@ -3123,7 +3185,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
           console.log('shit');
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
@@ -3172,7 +3234,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
       }
       else{
         ppdpAPIService.user.update($scope.user).
-          success(function(data, status) {
+          success(function(data, status, headers, config) {
    
             //if succesful show message to user
             $scope.alerts.push({
@@ -3184,7 +3246,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
             console.log($scope.user);
             
           }).
-          error(function(data, status) {
+          error(function(data, status, headers, config) {
             
             switch(status){
               
@@ -3193,7 +3255,8 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
                 $scope.alerts.push({
                   message:'Trouble connecting to server.',
                   level:'warning',  
-                  debug_data: status+ ' : ' + data
+                  debug_data: status+ ' : ' + data,
+                  config: config
                 });
                 
                 break;
@@ -3203,7 +3266,8 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
                 $scope.alerts.push({
                   message:'Trouble connecting to server.',
                   level:'warning',
-                  debug_data:status+ ' : ' + data
+                  debug_data: status+ ' : ' + data,
+                  config: config
                 });
                 
                 break;
@@ -3213,7 +3277,8 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
                 $scope.alerts.push({
                   message:'Unknown problem.',
                   level:'warning',
-                  debug_data: 'user update' + ' : ' + status+ ' : ' + data
+                  debug_data: 'user update' + ' : ' + status+ ' : ' + data,
+                  config: config
                 });
               
                 break;
@@ -3247,7 +3312,11 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
     
     // FIXME: currently have to instantiate
     $scope.alerts = [];
+    
+    //users to be displaued in table
     $scope.users = [];
+    $scope.users_loading = true;
+    
     $scope.selected_users = [];
     $scope.rows_selected = false;
     $scope.show_paging = true;
@@ -3269,24 +3338,28 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
      */
     $scope.update_results = function(){
       //call retrieve api function
+      $scope.users_loading = true;
+      
       ppdpAPIService.user.retrieve($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
 
           //load data into users
           $scope.users = data;
-          
+          $scope.users_loading = false;
         }).
-        error(function(data, status) {
-        $scope.alerts.push({
-          message:'Trouble connecting to server.',
-          level:'warning',
-          debug_data:'user retrieve' + ' : ' + status+ ' : ' + data
+        error(function(data, status, headers, config) {
+
+          $scope.users_loading = false;
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data:'user retrieve' + ' : ' + status+ ' : ' + data
+          });
         });
-      });
       
       //call retrieve api function get total num
       ppdpAPIService.user.totalNum($scope.params).
-        success(function(data, status) {
+        success(function(data, status, headers, config) {
   
           //load data into users
           $scope.totalRows = data.total;
@@ -3295,7 +3368,7 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
           console.log(data);
           
         }).
-        error(function(data, status) {
+        error(function(data, status, headers, config) {
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',

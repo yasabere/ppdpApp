@@ -7,6 +7,11 @@
   <div id="collapse{{$index}}" class="panel-collapse collapse" ng-show="(alert.debug_data)">
     <div class="panel-body">
       {{alert.debug_data}}
+      
+      <ul>
+        <li ng-repeat="c in alert.config">{{c}}</li>
+      </ul>
+      
     </div>
   </div>
 </div>

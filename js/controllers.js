@@ -2315,9 +2315,11 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           
           //get data for doc
           ppdpAPIService.doc.retrieve({id:data[$routeParams.docId].id}).
-            success(function(data, status, headers, config) {
+            success(function(doc_data, status, headers, config) {
               //load data into doc
-              $scope.doc = jQuery.extend(true, {}, data[0]);
+              $scope.doc = jQuery.extend(true, {}, doc_data[0]);
+              
+              console.log(doc_data);
               
               //if document needs tiebreak
               if(true){
@@ -2921,7 +2923,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         ppdpAPIService.toggle_select($scope.documents,i);
         $scope.selected_documents = ppdpAPIService.get_selected_subset($scope.documents);
       }
-      
+  
     };
     
     // FIXME: need to implement the angular way
@@ -3092,6 +3094,12 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.$watch('totalrows', function(){
       $scope.num_rows = parseInt(($scope.totalrows !== undefined) ? $scope.totalrows : $scope.data.length);
     });
+    
+    $scope.$watch('params.offset', function(){
+      $('#left_button').prop('disabled', ($scope.params.offset == 0) );
+      //$('#right_button').prop('disabled', ($scope.displayed_limit == $scope.num_rows) );
+    });
+    
     
   }]
 );

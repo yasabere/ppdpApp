@@ -4,7 +4,12 @@
 var enable_mock_api = false;
 
 //link to live server api
-var api_url_string = "http://np-stem.tu.temple.edu/cis4396-S02/api/";//"http://localhost:26087/api/";
+var api_url_array = {
+  stem:"http://np-stem.tu.temple.edu/cis4396-S02/api/",
+  localtest:'http://localhost:26087/api/',
+  };
+
+var api_url_string = api_url_array['localtest'];
 
 //object containing name of each resource which tells whether the js api should access live server api_url_string or mock api
 var resources = {
@@ -29,7 +34,7 @@ var api_url = function(resource_name){
 };
 
 //'ngMockE2E'
-var ppdpAPI = angular.module('ppdpAPI', []);
+var ppdpAPI = angular.module('ppdpAPI', []);//'ngMockE2E'
  
  //register ppdpAPIService
 ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
@@ -634,7 +639,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
     return sharedService;
 });
 
-/*
+
 //fake backend for unit testing
 if (enable_mock_api){
   ppdpAPI.run(function($httpBackend, $filter) {
@@ -1259,4 +1264,4 @@ if (enable_mock_api){
   
   });
 }
-*/
+

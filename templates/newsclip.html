@@ -36,8 +36,6 @@
         
             <div class="col-xs-12 col-sm-8 col-md-8">
             
-              {{doc}}
-            
               <master-Alerts alerts="urgent_alerts">
               </master-Alerts>
 
@@ -92,37 +90,37 @@
               <div style="display:inline-block; margin-left:0px;" ng-show="!tiebreaker">  
                 <label>Policy Code</label> <span class="text-danger">*</span><br/>
                 <select 
-        				  ng-model="doc.policy_code"
+        				  ng-model="doc.code"
         				  class = "selectpicker" 
         					data-live-search = "true" 
         					data-size = "7"
         					data-show-subtext="true" 
         					title='Select a topic'
         				  >
-        				  <option data-subtext="Policy Code Description">1</option>
-        				  <option data-subtext="Policy Code Description">2</option>
-        				  <option data-subtext="Policy Code Description">3</option>
-        				  <option data-subtext="Policy Code Description">4</option>
-        				  <option data-subtext="Policy Code Description">5</option>
-        				  <option data-subtext="Policy Code Description">6</option>
-        				  <option data-subtext="Policy Code Description">7</option>
-        				  <option data-subtext="Policy Code Description">8</option>
-        				  <option data-subtext="Policy Code Description">9</option>
-        				  <option data-subtext="Policy Code Description">10</option>
-        				  <option data-subtext="Policy Code Description">11</option>
-        				  <option data-subtext="Policy Code Description">12</option>
-        				  <option data-subtext="Policy Code Description">13</option>
-        				  <option data-subtext="Policy Code Description">14</option>
-        				  <option data-subtext="Policy Code Description">15</option>
-        				  <option data-subtext="Policy Code Description">16</option>
-        				  <option data-subtext="Policy Code Description">17</option>
-        				  <option data-subtext="Policy Code Description">18</option>
-        				  <option data-subtext="Policy Code Description">19</option>
-        				  <option data-subtext="Policy Code Description">20</option>
-        				  <option data-subtext="Policy Code Description">21</option>
-        				  <option data-subtext="Policy Code Description">22</option>
-        				  <option data-subtext="Policy Code Description">23</option>
-        				  <option data-subtext="Policy Code Description">24</option>
+        				  <option value="1" data-subtext="Policy Code Description">1</option>
+        				  <option value="2" data-subtext="Policy Code Description">2</option>
+        				  <option value="3" data-subtext="Policy Code Description">3</option>
+        				  <option value="4" data-subtext="Policy Code Description">4</option>
+        				  <option value="5" data-subtext="Policy Code Description">5</option>
+        				  <option value="6" data-subtext="Policy Code Description">6</option>
+        				  <option value="7" data-subtext="Policy Code Description">7</option>
+        				  <option value="8" data-subtext="Policy Code Description">8</option>
+        				  <option value="9" data-subtext="Policy Code Description">9</option>
+        				  <option value="10" data-subtext="Policy Code Description">10</option>
+        				  <option value="11" data-subtext="Policy Code Description">11</option>
+        				  <option value="12" data-subtext="Policy Code Description">12</option>
+        				  <option value="13" data-subtext="Policy Code Description">13</option>
+        				  <option value="14" data-subtext="Policy Code Description">14</option>
+        				  <option value="15" data-subtext="Policy Code Description">15</option>
+        				  <option value="16" data-subtext="Policy Code Description">16</option>
+        				  <option value="17" data-subtext="Policy Code Description">17</option>
+        				  <option value="18" data-subtext="Policy Code Description">18</option>
+        				  <option value="19" data-subtext="Policy Code Description">19</option>
+        				  <option value="20" data-subtext="Policy Code Description">20</option>
+        				  <option value="21" data-subtext="Policy Code Description">21</option>
+        				  <option value="22" data-subtext="Policy Code Description">22</option>
+        				  <option value="23" data-subtext="Policy Code Description">23</option>
+        				  <option value="24" data-subtext="Policy Code Description">24</option>
                 </select>
                 
               </div>
@@ -209,7 +207,7 @@
                 <div style="display:inline-block; margin-left:10px;">  
                   <label>Final Policy Code</label><br/>
                   <select 
-          				  ng-model="doc.policy_code"
+          				  ng-model="doc.code"
           				  class = "selectpicker" 
           					data-live-search = "true" 
           					data-size = "7"
@@ -250,7 +248,7 @@
   
               <div class="form-group">
                 <label for="txtcomments">Comments</label>
-                <textarea id="txtcomments" class="form-control" rows="2">This article seems to have some copy paste errors</textarea>
+                <textarea id="txtcomments" class="form-control" rows="2"></textarea>
               </div>
               <button type="button" class="btn btn-default" ng-click="back()">
                 Cancel
@@ -272,19 +270,19 @@
   
               <br/><br/>
               <b>Pennsylvania</b><br/>
-              <input type="checkbox" checked> Executive<br/>
-              <input type="checkbox"> Legislative<br/>
-              <input type="checkbox"> Judicial<br/>
-              <input type="checkbox"> State Agency<br/>
-              <input type="checkbox"> Budget<br/>
+              <input type="checkbox" ng-model="doc.executive"> Executive<br/>
+              <input type="checkbox" ng-model="doc.leg"> Legislative<br/>
+              <input type="checkbox" ng-model="doc.jud"> Judicial<br/>
+              <input type="checkbox" ng-model="doc.sta_ag"> State Agency<br/>
+              <input type="checkbox" ng-model="doc.budget"> Budget<br/>
               <hr/>
               <b>General</b><br/>
-              <input type="checkbox"> Local Govt<br/>
-              <input type="checkbox"> Federal<br/>
-              <input type="checkbox"> Tax<br/>
-              <input type="checkbox"> Elderly<br/>
-              <input type="checkbox"> Interest Group<br/>
-              <input type="checkbox"> Elections<br/>
+              <input type="checkbox" ng-model="doc.local_govt"> Local Govt<br/>
+              <input type="checkbox" ng-model="doc.fed"> Federal<br/>
+              <input type="checkbox" ng-model="doc.tax"> Tax<br/>
+              <input type="checkbox" ng-model="doc.elderly"> Elderly<br/>
+              <input type="checkbox" ng-model="doc.int_group"> Interest Group<br/>
+              <input type="checkbox" ng-model="doc.elec"> Elections<br/>
             </div>
           
             

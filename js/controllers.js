@@ -200,8 +200,8 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
 );
 
 /** Controller: assignments */ 
-ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout',
-  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
+ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout', '$filter',
+  function($scope, $routeParams, ppdpAPIService, $location, $timeout, $filter) {
     console.log('assignments');
     
     // Global variables for controller
@@ -361,13 +361,13 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       { 
         text:'Date Assigned',
         value: function(row){
-          return row.date_created;
+          return $filter('date')(new Date(row.date_added), "MMM/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
         },
         attributes:'',
-        field_text: 'date_created'
+        field_text: 'date_added'
       },
       {
         text:'Date Due',
@@ -737,13 +737,13 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
       { 
         text:'Date Created',
         value: function(row){
-          return row.date_created;
+          return row.date_added;
         },
         click: function(id, row){
           $scope.details(id);
         },
         attributes:'',
-        field_text: 'date_created'
+        field_text: 'date_added'
       },
       {
         text:'Creator',
@@ -875,8 +875,8 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
 );
 
 /** Controller: batches */
-ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout',
-  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
+ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout', '$filter',
+  function($scope, $routeParams, ppdpAPIService, $location, $timeout, $filter) {
     
     // Global variables for controller
     $scope.batches = [];
@@ -1028,13 +1028,13 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       { 
         text:'Date Created', 
         value: function(row){
-          return row.date_created;
+          return $filter('date')(new Date(row.date_added), "MMM/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
         },
         attributes:'test',
-        field_text: 'date_created'
+        field_text: 'date_added'
       },
       { 
         text:'Creator',
@@ -1353,7 +1353,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
         abstract:'',
         comments:'',
         date:'',
-        date_created: '',
+        date_added: '',
         headline:'',
         policy:'',
         policy_code:'',
@@ -1555,13 +1555,19 @@ ppdpControllers.controller('dropdown', ['$scope',
       }
       
     };
+    
+    $scope.$watch('ngModel', function(){
+      if ($scope.ngModel !== ''){
+        $scope.selected_value = $scope.ngModel[$scope.text_field];
+      }
+    });
   
   }]
 );
 
 /** Controller: files */
-ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService', '$location','$timeout',
-  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
+ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService', '$location','$timeout', '$filter',
+  function($scope, $routeParams, ppdpAPIService, $location, $timeout, $filter) {
     
     // Global variables for controller
     
@@ -1758,13 +1764,13 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       {
         text:'Date Created',
         value: function(row){
-          return row.date_created;
+          return $filter('date')(new Date(row.date_added), "MMM/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
         },
         attributes:'',
-        field_text: 'date_created'
+        field_text: 'date_added'
       },
       {
         text:'Status',
@@ -2245,7 +2251,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
         abstract:'',
         comments:'',
         date:'',
-        date_created: '',
+        date_added: '',
         headline:'',
         policy:'',
         policy_code:'',
@@ -2317,7 +2323,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           ppdpAPIService.doc.retrieve({id:data[$routeParams.docId].id}).
             success(function(doc_data, status, headers, config) {
               //load data into doc
-              $scope.doc = jQuery.extend(true, {}, doc_data[0]);
+              $scope.doc = jQuery.extend(true, {}, doc_data);
               
               console.log(doc_data);
               
@@ -2688,8 +2694,8 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
 );
 
 /** Controller: newsclips */
-ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout',
-  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
+ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout', '$filter',
+  function($scope, $routeParams, ppdpAPIService, $location, $timeout, $filter) {
     console.log('newsclips');
     
     // Global variables for controller
@@ -2845,13 +2851,13 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       { 
         text:'Date Created',
         value: function(row){
-          return row.date_created;
+          return $filter('date')(new Date(row.date_added), "MMM/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
         },
         attributes:'',
-        field_text: 'date_created'
+        field_text: 'date_added'
       },
       {
         text:'Creator',
@@ -3158,7 +3164,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
           ppdpAPIService.user.retrieve({email:$scope.users[$routeParams.userId].email}).
             success(function(data, status, headers, config) {
               //load data into doc
-              $scope.user = jQuery.extend(true, {}, data[$routeParams.userId]);
+              $scope.user = jQuery.extend(true, {}, data);
             }).
             error(function(data, status, headers, config) {
               $scope.alerts.push({
@@ -3171,9 +3177,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
           
         }).
         error(function(data, status, headers, config) {
-          
-          console.log('fucking fuck',{offset:0, limit:parseInt($routeParams.userId+1), query:$scope.old_params.query})
-          
+
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',
@@ -3188,9 +3192,6 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
   
           //load data into users
           $scope.totalRows = data.total;
-          console.log(data);
-          console.log($scope.totalRows);
-          console.log('shit');
           
         }).
         error(function(data, status, headers, config) {
@@ -3312,8 +3313,8 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
 );
 
 /** Controller: users */
-ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
-  function($scope, $routeParams, ppdpAPIService, $location) {
+ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$filter',
+  function($scope, $routeParams, ppdpAPIService, $location, $filter) {
     console.log('users');
     
     // Global variables for controller
@@ -3421,7 +3422,7 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
       { 
         text:'Date Joined',
         value: function(row){
-          return row.date_joined;
+          return $filter('date')(new Date(row.date_joined), "MMM/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);

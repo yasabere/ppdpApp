@@ -89,7 +89,7 @@
               <div style="display:inline-block; margin-left:0px;">  
                 <label>Policy Code</label> <span class="text-danger"><b>*</b></span><br/>
                 <select 
-        				  ng-model="doc.policy_code"
+        				  ng-model="doc.code"
         				  class = "selectpicker" 
         					data-live-search = "true" 
         					data-size = "7"
@@ -156,19 +156,19 @@
 
             <br/><br/>
             <b>Pennsylvania</b><br/>
-            <input type="checkbox"> Executive<br/>
-            <input type="checkbox"> Legislative<br/>
-            <input type="checkbox"> Judicial<br/>
-            <input type="checkbox"> State Agency<br/>
-            <input type="checkbox"> Budget<br/>
+            <input type="checkbox" ng-model="doc.executive"> Executive<br/>
+            <input type="checkbox" ng-model="doc.leg"> Legislative<br/>
+            <input type="checkbox" ng-model="doc.jud"> Judicial<br/>
+            <input type="checkbox" ng-model="doc.sta_ag"> State Agency<br/>
+            <input type="checkbox" ng-model="doc.budget"> Budget<br/>
             <hr/>
             <b>General</b><br/>
-            <input type="checkbox"> Local Govt<br/>
-            <input type="checkbox"> Federal<br/>
-            <input type="checkbox"> Tax<br/>
-            <input type="checkbox"> Elderly<br/>
-            <input type="checkbox"> Interest Group<br/>
-            <input type="checkbox"> Elections<br/>
+            <input type="checkbox" ng-model="doc.local_govt"> Local Govt<br/>
+            <input type="checkbox" ng-model="doc.fed"> Federal<br/>
+            <input type="checkbox" ng-model="doc.tax"> Tax<br/>
+            <input type="checkbox" ng-model="doc.elderly"> Elderly<br/>
+            <input type="checkbox" ng-model="doc.int_group"> Interest Group<br/>
+            <input type="checkbox" ng-model="doc.elec"> Elections<br/>
           </div>
       </div>
 

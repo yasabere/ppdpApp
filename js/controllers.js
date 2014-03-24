@@ -213,6 +213,8 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
     $scope.rows_selected = false;
     $scope.totalRows = 0;
     
+    $scope.assignments_loading = true;
+    
     $scope.params = {
       offset:0,
       limit:5,
@@ -230,12 +232,16 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
      * @return NULL
      */
     $scope.update_results = function(){
+      
+      $scope.assignments_loading = true;
+      
       //call retrieve api function
       ppdpAPIService.assignment.retrieve($scope.params).
         success(function(data, status, headers, config) {
 
           //load data into assignments
           $scope.assignments = data;
+          $scope.assignments_loading = false;
         
         }).
         error(function(data, status, headers, config) {
@@ -245,7 +251,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
             debug_data: status+ ' : ' + data,
             config: config
           });
-          
+          $scope.assignments_loading = false;
           switch(status){
             case 401:
               $location.path('login');
@@ -372,7 +378,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       {
         text:'Date Due',
         value: function(row){
-          return row.date_due;
+          return $filter('date')(new Date(row.date_due), "MMM/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -383,7 +389,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       {
         text:'Date Complete',
         value: function(row){
-          return row.date_complete;
+          return $filter('date')(new Date(row.date_complete), "MMM/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -3023,7 +3029,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       return $scope.params;
     }, true); // initialize the watch
     
-    $scope.$watch('test', function() {
+    $scope.$watch('selected_batch', function() {
       
       if ($scope.selected_batch){
         $('.selectpicker').selectpicker('render');

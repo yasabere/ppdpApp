@@ -367,7 +367,13 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       { 
         text:'Date Assigned',
         value: function(row){
-          return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
+         
+          if (row.date_added){
+            return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
+          }
+          else{
+            return 'unspecified';
+          }
         },
         click: function(id, row){
           $scope.details(id);
@@ -394,7 +400,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
             return $filter('date')(new Date(row.date_complete), "M/dd/yyyy");
           }
           else{
-            return '[Not Applicable]';
+            return 'unspecified';
           }
           
         },

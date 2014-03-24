@@ -1543,6 +1543,7 @@ ppdpControllers.controller('dropdown', ['$scope',
     console.log('dropdown');
     
     $scope.select = function(option){
+      
       $scope.selected_value = option[$scope.text_field];
       
       if ($scope.returnObject === 'true'){
@@ -1556,6 +1557,8 @@ ppdpControllers.controller('dropdown', ['$scope',
     
     $scope.$watch('ngModel', function(){
       if ($scope.ngModel !== ''){
+        
+        alert($scope.text_field);
         $scope.selected_value = $scope.ngModel[$scope.text_field];
       }
     });
@@ -2170,6 +2173,12 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
     //json representation of menu sidebar
     $scope.menu = [
       {
+        title: 'Assignments',
+        href: '#/assignments',
+        path:'/assignments',
+        menu:[]
+      },
+      {
         title: 'Newsclips',
         href: '#/newsclips',
         menu:[{
@@ -2200,12 +2209,6 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
           click: function(){$('#createFileModal').modal('toggle')}
         }],
         path:'/files'
-      },
-      {
-        title: 'Assignments',
-        href: '#/assignments',
-        path:'/assignments',
-        menu:[]
       },
       {
         title: 'Users',
@@ -2730,16 +2733,6 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
     
-    $scope.colors = [
-                {name:'black', shade:'dark'},
-                {name:'white', shade:'light'},
-                {name:'red', shade:'dark'},
-                {name:'blue', shade:'dark'},
-                {name:'yellow', shade:'light'}
-              ];
-              
-    //$scope.test = 'August';
-    
     /**
      * update_batches() Updates batches to be shown when batch
      *
@@ -2847,7 +2840,8 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         text:'Headline', 
         //row value 
         value: function(row){
-          return row.headline;
+   
+          return (row.headline == 'NULL')?'[Not Applicable]':row.headline;
         },
         //function which is called when row is clicked
         click: function(id, row){

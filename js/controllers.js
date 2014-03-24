@@ -895,7 +895,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     $scope.assign_alerts = [];
     $scope.rows_selected = false;
     $scope.totalRows = 0;
-    $scope.assignment = {type:'',users:[]};
+    $scope.assignment = {type:{name:'Code', id:2},users:[]};
     $scope.new_batch_object = {name:''}
     
     $scope.params = {
@@ -1034,7 +1034,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       { 
         text:'Date Created', 
         value: function(row){
-          return $filter('date')(new Date(row.date_added), "MMM/dd/yyyy");
+          return $filter('date')(new Date(row.date_created), "MMM/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -1524,6 +1524,12 @@ ppdpControllers.controller('dropdown', ['$scope',
   function($scope) {
     
     $scope.selected_value = $scope.placeholder;
+    $scope.selected_option = {};
+    $scope.options_map = {};
+    
+    for(var i = 0; i < $scope.options.length ; i=+1){
+      $scope.options_map[$scope.options[i][$scope.value_field]] = $scope.options[i];
+    }
     
     if ($scope.text_field === undefined || $scope.text_field === ''){
       $scope.text_field = 'text';
@@ -1545,7 +1551,7 @@ ppdpControllers.controller('dropdown', ['$scope',
     $scope.select = function(option){
       
       $scope.selected_value = option[$scope.text_field];
-      
+
       if ($scope.returnObject === 'true'){
         $scope.ngModel = option;
       }
@@ -1556,11 +1562,19 @@ ppdpControllers.controller('dropdown', ['$scope',
     };
     
     $scope.$watch('ngModel', function(){
-      if ($scope.ngModel !== ''){
-        
-        alert($scope.text_field);
-        $scope.selected_value = $scope.ngModel[$scope.text_field];
+
+      if ($scope.ngModel !== '' && $scope.ngModel !== undefined){
+        if (typeof $scope.ngModel === 'object'){
+          $scope.selected_value = $scope.ngModel[$scope.text_field];
+        }
+        else{
+          $scope.selected_value = $scope.options_map[$scope.ngModel][$scope.text_field];
+        }
       }
+      else{
+        $scope.selected_value = $scope.placeholder;
+      }
+      
     });
   
   }]
@@ -1584,7 +1598,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.totalRows = 0;
     $scope.alerts = [];
     $scope.assign_alerts = [];
-    $scope.assignment = {type:'',users:[]};
+    $scope.assignment = {type:{name:'Enter documents', id:1},users:[]};
     
     $scope.params = {
       offset:0,

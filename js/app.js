@@ -103,7 +103,7 @@ ppdpApp.config(['$routeProvider',
         $rootScope.user_account = data;
       }).
       error(function(data,status){
-        $location.path('login');
+        //$location.path('login');
       });
       //if logged in store user data 
       // if not logged route user to login page

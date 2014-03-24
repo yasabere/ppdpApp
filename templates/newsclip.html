@@ -351,7 +351,7 @@
 				
 				<select 
 				  ng-model="color" 
-				  ng-options="batch.name group by batch.name for batch in batches"
+				  ng-options="batch.name for batch in batches"
 				  class = "selectpicker" 
 					data-live-search = "true" 
 					data-size = "7"

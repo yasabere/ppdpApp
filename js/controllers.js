@@ -1435,11 +1435,12 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
           error(function(data, status, headers, config) {
             
             switch($scope.status){
-              case 404:
+              default:
                 
                 $scope.alerts.push({
                   message:'Trouble connecting to server.',
                   level:'warning',
+                  debug_data: status+ ' : ' + data,
                   config: config  
                 }); 
                 
@@ -2634,6 +2635,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       var assignment_request = jQuery.extend( true, {},$scope.assignment);
           
       //send create request to api
+      console.log(assignment_request);
       ppdpAPIService.assignment.create(assignment_request).
         success(function(){
           success = true;
@@ -2713,6 +2715,9 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     //alerts to be shown on screen
     $scope.alerts = [];
     
+    //request to add to batch
+    $scope.selected_batch = '';
+    
     //handle url parameters from previous page
     $scope.params = jQuery.extend(true, {offset:0,limit:10}, $routeParams );
     $scope.params.offset = parseInt($scope.params.offset);
@@ -2723,6 +2728,16 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
     $scope.directions.push('Click batch to view its\' contents');
+    
+    $scope.colors = [
+                {name:'black', shade:'dark'},
+                {name:'white', shade:'light'},
+                {name:'red', shade:'dark'},
+                {name:'blue', shade:'dark'},
+                {name:'yellow', shade:'light'}
+              ];
+              
+    //$scope.test = 'August';
     
     /**
      * update_batches() Updates batches to be shown when batch
@@ -2735,7 +2750,9 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         success(function(data, status, headers, config) {
           //load data into batch
           $scope.batches = data;
-          
+          $('.selectpicker').selectpicker({
+            'selectedText': 'cat'
+          });
         }).
         error(function(data, status, headers, config) {
           $scope.alerts.push({
@@ -2744,6 +2761,9 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
             debug_data: status+ ' : ' + data,
             config: config
           });
+          /*$('.selectpicker').selectpicker({
+            'selectedText': 'cat'
+          });*/
       });
     };
     
@@ -2972,6 +2992,33 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         $(".alert").alert('close');
       }, 2000);
     };
+    
+    /**
+     * 
+     * 
+     */
+    $scope.add_to_batch = function(){
+      for(var i = 0; i < $scope.selected_documents.length; i+=1){
+        ppdpAPIService.batch.adddocument({doc_id:$scope.selected_documents[i].id, batch_id:$scope.selected_batch.id});
+        $scope.update_results();
+      }
+      $scope.selected_documents = [];
+      $('#batchModal').modal('hide');
+      
+      //if succesful show message to user
+      $scope.alerts.push({
+        message: 'Document was successfully added to the batch',
+        level:'success'
+      }); 
+      
+      //after alert has been on screen for 2 seconds it is removed
+      $timeout(function(){
+        $('.alert').bind('closed.bs.alert', function () {
+          $scope.alerts = [];
+        });
+        $(".alert").alert('close');
+      }, 2000);
+    }
 
     /**
      * 'params' change event
@@ -2984,6 +3031,15 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       $scope.update_results();
       return $scope.params;
     }, true); // initialize the watch
+    
+    $scope.$watch('test', function() {
+      
+      if ($scope.selected_batch){
+        $('.selectpicker').selectpicker('render');
+      }
+      
+      
+    });
     
   }]
 );

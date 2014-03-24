@@ -389,7 +389,14 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       {
         text:'Date Complete',
         value: function(row){
-          return $filter('date')(new Date(row.date_complete), "M/dd/yyyy");
+          
+          if (row.date_complete){
+            return $filter('date')(new Date(row.date_complete), "M/dd/yyyy");
+          }
+          else{
+            return '[Not Applicable]';
+          }
+          
         },
         click: function(id, row){
           $scope.details(id);

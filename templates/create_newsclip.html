@@ -72,7 +72,7 @@
                   {text:'',value:'', class:'divider'},
                   {text:'Other - Note in Comments', value:'Other', class:''}]"
                   text-Field = "text"
-                  placeholder = "Select a type"
+                  placeholder = " 'Select a type' "
                 >
                 </dropdown>
                 <br/>
@@ -138,7 +138,7 @@
                 Save
               </button>
               <a ng-href="#/create_newsclip" class="pull-right" ng-show="saved">
-              <button type="button" class="btn btn-default">
+              <button type="button" class="btn btn-default" ng-click="reload_page()">
                 Create New Newsclip
               </button>
               </a>

@@ -94,7 +94,12 @@ ppdpApp.config(['$routeProvider',
 **********************************************************************
 
  */
- ppdpApp.run(function ($rootScope, $location, ppdpAPIService) {
+ ppdpApp.run(function ($rootScope, $location, ppdpAPIService, $route) {
+   
+   $rootScope.reload_page = function(){
+     $route.reload();
+   };
+   
    $rootScope.user_account = 'undefined';
    
     //check if logged in

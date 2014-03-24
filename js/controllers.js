@@ -1886,7 +1886,6 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       
     }
     
-        
     /**
      * assign() creates new assignment
      * 
@@ -1954,6 +1953,9 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
             success = true;
           }).
           error(function(data, status, headers, config) {
+            
+            error_found = true;
+            
             $scope.alerts.push({
               message:'Trouble connecting to server.',
               level:'warning',
@@ -1978,12 +1980,14 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       }
        
       //after alert has been on screen for 2 seconds it is removed
+      /*
       $timeout(function(){
         $('.alert').bind('closed.bs.alert', function () {
           $scope.alerts = [];
         });
         $(".alert").alert('close');
       }, 2000);
+      */
     }
     
     /**

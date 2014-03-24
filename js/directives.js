@@ -107,6 +107,7 @@ ppdpDirectives.directive('dropdown', function(){
      compile: function(element, attrs){
        if (!attrs.textField) { attrs.textField = 'text'; }
        if (!attrs.valueField) { attrs.valueField = 'value'; }
+       if (!attrs.options) { attrs.options = []; }
     },
    } 
 });

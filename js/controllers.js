@@ -367,7 +367,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       { 
         text:'Date Assigned',
         value: function(row){
-          return $filter('date')(new Date(row.date_added), "MMM/dd/yyyy");
+          return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -378,7 +378,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       {
         text:'Date Due',
         value: function(row){
-          return $filter('date')(new Date(row.date_due), "MMM/dd/yyyy");
+          return $filter('date')(new Date(row.date_due), "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -389,7 +389,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       {
         text:'Date Complete',
         value: function(row){
-          return $filter('date')(new Date(row.date_complete), "MMM/dd/yyyy");
+          return $filter('date')(new Date(row.date_complete), "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -1034,7 +1034,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       { 
         text:'Date Created', 
         value: function(row){
-          return $filter('date')(new Date(row.date_created), "MMM/dd/yyyy");
+          return $filter('date')(new Date(row.date_created), "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -1527,10 +1527,6 @@ ppdpControllers.controller('dropdown', ['$scope',
     $scope.selected_option = {};
     $scope.options_map = {};
     
-    for(var i = 0; i < $scope.options.length ; i=+1){
-      $scope.options_map[$scope.options[i][$scope.value_field]] = $scope.options[i];
-    }
-    
     if ($scope.text_field === undefined || $scope.text_field === ''){
       $scope.text_field = 'text';
     }
@@ -1544,6 +1540,14 @@ ppdpControllers.controller('dropdown', ['$scope',
         $scope.selected_value = $scope.options[0][$scope.text_field];
         $scope.ngModel =  $scope.options[0][$scope.value_field];
       }
+    }
+    
+    if (typeof $scope.options === 'object'){
+      for(var i = 0; i < $scope.options.length; i++){
+        $scope.options_map[$scope.options[i][$scope.value_field]] = $scope.options[i];
+      }
+      
+      console.log($scope.options_map);
     }
   
     console.log('dropdown');
@@ -1779,7 +1783,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       {
         text:'Date Created',
         value: function(row){
-          return $filter('date')(new Date(row.date_added), "MMM/dd/yyyy");
+          return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -2880,7 +2884,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       { 
         text:'Date Created',
         value: function(row){
-          return $filter('date')(new Date(row.date_added), "MMM/dd/yyyy");
+          return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -2924,7 +2928,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       {
         text:'ID',
         value: function(row){
-          return row.id;
+          return parseInt(row.id);
         },
         click: function(id, row){
           $scope.details(id);
@@ -3487,7 +3491,7 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
       { 
         text:'Date Joined',
         value: function(row){
-          return $filter('date')(new Date(row.date_joined), "MMM/dd/yyyy");
+          return $filter('date')(new Date(row.date_joined), "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);

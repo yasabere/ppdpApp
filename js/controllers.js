@@ -1349,16 +1349,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
       });
     
     //json representation of 
-    $scope.doc = {
-        abstract:'',
-        comments:'',
-        date:'',
-        date_added: '',
-        headline:'',
-        policy:'',
-        policy_code:'',
-        type:'',
-    };
+    $scope.doc = {};
     
     //query parameters
     $scope.params = {

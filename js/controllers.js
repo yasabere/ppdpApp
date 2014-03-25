@@ -789,7 +789,7 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
       {
         text:'Assigned',
         value: function(row){
-          return (row.assigned)?'Unassigned':'Assigned';
+          return (row.assigned)?'Assigned':'Unassigned';
         },
         click: function(id, row){
           $scope.details(id);
@@ -1080,7 +1080,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       {
         text:'Assigned',
         value: function(row){
-          return (row.assigned)?'Unassigned':'Assigned';
+          return (row.assigned)?'Assigned':'Unassigned';
         },
         click: function(id, row){
           $scope.details(id);
@@ -2935,7 +2935,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       {
         text:'Assigned',
         value: function(row){
-          return (row.assigned)?'Unassigned':'Assigned';
+          return (row.assigned)?'Assigned':'Unassigned';
         },
         click: function(id, row){
           $scope.details(id);

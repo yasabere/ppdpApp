@@ -375,7 +375,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'Delete',
           url: api_url('document') + 'document/delete',
-          data: _doc,
+          data: "'" + JSON.stringify(_doc) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         

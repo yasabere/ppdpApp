@@ -77,7 +77,9 @@
           <br/>
           <br/>
   
-          <a ng-click="save()" ><button class="btn btn-primary">Save User</button></a>
+          <button type="button" class="btn btn-primary {{ (saving)?'disabled':'' }}" ng-click="save()" >
+            {{ (saving)?'Saving...':'Save User' }}
+          </button>
           
           
           <br/>

@@ -36,9 +36,10 @@
             <master-Alerts alerts="alerts">
             </master-Alerts>
             
-            <h4>Batch {{batch.id}} - {{batch.name}}</h4>
+            <h4><b>{{batch.name}}</b> - Batch {{batch.id}}</h4>
             
-            <master-Table columns="columns" data="documents" table-Row-Click="details" table-Row-Select="toggle_select" search-Query="params.query">
+            <master-Table columns="columns" data="documents" table-Row-Click="details" table-Row-Select="toggle_select" search-Query="params.query" 
+  loading = "batches_loading">
             </master-Table>
             
           </div>
@@ -79,21 +80,23 @@
         <h4 class="modal-title" id="deleteModalLabel">Add Newsclip to Batch</h4>
       </div>
       <div class="modal-body">
-        <!-- Single button -->
-        <searchable-Dropdown
-          name = "batch"
-          ng-model = "batch"
-          options = "batches"
-          return-Object = " 'true' "
-          placeholder = " 'Select a batch' "
-          required
-        >
-        </searchable-Dropdown>
-        {{batch}}
+      
+        <label>Select a batch to add to</label> <span class="text-danger"><b>*</b></span><br/>
+        
+  			<select 
+				  ng-model="selected_batch"
+				  ng-options="b.name group by b.year for b in batches"
+				  class = "selectpicker" 
+					data-live-search = "true" 
+					data-size = "7"
+					data-show-subtext="true"
+					title='Select a batch to add to'
+				  ></select>
+			
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Add</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

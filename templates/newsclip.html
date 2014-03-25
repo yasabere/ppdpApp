@@ -255,8 +255,8 @@
               <button type="button" class="btn btn-default" ng-click="back()">
                 Cancel
               </button>
-              <button type="button" class="btn btn-primary" ng-click="save()">
-                Save
+              <button type="button" class="btn btn-primary {{ (saving)?'disabled':'' }}" ng-click="save()" >
+                {{ (saving)?'Saving...':'Save' }}
               </button>
               
               <br/>
@@ -327,41 +327,16 @@
       <div class="modal-body">
       
         <label>Select a batch to add to</label> <span class="text-danger"><b>*</b></span><br/>
-        <select 
-						class = "selectpicker" 
-						data-live-search = "true" 
-						data-size = "7"
-						data-show-subtext="true" 
-						title='Select a batch to add to'
-					>
-					<optgroup label="2015">
-					  <option data-subtext="2015">Sep</option>
-					  <option data-subtext="2015">Nov</option>
-					  <option data-subtext="2015">Dec</option>
-					</optgroup>
-					<optgroup label="2014">
-					  <option data-subtext="2014">Sep</option>
-					  <option data-subtext="2014">Nov</option>
-					  <option data-subtext="2014">Dec</option>
-					</optgroup>
-					<optgroup label="2013" disabled>
-					  <option data-subtext="2013">Sep</option>
-					  <option data-subtext="2013">Nov</option>
-					  <option data-subtext="2013">Dec</option>
-					</optgroup>
-				</select>
-				
-				<select 
-				  ng-model="color" 
-				  ng-options="batch.name for batch in batches"
+        
+  			<select 
+				  ng-model="selected_batch"
+				  ng-options="b.name group by b.year for b in batches"
 				  class = "selectpicker" 
 					data-live-search = "true" 
 					data-size = "7"
-					data-show-subtext="true" 
+					data-show-subtext="true"
 					title='Select a batch to add to'
-					
-				  >
-        </select>
+				  ></select>
 			
       </div>
       <div class="modal-footer">

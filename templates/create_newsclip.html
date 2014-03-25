@@ -134,8 +134,8 @@
               <button type="button" class="btn btn-default" ng-click="back()">
                 Cancel
               </button>
-              <button type="button" class="btn btn-primary" ng-click="save()">
-                Save
+              <button type="button" class="btn btn-primary {{ (saving)?'disabled':'' }}" ng-click="save()" >
+                {{ (saving)?'Saving...':'Save' }}
               </button>
               <a ng-href="#/create_newsclip" class="pull-right" ng-show="saved">
               <button type="button" class="btn btn-default" ng-click="reload_page()">

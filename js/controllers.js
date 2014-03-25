@@ -13,8 +13,7 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
     //global variables
     $scope.alerts = [];
     $scope.state = 'create';
-    $scope.state = 'create';
-    
+    $scope.saving = false;
     $scope.user = {};
     $scope.users = [];
     $scope.totalRows = 0;
@@ -125,6 +124,7 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
     
     $scope.save = function(){
       $(".alert").alert('close');
+      $scope.saving = true;
       
       //remove all previous alerts
       $scope.alerts = [];
@@ -137,6 +137,8 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
           message:'All fields with * must be filled in',
           level:'danger',
         }); 
+        
+        $scope.saving = false;
       }
       else{
         ppdpAPIService.user.create($scope.user).
@@ -153,8 +155,11 @@ ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIServic
             
             console.log($scope.user);
             
+            $scope.saving = false;
+            
           }).
           error(function(data, status, headers, config) {
+            $scope.saving = false;
             
             switch(status){
               
@@ -609,10 +614,11 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
     //call retrieve api function
     ppdpAPIService.batch.retrieve({id:$routeParams.batchId}).
       success(function(data, status, headers, config) {
+        
         $scope.batches_loading = false;
         
         //load data into batch
-        $scope.batch = data[0];
+        $scope.batch = data;
         $scope.title = "Batch " + $scope.batch.id + ' |';
         
       }).
@@ -639,11 +645,18 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
      */
     $scope.update_batches = function(){
       //call retrieve api function
-      ppdpAPIService.batch.retrieve($scope.params).
+      ppdpAPIService.batch.retrieve({}).
         success(function(data, status, headers, config) {
           //load data into batch
           $scope.batches = data;
           
+          for(var i = 0; i < batches.length; i+=1 ){
+            batches[i].year = $filter('date')(new Date(row.date_added), "yyyy")
+          }
+          
+          $('.selectpicker').selectpicker({
+            'selectedText': 'cat'
+          });
         }).
         error(function(data, status, headers, config) {
           $scope.alerts.push({
@@ -652,6 +665,9 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
             debug_data: status+ ' : ' + data,
             config: config
           });
+          /*$('.selectpicker').selectpicker({
+            'selectedText': 'cat'
+          });*/
       });
     };
     
@@ -663,12 +679,15 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
      * @return NULL
      */
     $scope.update_results = function(){
+      
+      $scope.batches_loading = true;
+      
       //call retrieve api function
       ppdpAPIService.doc.retrieve($scope.params).
         success(function(data, status, headers, config) {
           //load data into users
           $scope.documents = data;
-          
+          $scope.batches_loading = false;
         }).
         error(function(data, status, headers, config) {
           $scope.alerts.push({
@@ -677,6 +696,7 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
             debug_data: status+ ' : ' + data,
             config: config
           });
+          $scope.batches_loading = false;
       });
       
       //call retrieve api function get total num
@@ -731,7 +751,8 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
         text:'Headline', 
         //row value 
         value: function(row){
-          return row.headline;
+   
+          return (row.headline == 'NULL')?'[Not Applicable]':row.headline;
         },
         //function which is called when row is clicked
         click: function(id, row){
@@ -756,7 +777,7 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
       { 
         text:'Date Created',
         value: function(row){
-          return row.date_added;
+          return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -800,7 +821,7 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
       {
         text:'ID',
         value: function(row){
-          return row.id;
+          return parseInt(row.id);
         },
         click: function(id, row){
           $scope.details(id);
@@ -890,6 +911,18 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
       return $scope.params;
     }, true); // initialize the watch
     
+    $scope.$watch('selected_batch', function() {
+      
+      if ($scope.selected_batch){
+        $('.selectpicker').selectpicker('render');
+      }
+      
+      
+    });
+
+    $('#batchModal').on('show.bs.modal', function (e) {
+      $('.selectpicker').selectpicker('render');
+    });
   }]
 );
 
@@ -1125,7 +1158,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
      * @return NULL
      */
     $scope.details = function(id){
-      $location.path("/batch/"+(id+$scope.params.offset)).search($scope.params);
+      $location.path("/batch/"+($scope.batches[id].id)).search($scope.params);
     }
     
     /**
@@ -1352,6 +1385,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
     $scope.alerts = [];
     $scope.urgent_alerts = [];
     $scope.state = 'create';
+    $scope.saving = false;
     
     //news papers to be displayed in 'Newspaper' dropdown
     ppdpAPIService.newspaper.retrieve({}).
@@ -1396,6 +1430,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
      */
     $scope.save = function(){
       console.log($scope.doc);
+      $scope.saving = true;
       
       $scope.alerts = [];
       
@@ -1412,6 +1447,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
             
             //set saved to true
             $scope.saved = true;
+            $scope.saving = false;
             
             //tell user that request was successful
             $scope.alerts.push({
@@ -1444,6 +1480,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
           }).
           error(function(data, status, headers, config) {
             
+            $scope.saving = false;
             switch($scope.status){
               default:
                 
@@ -2307,6 +2344,8 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     $scope.users = [];
     $scope.batches = [];
     $scope.policy_codes = [];
+    $scope.saving = false;
+    
     for(var k = 1 ; k <25 ;k+=1){
       $scope.policy_codes.push(k);
     }
@@ -2453,11 +2492,18 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
      */
     $scope.update_batches = function(){
       //call retrieve api function
-      ppdpAPIService.batch.retrieve($scope.params).
+      ppdpAPIService.batch.retrieve({}).
         success(function(data, status, headers, config) {
           //load data into batch
           $scope.batches = data;
           
+          for(var i = 0; i < batches.length; i+=1 ){
+            batches[i].year = $filter('date')(new Date(row.date_added), "yyyy")
+          }
+          
+          $('.selectpicker').selectpicker({
+            'selectedText': 'cat'
+          });
         }).
         error(function(data, status, headers, config) {
           $scope.alerts.push({
@@ -2466,6 +2512,9 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
             debug_data: status+ ' : ' + data,
             config: config
           });
+          /*$('.selectpicker').selectpicker({
+            'selectedText': 'cat'
+          });*/
       });
     };
     
@@ -2518,10 +2567,13 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       
       //remove all previous alerts
       $scope.alerts = [];
+      $scope.saving = true;
       
       //call update api function
       ppdpAPIService.doc.update($scope.doc).
         success(function(data, status, headers, config) {
+ 
+          $scope.saving = false;
  
           //if succesful show message to user
           $scope.alerts.push({
@@ -2535,6 +2587,8 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           
         }).
         error(function(data, status, headers, config) {
+          
+          $scope.saving = false;
           
           switch(status){
             
@@ -2729,9 +2783,20 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       return $scope.params.offset;
     }); // initialize the watch
       
-    $('.selectpicker').selectpicker({
-        'selectedText': 'cat'
+    
+    $scope.$watch('selected_batch', function() {
+      
+      if ($scope.selected_batch){
+        $('.selectpicker').selectpicker('render');
+      }
+      
+      
     });
+
+    $('#batchModal').on('show.bs.modal', function (e) {
+      $('.selectpicker').selectpicker('render');
+    });
+    
   }]
 );
 
@@ -2780,6 +2845,11 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
         success(function(data, status, headers, config) {
           //load data into batch
           $scope.batches = data;
+          
+          for(var i = 0; i < batches.length; i+=1 ){
+            batches[i].year = $filter('date')(new Date(row.date_added), "yyyy")
+          }
+          
           $('.selectpicker').selectpicker({
             'selectedText': 'cat'
           });
@@ -3071,6 +3141,10 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
       
       
     });
+
+    $('#batchModal').on('show.bs.modal', function (e) {
+      $('.selectpicker').selectpicker('render');
+    });
     
   }]
 );
@@ -3209,6 +3283,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
     $scope.users = [];
     $scope.totalRows = 0;
     $scope.show_paging = true;
+    $scope.saving = false;
     
     //retrieve all roles
     ppdpAPIService.role.retrieve({}).
@@ -3317,6 +3392,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
       
       //remove all previous alerts
       $scope.alerts = [];
+      $scope.saving = true;
       
       console.log($scope.create_user_form);
       
@@ -3327,10 +3403,14 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
           level:'danger',
         }); 
         console.log($scope.user);
+        
+        $scope.saving = false;
       }
       else{
         ppdpAPIService.user.update($scope.user).
           success(function(data, status, headers, config) {
+   
+            $scope.saving = false;
    
             //if succesful show message to user
             $scope.alerts.push({
@@ -3343,6 +3423,8 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
             
           }).
           error(function(data, status, headers, config) {
+            
+            $scope.saving = false;
             
             switch(status){
               

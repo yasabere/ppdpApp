@@ -106,14 +106,13 @@
         
   			<select 
 				  ng-model="selected_batch"
-				  ng-options="b.name group by b.year for b in [{name:'March', year:'2014'},{name:'August', year:'2013'}]"
+				  ng-options="b.name group by b.year for b in batches"
 				  class = "selectpicker" 
 					data-live-search = "true" 
 					data-size = "7"
 					data-show-subtext="true"
 					title='Select a batch to add to'
-				  >
-        </select>
+				  ></select>
 			
       </div>
       <div class="modal-footer">

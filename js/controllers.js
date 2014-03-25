@@ -1796,7 +1796,12 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       {
         text:'Date Created',
         value: function(row){
-          return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
+          if (row.date_created){
+            return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
+          }
+          else{
+            return 'unspecified';
+          }
         },
         click: function(id, row){
           $scope.details(id);
@@ -1818,7 +1823,7 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       {
         text:'Assigned',
         value: function(row){
-          return (row.assigned)?'Unassigned':'Assigned';
+          return (row.assigned)?'Assigned':'Unassigned';
         },
         click: function(id, row){
           $scope.details(id);

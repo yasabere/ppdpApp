@@ -2541,11 +2541,12 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           
           for(var i = 0; i < batches.length; i+=1 ){
             batches[i].year = $filter('date')(new Date(row.date_added), "yyyy")
-          }
+          };
           
-          $('.selectpicker').selectpicker({
+          $('#addbatchselect').selectpicker({
             'selectedText': 'cat'
           });
+          
         }).
         error(function(data, status, headers, config) {
           $scope.alerts.push({
@@ -2865,7 +2866,6 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       return $scope.params.offset;
     }); // initialize the watch
       
-    
     $scope.$watch('selected_batch', function() {
       
       if ($scope.selected_batch){
@@ -2873,6 +2873,12 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       }
       
       
+    });
+    
+    //Jquery
+    
+    $('.policyselect').selectpicker({
+      'selectedText': 'cat'
     });
 
     $('#batchModal').on('show.bs.modal', function (e) {

@@ -93,7 +93,7 @@
                 <label>Policy Code</label> <span class="text-danger">*</span><br/>
                 <select 
         				  ng-model="doc.code"
-        				  class = "selectpicker" 
+        				  class = "selectpicker policyselect" 
         					data-live-search = "true" 
         					data-size = "7"
         					data-show-subtext="true" 
@@ -132,7 +132,7 @@
                   <label>Policy Code 1</label><br/>
                   <select 
           				  ng-model="doc.policy_code"
-          				  class = "selectpicker" 
+          				  class = "selectpicker policyselect" 
           					data-live-search = "true" 
           					data-size = "7"
           					data-show-subtext="true" 
@@ -171,7 +171,7 @@
                   <label>Policy Code 2</label><br/>
                   <select 
           				  ng-model="doc.policy_code"
-          				  class = "selectpicker" 
+          				  class = "selectpicker policyselect" 
           					data-live-search = "true" 
           					data-size = "7"
           					data-show-subtext="true" 
@@ -208,9 +208,9 @@
                 
                 <div style="display:inline-block; margin-left:10px;">  
                   <label>Final Policy Code</label><br/>
-                  <select 
+                  <select
           				  ng-model="doc.code"
-          				  class = "selectpicker" 
+          				  class = "selectpicker policyselect" 
           					data-live-search = "true" 
           					data-size = "7"
           					data-show-subtext="true"
@@ -328,13 +328,14 @@
       
         <label>Select a batch to add to</label> <span class="text-danger"><b>*</b></span><br/>
         
-  			<select 
+  			<select
+  			  id = "addbatchselect"
 				  ng-model="selected_batch"
 				  ng-options="b.name group by b.year for b in batches"
 				  class = "selectpicker" 
 					data-live-search = "true" 
 					data-size = "7"
-					data-show-subtext="true"
+					data-show-subtext="false"
 					title='Select a batch to add to'
 				  ></select>
 			

@@ -1010,7 +1010,7 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
      */
     $scope.update_users = function(){
       //call retrieve api function
-      ppdpAPIService.user.retrieve($scope.params).
+      ppdpAPIService.user.retrieve({}).
         success(function(data, status, headers, config) {
           //load data into batch
           

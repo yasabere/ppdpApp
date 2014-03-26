@@ -2810,6 +2810,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     //newsclips to be shown in table
     $scope.documents = [];
     $scope.documents_loading = true;
+    $scope.adding_documents_to_batch = false;
     
     //batches to be shown in dropdown when adding to batch
     $scope.batches = [];
@@ -3099,18 +3100,43 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
      * 
      */
     $scope.add_to_batch = function(){
+      
+      $scope.adding_documents_to_batch = true;
+      var num = 0;
+      
       for(var i = 0; i < $scope.selected_documents.length; i+=1){
-        ppdpAPIService.batch.adddocument({doc_id:$scope.selected_documents[i].id, batch_id:$scope.selected_batch.id});
+        ppdpAPIService.batch.adddocument({doc_id:$scope.selected_documents[i].id, batch_id:$scope.selected_batch.id}).
+          success(function(data, status){
+            
+            num += 1;
+            
+            if (num == $scope.selected_documents.length){
+              $('#batchModal').modal('hide');
+      
+              //if succesful show message to user
+              $scope.alerts.push({
+                message: 'Document was successfully added to the batch',
+                level:'success'
+              });
+              
+              $scope.adding_documents_to_batch = false;
+            }
+            
+          }).
+          error(function(data, status, headers, config) {
+            $scope.alerts.push({
+              message:'Trouble connecting to server.',
+              level:'warning',
+              debug_data: status+ ' : ' + data,
+              config: config
+            });
+            
+            $scope.adding_documents_to_batch = false;
+          });
         $scope.update_results();
       }
       $scope.selected_documents = [];
-      $('#batchModal').modal('hide');
       
-      //if succesful show message to user
-      $scope.alerts.push({
-        message: 'Document was successfully added to the batch',
-        level:'success'
-      }); 
       
       //after alert has been on screen for 2 seconds it is removed
       $timeout(function(){

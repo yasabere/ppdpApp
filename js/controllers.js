@@ -3120,6 +3120,9 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
               });
               
               $scope.adding_documents_to_batch = false;
+              
+              $scope.selected_documents = [];
+              
             }
             
           }).
@@ -3133,18 +3136,18 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
             
             $scope.adding_documents_to_batch = false;
           });
-        $scope.update_results();
+        
       }
-      $scope.selected_documents = [];
+      
       
       
       //after alert has been on screen for 2 seconds it is removed
-      $timeout(function(){
+      /*$timeout(function(){
         $('.alert').bind('closed.bs.alert', function () {
           $scope.alerts = [];
         });
         $(".alert").alert('close');
-      }, 2000);
+      }, 2000);*/
     }
 
     /**

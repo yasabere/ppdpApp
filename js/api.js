@@ -300,7 +300,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
         var request = {
           method: 'GET',
           url: api_url('batch') + 'batch/adddocument',
-          data: params,
+          params: params,
           headers: {'Content-Type': 'application/json'}
         };
         

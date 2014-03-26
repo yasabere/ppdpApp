@@ -1719,12 +1719,12 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
      */
     $scope.update_users = function(){
       //call retrieve api function
-      ppdpAPIService.user.retrieve($scope.params).
+      ppdpAPIService.user.retrieve({}).
         success(function(data, status, headers, config) {
           //load data into batch
           
           for(var i = 0;i < data.length; i+=1){
-            $scope.users.push({first_name:data[i].first_name, last_name:data[i].last_name, name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id});
+            $scope.users.push({first_name:data[i].first_name, last_name:data[i].last_name, name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id,email:data[i].email});
           }
           
         }).
@@ -2469,7 +2469,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
           //load data into batch
           
           for(var i = 0;i < data.length; i+=1){
-            $scope.users.push({first_name:data[i].first_name, last_name:data[i].last_name, name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id});
+            $scope.users.push({first_name:data[i].first_name, last_name:data[i].last_name, name:data[i].first_name + ' ' + data[i].last_name, id:data[i].id, email:data[i].email});
           }
           
         }).

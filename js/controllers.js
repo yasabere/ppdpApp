@@ -1386,6 +1386,7 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
     $scope.urgent_alerts = [];
     $scope.state = 'create';
     $scope.saving = false;
+    $scope.adding_documents_to_batch = false;
     
     //news papers to be displayed in 'Newspaper' dropdown
     ppdpAPIService.newspaper.retrieve({}).
@@ -1560,6 +1561,46 @@ ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAP
               break;
           }
       });
+    };
+    
+    /**
+     * add_to_batch() Adds document to bach
+     * 
+     * @param NULL
+     * @return NULL
+     * 
+     */
+    $scope.add_to_batch = function(){
+      
+      $scope.adding_documents_to_batch = true;
+      
+      ppdpAPIService.batch.adddocument({doc_id:$scope.doc.id, batch_id:$scope.selected_batch.id}).
+        success(function(data, status){
+
+          $('#batchModal').modal('hide');
+  
+          //if succesful show message to user
+          $scope.alerts.push({
+            message: 'Document was successfully added to the batch',
+            level:'success'
+          });
+          
+          $scope.adding_documents_to_batch = false;
+          
+          $scope.selected_documents = [];
+        
+        }).
+        error(function(data, status, headers, config) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data: status+ ' : ' + data,
+            config: config
+          });
+          
+          $scope.adding_documents_to_batch = false;
+        });
+        
     };
     
     $('.selectpicker').selectpicker({
@@ -2345,6 +2386,7 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     $scope.batches = [];
     $scope.policy_codes = [];
     $scope.saving = false;
+    $scope.adding_documents_to_batch = false;
     
     for(var k = 1 ; k <25 ;k+=1){
       $scope.policy_codes.push(k);
@@ -2764,6 +2806,46 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
       }, 2000);
     }
     
+    /**
+     * add_to_batch() Adds document to bach
+     * 
+     * @param NULL
+     * @return NULL
+     * 
+     */
+    $scope.add_to_batch = function(){
+      
+      $scope.adding_documents_to_batch = true;
+      
+      ppdpAPIService.batch.adddocument({doc_id:$scope.doc.id, batch_id:$scope.selected_batch.id}).
+        success(function(data, status){
+
+          $('#batchModal').modal('hide');
+  
+          //if succesful show message to user
+          $scope.alerts.push({
+            message: 'Document was successfully added to the batch',
+            level:'success'
+          });
+          
+          $scope.adding_documents_to_batch = false;
+          
+          $scope.selected_documents = [];
+        
+        }).
+        error(function(data, status, headers, config) {
+          $scope.alerts.push({
+            message:'Trouble connecting to server.',
+            level:'warning',
+            debug_data: status+ ' : ' + data,
+            config: config
+          });
+          
+          $scope.adding_documents_to_batch = false;
+        });
+        
+    };
+    
     //events
     
     /**
@@ -3096,7 +3178,10 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     };
     
     /**
+     * add_to_batch() Adds document to bach
      * 
+     * @param NULL
+     * @return NULL
      * 
      */
     $scope.add_to_batch = function(){

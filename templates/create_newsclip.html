@@ -206,21 +206,25 @@
         <h4 class="modal-title" id="deleteModalLabel">Add Newsclip to Batch</h4>
       </div>
       <div class="modal-body">
-        <!-- Single button -->
-        <div class="btn-group">
-          <input type="text" class="form-control" placeholder="Select a Batch" class="form-control dropdown-toggle" data-toggle="dropdown" style="width:100%" />
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">file 1</a></li>
-            <li><a href="#">file 2</a></li>
-            <li><a href="#">file 3</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Add to new batch</a></li>
-          </ul>
-        </div>
+      
+        <label>Select a batch to add to</label> <span class="text-danger"><b>*</b></span><br/>
+        
+  			<select 
+				  ng-model="selected_batch"
+				  ng-options="b.name group by b.year for b in batches"
+				  class = "selectpicker" 
+					data-live-search = "true" 
+					data-size = "7"
+					data-show-subtext="true"
+					title='Select a batch to add to'
+				  ></select>
+			
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        
+        <button type="button" class="btn btn-primary {{ (adding_documents_to_batch)?'disabled':'' }}" ng-click="add_to_batch()" >
+          {{ (adding_documents_to_batch)?'Adding...':'Add' }}
+        </button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

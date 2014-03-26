@@ -48,8 +48,12 @@
             <span class="text-muted">{{page_description}} </span> <b>{{params.offset+1}}</b>-<b>{{displayed_limit}}</b> of <b>{{ num_rows }}</b> <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Newest</a></li>
-            <li><a href="#">Oldest</a></li>
+            <li><a ng-click = "params.limit = 5" ><b>5</b></a></li>
+            <li><a ng-click = "params.limit = 10"><b>10</b></a></li>
+            <li><a ng-click = "params.limit = 25"><b>25</b></a></li>
+            <li><a ng-click = "params.limit = 50"><b>50</b></a></li>
+            <li><a ng-click = "params.limit = 100"><b>100</b></a></li>
+            <li><a ng-click = "params.limit = 100000">All</a></li>
           </ul>
         </div>
 

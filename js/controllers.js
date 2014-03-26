@@ -506,7 +506,6 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       $scope.selected_assignments =[];
       $('#deleteModal').modal('hide');
       
-      
       //if succesful show message to user
       $scope.alerts.push({
         message:'Delete successful!',
@@ -514,12 +513,14 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       }); 
       
       //after alert has been on screen for 2 seconds it is removed
+      /*
       $timeout(function(){
         $('.alert').bind('closed.bs.alert', function () {
           $scope.alerts = [];
         });
         $(".alert").alert('close');
       }, 2000);
+      */
     }
     
     /**
@@ -1952,55 +1953,62 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       }, 2000);
     };
     
+    /**
+     * 
+     * 
+     * 
+     */
     $scope.upload_file = function(files){
       
       console.log(files);
-      var successful = true;
+      
+      $scope.alerts = [];
+      
       var _file;
+      var num = 0;
       
       for(var i = 0 ; i < files.length; i+=1){
         
         //call retrieve api function get total num
-        _file = {
-          name :  files[i].name
-        };
+
+        var fd = new FormData();
+        fd.append("file", files[i]);
+        fd.append("name", files[i].name);
         
-        ppdpAPIService.file.create(_file).
+        ppdpAPIService.file.create(fd).
           success(function(data, status, headers, config) {
             $scope.update_results();
-            successful = true;
+
+            num+=1;
+
+            if (num == files.length){
+              //if succesful show message to user
+              $scope.alerts.push({
+                message:'successfully Uploaded ' + files.length + ' file(s)',
+                level:'success'
+              }); 
+              
+              //after alert has been on screen for 2 seconds it is removed
+              /*$timeout(function(){
+                $('.alert').bind('closed.bs.alert', function () {
+                  $scope.alerts = [];
+                });
+                $(".alert").alert('close');
+              }, 2000);*/ 
+            }
+
           }).
           error(function(data, status, headers, config) {
             $scope.alerts.push({
-              message:'Trouble connecting to server. Files could not be uploaded',
+              message:'Trouble connecting to server. File "'+ 'files[i].name'+'" could not be uploaded',
               level:'warning',
               debug_data: status+ ' : ' + data,
               config: config
             });
-            
-            successful = false;
         });
-      }
-      
-      if (successful){
-      
-        $scope.alerts = [];
         
-        //if succesful show message to user
-        $scope.alerts.push({
-          message:'suuccessfully Uploaded ' + files.length + ' file(s)',
-          level:'success'
-        }); 
-        
-        //after alert has been on screen for 2 seconds it is removed
-        $timeout(function(){
-          $('.alert').bind('closed.bs.alert', function () {
-            $scope.alerts = [];
-          });
-          $(".alert").alert('close');
-        }, 2000);
       }
-      
+    
     }
     
     /**
@@ -2936,7 +2944,7 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
           $scope.batches = data;
           
           for(var i = 0; i < batches.length; i+=1 ){
-            batches[i].year = $filter('date')(new Date(row.date_added), "yyyy")
+            $scope.batches[i].year = $filter('date')(new Date(row.date_added), "yyyy")
           }
           
           $('.selectpicker').selectpicker({
@@ -3387,6 +3395,9 @@ ppdpControllers.controller('topmenu', ['$scope', '$routeParams', 'ppdpAPIService
       //$('#right_button').prop('disabled', ($scope.displayed_limit == $scope.num_rows) );
     });
     
+    $scope.$watch('params.limit', function(){
+      $scope.displayed_limit = Math.min($scope.num_rows ,$scope.params.offset+$scope.params.limit);
+    });
     
   }]
 );

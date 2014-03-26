@@ -9,7 +9,7 @@ var api_url_array = {
   localtest:'http://localhost:26087/api/',
   };
 
-var api_url_string = api_url_array['localtest'];
+var api_url_string = api_url_array['stem'];
 
 //object containing name of each resource which tells whether the js api should access live server api_url_string or mock api
 var resources = {
@@ -410,7 +410,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
           method: 'POST',
           url: api_url('file') + 'file/create',
           data: _file,
-          headers: {'Content-Type': 'application/json'}
+          headers: {'Content-Type': undefined }
         };
         
         return $http(request);

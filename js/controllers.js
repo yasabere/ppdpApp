@@ -612,7 +612,7 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.batches_loading = true;
     
     //call retrieve api function
-    ppdpAPIService.batch.retrieve({id:$routeParams.batchId}).
+    ppdpAPIService.batch.retrieve({id:$routeParams.batch_id}).
       success(function(data, status, headers, config) {
         
         $scope.batches_loading = false;
@@ -1291,13 +1291,13 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
       }
        
       //after alert has been on screen for 2 seconds it is removed
-      $timeout(function(){
+      /*$timeout(function(){
         $('.alert').bind('closed.bs.alert', function () {
           $scope.alerts = [];
         });
         $(".alert").alert('close');
-      }, 2000);
-    }
+      }, 2000);*/
+    };
     
     /**
      * create() creates selected items

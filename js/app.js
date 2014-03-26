@@ -39,7 +39,7 @@ ppdpApp.config(['$routeProvider',
         templateUrl: 'templates/assignments.html',
         controller: 'assignments'
       }).
-      when('/batch/:batchId', {
+      when('/batch/:batch_id', {
         templateUrl: 'templates/batch.html',
         controller: 'batch'
       }).

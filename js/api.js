@@ -407,7 +407,6 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
       this.create = function(_data,_file){
         
         var request = {
-          method: 'POST',
           url: api_url('file') + 'file/create',
           data: _data,
           file: _file,

@@ -1971,11 +1971,9 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
         
         //call retrieve api function get total num
 
-        var fd = new FormData();
-        fd.append("file", files[i]);
-        fd.append("name", files[i].name);
+        var _data = {"name": files[i].name};
         
-        ppdpAPIService.file.create(fd).
+        ppdpAPIService.file.create(_data,files[i]).
           success(function(data, status, headers, config) {
             $scope.update_results();
 

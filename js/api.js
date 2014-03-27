@@ -37,7 +37,7 @@ var api_url = function(resource_name){
 var ppdpAPI = angular.module('ppdpAPI', []);//'ngMockE2E'
  
  //register ppdpAPIService
-ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
+ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $upload){
     
     console.log("loaded");
     
@@ -404,16 +404,16 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q){
     sharedService.doc = new sharedService.documentModel();
 
     sharedService.fileModel = function(){
-      this.create = function(_file){
+      this.create = function(_data,_file){
         
         var request = {
           method: 'POST',
           url: api_url('file') + 'file/create',
-          data: _file,
-          headers: {'Content-Type': 'multipart/form-data' }
+          data: _data,
+          file: _file,
         };
         
-        return $http(request);
+        return $upload.upload(request);
       }
 
       this.retrieve = function(_file){

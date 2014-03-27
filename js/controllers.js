@@ -928,8 +928,8 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
 );
 
 /** Controller: batches */
-ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout', '$filter',
-  function($scope, $routeParams, ppdpAPIService, $location, $timeout, $filter) {
+ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout', '$filter',
+  function($rootScope, $scope, $routeParams, ppdpAPIService, $location, $timeout, $filter) {
     
     // Global variables for controller
     $scope.batches = [];
@@ -1032,97 +1032,102 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
     
     $scope.update_users();
     
-    /** directive masterTopMenu data. 
-     *  
-     *  buttons to show up in menu
-     * 
-     */
-    $scope.button_functions = [
-      {
-        text : 'Assign',
-        glyphicon : 'folder-close',
-        function_callback : function(){$('#assignModal').modal('toggle')}, 
-      },
-      {
-        text : 'Publish',
-        glyphicon : 'transfer',
-        function_callback : function(){$('#publishModal').modal('toggle')}, 
-      },
-      {
-        text : 'Remove',
-        glyphicon : 'trash',
-        function_callback : function(){$('#deleteModal').modal('toggle')}, 
-      }
-    ];
+    //if the user has the authority
+    if($rootScope.user_account.role.id >= 2){
+    
+      /** directive masterTopMenu data. 
+       *  
+       *  buttons to show up in menu
+       * 
+       */
+      $scope.button_functions = [
+        {
+          text : 'Assign',
+          glyphicon : 'folder-close',
+          function_callback : function(){$('#assignModal').modal('toggle')}, 
+        },
+        {
+          text : 'Publish',
+          glyphicon : 'transfer',
+          function_callback : function(){$('#publishModal').modal('toggle')}, 
+        },
+        {
+          text : 'Remove',
+          glyphicon : 'trash',
+          function_callback : function(){$('#deleteModal').modal('toggle')}, 
+        }
+      ];
+    
+    }
     
     /** directive masterTable data. 
-     *  
-     *  text is text which shows up in table column header
-     *  value is function which returns text which will show up table data under column. it excepts row parameter which data about document
-     * 
-     */
+       *  
+       *  text is text which shows up in table column header
+       *  value is function which returns text which will show up table data under column. it excepts row parameter which data about document
+       * 
+       */
     $scope.columns = [
-      {
-        //header text to be shown for column
-        text:'Name', 
-        //row value 
-        value: function(row){
-          return row.name;
+        {
+          //header text to be shown for column
+          text:'Name', 
+          //row value 
+          value: function(row){
+            return row.name;
+          },
+          //function which is called when row is clicked
+          click: function(id, row){
+            $scope.details(id);
+          },
+          //attributes for rows
+          attributes:[],
+          //data field name
+          field_text: 'name' 
         },
-        //function which is called when row is clicked
-        click: function(id, row){
-          $scope.details(id);
+        { 
+          text:'Date Created', 
+          value: function(row){
+            return $filter('date')(new Date(row.date_created), "M/dd/yyyy");
+          },
+          click: function(id, row){
+            $scope.details(id);
+          },
+          attributes:'test',
+          field_text: 'date_added'
         },
-        //attributes for rows
-        attributes:[],
-        //data field name
-        field_text: 'name' 
-      },
-      { 
-        text:'Date Created', 
-        value: function(row){
-          return $filter('date')(new Date(row.date_created), "M/dd/yyyy");
+        { 
+          text:'Creator',
+          value: function(row){
+            return row.entry_clerk.first_name;
+          },
+          click: function(id, row){
+            $scope.details(id);
+          },
+          attributes:'',
+          field_text: 'entry_clerk.first_name'
         },
-        click: function(id, row){
-          $scope.details(id);
+        {
+          text:'Status',
+          value: function(row){
+            return row.status;
+          },
+          click: function(id, row){
+            $scope.details(id);
+          },
+          attributes:'',
+          field_text: 'status'
         },
-        attributes:'test',
-        field_text: 'date_added'
-      },
-      { 
-        text:'Creator',
-        value: function(row){
-          return row.entry_clerk.first_name;
-        },
-        click: function(id, row){
-          $scope.details(id);
-        },
-        attributes:'',
-        field_text: 'entry_clerk.first_name'
-      },
-      {
-        text:'Status',
-        value: function(row){
-          return row.status;
-        },
-        click: function(id, row){
-          $scope.details(id);
-        },
-        attributes:'',
-        field_text: 'status'
-      },
-      {
-        text:'Assigned',
-        value: function(row){
-          return (row.assigned)?'Assigned':'Unassigned';
-        },
-        click: function(id, row){
-          $scope.details(id);
-        },
-        attributes:'',
-        field_text: 'assigned'
-      }
-    ];
+        {
+          text:'Assigned',
+          value: function(row){
+            return (row.assigned)?'Assigned':'Unassigned';
+          },
+          click: function(id, row){
+            $scope.details(id);
+          },
+          attributes:'',
+          field_text: 'assigned'
+        }
+      ];
 
     /**
      * toggle_select() Update selected property of batch and
@@ -1377,8 +1382,8 @@ ppdpControllers.controller('batches', ['$scope', '$routeParams', 'ppdpAPIService
 );
 
 /** Controller: create_newsclip */
-ppdpControllers.controller('create_newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout',
-  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
+ppdpControllers.controller('create_newsclip', ['$rootScope','$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout',
+  function($rootScope,$scope, $routeParams, ppdpAPIService, $location, $timeout) {
     console.log('create_newsclip');
     
     //global variables
@@ -1677,8 +1682,8 @@ ppdpControllers.controller('dropdown', ['$scope',
 );
 
 /** Controller: files */
-ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService', '$location','$timeout', '$filter',
-  function($scope, $routeParams, ppdpAPIService, $location, $timeout, $filter) {
+ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppdpAPIService', '$location','$timeout', '$filter',
+  function($rootScope, $scope, $routeParams, ppdpAPIService, $location, $timeout, $filter) {
     
     // Global variables for controller
     
@@ -1809,23 +1814,28 @@ ppdpControllers.controller('files', ['$scope', '$routeParams', 'ppdpAPIService',
       }
     }
     
-    /** directive masterTopMenu data. 
-     *  
-     *  buttons to show up in menu
-     * 
-     */
-    $scope.button_functions = [
-      {
-        text : 'Assign',
-        glyphicon : 'folder-close',
-        function_callback : function(){$('#assignModal').modal('toggle')}, 
-      },
-      {
-        text : 'Remove',
-        glyphicon : 'trash',
-        function_callback : function(){$('#deleteModal').modal('toggle')}, 
-      }
-    ];
+    //if the user has the authority
+    if($rootScope.user_account.role.id >= 2){
+    
+      /** directive masterTopMenu data. 
+       *  
+       *  buttons to show up in menu
+       * 
+       */
+      $scope.button_functions = [
+        {
+          text : 'Assign',
+          glyphicon : 'folder-close',
+          function_callback : function(){$('#assignModal').modal('toggle')}, 
+        },
+        {
+          text : 'Remove',
+          glyphicon : 'trash',
+          function_callback : function(){$('#deleteModal').modal('toggle')}, 
+        }
+      ];
+    
+    }
     
     /** directive masterTable data. 
      *  
@@ -2288,8 +2298,8 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
 );
 
 /** Controller: menu_sidebar */
-ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
-  function($scope, $routeParams, ppdpAPIService, $location) {
+ppdpControllers.controller('menu_sidebar', ['$rootScope', '$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($rootScope, $scope, $routeParams, ppdpAPIService, $location) {
 
     //json representation of menu sidebar
     $scope.menu = [
@@ -2302,36 +2312,51 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
       {
         title: 'Newsclips',
         href: '#/newsclips',
-        menu:[{
-          title: 'Create Newsclip',
-          href: '#/create_newsclip',
-          path:['/create_newsclip','/newsclip']
-        }],
+        menu:[],
         path:['/','/newsclips','/newsclip']
       },
       {
         title: 'Batches',
         href: '#/batches',
-        menu:[{
-          title: 'Create Batch',
-          href: 'javascript:void(0)',
-          path:'#/create_batch',
-          click: function(){$('#createBatchModal').modal('toggle')}
-        }],
+        menu:[],
         path:['/batches','/batch']
       },
       {
         title: 'Files',
         href: '#/files',
-        menu:[{
-          title: 'Upload',
-          href: 'javascript:void(0)',
-          path:'#/upload',
-          click: function(){$('#createFileModal').modal('toggle')}
-        }],
+        menu:[],
         path:'/files'
       },
-      {
+    ];
+    
+    
+    //if the user has the authority
+    if($rootScope.user_account.role.id >= 2){
+      
+      $scope.menu[1].menu.push({
+        title: 'Create Newsclip',
+        href: '#/create_newsclip',
+        path:['/create_newsclip','/newsclip']
+      });
+      
+      $scope.menu[2].menu.push({
+        title: 'Create Batch',
+        href: 'javascript:void(0)',
+        path:'#/create_batch',
+        click: function(){$('#createBatchModal').modal('toggle')}
+      });
+      
+      $scope.menu[3].menu.push({
+        title: 'Upload',
+        href: 'javascript:void(0)',
+        path:'#/upload',
+        click: function(){$('#createFileModal').modal('toggle')}
+      });
+    }
+  
+    // if user is logged in add link to manage users
+    if($rootScope.user_account.role.id > 2){
+      $scope.menu.push({
         title: 'Users',
         href: '#/users',
         path:'/users',
@@ -2340,8 +2365,8 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
           href: '#/add_user',
           path:['/add_user']
         }],
-      },
-    ];
+      });
+    }
 
     //determins if menu item has been selected and if so it adds 'active class'
     $scope.menu.forEach(function(link) {
@@ -2367,8 +2392,8 @@ ppdpControllers.controller('menu_sidebar', ['$scope', '$routeParams', 'ppdpAPISe
 );
 
 /** Controller: newsclip */
-ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$http', '$timeout',
-  function($scope, $routeParams, ppdpAPIService, $location, $http, $timeout) {
+ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 'ppdpAPIService', '$location', '$http', '$timeout',
+  function($rootScope, $scope, $routeParams, ppdpAPIService, $location, $http, $timeout) {
     console.log('newsclip');
     
     //global variables
@@ -2458,11 +2483,18 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
               
               //if document needs tiebreak
               if(true){
-                $scope.button_functions.push({
-                  text : 'Assign',
-                  glyphicon : 'folder-close',
-                  function_callback : function(){$('#assignModal').modal('toggle')}, 
-                });
+                
+                //if the user has the authority
+                if($rootScope.user_account.role.id >= 2){
+                
+                  $scope.button_functions.push({
+                    text : 'Assign',
+                    glyphicon : 'folder-close',
+                    function_callback : function(){$('#assignModal').modal('toggle')}, 
+                  });
+                
+                }
+                
               }
               
             }).
@@ -2569,24 +2601,30 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
     };
     
     $scope.update_batches();
+    
+    //if the user is an administrator allow them to create and assign newsclips
+    $scope.button_functions = [];
+    if($rootScope.user_account.role.id >= 2){
 
-    /** directive masterTopMenu data. 
-     *  
-     *  buttons to show up in menu
-     * 
-     */
-    $scope.button_functions = [
-      {
-        text : 'Add to Batch',
-        glyphicon : 'folder-close',
-        function_callback : function(){$('#batchModal').modal('toggle')}, 
-      },
-      {
-        text : 'Remove',
-        glyphicon : 'trash',
-        function_callback : function(){$('#deleteModal').modal('toggle')}, 
-      }
-    ];
+      /** directive masterTopMenu data. 
+       *  
+       *  buttons to show up in menu
+       * 
+       */
+      $scope.button_functions = [
+        {
+          text : 'Add to Batch',
+          glyphicon : 'folder-close',
+          function_callback : function(){$('#batchModal').modal('toggle')}, 
+        },
+        {
+          text : 'Remove',
+          glyphicon : 'trash',
+          function_callback : function(){$('#deleteModal').modal('toggle')}, 
+        }
+      ];
+    
+    };
     
     /**
      * back() redirect to users
@@ -2896,8 +2934,8 @@ ppdpControllers.controller('newsclip', ['$scope', '$routeParams', 'ppdpAPIServic
 );
 
 /** Controller: newsclips */
-ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout', '$filter',
-  function($scope, $routeParams, ppdpAPIService, $location, $timeout, $filter) {
+ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout', '$filter',
+  function($rootScope, $scope, $routeParams, ppdpAPIService, $location, $timeout, $filter) {
     console.log('newsclips');
     
     // Global variables for controller
@@ -3012,23 +3050,29 @@ ppdpControllers.controller('newsclips', ['$scope', '$routeParams', 'ppdpAPIServi
     
     $scope.update_results();
     
-    /** directive masterTopMenu data. 
-     *  
-     *  buttons to show up in menu
-     * 
-     */
-    $scope.button_functions = [
-      {
-        text : 'Add to Batch',
-        glyphicon : 'folder-close',
-        function_callback : function(){$('#batchModal').modal('toggle')}, 
-      },
-      {
-        text : 'Remove',
-        glyphicon : 'trash',
-        function_callback : function(){$('#deleteModal').modal('toggle')}, 
-      }
-    ];
+    //if the user is an administrator allow them to create and assign newsclips
+    $scope.button_functions = [];
+    if($rootScope.user_account.role.id >= 2){
+    
+      /** directive masterTopMenu data. 
+       *  
+       *  buttons to show up in menu
+       * 
+       */
+      $scope.button_functions = [
+        {
+          text : 'Add to Batch',
+          glyphicon : 'folder-close',
+          function_callback : function(){$('#batchModal').modal('toggle')}, 
+        },
+        {
+          text : 'Remove',
+          glyphicon : 'trash',
+          function_callback : function(){$('#deleteModal').modal('toggle')}, 
+        }
+      ];
+    
+    }
     
     /** directive masterTable data. 
      *  

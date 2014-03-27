@@ -96,20 +96,23 @@ ppdpApp.config(['$routeProvider',
  */
  ppdpApp.run(function ($rootScope, $location, ppdpAPIService, $route) {
    
-   $rootScope.reload_page = function(){
-     $route.reload();
-   };
+    $rootScope.reload_page = function(){
+      $route.reload();
+    };
    
-   $rootScope.user_account = 'undefined';
+    $rootScope.user_account = {};//{role:{id:2, name:'Researcher'}, first_name:'Yaw', last_name:'Asabere', is_active:0, email:'tub97573@gmail.com'}
    
-    //check if logged in
-    ppdpAPIService.account.isloggedin().
-      success(function(data,status){
-        $rootScope.user_account = data;
-      }).
-      error(function(data,status){
-        $location.path('login');
+    $rootScope.$on("$routeChangeStart", function ( next, current) {
+
+      //check if logged in
+      ppdpAPIService.account.isloggedin().
+        success(function(data,status){
+          $rootScope.user_account = data;
+        }).
+        error(function(data,status){
+          $location.path('login');
       });
-      //if logged in store user data 
-      //if not logged route user to login page
+
+    });
+    
  });

@@ -2255,7 +2255,8 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
             });
             
             //send user to assignments page
-            $location.path('assignments');
+            $location.path('/assignments');
+            
           }).
           error(function(data, status, headers, config){
             

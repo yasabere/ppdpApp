@@ -1,0 +1,28 @@
+<div class="well well-lg">
+  <div class="container">
+    <h3>
+      Dev / Test Panel
+    </h3>
+    <hr/>
+    <h4>
+      User Authentication
+    </h4>
+    <br/>
+    <label>
+      Set Role
+    </label>
+    <br/>
+    <dropdown 
+      ng-Model = "user_account.role" 
+      options = "[{name:'Admin',id:3},{name:'Sr. Researcher',id:2},{name:'Researcher',id:1}]"
+      placeholder = " 'Select a Role' "
+      text-field = "'name'"
+      value-field = "'id'"
+      name="role"
+      return-Object = " 'true' "
+      required
+    >
+    </dropdown>
+    
+  </div>
+</div>

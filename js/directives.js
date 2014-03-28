@@ -151,5 +151,16 @@ ppdpDirectives.directive('autoSuggest', function(){
    } 
 });
 
+//directive for autoSuggest
+ppdpDirectives.directive('testPanel', function(){
+   return {
+     restrict: "E",
+     templateUrl: "templates/test_panel.html",
+     scope: {
+     },
+     controller:'test_panel',
+   } 
+});
+
 
 

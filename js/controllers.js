@@ -2282,7 +2282,7 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
                 
               default:
                 $scope.alerts.push({
-                  message:'Trouble connecting to server.',
+                  message:'Trouble connecting to server (LDAP may not be available).',
                   level:'warning',
                   debug_data: status+ ' : ' + data,
                   config: config
@@ -3841,3 +3841,12 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
     
   }]
 );
+
+/** Controller: test_panel */
+ppdpControllers.controller('test_panel', ['$rootScope', '$scope', '$routeParams', 'ppdpAPIService', '$location',
+  function($rootScope, $scope, $routeParams, ppdpAPIService, $location) {
+
+  }]
+);
+
+

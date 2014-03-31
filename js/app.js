@@ -118,7 +118,7 @@ ppdpApp.config(['$routeProvider',
         }).
         error(function(data,status){
           
-          if ($rootScope.dev_mode){
+          if (!$rootScope.dev_mode){
             $location.path('login');
           }
       });

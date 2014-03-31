@@ -633,7 +633,6 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
         });
     });
     
-
     // set the directions to show up on page
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
@@ -728,9 +727,9 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
      */
     $scope.button_functions = [
       {
-        text : 'Add to Batch',
+        text : 'Remove from Batch',
         glyphicon : 'folder-close',
-        function_callback : function(){$('#batchModal').modal('toggle')}, 
+        function_callback : function(){$('#removeModal').modal('toggle')}, 
       },
       {
         text : 'Remove',
@@ -738,7 +737,6 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
         function_callback : function(){$('#deleteModal').modal('toggle')}, 
       }
     ];
-    
     
     /** directive masterTable data. 
      *  
@@ -898,6 +896,49 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
         });
         $(".alert").alert('close');
       }, 2000);
+    };
+    
+    /**
+     * removeFromBatch() remove selected items from batch
+     * 
+     * @param <String> index
+     * @return NULL
+     */
+    $scope.removeFromBatch = function(){
+      for(var i = 0; i < $scope.selected_documents.length; i+=1){
+        ppdpAPIService.batch.removedocument({doc_id:$scope.selected_documents[i].id, batch_id:$scope.batch.id}).
+          success(function(){
+            
+          }).
+          error(function(data, status, headers, config) {
+            $scope.alerts.push({
+              message:'Trouble connecting to server.',
+              level:'warning',
+              debug_data: status+ ' : ' + data,
+              config: config
+            });
+          });
+        
+        $scope.update_results();
+      }
+      $scope.selected_documents = [];
+      $('#removeModal').modal('hide');
+      
+      //if succesful show message to user
+      $scope.alerts.push({
+        message:'Removal successful!',
+        level:'success'
+      }); 
+      
+      //after alert has been on screen for 2 seconds it is removed
+      /*
+      $timeout(function(){
+        $('.alert').bind('closed.bs.alert', function () {
+          $scope.alerts = [];
+        });
+        $(".alert").alert('close');
+      }, 2000);
+      */
     };
 
     /**

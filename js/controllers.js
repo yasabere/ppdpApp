@@ -1175,17 +1175,45 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
      */
     $scope.delete = function(){
       for(var i = 0; i < $scope.selected_batches.length; i+=1){
-        ppdpAPIService.batch.delete($scope.selected_batches[i]);
-        $scope.update_results();
+        ppdpAPIService.batch.delete($scope.selected_batches[i]).
+          success(function(data, status, headers, config) {
+            $scope.update_results();
+
+            num+=1;
+
+            if (num == $scope.selected_batches.length){
+              //if succesful show message to user
+              $scope.alerts.push({
+                message:'Delete successful!',
+                level:'success'
+              }); 
+              
+              $('#deleteModal').modal('hide');
+              $scope.selected_batches = [];
+              
+              //after alert has been on screen for 2 seconds it is removed
+              /*$timeout(function(){
+                $('.alert').bind('closed.bs.alert', function () {
+                  $scope.alerts = [];
+                });
+                $(".alert").alert('close');
+              }, 2000);*/ 
+            }
+
+          }).
+          error(function(data, status, headers, config) {
+            $scope.alerts.push({
+              message:'Trouble connecting to server. Batch "'+$scope.selected_batches[i].name +'" could not be deleted',
+              level:'warning',
+              debug_data: status+ ' : ' + data,
+              config: config
+            });
+          });
       }
       $('#deleteModal').modal('hide');
       $scope.selected_batches = [];
     
-      //if succesful show message to user
-      $scope.alerts.push({
-        message:'Delete successful!',
-        level:'success'
-      }); 
+      
       
       //after alert has been on screen for 2 seconds it is removed
       $timeout(function(){
@@ -1944,6 +1972,7 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
     $scope.delete = function(){
       
       var num = 0;
+      $scope.alerts = [];
       
       for(var i = 0; i < $scope.selected_files.length; i+=1){
         ppdpAPIService.file.delete($scope.selected_files[i]).
@@ -1974,7 +2003,7 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
           }).
           error(function(data, status, headers, config) {
             $scope.alerts.push({
-              message:'Trouble connecting to server. File "'+ $scope.selected_files[i].name +'" could not be uploaded',
+              message:'Trouble connecting to server. File "'+ $scope.selected_files[i].name +'" could not be deleted',
               level:'warning',
               debug_data: status+ ' : ' + data,
               config: config

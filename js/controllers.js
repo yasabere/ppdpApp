@@ -373,8 +373,8 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
         text:'Date Assigned',
         value: function(row){
          
-          if (row.date_added){
-            return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
+          if (row.date_created){
+            return $filter('date')(new Date(row.date_created), "M/dd/yyyy");
           }
           else{
             return 'unspecified';

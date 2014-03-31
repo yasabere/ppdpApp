@@ -97,13 +97,18 @@ ppdpApp.config(['$routeProvider',
  ppdpApp.run(function ($rootScope, $location, ppdpAPIService, $route) {
    
     $rootScope.show_dev_panel = true;
+    $rootScope.dev_mode = true;
    
     $rootScope.reload_page = function(){
       $route.reload();
     };
    
-    $rootScope.user_account = {};//{role:{id:2, name:'Researcher'}, first_name:'Yaw', last_name:'Asabere', is_active:0, email:'tub97573@gmail.com'}
-   
+    $rootScope.user_account = {};
+    
+    if ($rootScope.dev_mode){
+      $rootScope.user_account = {role:{id:2, name:'Researcher'}, first_name:'Yaw', last_name:'Asabere', is_active:0, email:'tub97573@gmail.com'}
+    }
+    
     $rootScope.$on("$routeChangeStart", function ( next, current) {
 
       //check if logged in
@@ -112,7 +117,10 @@ ppdpApp.config(['$routeProvider',
           $rootScope.user_account = data;
         }).
         error(function(data,status){
-          //$location.path('login');
+          
+          if ($rootScope.dev_mode){
+            $location.path('login');
+          }
       });
 
     });

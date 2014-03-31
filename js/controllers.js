@@ -1942,26 +1942,46 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
      * @return NULL
      */
     $scope.delete = function(){
+      
+      var num = 0;
+      
       for(var i = 0; i < $scope.selected_files.length; i+=1){
-        ppdpAPIService.file.delete($scope.selected_files[i]);
-        $scope.update_results();
+        ppdpAPIService.file.delete($scope.selected_files[i]).
+          success(function(data, status, headers, config) {
+            $scope.update_results();
+
+            num+=1;
+
+            if (num == files.length){
+              //if succesful show message to user
+              $scope.alerts.push({
+                message:'Delete successful!',
+                level:'success'
+              }); 
+              
+              $('#deleteModal').modal('hide');
+              $scope.selected_files = [];
+              
+              //after alert has been on screen for 2 seconds it is removed
+              /*$timeout(function(){
+                $('.alert').bind('closed.bs.alert', function () {
+                  $scope.alerts = [];
+                });
+                $(".alert").alert('close');
+              }, 2000);*/ 
+            }
+
+          }).
+          error(function(data, status, headers, config) {
+            $scope.alerts.push({
+              message:'Trouble connecting to server. File "'+ $scope.selected_files[i].name +'" could not be uploaded',
+              level:'warning',
+              debug_data: status+ ' : ' + data,
+              config: config
+            });
+          });
       }
-      $('#deleteModal').modal('hide');
-      $scope.selected_files = [];
       
-      //if succesful show message to user
-      $scope.alerts.push({
-        message:'Delete successful!',
-        level:'success'
-      }); 
-      
-      //after alert has been on screen for 2 seconds it is removed
-      $timeout(function(){
-        $('.alert').bind('closed.bs.alert', function () {
-          $scope.alerts = [];
-        });
-        $(".alert").alert('close');
-      }, 2000);
     };
     
     /**

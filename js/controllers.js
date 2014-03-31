@@ -1693,8 +1693,12 @@ ppdpControllers.controller('dropdown', ['$scope',
     $scope.$watch('ngModel', function(){
 
       if ($scope.ngModel !== '' && $scope.ngModel !== undefined){
+        
+        
+        
         if (typeof $scope.ngModel === 'object'){
           $scope.selected_value = $scope.ngModel[$scope.text_field];
+          
         }
         else{
           $scope.selected_value = $scope.options_map[$scope.ngModel][$scope.text_field];
@@ -2536,6 +2540,8 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
               //load data into doc
               $scope.doc = jQuery.extend(true, {}, doc_data);
               
+              //alert(JSON.stringify($scope.doc));
+              
               console.log(doc_data);
               
               //if document needs tiebreak
@@ -2976,6 +2982,23 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
       
       
     });
+    
+    $scope.$watch('doc.code', function() {
+      
+      if ($scope.selected_batch){
+        $('.selectpicker').selectpicker('render');
+      }
+      
+    });
+    
+    $scope.$watch('doc', function() {
+      
+      if ($scope.selected_batch){
+        $('.selectpicker').selectpicker('render');
+      }
+      
+    });
+    
     
     //Jquery
     

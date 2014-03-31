@@ -93,38 +93,39 @@
                 <label>Policy Code</label> <span class="text-danger">*</span><br/>
                 <select 
         				  ng-model="doc.code"
-        				  class = "selectpicker policyselect" 
+          				class = "selectpicker policyselect" 
         					data-live-search = "true" 
         					data-size = "7"
         					data-show-subtext="true" 
         					title='Select a topic'
+        					data-width="100px"
+        					ng-options = "val for val in ['1','2',3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]"
         				  >
-        				  <option value="1" data-subtext="Policy Code Description">1</option>
-        				  <option value="2" data-subtext="Policy Code Description">2</option>
-        				  <option value="3" data-subtext="Policy Code Description">3</option>
-        				  <option value="4" data-subtext="Policy Code Description">4</option>
-        				  <option value="5" data-subtext="Policy Code Description">5</option>
-        				  <option value="6" data-subtext="Policy Code Description">6</option>
-        				  <option value="7" data-subtext="Policy Code Description">7</option>
-        				  <option value="8" data-subtext="Policy Code Description">8</option>
-        				  <option value="9" data-subtext="Policy Code Description">9</option>
-        				  <option value="10" data-subtext="Policy Code Description">10</option>
-        				  <option value="11" data-subtext="Policy Code Description">11</option>
-        				  <option value="12" data-subtext="Policy Code Description">12</option>
-        				  <option value="13" data-subtext="Policy Code Description">13</option>
-        				  <option value="14" data-subtext="Policy Code Description">14</option>
-        				  <option value="15" data-subtext="Policy Code Description">15</option>
-        				  <option value="16" data-subtext="Policy Code Description">16</option>
-        				  <option value="17" data-subtext="Policy Code Description">17</option>
-        				  <option value="18" data-subtext="Policy Code Description">18</option>
-        				  <option value="19" data-subtext="Policy Code Description">19</option>
-        				  <option value="20" data-subtext="Policy Code Description">20</option>
-        				  <option value="21" data-subtext="Policy Code Description">21</option>
-        				  <option value="22" data-subtext="Policy Code Description">22</option>
-        				  <option value="23" data-subtext="Policy Code Description">23</option>
-        				  <option value="24" data-subtext="Policy Code Description">24</option>
                 </select>
-                
+                  <option data-subtext="Policy Code Description">1</option>
+        				  <option data-subtext="Policy Code Description">2</option>
+        				  <option data-subtext="Policy Code Description">3</option>
+        				  <option data-subtext="Policy Code Description">4</option>
+        				  <option data-subtext="Policy Code Description">5</option>
+        				  <option data-subtext="Policy Code Description">6</option>
+        				  <option data-subtext="Policy Code Description">7</option>
+        				  <option data-subtext="Policy Code Description">8</option>
+        				  <option data-subtext="Policy Code Description">9</option>
+        				  <option data-subtext="Policy Code Description">10</option>
+        				  <option data-subtext="Policy Code Description">11</option>
+        				  <option data-subtext="Policy Code Description">12</option>
+        				  <option data-subtext="Policy Code Description">13</option>
+        				  <option data-subtext="Policy Code Description">14</option>
+        				  <option data-subtext="Policy Code Description">15</option>
+        				  <option data-subtext="Policy Code Description">16</option>
+        				  <option data-subtext="Policy Code Description">17</option>
+        				  <option data-subtext="Policy Code Description">18</option>
+        				  <option data-subtext="Policy Code Description">19</option>
+        				  <option data-subtext="Policy Code Description">20</option>
+        				  <option data-subtext="Policy Code Description">21</option>
+        				  <option data-subtext="Policy Code Description">22</option>
+        				  <option data-subtext="Policy Code Description">23</option>
+        				  <option data-subtext="Policy Code Description">24</option>
               </div>
   
               <div ng-show="tiebreaker">

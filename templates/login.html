@@ -16,7 +16,9 @@
         </div>
       </div>
       <br/>
-      <button ng-click="login()" type="submit" class="btn btn-primary btn-md btn-block">Login</button>
+      <button type="button" type="submit" class="btn btn-primary btn-md btn-block {{ (loading)?'disabled':'' }}" ng-click="login()" >
+        {{ (loading)?'Logging In...':'Login' }}
+      </button>
       <br/>
       <a href="https://accounts.temple.edu/selfcare/identification.jsp">Forgot Password</a>
       

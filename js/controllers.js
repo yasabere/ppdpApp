@@ -2219,6 +2219,7 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
     // Global variables for controller
     $scope.alerts = [];
     $scope.account = {password:'',username:''};
+    $scope.loading = false;
     
     /**
      * login() tries to log user in with specified account data from scope. 
@@ -2230,6 +2231,8 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
      */
     $scope.login = function(){
       
+      $scope.loading = true;
+      
       $scope.alerts = [];
       
       console.log($scope.login_form);
@@ -2238,6 +2241,7 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
       if ($scope.login_form.$invalid){
         
         if ($scope.login_form.email.$valid == false){
+          $scope.loading = false;
           $scope.alerts.push({
             message: 'Valid Email Address is required.',
             level:'danger',
@@ -2257,6 +2261,7 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
           success(function(data, status, headers, config){
             
             $rootScope.user_account = data;
+            $scope.loading = false;
             
             //show user alert stating they have successfully logged in
             $scope.alerts.push({
@@ -2271,6 +2276,7 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
           error(function(data, status, headers, config){
             
             console.log(data);
+            $scope.loading = false;
             
             switch(status){
               case 403:

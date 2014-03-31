@@ -1273,7 +1273,7 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
       //for each selected batch create the new assignment
       for(var i = 0; i < $scope.selected_batches.length; i+=1){
 
-        $scope.assignment.batch = $scope.batches[i];
+        $scope.assignment.batch = $scope.selected_batches[i];
         
         alert(JSON.stringify($scope.assignment));
         

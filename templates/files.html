@@ -66,8 +66,7 @@
         <div class="modal-body">
           <div style="text-align:center">
             <form enctype="multipart/form-data" action="http://pn.localhost/codeigniter-restserver-master/index.php/api/image/create" method="post">
-              <input name="userfile" type="file" class="btn btn-default btn-lg" style="display:inline-block; width:300px;"  size="20"  />
-              <input type="submit" name="submit" value="upload"  class="btn btn-primary btn-lg" style="display:inline-block;" />
+              <input name="userfile" type="file" class="btn btn-default btn-lg" style="display:inline-block; width:300px;"  size="20" ng-file-drop="upload_file($files)" />
             </form>
           </div>
         </div>

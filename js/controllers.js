@@ -1174,6 +1174,9 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
      * @return NULL
      */
     $scope.delete = function(){
+      
+      var num = 0;
+      
       for(var i = 0; i < $scope.selected_batches.length; i+=1){
         ppdpAPIService.batch.delete($scope.selected_batches[i]).
           success(function(data, status, headers, config) {
@@ -1210,10 +1213,6 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
             });
           });
       }
-      $('#deleteModal').modal('hide');
-      $scope.selected_batches = [];
-    
-      
       
       //after alert has been on screen for 2 seconds it is removed
       $timeout(function(){
@@ -3270,9 +3269,44 @@ ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams',
      * @return NULL
      */
     $scope.delete = function(){
+      
+      var num = 0;
+      
       for(var i = 0; i < $scope.selected_documents.length; i+=1){
-        ppdpAPIService.doc.delete($scope.selected_documents[i]);
-        $scope.update_results();
+        ppdpAPIService.doc.delete($scope.selected_documents[i]).
+          success(function(data, status, headers, config) {
+            $scope.update_results();
+
+            num+=1;
+
+            if (num == $scope.selected_documents.length){
+              //if succesful show message to user
+              $scope.alerts.push({
+                message:'Delete successful!',
+                level:'success'
+              }); 
+              
+              $('#deleteModal').modal('hide');
+              $scope.selected_documents = [];
+              
+              //after alert has been on screen for 2 seconds it is removed
+              /*$timeout(function(){
+                $('.alert').bind('closed.bs.alert', function () {
+                  $scope.alerts = [];
+                });
+                $(".alert").alert('close');
+              }, 2000);*/ 
+            }
+
+          }).
+          error(function(data, status, headers, config) {
+            $scope.alerts.push({
+              message:'Trouble connecting to server. documents could not be deleted',
+              level:'warning',
+              debug_data: status+ ' : ' + data,
+              config: config
+            });
+          });
       }
       $scope.selected_documents = [];
       $('#deleteModal').modal('hide');

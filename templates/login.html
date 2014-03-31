@@ -17,7 +17,7 @@
       </div>
       <br/>
       <button type="button" type="submit" class="btn btn-primary btn-md btn-block {{ (loading)?'disabled':'' }}" ng-click="login()" >
-        {{ (loading)?'Logging In...':'Login' }} <img src="images/ajax-loader.gif"/>
+        {{ (loading)?'Logging In...':'Login' }} <img ng-show ="loading" src="images/ajax-loader-red.gif"/>
       </button>
       <br/>
       <a href="https://accounts.temple.edu/selfcare/identification.jsp">Forgot Password</a>

@@ -1952,7 +1952,7 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
 
             num+=1;
 
-            if (num == files.length){
+            if (num == $scope.selected_files.length){
               //if succesful show message to user
               $scope.alerts.push({
                 message:'Delete successful!',

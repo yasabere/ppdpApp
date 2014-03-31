@@ -112,7 +112,7 @@ ppdpApp.config(['$routeProvider',
           $rootScope.user_account = data;
         }).
         error(function(data,status){
-          $location.path('login');
+          //$location.path('login');
       });
 
     });

@@ -311,7 +311,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         var request = {
           method: 'GET',
           url: api_url('batch') + 'batch/removedocument',
-          data: params,
+          params: params,
           headers: {'Content-Type': 'application/json'}
         };
         

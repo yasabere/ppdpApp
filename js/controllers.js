@@ -1997,6 +1997,8 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
                 level:'success'
               }); 
               
+              $('#createFileModal').modal('hide');
+              
               //after alert has been on screen for 2 seconds it is removed
               /*$timeout(function(){
                 $('.alert').bind('closed.bs.alert', function () {

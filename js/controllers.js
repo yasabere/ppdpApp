@@ -1442,6 +1442,7 @@ ppdpControllers.controller('create_newsclip', ['$rootScope','$scope', '$routePar
       $scope.alerts = [];
       
       if ($scope.create_doc_form.$invalid){
+        $scope.saving = false;
         $scope.alerts.push({
           message:'All fields with * must be filled in',
           level:'danger',  

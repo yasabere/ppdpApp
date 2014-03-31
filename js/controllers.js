@@ -1275,6 +1275,8 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
 
         $scope.assignment.batch = $scope.batches[i];
         
+        alert(JSON.stringify($scope.assignment));
+        
         //create new request object to be sent to api
         var assignment_request = jQuery.extend( true, {},$scope.assignment);
         

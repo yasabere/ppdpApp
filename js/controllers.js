@@ -2209,6 +2209,7 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
             $scope.assigning = false;
             
             if (num == $scope.selected_files.length){
+              
               //if succesful show message to user
               $scope.alerts.push({
                 message:'Assignment created!',

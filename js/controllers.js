@@ -1313,6 +1313,7 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
       
       //if false tell user
       if (error_found === true){
+        $scope.assigning = false;
         return false;
       }
       

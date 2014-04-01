@@ -1278,6 +1278,7 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
       var num = 0;
       
       $scope.assign_alerts = [];
+      $scope.alerts = [];
       
       //validate form
       var user_selected = false;
@@ -1341,23 +1342,23 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
             
             if (num == $scope.selected_batches.length){
             
-            //tell user that the loading process is completed
-            $scope.assigning = false;
-            
-            //set all batches to non selected
-            $scope.selected_batches = [];
-            
-            //show user that the assignment has been created
-            $scope.alerts.push({
-              message:'Assignment created!',
-              level:'success'
-            });
-            
-            //close modal
-            $('#assignModal').modal('hide');
-            
-            //refresh results after assignment is completed in case they chaned
-            $scope.update_results();
+              //tell user that the loading process is completed
+              $scope.assigning = false;
+              
+              //set all batches to non selected
+              $scope.selected_batches = [];
+              
+              //show user that the assignment has been created
+              $scope.alerts.push({
+                message:'Assignment created!',
+                level:'success'
+              });
+              
+              //close modal
+              $('#assignModal').modal('hide');
+              
+              //refresh results after assignment is completed in case they chaned
+              $scope.update_results();
             
             }
             

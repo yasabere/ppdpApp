@@ -2185,9 +2185,6 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
       //send a create request to api for each selected file
       for(var i = 0; i < $scope.selected_files.length; i+=1){
         
-        //count the number of batches assigned
-        num += 1;
-        
         $scope.assignment.file = $scope.files[i];
         
         //create new request object to be sent to api
@@ -2209,6 +2206,9 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
             $scope.assigning = false;
             
             if (num == $scope.selected_files.length){
+              
+              //count the number of batches assigned
+              num += 1;
               
               //if succesful show message to user
               $scope.alerts.push({

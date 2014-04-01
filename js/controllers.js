@@ -975,6 +975,7 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
     // Global variables for controller
     $scope.batches = [];
     $scope.batches_loading = true;
+    $scope.assigning = false;
     
     $scope.users = [];
     $scope.selected_batches = [];
@@ -1206,7 +1207,7 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
      */
     $scope.details = function(id){
       $location.path("/batch/"+($scope.batches[id].id)).search($scope.params);
-    }
+    };
     
     /**
      * delete() deletes selected items
@@ -1262,7 +1263,7 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
         });
         $(".alert").alert('close');
       }, 2000);
-    }
+    };
     
     /**
      * assign() creates new assignment
@@ -1272,7 +1273,9 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
      */
     $scope.assign = function(){
       
-      var success = true;
+      //show user that the server is processing the assignment creation
+      $scope.assigning = true;
+      var num = 0;
       
       $scope.assign_alerts = [];
       
@@ -1307,6 +1310,7 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
         error_found = true;
       }
       
+      //if false tell user
       if (error_found === true){
         return false;
       }
@@ -1315,8 +1319,6 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
       for(var i = 0; i < $scope.selected_batches.length; i+=1){
 
         $scope.assignment.batch = $scope.selected_batches[i];
-        
-        alert(JSON.stringify($scope.assignment));
         
         //create new request object to be sent to api
         var assignment_request = jQuery.extend( true, {},$scope.assignment);
@@ -1334,7 +1336,31 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
         ppdpAPIService.assignment.create(assignment_request).
           success(function(){
             
-            success = true;
+            //count the number of batches assigned
+            num += 1;
+            
+            if (num == $scope.selected_batches.length){
+            
+            //tell user that the loading process is completed
+            $scope.assigning = false;
+            
+            //set all batches to non selected
+            $scope.selected_batches = [];
+            
+            //show user that the assignment has been created
+            $scope.alerts.push({
+              message:'Assignment created!',
+              level:'success'
+            });
+            
+            //close modal
+            $('#assignModal').modal('hide');
+            
+            //refresh results after assignment is completed in case they chaned
+            $scope.update_results();
+            
+            }
+            
           }).
           error(function(data, status, headers, config) {
           
@@ -1346,26 +1372,13 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
               config: config
             });
             
+            //show user that the loading process has been completed
+            $scope.assigning = false;
+            
           });
-          
-        //refresh results after assignment is completed in case they chaned
-        $scope.update_results();
+        
       }
       
-      //close modal
-      $('#assignModal').modal('hide');
-      
-      //set all batches to non selected
-      $scope.selected_batches = [];
-    
-      if (success){
-        //if succesful show message to user
-        $scope.alerts.push({
-          message:'Assignment created!',
-          level:'success'
-        });
-      }
-       
       //after alert has been on screen for 2 seconds it is removed
       /*$timeout(function(){
         $('.alert').bind('closed.bs.alert', function () {

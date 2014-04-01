@@ -1782,6 +1782,7 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
     //files which will be shown on table
     $scope.files = [];
     $scope.files_loading = true;
+    $scope.assigning = false;
     
     $scope.users = [];
     $scope.selected_files = [];
@@ -2141,10 +2142,13 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
     $scope.assign = function(){
       
       var success = true;
+      var num = 0;
       $scope.assign_alerts = [];
+      $scope.alerts = [];
       //validate form
       var user_selected = false;
       var error_found = false;
+      $scope.assigning = true;
       
       //check if type selected
       if ($scope.assignment.type === '' ){
@@ -2174,11 +2178,16 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
       }
       
       if (error_found === true){
+        $scope.assigning = false;
         return false;
       }
+      
       //send a create request to api for each selected file
       for(var i = 0; i < $scope.selected_files.length; i+=1){
-
+        
+        //count the number of batches assigned
+        num += 1;
+        
         $scope.assignment.file = $scope.files[i];
         
         //create new request object to be sent to api
@@ -2196,12 +2205,27 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
         //send create request to api
         ppdpAPIService.assignment.create(assignment_request).
           success(function(){
-            success = true;
+            
+            $scope.assigning = false;
+            
+            if (num == $scope.selected_files.length){
+              //if succesful show message to user
+              $scope.alerts.push({
+                message:'Assignment created!',
+                level:'success'
+              });
+              
+              $('#assignModal').modal('hide');
+              $scope.selected_batches = [];
+              
+              $scope.update_results();
+            }
+            
           }).
           error(function(data, status, headers, config) {
             
             error_found = true;
-            
+            $scope.assigning = false;
             $scope.alerts.push({
               message:'Trouble connecting to server.',
               level:'warning',
@@ -2210,19 +2234,13 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
             });
             
           });
-          
-        $scope.update_results();
+        
       }
-      $('#assignModal').modal('hide');
-      $scope.selected_batches = [];
+      
     
       //of sucessful in creating assignments notify user
       if (success){
-        //if succesful show message to user
-        $scope.alerts.push({
-          message:'Assignment created!',
-          level:'success'
-        });
+        
       }
        
       //after alert has been on screen for 2 seconds it is removed

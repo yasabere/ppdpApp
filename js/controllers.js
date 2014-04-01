@@ -2145,6 +2145,7 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
       var num = 0;
       $scope.assign_alerts = [];
       $scope.alerts = [];
+      
       //validate form
       var user_selected = false;
       var error_found = false;
@@ -2203,12 +2204,12 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
         ppdpAPIService.assignment.create(assignment_request).
           success(function(){
             
+            //count the number of batches assigned
+            num += 1;
+            
             $scope.assigning = false;
             
             if (num == $scope.selected_files.length){
-              
-              //count the number of batches assigned
-              num += 1;
               
               //if succesful show message to user
               $scope.alerts.push({
@@ -2218,9 +2219,9 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
               
               $('#assignModal').modal('hide');
               $scope.selected_batches = [];
-              
-              $scope.update_results();
             }
+            
+            $scope.update_results();
             
           }).
           error(function(data, status, headers, config) {

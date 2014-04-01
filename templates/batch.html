@@ -160,7 +160,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-click="assign()" >Assign</button>
+        <button type="button" class="btn btn-primary {{ (assigning)?'disabled':'' }}" ng-click="assign()" >
+          {{ (assigning)?'Assigning...':'Assign' }}
+        </button>
       </div>
       
     </div><!-- /.modal-content -->

@@ -368,6 +368,8 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
           headers: {'Content-Type': 'application/json'}
         };
         
+        console.log(request);
+        
         return $http(request);
       }
 

@@ -9,7 +9,7 @@ var api_url_array = {
   localtest:'http://localhost:26087/api/',
   };
 
-var api_url_string = api_url_array['stem'];
+var api_url_string = api_url_array['localtest'];
 
 //object containing name of each resource which tells whether the js api should access live server api_url_string or mock api
 var resources = {

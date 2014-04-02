@@ -2641,7 +2641,7 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
               console.log(doc_data);
               
               //if document needs tiebreak
-              if($scope.doc.status_id == 3){
+              if($scope.doc.status_id == 2){
                 
                 $scope.tiebreaker = true;
                 

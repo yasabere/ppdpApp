@@ -352,7 +352,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         var request = {
           method: 'GET',
           url: api_url('document') + 'document/retrieve',
-          params: "'" + JSON.stringify(_doc) + "'",
+          params: _doc,
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -364,7 +364,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         var request = {
           method: 'PUT',
           url: api_url('document') + 'document/update',
-          data: _doc,
+          data: "'" + JSON.stringify(_doc) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         

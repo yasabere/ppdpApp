@@ -976,6 +976,7 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
     $scope.batches = [];
     $scope.batches_loading = true;
     $scope.assigning = false;
+    $scope.deleting = false;
     
     $scope.users = [];
     $scope.selected_batches = [];
@@ -1217,6 +1218,8 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
      */
     $scope.delete = function(){
       
+      $scope.deleting = true;
+      
       var num = 0;
       
       for(var i = 0; i < $scope.selected_batches.length; i+=1){
@@ -1227,6 +1230,9 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
             num+=1;
 
             if (num == $scope.selected_batches.length){
+              
+              $scope.deleting = false;
+              
               //if succesful show message to user
               $scope.alerts.push({
                 message:'Delete successful!',
@@ -1247,6 +1253,9 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
 
           }).
           error(function(data, status, headers, config) {
+            
+            $scope.deleting = false;
+            
             $scope.alerts.push({
               message:'Trouble connecting to server. Batch "'+$scope.selected_batches[i].name +'" could not be deleted',
               level:'warning',
@@ -3110,6 +3119,7 @@ ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams',
     //newsclips to be shown in table
     $scope.documents = [];
     $scope.documents_loading = true;
+    $scope.deleting = false;
     $scope.adding_documents_to_batch = false;
     
     //batches to be shown in dropdown when adding to batch
@@ -3380,6 +3390,8 @@ ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams',
      */
     $scope.delete = function(){
       
+      $scope.deleting = true;
+      
       var num = 0;
       
       for(var i = 0; i < $scope.selected_documents.length; i+=1){
@@ -3390,6 +3402,9 @@ ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams',
             num+=1;
 
             if (num == $scope.selected_documents.length){
+              
+              $scope.deleting = false;
+              
               //if succesful show message to user
               $scope.alerts.push({
                 message:'Delete successful!',
@@ -3410,6 +3425,9 @@ ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams',
 
           }).
           error(function(data, status, headers, config) {
+            
+            $scope.deleting = false;
+            
             $scope.alerts.push({
               message:'Trouble connecting to server. documents could not be deleted',
               level:'warning',

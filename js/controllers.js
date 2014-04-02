@@ -1783,6 +1783,7 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
     $scope.files = [];
     $scope.files_loading = true;
     $scope.assigning = false;
+    $scope.deleting = false;
     
     $scope.users = [];
     $scope.selected_files = [];
@@ -2033,12 +2034,17 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
      */
     $scope.delete = function(){
       
+      $scope.deleting = true;
+      
       var num = 0;
       $scope.alerts = [];
       
       for(var i = 0; i < $scope.selected_files.length; i+=1){
         ppdpAPIService.file.delete($scope.selected_files[i]).
           success(function(data, status, headers, config) {
+            
+            $scope.deleting = false;
+            
             $scope.update_results();
 
             num+=1;
@@ -2064,6 +2070,9 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
 
           }).
           error(function(data, status, headers, config) {
+            
+            $scope.deleting = false;
+            
             $scope.alerts.push({
               message:'Trouble connecting to server. File "'+ $scope.selected_files[i].name +'" could not be deleted',
               level:'warning',

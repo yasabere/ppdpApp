@@ -2643,6 +2643,8 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
               //if document needs tiebreak
               if($scope.doc.status_id == 3){
                 
+                $scope.tiebreaker = true;
+                
                 //if the user has the authority
                 if($rootScope.user_account.role.id >= 2){
                 

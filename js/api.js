@@ -37,7 +37,7 @@ var api_url = function(resource_name){
 var ppdpAPI = angular.module('ppdpAPI', []);//'ngMockE2E'
  
  //register ppdpAPIService
-ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $upload, $sanitize){
+ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $upload, $sce){
     
     console.log("loaded");
     
@@ -340,7 +340,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         var request = {
           method: 'POST',
           url: api_url('document') + 'document/create',
-          data:  "'" + $sanitize(JSON.stringify(_document)) + "'",
+          data:  "'" + $sce.trustAsHtml(JSON.stringify(_document)) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -364,7 +364,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         var request = {
           method: 'PUT',
           url: api_url('document') + 'document/update',
-          data: "'" + $sanitize(JSON.stringify(_doc)) + "'",
+          data: "'" + $sce.trustAsHtml(JSON.stringify(_doc)) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         

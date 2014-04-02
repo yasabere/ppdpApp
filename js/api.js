@@ -9,7 +9,7 @@ var api_url_array = {
   localtest:'http://localhost:26087/api/',
   };
 
-var api_url_string = api_url_array['localtest'];
+var api_url_string = api_url_array['stem'];
 
 //object containing name of each resource which tells whether the js api should access live server api_url_string or mock api
 var resources = {
@@ -340,7 +340,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         var request = {
           method: 'POST',
           url: api_url('document') + 'document/create',
-          data:  "'" + $sce.trustAsHtml(JSON.stringify(_document)) + "'",
+          data:  "'" + JSON.stringify(_document) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -364,7 +364,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         var request = {
           method: 'PUT',
           url: api_url('document') + 'document/update',
-          data: "'" + $sce.trustAsHtml(JSON.stringify(_doc)) + "'",
+          data: "'" + JSON.stringify(_doc) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         

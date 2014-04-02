@@ -340,7 +340,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         var request = {
           method: 'POST',
           url: api_url('document') + 'document/create',
-          data:  "'" + JSON.stringify(_document) + "'",
+          data:  "'" + $sce.trustAsHtml(JSON.stringify(_document)) + "'",
           headers: {'Content-Type': 'application/json'}
         };
         

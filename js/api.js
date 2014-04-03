@@ -340,7 +340,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         var request = {
           method: 'POST',
           url: api_url('document') + 'document/create',
-          data:  "'" + JSON.stringify(_document) + "'",
+          data:  "'" + JSON.stringify(_document).replace(/'/g, '\\\'') + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -364,7 +364,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         var request = {
           method: 'PUT',
           url: api_url('document') + 'document/update',
-          data: "'" + JSON.stringify(_doc) + "'",
+          data: "'" + JSON.stringify(_doc).replace(/'/g, '\\\'') + "'",
           headers: {'Content-Type': 'application/json'}
         };
         
@@ -377,7 +377,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         var request = {
           method: 'Delete',
           url: api_url('document') + 'document/delete',
-          data: "'" + JSON.stringify(_doc) + "'",
+          data: "'" + JSON.stringify(_doc).replace(/'/g, '\\\'') + "'",
           headers: {'Content-Type': 'application/json'}
         };
         

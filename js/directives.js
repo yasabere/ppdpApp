@@ -110,7 +110,7 @@ ppdpDirectives.directive('dropdown', function(){
        if (!attrs.textField) { attrs.textField = 'text'; }
        if (!attrs.valueField) { attrs.valueField = 'value'; }
        if (!attrs.descriptionField) { attrs.descriptionField = 'description'; }
-       if (!attrs.search) { attrs.search = 'true'; }
+       if (!attrs.search) { attrs.search = false; }
        if (!attrs.options) { attrs.options = []; }
     },
    } 

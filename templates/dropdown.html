@@ -1,6 +1,6 @@
 <div class="btn-group">
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    {{selected_value}} <span class="caret"></span>
+    {{selected_value}} <span class="small muted text-muted" style="font-size:10px;">{{ selected_option['description'] }}</span><span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu">
     <li ng-show="search" class="disabled-link" style="margin:10px"><input type="text" class="form-control" id="search" placeholder="Search" ng-model="query"></li>

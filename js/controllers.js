@@ -1747,6 +1747,7 @@ ppdpControllers.controller('dropdown', ['$scope',
     $scope.select = function(option){
       
       $scope.selected_value = option[$scope.text_field];
+      $scope.selected_option = option;
 
       if ($scope.returnObject === 'true'){
         $scope.ngModel = option;
@@ -1760,15 +1761,15 @@ ppdpControllers.controller('dropdown', ['$scope',
     $scope.$watch('ngModel', function(){
 
       if ($scope.ngModel !== '' && $scope.ngModel !== undefined){
-        
-        
-        
+
         if (typeof $scope.ngModel === 'object'){
           $scope.selected_value = $scope.ngModel[$scope.text_field];
+          $scope.selected_option = $scope.ngModel;
           
         }
         else{
           $scope.selected_value = $scope.options_map[$scope.ngModel][$scope.text_field];
+          $scope.selected_option = $scope.options_map[$scope.ngModel];
         }
       }
       else{
@@ -2614,7 +2615,7 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
       });
     
     //policycodes to be displayed in 'code' dropdown
-    ppdpAPIService.policycode.retrieve({}).
+    ppdpAPIService.code.retrieve({}).
       success(function(data, status, headers, config){
         $scope.policy_codes = data;
       }).

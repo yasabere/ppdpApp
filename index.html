@@ -52,27 +52,6 @@
         </div>
       </div>
     </master-Header>
-    
-    <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        selected_value <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li class="disabled-link" style="margin:10px"><input type="text" class="form-control" id="search" placeholder="Search"></li>
-        <li class="divider"></li>
-        <li role="presentation" class="dropdown-header">Dropdown header</li>
-        <li><a href="#">Another action <span class="small muted text-muted" style="font-size:8px;">French's</span></a></li>
-        <li><a href="#">Something else here</a></li>
-        <li class="divider"></li>
-        <li class="disabled-link"><a href="#">Separated link</a></li>
-      </ul>
-    </div>
-    
-    <script>
-    $(".disabled-link, .divider, .dropdown-header").click(function(event) {
-        event.stopPropagation();
-      });
-    </script>
 
     <!-- Displays javascript body if javascript works. If not it displays default body -->
     <div ng-view>

@@ -96,14 +96,14 @@ ppdpApp.config(['$routeProvider',
  */
  ppdpApp.run(function ($rootScope, $location, ppdpAPIService, $route) {
    
-    $rootScope.show_dev_panel = true;
-    $rootScope.dev_mode = true;
+    $rootScope.show_dev_panel = false;
+    $rootScope.dev_mode = false;
    
     $rootScope.reload_page = function(){
       $route.reload();
     };
    
-    $rootScope.user_account = {};
+    $rootScope.user_account = 'undefined';
     
     if ($rootScope.dev_mode){
       $rootScope.user_account = {role:{id:2, name:'Researcher'}, first_name:'Yaw', last_name:'Asabere', is_active:0, email:'tub97573@gmail.com'}

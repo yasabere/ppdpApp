@@ -14,7 +14,8 @@ var api_url_string = api_url_array['localtest'];
 //object containing name of each resource which tells whether the js api should access live server api_url_string or mock api
 var resources = {
   'account' : {use_mock:false},
-  'assignment' : {use_mock:false}, 
+  'assignment' : {use_mock:false},
+  'code' : {use_mock:false},
   'batch' : {use_mock:false},
   'document' : {use_mock:false},
   'file' : {use_mock:false}, 
@@ -325,7 +326,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
       this.retrieve = function(_code){
         var request = {
           method: 'GET',
-          url: api_url('newspaper') + 'newspaper/retrieve',
+          url: api_url('code') + 'policycode/retrieve',
           params: _code,
           headers: {'Content-Type': 'application/json'}
         };

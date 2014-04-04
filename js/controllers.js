@@ -3718,6 +3718,7 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
     $scope.totalRows = 0;
     $scope.show_paging = true;
     $scope.saving = false;
+    $scope.loading = false;
     
     //retrieve all roles
     ppdpAPIService.role.retrieve({}).
@@ -3748,10 +3749,14 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
      * @return NULL
      */
     $scope.update_results = function(){
+      
+      $scope.loading = true;
     
       //call retrieve api function
       ppdpAPIService.user.retrieve({offset:0, limit:parseInt($routeParams.userId+1), query:$scope.old_params.query}).
         success(function(data, status, headers, config) {
+          
+          $scope.loading = false;
   
           //load data into users
           $scope.users = data;
@@ -3773,6 +3778,8 @@ ppdpControllers.controller('user', ['$scope', '$routeParams', 'ppdpAPIService', 
           
         }).
         error(function(data, status, headers, config) {
+
+          $scope.loading = false;
 
           $scope.alerts.push({
             message:'Trouble connecting to server.',

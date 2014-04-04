@@ -1,0 +1,30 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    {{selected_value}} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li ng-repeat="option in options" class="{{option.class}}"><a ng-show=" (option.class != 'divider') " ng-click="select(option)">{{option[text_field]}}</a></li>
+  </ul>
+</div>
+
+
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    {{selected_value}} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li class="disabled-link" style="margin:10px"><input type="text" class="form-control" id="search" placeholder="Search"></li>
+    <li class="divider"></li>
+    <li role="presentation" class="dropdown-header">Dropdown header</li>
+    <li><a href="#">Another action <span class="small muted text-muted" style="font-size:10px;">French's</span></a></li>
+    <li><a href="#">Something else here</a></li>
+    <li class="divider"></li>
+    <li class="disabled-link"><a href="#">Separated link</a></li>
+  </ul>
+</div>
+
+<script>
+$(".disabled-link, .divider, .dropdown-header").click(function(event) {
+    event.stopPropagation();
+  });
+</script>

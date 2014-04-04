@@ -89,40 +89,17 @@
               </div>
 
               <div style="display:inline-block; margin-left:0px;">  
-                <label>Policy Code</label> <span class="text-danger"><b>*</b></span><br/>
-                <select 
-        				  ng-model="doc.code"
-        				  class = "selectpicker" 
-        					data-live-search = "true" 
-        					data-size = "7"
-        					data-show-subtext="true" 
-        					title='Select a topic'
-        				  >
-        				  <option data-subtext="Policy Code Description">1</option>
-        				  <option data-subtext="Policy Code Description">2</option>
-        				  <option data-subtext="Policy Code Description">3</option>
-        				  <option data-subtext="Policy Code Description">4</option>
-        				  <option data-subtext="Policy Code Description">5</option>
-        				  <option data-subtext="Policy Code Description">6</option>
-        				  <option data-subtext="Policy Code Description">7</option>
-        				  <option data-subtext="Policy Code Description">8</option>
-        				  <option data-subtext="Policy Code Description">9</option>
-        				  <option data-subtext="Policy Code Description">10</option>
-        				  <option data-subtext="Policy Code Description">11</option>
-        				  <option data-subtext="Policy Code Description">12</option>
-        				  <option data-subtext="Policy Code Description">13</option>
-        				  <option data-subtext="Policy Code Description">14</option>
-        				  <option data-subtext="Policy Code Description">15</option>
-        				  <option data-subtext="Policy Code Description">16</option>
-        				  <option data-subtext="Policy Code Description">17</option>
-        				  <option data-subtext="Policy Code Description">18</option>
-        				  <option data-subtext="Policy Code Description">19</option>
-        				  <option data-subtext="Policy Code Description">20</option>
-        				  <option data-subtext="Policy Code Description">21</option>
-        				  <option data-subtext="Policy Code Description">22</option>
-        				  <option data-subtext="Policy Code Description">23</option>
-        				  <option data-subtext="Policy Code Description">24</option>
-                </select>
+                <label>Policy Code</label> <span class="text-danger">*</span><br/>
+                <dropdown 
+                  ng-Model = "doc.code" 
+                  options = "policy_codes"
+                  text-Field = " 'id' "
+                  value-Field = " 'id' "
+                  description-Field = " 'description' "
+                  search = " 'true' "
+                  placeholder = " 'Select a topic' "
+                >
+                </dropdown>
               </div>
 
               <br/><br/>
@@ -158,19 +135,19 @@
 
             <br/><br/>
             <b>Pennsylvania</b><br/>
-            <input type="checkbox" ng-model="doc.executive"> Executive<br/>
-            <input type="checkbox" ng-model="doc.leg"> Legislative<br/>
-            <input type="checkbox" ng-model="doc.jud"> Judicial<br/>
-            <input type="checkbox" ng-model="doc.sta_ag"> State Agency<br/>
-            <input type="checkbox" ng-model="doc.budget"> Budget<br/>
+            <input type="checkbox" ng-model="doc.executive" ng-true-value="1" ng-false-value="0"> Executive<br/>
+            <input type="checkbox" ng-model="doc.leg" ng-true-value="1" ng-false-value="0"> Legislative<br/>
+            <input type="checkbox" ng-model="doc.jud" ng-true-value="1" ng-false-value="0"> Judicial<br/>
+            <input type="checkbox" ng-model="doc.sta_ag" ng-true-value="1" ng-false-value="0"> State Agency<br/>
+            <input type="checkbox" ng-model="doc.budget" ng-true-value="1" ng-false-value="0"> Budget<br/>
             <hr/>
             <b>General</b><br/>
-            <input type="checkbox" ng-model="doc.local_govt"> Local Govt<br/>
-            <input type="checkbox" ng-model="doc.fed"> Federal<br/>
-            <input type="checkbox" ng-model="doc.tax"> Tax<br/>
-            <input type="checkbox" ng-model="doc.elderly"> Elderly<br/>
-            <input type="checkbox" ng-model="doc.int_group"> Interest Group<br/>
-            <input type="checkbox" ng-model="doc.elec"> Elections<br/>
+            <input type="checkbox" ng-model="doc.local_govt" ng-true-value="1" ng-false-value="0"> Local Govt<br/>
+            <input type="checkbox" ng-model="doc.fed" ng-true-value="1" ng-false-value="0"> Federal<br/>
+            <input type="checkbox" ng-model="doc.tax" ng-true-value="1" ng-false-value="0"> Tax<br/>
+            <input type="checkbox" ng-model="doc.elderly" ng-true-value="1" ng-false-value="0"> Elderly<br/>
+            <input type="checkbox" ng-model="doc.int_group" ng-true-value="1" ng-false-value="0"> Interest Group<br/>
+            <input type="checkbox" ng-model="doc.elec" ng-true-value="1" ng-false-value="0"> Elections<br/>
           </div>
       </div>
 

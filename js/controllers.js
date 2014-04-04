@@ -1485,6 +1485,7 @@ ppdpControllers.controller('create_newsclip', ['$rootScope','$scope', '$routePar
     $scope.alerts = [];
     $scope.urgent_alerts = [];
     $scope.state = 'create';
+     $scope.policy_codes = [];
     $scope.saving = false;
     $scope.adding_documents_to_batch = false;
     
@@ -1492,6 +1493,20 @@ ppdpControllers.controller('create_newsclip', ['$rootScope','$scope', '$routePar
     ppdpAPIService.newspaper.retrieve({}).
       success(function(data, status, headers, config){
         $scope.newspapers = data;
+      }).
+      error(function(data, status, headers, config){
+        $scope.urgent_alerts.push({
+          message:'Error connecting to server',
+          level:'warning',
+          debug_data: status+ ' : ' + data,
+          config: config
+        }); 
+      });
+      
+    //policycodes to be displayed in 'code' dropdown
+    ppdpAPIService.code.retrieve({}).
+      success(function(data, status, headers, config){
+        $scope.policy_codes = data;
       }).
       error(function(data, status, headers, config){
         $scope.urgent_alerts.push({
@@ -2569,6 +2584,7 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
     
     $scope.assignment = {type:'', id:3, users:['']};
     $scope.batch_document_request = {};
+    $scope.loading = false;
     
     //variable to keep track of recently searched documents for navigation 
     $scope.documents = [];
@@ -2639,11 +2655,15 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
      */
     $scope.update_results = function(){
       
+      $scope.loading = true;
+      
       //retrieve a list of documents based off of what is in the uri parameters 
       ppdpAPIService.doc.retrieve({offset:0, limit:$routeParams.docId+1, query:$scope.old_params.query}).
         success(function(data, status, headers, config) {
 
           $scope.documents = data;
+          
+          $scope.loading = false;
           
           //get data for doc
           ppdpAPIService.doc.retrieve({id:data[$routeParams.docId].id}).
@@ -2685,6 +2705,9 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
           
         }).
         error(function(data, status, headers, config) {
+          
+          $scope.loading = false;
+          
           $scope.alerts.push({
             message:'Trouble connecting to server.',
             level:'warning',

@@ -2613,6 +2613,20 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
         }); 
       });
     
+    //policycodes to be displayed in 'code' dropdown
+    ppdpAPIService.policycode.retrieve({}).
+      success(function(data, status, headers, config){
+        $scope.policy_codes = data;
+      }).
+      error(function(data, status, headers, config){
+        $scope.urgent_alerts.push({
+          message:'Error connecting to server',
+          level:'warning',
+          debug_data: status+ ' : ' + data,
+          config: config
+        }); 
+      });
+    
     // set the directions to show up on page
     $scope.directions = [];
     $scope.directions.push('Edit information');

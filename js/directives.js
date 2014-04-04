@@ -99,14 +99,18 @@ ppdpDirectives.directive('dropdown', function(){
       extraOptions : "=extraOptions",
       placeholder : "=placeholder",
       text_field : "=textField",
+      description_field : "=descriptionField",
       value_field : "=valueField",
-      returnObject: "=returnObject"
+      returnObject: "=returnObject",
+      search: "=search"
      },
      controller:'dropdown',
      
      compile: function(element, attrs){
        if (!attrs.textField) { attrs.textField = 'text'; }
        if (!attrs.valueField) { attrs.valueField = 'value'; }
+       if (!attrs.descriptionField) { attrs.descriptionField = 'description'; }
+       if (!attrs.search) { attrs.search = 'true'; }
        if (!attrs.options) { attrs.options = []; }
     },
    } 
@@ -148,17 +152,6 @@ ppdpDirectives.directive('autoSuggest', function(){
       returnObject: "=returnObject"
      },
      controller:'autosuggest',
-   } 
-});
-
-//directive for autoSuggest
-ppdpDirectives.directive('testPanel', function(){
-   return {
-     restrict: "E",
-     templateUrl: "templates/test_panel.html",
-     scope: {
-     },
-     controller:'test_panel',
    } 
 });
 

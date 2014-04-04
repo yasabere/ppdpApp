@@ -319,6 +319,21 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
       }
     }
     sharedService.batch = new sharedService.batchModel();
+    
+    sharedService.codeModel = function(){
+
+      this.retrieve = function(_code){
+        var request = {
+          method: 'GET',
+          url: api_url('newspaper') + 'newspaper/retrieve',
+          params: _code,
+          headers: {'Content-Type': 'application/json'}
+        };
+        
+        return $http(request);
+      }
+    }
+    sharedService.code = new sharedService.codeModel();
 
     sharedService.documentModel = function(){
       this.create = function(_document){

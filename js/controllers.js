@@ -2415,7 +2415,8 @@ ppdpControllers.controller('login', ['$rootScope','$scope', '$routeParams', '$lo
           });
         }
         
-        if ($scope.login_form.password.$valid == false){
+        if ($scope.login_form.password.$valid == false) {
+          $scope.loading = false;
           $scope.alerts.push({
             message: 'Password is required.',
             level:'danger',

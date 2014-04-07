@@ -97,7 +97,7 @@ ppdpApp.config(['$routeProvider',
  ppdpApp.run(function ($rootScope, $location, ppdpAPIService, $route) {
    
     $rootScope.show_dev_panel = false;
-    $rootScope.dev_mode = true;
+    $rootScope.dev_mode = false;
    
     $rootScope.reload_page = function(){
       $route.reload();

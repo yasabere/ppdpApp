@@ -1,9 +1,3 @@
-<p class="text-center" ng-show="loading">
-  <br/><br/><br/>
-  <img src="images/ajax-loader.gif"/>
-  <b>Loading...</b>
-</p>
-
 <div class="panel panel-default">
   <master-Top-Menu 
     title=" 'Dashboard' " 
@@ -38,57 +32,64 @@
         <div class="col-xs-12 col-sm-9 col-md-9">
   
           <div class= "row" >
-        
+
             <div class="col-xs-12 col-sm-8 col-md-8">
+						
+							<p class="text-center" ng-show="loading">
+								<br/><br/><br/>
+								<img src="images/ajax-loader.gif"/>
+								<b>Loading...</b>
+							</p>
             
               <master-Alerts alerts="urgent_alerts">
               </master-Alerts>
-
-              <div style="display:inline-block; ">
-                <label>Newspaper</label> <span class="text-danger">*</span><br/>
-                <auto-Suggest
-                  name = "newspaper"
-                  ng-model = "doc.newspaper"
-                  options = "newspapers"
-                  placeholder=" 'Type a Newspaper' "
-                  required
-                >
-                </auto-Suggest>
-              </div>
-  
-              <div style="display:inline-block; margin-left:10px; width:200px">  
-                <label>Date</label> <span class="text-danger">*</span><br/>
- 
-               
-                  <div class='input-group date' id='date_time' style="margin:0px">
+							
+							<div class="row">
+								<div class='col-sm-4'>
+									<label>Newspaper</label> <span class="text-danger">*</span><br/>
+									<auto-Suggest
+										name = "newspaper"
+										ng-model = "doc.newspaper"
+										options = "newspapers"
+										placeholder=" 'Type a Newspaper' "
+										required
+									>
+									</auto-Suggest>
+								</div>
+								
+								<div class='col-sm-5'>
+									<label>Date</label> <span class="text-danger">*</span><br/>
+                  <div class='input-group date' id='date_time' style="margin:0px" data-date-format="MM/DD/YYYY">
                     <input type='text' class="form-control" ng-model="doc.date_time" />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
                   </div>
-
+								</div>
+								
+								<div class='col-sm-3'>
+									<label>Type</label> <span class="text-danger">*</span><br/>
+									<dropdown 
+										ng-Model = "doc.type" 
+										options = "
+										[{text:'Article', value:'Article', class:''},
+										{text:'Editorial', value:'Editorial', class:''},
+										{text:'Opinion', value:'Opinion', class:''},
+										{text:'Letter', value:'Letter', class:''},
+										{text:'Photograph', value:'Photograph', class:''},
+										{text:'Newswire Story', value:'Newswire Story', class:''},
+										{text:'Cartoon', value:'Cartoon', class:''},
+										{text:'Broadcast Transcript', value:'Broadcast Transcript', class:''},
+										{text:'',value:'', class:'divider'},
+										{text:'Other - Note in Comments', value:'Other', class:''}]"
+										text-Field = "text"
+										placeholder = " 'Select a type' "
+									>
+									</dropdown>
+								</div>
+                
               </div>
-  
-              <div style="display:inline-block; margin-left:10px;">
-                <label>Type</label> <span class="text-danger">*</span><br/>
-                <dropdown 
-                  ng-Model = "doc.type" 
-                  options = "
-                  [{text:'Article', value:'Article', class:''},
-                  {text:'Editorial', value:'Editorial', class:''},
-                  {text:'Opinion', value:'Opinion', class:''},
-                  {text:'Letter', value:'Letter', class:''},
-                  {text:'Photograph', value:'Photograph', class:''},
-                  {text:'Newswire Story', value:'Newswire Story', class:''},
-                  {text:'Cartoon', value:'Cartoon', class:''},
-                  {text:'Broadcast Transcript', value:'Broadcast Transcript', class:''},
-                  {text:'',value:'', class:'divider'},
-                  {text:'Other - Note in Comments', value:'Other', class:''}]"
-                  text-Field = "text"
-                  placeholder = " 'Select a type' "
-                >
-                </dropdown>
-              </div>
-              <br/><br/>
+							
+              <br/>
   
               <div class="form-group">
                 <label for="txtheadline">Headline</label> <span class="text-danger">*</span>

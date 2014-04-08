@@ -616,15 +616,12 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
     ppdpAPIService.batch.retrieve({id:$routeParams.batch_id}).
       success(function(data, status, headers, config) {
         
-        $scope.batches_loading = false;
-        
         //load data into batch
         $scope.batch = data;
         $scope.title = "Batch " + $scope.batch.id + ' |';
         
       }).
       error(function(data, status, headers, config) {
-        $scope.batches_loading = false;
         $scope.alerts.push({
           message:'Trouble connecting to server. Could not retrieve batch data',
           level:'warning',
@@ -1718,6 +1715,11 @@ ppdpControllers.controller('create_newsclip', ['$rootScope','$scope', '$routePar
         });
         
     };
+		
+		//jquery
+		$('#date_time').datetimepicker({
+			pickTime: false
+		});
     
     $('.selectpicker').selectpicker({
         'selectedText': 'cat'
@@ -2608,7 +2610,6 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
       query:''
     });
 
-    
     // TODO: -- swap out for something that makes sense
     $scope.tiebreaker = $routeParams.tiebreak;
     
@@ -2657,9 +2658,20 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
     $scope.update_results = function(){
       
       $scope.loading = true;
+	  
+	  var params = {
+		offset:0, 
+		limit:$routeParams.docId+1, 
+		query:$scope.old_params.query
+	  };
+	  
+	  if ($routeParams.batch_id !== undefined){
+		params.batch_id = $routeParams.batch_id;
+	  }
+	  
       
       //retrieve a list of documents based off of what is in the uri parameters 
-      ppdpAPIService.doc.retrieve({offset:0, limit:$routeParams.docId+1, query:$scope.old_params.query}).
+      ppdpAPIService.doc.retrieve(params).
         success(function(data, status, headers, config) {
 
           $scope.documents = data;
@@ -2673,8 +2685,6 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
               $scope.doc = jQuery.extend(true, {}, doc_data);
               $scope.doc.date_time = $filter('date')(new Date($scope.doc.date_time), "M/dd/yyyy");
               
-              $('#date_time').datetimepicker();
-
               //alert(JSON.stringify($scope.doc));
               
               console.log($scope.doc);
@@ -2808,7 +2818,7 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
     
     //if the user is an administrator allow them to create and assign newsclips
     $scope.button_functions = [];
-    if($rootScope.user_account.role.id >= 2){
+    if($rootScope.user_account.role.id !== undefined && $rootScope.user_account.role.id >= 2){
 
       /** directive masterTopMenu data. 
        *  
@@ -3142,6 +3152,9 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
     
     
     //Jquery
+		$('#date_time').datetimepicker({
+			pickTime: false
+		});
     
     $('.policyselect').selectpicker({
       'selectedText': 'cat'
@@ -3160,6 +3173,11 @@ ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams',
     console.log('newsclips');
     
     // Global variables for controller
+	
+	//if user has batch_id in the params send the user to the batch page
+    if ($routeParams.batch_id !== undefined){
+	  $location.path('batch/'+$routeParams.batch_id);
+    }
     
     //newsclips to be shown in table
     $scope.documents = [];

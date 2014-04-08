@@ -22,85 +22,91 @@
     <form name="create_user_form" role="form">
       <div class="row">
 
-      <div class="col-xs-12 col-sm-3 col-md-3">
-        <!-- Nav tabs -->
-        <master-menu>
-        </master-menu>
-        <hr/>
-        <h4>Directions</h4>
-        <ul>
-          <li ng-repeat="direction in directions">{{direction}}</li>
-        </ul>
+				<div class="col-xs-12 col-sm-3 col-md-3">
+					<!-- Nav tabs -->
+					<master-menu>
+					</master-menu>
+					<hr/>
+					<h4>Directions</h4>
+					<ul>
+						<li ng-repeat="direction in directions">{{direction}}</li>
+					</ul>
 
-      </div>
+				</div>
 
-      <div class="col-xs-12 col-sm-9 col-md-9">
+				<div class="col-xs-12 col-sm-9 col-md-9">
 
-        <div class= "row" >
-    
-          <div class="col-xs-12 col-sm-8 col-md-8">
-   
-          <div class="form-group">
-            <label for="exampleInputEmail1" required>First Name</label> <span class="text-danger"><b>*</b></span><br/>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="first_name" ng-model="user.first_name" value="{{user.first_name}}" placeholder="Enter first name"  style="width:32ex">
-          </div>
-          
-          <div class="form-group">
-            <label for="exampleInputEmail1" required>Last Name</label> <span class="text-danger"><b>*</b></span><br/>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="last_name" ng-model="user.last_name" placeholder="Enter last name" style="width:32ex">
-          </div>
-         
-          <div class="form-group">
-            <label for="exampleInputEmail1" required>Email address</label> <span class="text-danger"><b>*</b></span><br/>
-            <input type="email" class="form-control" id="exampleInputEmail1" name="email" ng-model="user.email" placeholder="Enter email" style="width:32ex">
-           </div>
+					<div class= "row" >
+			
+						<div class="col-xs-12 col-sm-8 col-md-8">		  
+				
+							<p class="text-center" ng-show="loading">
+								<br/><br/><br/>
+								<img src="images/ajax-loader.gif"/>
+								<b>Loading...</b>
+							</p>
+					 
+							<div class="form-group">
+								<label for="exampleInputEmail1" required>First Name</label> <span class="text-danger"><b>*</b></span><br/>
+								<input type="text" class="form-control" id="exampleInputEmail1" name="first_name" ng-model="user.first_name" value="{{user.first_name}}" placeholder="Enter first name"  style="width:32ex">
+							</div>
+							
+							<div class="form-group">
+								<label for="exampleInputEmail1" required>Last Name</label> <span class="text-danger"><b>*</b></span><br/>
+								<input type="text" class="form-control" id="exampleInputEmail1" name="last_name" ng-model="user.last_name" placeholder="Enter last name" style="width:32ex">
+							</div>
+				 
+							<div class="form-group">
+								<label for="exampleInputEmail1" required>Email address</label> <span class="text-danger"><b>*</b></span><br/>
+								<input type="email" class="form-control" id="exampleInputEmail1" name="email" ng-model="user.email" placeholder="Enter email" style="width:32ex">
+							</div>
 
-          <label>Role</label> <span class="text-danger"><b>*</b></span><br/>
-          <dropdown 
-            ng-Model = "user.role" 
-            options = "roles"
-            placeholder = " 'Select a Role' "
-            text-field = "'name'"
-            value-field = "'id'"
-            name="role"
-            return-Object = " 'true' "
-            required
-          >
-          </dropdown>
-          <br/>
-          <br/>
-    
-          <label>Status</label> <span class="text-danger"><b>*</b></span><br/>
-          <dropdown 
-            ng-Model = "user.is_active" 
-            options = "[{text:'Active', value:true, class:''}, {text:'Non-active', value:false, class:''}]"
-            placeholder = " 'Set active status' "
-            text-field = "'text'"
-            value-field = "'value'"
-            name="active_status"
-            required
-          >
-          </dropdown>
-          <br/>
-          <br/>
-  
-          <button type="button" class="btn btn-primary {{ (saving)?'disabled':'' }}" ng-click="save()" >
-            {{ (saving)?'Saving...':'Save User' }}
-          </button>
-          
-          
-          <br/>
-          <br/>
-          
-          <master-Alerts alerts="alerts">
-          </master-Alerts>
-          
-        </div>
-      </div>
+							<label>Role</label> <span class="text-danger"><b>*</b></span><br/>
+							<dropdown 
+							ng-Model = "user.role" 
+							options = "roles"
+							placeholder = " 'Select a Role' "
+							text-field = "'name'"
+							value-field = "'id'"
+							name="role"
+							return-Object = " 'true' "
+							required
+							>
+							</dropdown>
+							<br/>
+							<br/>
+					
+							<label>Status</label> <span class="text-danger"><b>*</b></span><br/>
+							<dropdown 
+							ng-Model = "user.is_active" 
+							options = "[{text:'Active', value:true, class:''}, {text:'Non-active', value:false, class:''}]"
+							placeholder = " 'Set active status' "
+							text-field = "'text'"
+							value-field = "'value'"
+							name="active_status"
+							required
+							>
+							</dropdown>
+							<br/>
+							<br/>
+					
+							<button type="button" class="btn btn-primary {{ (saving)?'disabled':'' }}" ng-click="save()" >
+							{{ (saving)?'Saving...':'Save User' }}
+							</button>
+							
+							
+							<br/>
+							<br/>
+					
+							<master-Alerts alerts="alerts">
+							</master-Alerts>
+					
+						</div>
+					</div>
 
-    </div>
-    
-    </div>
+				</div>
+			
+			</div>
     </form>
   </div><!-- /.panel-body -->
   

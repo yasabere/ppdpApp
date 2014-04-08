@@ -2566,8 +2566,8 @@ ppdpControllers.controller('menu_sidebar', ['$rootScope', '$scope', '$routeParam
 );
 
 /** Controller: newsclip */
-ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 'ppdpAPIService', '$location', '$http', '$timeout',
-  function($rootScope, $scope, $routeParams, ppdpAPIService, $location, $http, $timeout) {
+ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 'ppdpAPIService', '$location', '$http', '$timeout', '$filter',
+  function ($rootScope, $scope, $routeParams, ppdpAPIService, $location, $http, $timeout, $filter) {
     console.log('newsclip');
     
     //global variables
@@ -2671,10 +2671,11 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
             success(function(doc_data, status, headers, config) {
               //load data into doc
               $scope.doc = jQuery.extend(true, {}, doc_data);
+              $scope.doc.date_time = $filter('date')(new Date($scope.doc.date_time), "M/dd/yyyy");
               
               //alert(JSON.stringify($scope.doc));
               
-              console.log(doc_data);
+              console.log($scope.doc);
               
               //if document needs tiebreak
               if($scope.doc.status_id == 2){

@@ -787,13 +787,13 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
       {
         text:'Creator',
         value: function(row){
-          return row.entry_clerk.first_name;
+          return row.creator.first_name;
         },
         click: function(id, row){
           $scope.details(id);
         },
         attributes:'',
-        field_text: 'entry_clerk.first_name'
+        field_text: 'creator.first_name'
       },
       {
         text:'Status',
@@ -1140,13 +1140,13 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
         { 
           text:'Creator',
           value: function(row){
-            return row.entry_clerk.first_name;
+            return row.creator.first_name;
           },
           click: function(id, row){
             $scope.details(id);
           },
           attributes:'',
-          field_text: 'entry_clerk.first_name'
+          field_text: 'creator.first_name'
         },
         {
           text:'Status',
@@ -3345,13 +3345,13 @@ ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams',
       {
         text:'Creator',
         value: function(row){
-          return row.entry_clerk.first_name;
+          return row.creator.first_name;
         },
         click: function(id, row){
           $scope.details(id);
         },
         attributes:'',
-        field_text: 'entry_clerk.first_name'
+        field_text: 'creator.first_name'
       },
       {
         text:'Status',

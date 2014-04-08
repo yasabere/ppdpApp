@@ -2507,7 +2507,7 @@ ppdpControllers.controller('menu_sidebar', ['$rootScope', '$scope', '$routeParam
     
     
     //if the user has the authority
-    if($rootScope.user_account.role.id >= 2){
+    if($rootScope.user_account.role !== undefined && $rootScope.user_account.role.id >= 2){
       
       $scope.menu[1].menu.push({
         title: 'Create Newsclip',
@@ -2531,7 +2531,7 @@ ppdpControllers.controller('menu_sidebar', ['$rootScope', '$scope', '$routeParam
     }
   
     // if user is logged in add link to manage users
-    if($rootScope.user_account.role.id > 2){
+    if($rootScope.user_account.role !== undefined && $rootScope.user_account.role.id > 2){
       $scope.menu.push({
         title: 'Users',
         href: '#/users',
@@ -3292,7 +3292,7 @@ ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams',
     
     //if the user is an administrator allow them to create and assign newsclips
     $scope.button_functions = [];
-    if($rootScope.user_account.role.id >= 2){
+    if($rootScope.user_account.role !== undefined && $rootScope.user_account.role.id >= 2){
     
       /** directive masterTopMenu data. 
        *  

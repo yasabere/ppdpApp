@@ -2002,7 +2002,7 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
       {
         text:'Date Created',
         value: function(row){
-          if (row.date_created){
+          if (row.date_added) {
             return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
           }
           else{

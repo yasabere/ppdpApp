@@ -56,11 +56,16 @@
                 </auto-Suggest>
               </div>
   
-              <div style="display:inline-block; margin-left:10px;">  
-  
-                  <label>Date</label> <span class="text-danger">*</span><br/>
-                  <input type="date" class="form-control" id="inputPassword" value="11/04/2014" ng-model="doc.date_time" required>
-  
+              <div style="display:inline-block; margin-left:10px; width:200px">  
+                <label>Date</label> <span class="text-danger">*</span><br/>
+ 
+               
+                  <div class='input-group date' id='date_time' style="margin:0px">
+                    <input type='text' class="form-control" ng-model="doc.date_time" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                  </div>
+
               </div>
   
               <div style="display:inline-block; margin-left:10px;">

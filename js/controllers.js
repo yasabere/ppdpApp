@@ -1991,13 +1991,13 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
       { 
         text:'Creator',
         value: function(row){
-          return row.entry_clerk.first_name;
+          return row.creator.first_name;
         },
         click: function(id, row){
           $scope.details(id);
         },
         attributes:'',
-        field_text: 'entry_clerk.first_name'
+        field_text: 'creator.first_name'
       },
       {
         text:'Date Created',
@@ -2673,6 +2673,8 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
               $scope.doc = jQuery.extend(true, {}, doc_data);
               $scope.doc.date_time = $filter('date')(new Date($scope.doc.date_time), "M/dd/yyyy");
               
+              $('#date_time').datetimepicker();
+
               //alert(JSON.stringify($scope.doc));
               
               console.log($scope.doc);
@@ -2783,6 +2785,7 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
             batches[i].year = $filter('date')(new Date(row.date_added), "yyyy")
           };
           
+            //fix me
           $('#addbatchselect').selectpicker({
             'selectedText': 'cat'
           });

@@ -7,6 +7,7 @@ var enable_mock_api = false;
 var api_url_array = {
   stem:"http://np-stem.tu.temple.edu/cis4396-S02/api/",
   localtest:'http://localhost:26087/api/',
+  aws:'',
   };
 
 var api_url_string = api_url_array['localtest'];
@@ -51,6 +52,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
     sharedService.files = [];
     sharedService.roles = [];
     sharedService.newspapers = [];
+    sharedService.types = [];
     
     /** Private functions */
     Array.prototype.randomElement = function () {
@@ -561,6 +563,21 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
       };
     };
     sharedService.role = new sharedService.roleModel();
+    
+    sharedService.typeModel = function(){
+     
+      this.retrieve = function(_type){
+        var request = {
+          method: 'GET',
+          url: api_url('type') + 'type/retrieve',
+          params: _type,
+          headers: {'Content-Type': 'application/json'}
+        };
+        
+        return $http(request);
+      };
+    };
+    sharedService.type = new sharedService.typeModel();
     
     sharedService.userModel = function(){
 

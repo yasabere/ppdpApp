@@ -59,22 +59,15 @@
 								<div class='col-sm-3'>
 									<label>Type</label> <span class="text-danger">*</span><br/>
 									<dropdown 
-										ng-Model = "doc.type" 
-										options = "
-										[{text:'Article', value:'Article', class:''},
-										{text:'Editorial', value:'Editorial', class:''},
-										{text:'Opinion', value:'Opinion', class:''},
-										{text:'Letter', value:'Letter', class:''},
-										{text:'Photograph', value:'Photograph', class:''},
-										{text:'Newswire Story', value:'Newswire Story', class:''},
-										{text:'Cartoon', value:'Cartoon', class:''},
-										{text:'Broadcast Transcript', value:'Broadcast Transcript', class:''},
-										{text:'',value:'', class:'divider'},
-										{text:'Other - Note in Comments', value:'Other', class:''}]"
-										text-Field = "text"
-										placeholder = " 'Select a type' "
-									>
-									</dropdown>
+                    ng-Model = "doc.type" 
+                    options = "types"
+                    text-Field = " 'id' "
+                    value-Field = " 'id' "
+                    description-Field = " 'description' "
+                    search = " 'true' "
+                    placeholder = " 'Select a type' "
+                  >
+                  </dropdown>
 								</div>
                 
               </div>

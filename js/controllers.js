@@ -1498,6 +1498,7 @@ ppdpControllers.controller('create_newsclip', ['$rootScope','$scope', '$routePar
     $scope.urgent_alerts = [];
     $scope.state = 'create';
     $scope.policy_codes = [];
+    $scope.types = [];
     $scope.saving = false;
     $scope.adding_documents_to_batch = false;
     
@@ -1519,6 +1520,20 @@ ppdpControllers.controller('create_newsclip', ['$rootScope','$scope', '$routePar
     ppdpAPIService.code.retrieve({}).
       success(function(data, status, headers, config){
         $scope.policy_codes = data;
+      }).
+      error(function(data, status, headers, config){
+        $scope.urgent_alerts.push({
+          message:'Error connecting to server',
+          level:'warning',
+          debug_data: status+ ' : ' + data,
+          config: config
+        }); 
+      });
+      
+    //type to be displayed in 'Types' dropdown
+    ppdpAPIService.type.retrieve({}).
+      success(function(data, status, headers, config){
+        $scope.types = data;
       }).
       error(function(data, status, headers, config){
         $scope.urgent_alerts.push({
@@ -2621,6 +2636,7 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
     $scope.users = [];
     $scope.batches = [];
     $scope.policy_codes = [];
+    $scope.types = [];
     $scope.saving = false;
     $scope.adding_documents_to_batch = false;
     
@@ -2655,10 +2671,24 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
         }); 
       });
     
-    //policycodes to be displayed in 'code' dropdown
+    //policycodes to be displayed in 'Code' dropdown
     ppdpAPIService.code.retrieve({}).
       success(function(data, status, headers, config){
         $scope.policy_codes = data;
+      }).
+      error(function(data, status, headers, config){
+        $scope.urgent_alerts.push({
+          message:'Error connecting to server',
+          level:'warning',
+          debug_data: status+ ' : ' + data,
+          config: config
+        }); 
+      });
+      
+    //type to be displayed in 'Types' dropdown
+    ppdpAPIService.type.retrieve({}).
+      success(function(data, status, headers, config){
+        $scope.types = data;
       }).
       error(function(data, status, headers, config){
         $scope.urgent_alerts.push({

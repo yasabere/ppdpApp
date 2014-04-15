@@ -9,6 +9,13 @@ var ppdpControllers = angular.module('ppdpControllers', []);
 ppdpControllers.controller('add_user', ['$scope', '$routeParams', 'ppdpAPIService', '$location',
   function($scope, $routeParams, ppdpAPIService, $location) {
     console.log('add user');
+
+    //directions
+    $scope.directions = [
+      'Complete all fields',
+      'Email must be a Temple University email and NOT be an alias',
+      'Click “Save User” to complete'
+      ];  
     
     //global variables
     $scope.alerts = [];
@@ -228,8 +235,7 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
 
     // set the directions to show up on page
     $scope.directions = [];
-    $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
-    $scope.directions.push('Click batch to view its\' contents');
+    $scope.directions.push('Click assignment to begin');
     
     /**
      * update_results() Updates assigment data with new search 
@@ -994,7 +1000,7 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
     // set the directions to show up on page
     $scope.directions = [];
     $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
-    $scope.directions.push('Click batch to view its\' contents');
+    $scope.directions.push('Click on an individual Batch to view the Newsclips contained');
     
     /**
      * update_results() Updates batch data with new search 
@@ -1477,12 +1483,21 @@ ppdpControllers.controller('create_newsclip', ['$rootScope','$scope', '$routePar
   function($rootScope,$scope, $routeParams, ppdpAPIService, $location, $timeout) {
     console.log('create_newsclip');
     
+    //directions
+    $scope.directions = [
+      'Complete all fields',
+      'The Newspaper field can autocomplete and has the option to enter new values',
+      'Date can be entered manually or with the popover module',
+      'Comments are optional',
+      '"View Code Book" is a link that opens the code book in a new tab'
+    ];
+
     //global variables
     $scope.saved = false;
     $scope.alerts = [];
     $scope.urgent_alerts = [];
     $scope.state = 'create';
-     $scope.policy_codes = [];
+    $scope.policy_codes = [];
     $scope.saving = false;
     $scope.adding_documents_to_batch = false;
     
@@ -1753,13 +1768,13 @@ ppdpControllers.controller('dropdown', ['$scope',
     
     if (typeof $scope.options === 'object'){
       for(var i = 0; i < $scope.options.length; i++){
-        $scope.options_map[$scope.options[i][$scope.value_field]] = $scope.options[i];
+        if (typeof $scope.options[i] === 'object'){
+          $scope.options_map[$scope.options[i][$scope.value_field]] = $scope.options[i];
+        }
       }
-      
-      console.log($scope.options_map);
     }
   
-    console.log('dropdown');
+    console.log('typeof $scope.options '+typeof $scope.options);
     
     $scope.select = function(option){
       
@@ -1774,6 +1789,18 @@ ppdpControllers.controller('dropdown', ['$scope',
       }
       
     };
+
+    $scope.$watch('options',function(){
+
+      if (typeof $scope.options === 'object'){
+        for(var i = 0; i < $scope.options.length; i++){
+          if (typeof $scope.options[i] === 'object'){
+            $scope.options_map[$scope.options[i][$scope.value_field]] = $scope.options[i];
+          }
+        }
+      }
+
+    });
     
     $scope.$watch('ngModel', function(){
 
@@ -2597,10 +2624,6 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
     $scope.saving = false;
     $scope.adding_documents_to_batch = false;
     
-    for(var k = 1 ; k <25 ;k+=1){
-      $scope.policy_codes.push(k);
-    }
-    
     //keep track of url variables
     $scope.old_params = jQuery.extend(true, {}, $routeParams);
     $scope.params = jQuery.extend(true, {}, $routeParams);
@@ -2688,9 +2711,46 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
               //alert(JSON.stringify($scope.doc));
               
               console.log($scope.doc);
+
+              //if the user is an administrator allow them to create and assign newsclips
+              $scope.button_functions = [];
+              if($rootScope.user_account.role.id !== undefined && $rootScope.user_account.role.id >= 2){
+
+                var option = {};
+
+                if ($scope.doc.batch.id === null){
+                  option = {
+                    text : 'Add to Batch',
+                    glyphicon : 'folder-close',
+                    function_callback : function(){$('#batchModal').modal('toggle')}, 
+                  };
+                }
+                else{
+                  option = {
+                    text : 'Remove from Batch',
+                    glyphicon : 'folder-close',
+                    function_callback : function(){$('#removeFromModal').modal('toggle')}, 
+                  };
+                }
+
+                /** directive masterTopMenu data. 
+                 *  
+                 *  buttons to show up in menu
+                 * 
+                 */
+                $scope.button_functions = [
+                  option,
+                  {
+                    text : 'Remove',
+                    glyphicon : 'trash',
+                    function_callback : function(){$('#deleteModal').modal('toggle')}, 
+                  }
+                ];
+              
+              };  
               
               //if document needs tiebreak
-              if($scope.doc.status_id == 2){
+              if($rootScope.user_account.role.id !== undefined && $scope.doc.status_id == 2){
                 
                 $scope.tiebreaker = true;
                 
@@ -2815,30 +2875,6 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
     };
     
     $scope.update_batches();
-    
-    //if the user is an administrator allow them to create and assign newsclips
-    $scope.button_functions = [];
-    if($rootScope.user_account.role.id !== undefined && $rootScope.user_account.role.id >= 2){
-
-      /** directive masterTopMenu data. 
-       *  
-       *  buttons to show up in menu
-       * 
-       */
-      $scope.button_functions = [
-        {
-          text : 'Add to Batch',
-          glyphicon : 'folder-close',
-          function_callback : function(){$('#batchModal').modal('toggle')}, 
-        },
-        {
-          text : 'Remove',
-          glyphicon : 'trash',
-          function_callback : function(){$('#deleteModal').modal('toggle')}, 
-        }
-      ];
-    
-    };
     
     /**
      * back() redirect to users
@@ -3968,10 +4004,9 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
     $scope.params.limit = parseInt($scope.params.limit);
 
     // set the directions to show up on page
-    $scope.directions = [];
-    $scope.directions.push('Select batch(s) to "Assign", "Publish" or "Trash"');
-    $scope.directions.push('Click batch to view its\' contents');
-    
+    $scope.directions = [
+    'Click individual Users to view their details',
+    ];  
 
     /**
      * update_results() Updates document data with new search 

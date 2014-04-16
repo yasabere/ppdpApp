@@ -102,7 +102,8 @@ ppdpDirectives.directive('dropdown', function(){
       description_field : "=descriptionField",
       value_field : "=valueField",
       returnObject: "=returnObject",
-      search: "=search"
+      search: "=search",
+      disabled : "=disabled"
      },
      controller:'dropdown',
      

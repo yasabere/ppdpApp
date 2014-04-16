@@ -1809,13 +1809,14 @@ ppdpControllers.controller('dropdown', ['$scope',
 
       if (typeof $scope.options === 'object'){
         
-        alert("test");
+        console.log($scope.options);
         
         for(var i = 0; i < $scope.options.length; i++){
           if (typeof $scope.options[i] === 'object'){
             $scope.options_map[$scope.options[i][$scope.value_field]] = $scope.options[i];
           }
         }
+        
       }
 
     });

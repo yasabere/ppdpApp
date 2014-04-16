@@ -23,6 +23,7 @@ var resources = {
   'newspaper' : {use_mock:false}, 
   'role' : {use_mock:false}, 
   'user' : {use_mock:false},
+  'type' : {use_mock:false}
   };
 
 /**
@@ -577,7 +578,7 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
         return $http(request);
       };
     };
-    sharedService.type = new sharedService.typeModel();
+    sharedService.newsclipType = new sharedService.typeModel();
     
     sharedService.userModel = function(){
 

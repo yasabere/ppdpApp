@@ -129,7 +129,8 @@ ppdpDirectives.directive('searchableDropdown', function(){
       text_field : "=textField",
       value_field : "=valueField",
       return_object: "=returnObject",
-      query : "=query"
+      query : "=query",
+      disabled : "=disabled"
      },
      controller:'dropdown',
      compile: function(element, attrs){

@@ -1531,7 +1531,7 @@ ppdpControllers.controller('create_newsclip', ['$rootScope','$scope', '$routePar
       });
       
     //type to be displayed in 'Types' dropdown
-    ppdpAPIService.type.retrieve({}).
+    ppdpAPIService.newsclipType.retrieve({}).
       success(function(data, status, headers, config){
         $scope.types = data;
       }).
@@ -2689,7 +2689,7 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
       });
       
     //type to be displayed in 'Types' dropdown
-    ppdpAPIService.type.retrieve({}).
+    ppdpAPIService.newsclipType.retrieve({}).
       success(function(data, status, headers, config){
         $scope.types = data;
       }).

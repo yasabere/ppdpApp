@@ -110,19 +110,9 @@
               <div ng-show="tiebreaker">
                 <div style="display:inline-block; margin-left:0px;">  
                   <label>Policy Code 1</label><br/>
-                  <dropdown 
-                    ng-Model = "doc.codes[0].policy_code.id" 
-                    options = "policy_codes"
-                    text-Field = " 'id' "
-                    value-Field = " 'id' "
-                    description-Field = " 'description' "
-                    search = " 'true' "
-                    placeholder = " 'Select a topic' "
-                    data-width="100px"
-          					disabled = " 'true' "
-                  >
-                  </dropdown>
-      
+                  <button type="button" class="btn btn-default dropdown-toggle disabled"
+                  {{doc.codes[0].policy_code.id}} <span class="caret"></span>
+                  </button>
                 </div>
                 
                 <div style="display:inline-block; margin-left:10px;">  

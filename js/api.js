@@ -342,20 +342,6 @@ ppdpAPI.factory('ppdpAPIService', function($rootScope, $http, $location, $q, $up
     sharedService.documentModel = function(){
       this.create = function(_document){
         
-        //TODO: Will be removed by server processes
-        var now = new Date();
-        var strDateTime = [[AddZero(now.getDate()), AddZero(now.getMonth() + 1), now.getFullYear()].join("/"), [AddZero(now.getHours()), AddZero(now.getMinutes())].join(":"), now.getHours() >= 12 ? "PM" : "AM"].join(" ");
-        function AddZero(num) {
-            return (num >= 0 && num < 10) ? "0" + num : num + "";
-        }
-        
-        sharedService.user.retrieve({id:1}).
-          success(function(data, status) {
-            _document.entry_clerk = data[0];
-          });
-          
-        _document.date_created = strDateTime;
-        
         var request = {
           method: 'POST',
           url: api_url('document') + 'document/create',

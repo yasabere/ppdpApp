@@ -39,9 +39,8 @@
               
             </master-Table>
             
-            <hr/>
-            
-            <div ng-show="(user_account.role !== undefined && user_account.role.id > 2)">
+            <div ng-show="(user_account.role !== undefined && user_account.role.id > 1)">
+               <hr/>
               <b>File Upload</b><br/>
               Submit a file in a *.pdf, *.doc or *.docx format.<br/><br/>
               <div ng-show="dropSupported" class="drop-box" ng-file-drop="upload_file($files)" ng-file-drop-available="dropSupported=true">Drop files here<br/></div>

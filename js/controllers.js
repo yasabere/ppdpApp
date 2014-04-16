@@ -1818,6 +1818,23 @@ ppdpControllers.controller('dropdown', ['$scope',
         }
         
       }
+      
+      if ($scope.ngModel !== '' && $scope.ngModel !== undefined){
+
+        if (typeof $scope.ngModel === 'object'){
+          $scope.selected_value = $scope.ngModel[$scope.text_field];
+          $scope.selected_option = $scope.ngModel;
+          
+        }
+        else{
+          $scope.selected_value = $scope.options_map[$scope.ngModel][$scope.text_field];
+          $scope.selected_option = $scope.options_map[$scope.ngModel];
+        }
+      }
+      else{
+        $scope.selected_value = $scope.placeholder;
+      }
+      
 
     });
     

@@ -157,5 +157,18 @@ ppdpDirectives.directive('autoSuggest', function(){
    } 
 });
 
+//directive for calenderInput
+ppdpDirectives.directive('calenderInput', function(){
+   return {
+     restrict: "E",
+     templateUrl: "templates/calender_input.html",
+     scope: {
+      ngModel : "=ngModel",
+      disabled : "=disabled"
+     },
+     controller:'calenderInput',
+   } 
+});
+
 
 

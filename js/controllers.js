@@ -1602,7 +1602,8 @@ ppdpControllers.controller('create_newsclip', ['$rootScope','$scope', '$routePar
             if ($scope.state == 'create'){
             
               //update created document
-              $scope.doc = data;
+              $scope.doc = jQuery.extend(true, {}, doc_data);
+              $scope.doc.date_time = $filter('date')(new Date($scope.doc.date_time), "M/dd/yyyy");
      
               //add functions to topmenu
               $scope.button_functions = [
@@ -2733,16 +2734,16 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
       
       $scope.loading = true;
 	  
-	  var params = {
-		offset:0, 
-		limit:$routeParams.docId+1, 
-		query:$scope.old_params.query
-	  };
-	  
-	  if ($routeParams.batch_id !== undefined){
-		params.batch_id = $routeParams.batch_id;
-	  }
-	  
+  	  var params = {
+  		offset:0, 
+  		limit:$routeParams.docId+1, 
+  		query:$scope.old_params.query
+  	  };
+  	  
+  	  if ($routeParams.batch_id !== undefined){
+  		params.batch_id = $routeParams.batch_id;
+  	  }
+  	  
       
       //retrieve a list of documents based off of what is in the uri parameters 
       ppdpAPIService.doc.retrieve(params).

@@ -166,7 +166,24 @@ ppdpDirectives.directive('calenderInput', function(){
       ngModel : "=ngModel",
       disabled : "=disabled"
      },
-     controller:'calenderInput',
+     link:function(scope, element, attrs, tabsCtrl) {
+      var options = {
+        ngModel: scope.ngModel
+      }
+
+      $(element[0].childNodes[0]).datetimepicker({
+        pickTime: false
+      });
+
+      $(element[0].childNodes[0]).on('dp.change', function(ev) {
+
+        scope.$apply(function() {
+          scope.ngModel = $(element[0].childNodes[0].childNodes[1]).val();
+        });
+
+      });
+
+    },
    } 
 });
 

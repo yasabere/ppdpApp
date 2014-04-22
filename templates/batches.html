@@ -125,7 +125,7 @@
           placeholder = " 'Select Task' "
           text_field = " 'name' "
           text_value = " 'id' "
-          options = " [{name:'Code', id:2}] "
+          options = " [{name:'Code', id:2}, {name:'tiebreak', id:3}] "
         >
         </dropdown>
         <br/>
@@ -144,7 +144,7 @@
         
         <div>
           <label>Due Date</label> <span class="text-danger"><b>*</b></span><br/>
-          <input name="date" type="date" class="form-control" id="inputDate" value="11/04/2014" ng-model="assignment.date_due" required>
+          <calender-Input ng-model="assignment.date_due"></calender-Input>
         </div>
         
         <br/>

@@ -1092,11 +1092,11 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
           glyphicon : 'folder-close',
           function_callback : function(){$('#assignModal').modal('toggle')}, 
         },
-        {
-          text : 'Publish',
-          glyphicon : 'transfer',
-          function_callback : function(){$('#publishModal').modal('toggle')}, 
-        },
+        //{
+        //  text : 'Publish',
+        //  glyphicon : 'transfer',
+        //  function_callback : function(){$('#publishModal').modal('toggle')}, 
+        //},
         {
           text : 'Remove',
           glyphicon : 'trash',
@@ -2758,10 +2758,12 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
             success(function(doc_data, status, headers, config) {
               //load data into doc
               $scope.doc = jQuery.extend(true, {}, doc_data);
-              $scope.doc.date_time = $filter('date')(new Date($scope.doc.date_time), "M/dd/yyyy");
+
+              var dt = new Date($scope.doc.date_time);
+              dt.setDate(dt.getDate() + 1);
+              $scope.doc.date_time = $filter('date')(dt, "M/dd/yyyy");
               
-              //alert(JSON.stringify($scope.doc));
-              
+              //alert(JSON.stringify($scope.doc))
               console.log($scope.doc);
 
               //if the user is an administrator allow them to create and assign newsclips
@@ -2804,6 +2806,10 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
               //if document needs tiebreak
               if($rootScope.user_account.role.id !== undefined && $scope.doc.status_id == 2){
                 
+                for(var i = 0; i < $scope.doc.codes.length; i+=1){
+
+                }
+
                 $scope.tiebreaker = true;
                 
                 //if the user has the authority

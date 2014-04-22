@@ -121,11 +121,12 @@
         <!-- Single button -->
         <label>Task</label> <span class="text-danger"><b>*</b></span><br/>
         <dropdown 
-          ng-Model = "assignment_type"
+          ng-Model = "assignment.type"
           placeholder = " 'Select Task' "
-          text_field = " 'name' "
-          text_value = " 'id' "
-          options = " [{name:'Code', id:2}, {name:'tiebreak', id:3}] "
+          text-field = " 'name' "
+          text-value = " 'id' "
+          return-Object = " 'true' "
+          options = " [{name:'Code', id:2}, {name:'Tiebreak', id:3}] "
         >
         </dropdown>
         <br/>

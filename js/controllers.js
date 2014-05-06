@@ -4215,7 +4215,6 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
      * 
      */
     $scope.$watch('params', function() {
-      
       console.log('shit changed');
       $scope.update_results();
       console.log($scope.params);

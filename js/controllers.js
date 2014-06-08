@@ -2803,26 +2803,43 @@ ppdpControllers.controller('newsclip', ['$rootScope', '$scope', '$routeParams', 
               
               };  
               
+              console.log($scope.doc);
+
               //if document needs tiebreak
               if($rootScope.user_account.role.id !== undefined && $scope.doc.status_id == 2){
-                
+
+                //find out if user entered code
+                var user_entered_code = false;
+                var users_code;
                 for(var i = 0; i < $scope.doc.codes.length; i+=1){
-
+                  user_entered_code = ($scope.doc.codes[i].user.email == $rootScope.user_account.email);
+                  if (user_entered_code){
+                    users_code = $scope.doc.codes[i].policy_code.id;
+                  }
                 }
 
-                $scope.tiebreaker = true;
+                // if acount is admin, sr research or a user who has not entered a code allow them to tiebreak assigned newsclip
+                if ($rootScope.user_account.role.id >= 2 || user_entered_code == false){
+                  $scope.tiebreaker = true;
                 
-                //if the user has the authority
-                if($rootScope.user_account.role.id >= 2){
-                
-                  $scope.button_functions.push({
-                    text : 'Assign',
-                    glyphicon : 'folder-close',
-                    function_callback : function(){$('#assignModal').modal('toggle')}, 
-                  });
-                
+                  //if the user has the authority
+                  if($rootScope.user_account.role.id >= 2){
+                  
+                    $scope.button_functions.push({
+                      text : 'Assign',
+                      glyphicon : 'folder-close',
+                      function_callback : function(){$('#assignModal').modal('toggle')}, 
+                    });
+                  
+                  }
+
+                  console.log($rootScope.user_account.role);
                 }
-                
+                else if (user_entered_code){
+                  //if user has ented in code show them their code
+                  $scope.doc.code = users_code;
+                }
+
               }
               
             }).
@@ -3646,13 +3663,25 @@ ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams',
             
           }).
           error(function(data, status, headers, config) {
-            $scope.alerts.push({
-              message:'Trouble connecting to server.',
-              level:'warning',
-              debug_data: status+ ' : ' + data,
-              config: config
-            });
-            
+
+            //construction
+            switch(status){
+              case 400:
+                $scope.alerts.push({
+                  message:'Newsclip has already been added to batch',
+                  level:'danger',
+                });
+                break;
+              default:
+                $scope.alerts.push({
+                  message:'Trouble connecting to server.',
+                  level:'warning',
+                  debug_data: status+ ' : ' + data,
+                  config: config
+                });
+                break;
+            }
+
             $scope.adding_documents_to_batch = false;
           });
         

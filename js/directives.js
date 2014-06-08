@@ -88,6 +88,32 @@ ppdpDirectives.directive('masterTopMenu', function(ppdpAPIService){
    } 
 });
 
+ppdpDirectives.directive('pageNavigation', function(){
+  return {
+    restrict: "E",
+     templateUrl: "templates/page_navigation.html",
+     scope: {
+       title : '=title',
+       query : '=searchQuery',
+       query_button_function : '=query_button_function',
+       selected_data : '=selectedData',
+       default_button_functions : '=defaultButtonFunctions',
+       button_functions : '=buttonFunctions',
+       back_function : '=backFunction',
+       toggle_select_all_function :'=toggleSelectAllFunction',
+       data: '=data',
+       params: '=params',
+       totalrows: '=totalRows',
+       page_description: '=pageDescription',
+       show_paging: '=showPaging'
+     },
+     controller: 'topmenu',
+     compile: function(element, attrs){
+        if (!attrs.showPaging) { attrs.showPaging = 'true'; }
+     }
+  }
+});
+
 //directive for dropdown
 ppdpDirectives.directive('dropdown', function(){
    return {

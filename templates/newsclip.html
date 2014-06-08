@@ -157,7 +157,7 @@
   
               <div class="form-group">
                 <label for="txtcomments">Comments</label>
-                <textarea id="txtcomments" class="form-control" rows="2"></textarea>
+                <textarea id="txtcomments" class="form-control" rows="2" ng-model="doc.comments" ></textarea>
               </div>
               <button type="button" class="btn btn-default" ng-click="back()">
                 Cancel
@@ -165,7 +165,21 @@
               <button type="button" class="btn btn-primary {{ (saving)?'disabled':'' }}" ng-click="save()" >
                 {{ (saving)?'Saving...':'Save' }}
               </button>
-              
+			  
+							<span class="pull-right">
+								<page-navigation
+								  title=" 'Dashboard' " 
+									selected-Data="[]"
+									data="documents"
+									button-Functions="button_functions" 
+									back-Function="back"
+									params = "params"
+									total-rows=" totalRows "
+									page_description = " 'Newsclip ' + doc.id + ' |'"
+								>
+								</page-navigation>
+							</span>
+			  
               <br/>
               <br/>
               
@@ -316,7 +330,7 @@
   
               <div class="form-group">
                 <label for="txtcomments">Comments</label>
-                <textarea id="txtcomments" class="form-control" rows="2" disabled></textarea>
+                <textarea id="txtcomments" class="form-control" rows="2"  ng-model="doc.comments" disabled ></textarea>
               </div>
               <button type="button" class="btn btn-default" ng-click="back()">
                 Cancel
@@ -324,7 +338,20 @@
               <button type="button" class="btn btn-primary {{ (saving)?'disabled':'' }}" ng-click="save()" >
                 {{ (saving)?'Saving...':'Save' }}
               </button>
-              
+							<span class="pull-right">
+								<page-navigation
+								  title = " 'Dashboard' " 
+									selected-Data="[]"
+									data="documents"
+									button-Functions="button_functions" 
+									back-Function="back"
+									params = "params"
+									total-rows=" totalRows "
+									page_description = " 'Newsclip ' + doc.id + ' |'"
+								>
+								</page-navigation>
+							</span>
+							
               <br/>
               <br/>
               

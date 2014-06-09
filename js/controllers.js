@@ -586,8 +586,8 @@ ppdpControllers.controller('autosuggest', ['$scope',
 );
 
 /** Controller: batch */
-ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout',
-  function($scope, $routeParams, ppdpAPIService, $location, $timeout) {
+ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService', '$location', '$timeout', '$rootScope', '$filter',
+  function($scope, $routeParams, ppdpAPIService, $location, $timeout, $rootScope, $filter) {
     console.log('batch');
     
     // Global variables for controller
@@ -728,18 +728,24 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
      *  buttons to show up in menu
      * 
      */
-    $scope.button_functions = [
-      {
+    $scope.button_functions = [];
+
+    //if user has role greater than researcher
+    if($rootScope.user_account.role.id >= 2){
+      $scope.button_functions.push({
         text : 'Remove from Batch',
         glyphicon : 'folder-close',
         function_callback : function(){$('#removeModal').modal('toggle')}, 
-      },
-      {
+      });
+
+      $scope.button_functions.push({
         text : 'Remove',
         glyphicon : 'trash',
         function_callback : function(){$('#deleteModal').modal('toggle')}, 
-      }
-    ];
+      });
+    }
+  
+    
     
     /** directive masterTable data. 
      *  
@@ -3664,7 +3670,6 @@ ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams',
           }).
           error(function(data, status, headers, config) {
 
-            //construction
             switch(status){
               case 400:
                 $scope.alerts.push({

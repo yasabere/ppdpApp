@@ -2556,9 +2556,18 @@ ppdpControllers.controller('menu_sidebar', ['$rootScope', '$scope', '$routeParam
         menu:[]
       },
       {
-        title: 'Newsclips',
+        title: 'Documents',
         href: '#/newsclips',
-        menu:[],
+        menu:[{
+          title: 'Newsclips',
+          href: '#/newsclips',
+          path:['/newsclips'],
+        },
+        {
+          title: 'Bills',
+          href: '#/bills',
+          path:['/bills'],
+        }],
         path:['/','/newsclips','/newsclip']
       },
       {
@@ -2580,9 +2589,20 @@ ppdpControllers.controller('menu_sidebar', ['$rootScope', '$scope', '$routeParam
     if($rootScope.user_account.role !== undefined && $rootScope.user_account.role.id >= 2){
       
       $scope.menu[1].menu.push({
-        title: 'Create Newsclip',
+        title: 'Create',
         href: '#/create_newsclip',
-        path:['/create_newsclip','/newsclip']
+        path:['/create_newsclip','/newsclip'],
+        type: 'dropdown',
+        options: [{
+          title: 'Newsclip',
+          href: '#/create_newsclip',
+          path:['/create_newsclip','/newsclip'],
+        },
+        {
+          title: 'Bill',
+          href: '#/create_bill',
+          path:['/create_bill','/bill'],
+        }]
       });
       
       $scope.menu[2].menu.push({
@@ -4180,7 +4200,7 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
         field_text: 'first_name' 
       },
       { 
-        text:'Date Joined',
+        text:'Date Added',
         value: function(row){
           return $filter('date')(new Date(row.date_joined), "M/dd/yyyy");
         },

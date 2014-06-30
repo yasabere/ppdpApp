@@ -4,7 +4,132 @@
 <hr/>
 <div class="container">
 	<h1>PPDP AngularJS Directives</h1>
+	
 	<hr/>
+	<br/>
+	<h2>Alert</h2>
+
+	<hr/>
+	<br/>
+	<h2>Auto Suggest</h2>
+	
+	<div class="panel panel-default" style="position:relative">
+
+		<div class="panel-body">
+			<b class="text-muted">EXAMPLE</b><br/><br/>
+			<auto-Suggest
+				ng-model = "autoSuggestCodeModel"
+				options = "autoSuggestOptions"
+        value-Field = " 'name' "
+				placeholder=" 'Search for an option' "
+				required
+			>
+			</auto-Suggest>
+			<br/><br/>
+      <div class="well">
+      	<span class="text-muted">$scope.options = {{autoSuggestOptions}}; </span>
+      	<br/><hr/>
+	      <span class="text-muted">Selected Value: </span>{{autoSuggestCodeModel}}
+	    </div>
+		</div>
+		<div class="panel-footer" ng-Model="autoSuggestCode" ace>
+		</div>
+
+		<script src="/ppdpApp/js/ace-min/ace.js" type="text/javascript" charset="utf-8"></script>
+	</div>
+
+	<b>Options</b>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+		  <thead>
+		   <tr>
+		     <th style="width: 100px;">Name</th>
+		     <th style="width: 50px;">type</th>
+		     <th style="width: 50px;">default</th>
+		     <th>description</th>
+		   </tr>
+		  </thead>
+		  <tbody>
+		   <tr>
+		     <td>ng-Model *</td>
+		     <td>variable</td>
+		     <td> N/A </td>
+		     <td>AngularJs model variable which is bound to input.</td>
+		   </tr>
+		   <tr>
+		     <td>options *</td>
+		     <td>array [objects]</td>
+		     <td>null</td>
+		     <td>Array of objects to be displayed as dropdown</td>
+		   </tr>
+		   <tr>
+		     <td>placeholder</td>
+		     <td>string</td>
+		     <td>'text'</td>
+		     <td>Place holder text which appears when nothing is selected.</td>
+		   </tr>
+		   <tr>
+		     <td>disabled</td>
+		     <td>boolean</td>
+		     <td>false</td>
+		     <td>Shows the modal when initialized.</td>
+		   </tr>
+		  </tbody>
+		</table>
+	</div>
+
+	<hr/>
+	<br/>
+	<h2>Callender</h2>
+	
+	<div class="panel panel-default" style="position:relative">
+
+		<div class="panel-body">
+			<b class="text-muted">EXAMPLE</b><br/><br/>
+			<calender-Input
+				ng-model = "callenderModel"
+				disabled = " '' "
+			>
+			</calender-Input>
+			<br/><br/>
+      <div class="well">
+	      <span class="text-muted">Selected Value: </span>{{callenderModel}}
+	    </div>
+		</div>
+		<div class="panel-footer" ng-Model="callenderCode" ace>
+		</div>	
+	</div>
+
+	<b>Options</b>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+		  <thead>
+		   <tr>
+		     <th style="width: 100px;">Name</th>
+		     <th style="width: 50px;">type</th>
+		     <th style="width: 50px;">default</th>
+		     <th>description</th>
+		   </tr>
+		  </thead>
+		  <tbody>
+		   <tr>
+		     <td>ng-Model *</td>
+		     <td>variable</td>
+		     <td> N/A </td>
+		     <td>AngularJs model variable which is bound to input.</td>
+		   </tr>
+		   <tr>
+		     <td>disabled</td>
+		     <td>boolean</td>
+		     <td>false</td>
+		     <td>If true user will not be able to interact with callender.</td>
+		   </tr>
+		  </tbody>
+		</table>
+	</div>
+
+	<hr/>
+	<br/>
 	<h2>Dropdown</h2>
 	
 	<div class="panel panel-default" style="position:relative">
@@ -17,11 +142,14 @@
           text-Field = " 'text' "
           value-Field = " 'value' "
           description-Field = " 'description' "
+          search = " 'true' "
           placeholder = " 'Select a type' "
         >
       </dropdown>
       <br/><br/>
       <div class="well">
+      	<span class="text-muted">$scope.options = {{dropdownOptions}}; </span>
+      	<br/><hr/>
 	      <span class="text-muted">Selected Value: </span>{{dropdownCodeModel}}
 	    </div>
       <hr/>
@@ -32,7 +160,6 @@
 	        </h5>
 			    <div id="collapseOne" class="panel-collapse collapse in">
 
-			      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
 
 			    </div>
 			  </div>
@@ -103,82 +230,27 @@
 		     <td>returnObject</td>
 		     <td>boolean</td>
 		     <td>false</td>
-		     <td>Shows the modal when initialized.</td>
+		     <td>If true dropdown will return selected object. If false dropdown will only return selected value.</td>
 		   </tr>
 		   <tr>
 		     <td>search</td>
 		     <td>boolean</td>
 		     <td>false</td>
-		     <td>Shows the modal when initialized.</td>
+		     <td>If true dropdown will be searchable.</td>
 		   </tr>
 		   <tr>
 		     <td>disabled</td>
 		     <td>boolean</td>
 		     <td>false</td>
-		     <td>Shows the modal when initialized.</td>
+		     <td>If true user will not be able to interact with dropdown.</td>
 		   </tr>
 		  </tbody>
 		</table>
 	</div>
 
 	<hr/>
-	<h2>Autosuggest</h2>
+	<br/>
 	
-	<div class="panel panel-default" style="position:relative">
 
-		<div class="panel-body">
-			<b class="text-muted">EXAMPLE</b><br/><br/>
-			<auto-Suggest
-				name = "newspaper"
-				ng-model = "autoSuggestCodeModel"
-				options = "autoSuggestOptions"
-        value-Field = " 'name' "
-				placeholder=" 'Search for an option' "
-				required
-			>
-			</auto-Suggest>
-			<br/><br/>
-      <div class="well">
-	      <span class="text-muted">Selected Value: </span>{{autoSuggestCodeModel}}
-	    </div>
-		</div>
-		<div class="panel-footer" ng-Model="autoSuggestCode" ace>
-		</div>
-
-		<script src="/ppdpApp/js/ace-min/ace.js" type="text/javascript" charset="utf-8"></script>
-	</div>
-
-	<b>Options</b>
-	<div class="table-responsive">
-		<table class="table table-bordered table-striped">
-		  <thead>
-		   <tr>
-		     <th style="width: 100px;">Name</th>
-		     <th style="width: 50px;">type</th>
-		     <th style="width: 50px;">default</th>
-		     <th>description</th>
-		   </tr>
-		  </thead>
-		  <tbody>
-		   <tr>
-		     <td>backdrop</td>
-		     <td>boolean or the string <code>'static'</code></td>
-		     <td>true</td>
-		     <td>Includes a modal-backdrop element. Alternatively, specify <code>static</code> for a backdrop which doesn't close the modal on click.</td>
-		   </tr>
-		   <tr>
-		     <td>keyboard</td>
-		     <td>boolean</td>
-		     <td>true</td>
-		     <td>Closes the modal when escape key is pressed</td>
-		   </tr>
-		   <tr>
-		     <td>show</td>
-		     <td>boolean</td>
-		     <td>true</td>
-		     <td>Shows the modal when initialized.</td>
-		   </tr>
-		  </tbody>
-		</table>
-	</div>
 </div>
+<script src="/ppdpApp/js/ace-min/ace.js" type="text/javascript" charset="utf-8"></script>

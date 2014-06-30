@@ -219,7 +219,11 @@ ppdpDirectives.directive('ace', function(){
     restrict: "AE",
     scope: {
       ngModel : "=ngModel",
+      lang : "=lang",
      },
+    compile: function(element, attrs){
+      if (!attrs.lang) { attrs.lang = 'html'; }
+    }  
     link: function(scope, element, attrs, tabsCtrl){
       console.log(scope.autoSuggestCode);
 
@@ -227,7 +231,7 @@ ppdpDirectives.directive('ace', function(){
       var editor = ace.edit(element[0]);
 
       editor.setTheme("ace/theme/tomorrow");
-      editor.getSession().setMode("ace/mode/html");
+      editor.getSession().setMode("ace/mode/"+scope.lang);
       editor.setAutoScrollEditorIntoView(true);
       editor.setOption("maxLines", 100);
       editor.setReadOnly(true);

@@ -1797,11 +1797,11 @@ ppdpControllers.controller('develop', ['$scope', 'ppdpAPIService',
 
     $scope.dropdownOptions = [
     {
-      text: 'option1',
+      name: 'option1',
       value: '1'
     },
     {
-      text: 'option2',
+      name: 'option2',
       value: '2'
     }];
 
@@ -1814,12 +1814,25 @@ ppdpControllers.controller('develop', ['$scope', 'ppdpAPIService',
     $scope.dropdownDisabled = "";
 
     $scope.autoSuggestCode = "<autosuggest\n"
-    +"\tng-Model = \"doc.typeid\"\n"
-    +"\toptions = \"types\"\n"
-    +"\treturnObject = \" 'id' \"\n" 
+    +"\tng-Model = \"modelValue\"\n"
+    +"\toptions = \"options\"\n"
+    +"\tvalue-Field = \" 'value' \"\n"
+    +"\treturnObject = \" 'returnObject' \"\n"
     +"\tplaceholder = \" 'Select a type' \"\n"
     +"\t>\n"
     +"</autosuggest>\n";
+
+    $scope.autoSuggestOptions = [
+    {
+      name: 'option1',
+      value: '1'
+    },
+    {
+      name: 'option2',
+      value: '2'
+    }];
+
+    $scope.autoSuggestCodeModel = "";
 
   }]
 );

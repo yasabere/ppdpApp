@@ -130,12 +130,17 @@
 			<b class="text-muted">EXAMPLE</b><br/><br/>
 			<auto-Suggest
 				name = "newspaper"
-				ng-model = "doc.newspaper"
-				options = "newspapers"
-				placeholder=" 'Type a Newspaper' "
+				ng-model = "autoSuggestCodeModel"
+				options = "autoSuggestOptions"
+        value-Field = " 'name' "
+				placeholder=" 'Search for an option' "
 				required
 			>
 			</auto-Suggest>
+			<br/><br/>
+      <div class="well">
+	      <span class="text-muted">Selected Value: </span>{{autoSuggestCodeModel}}
+	    </div>
 		</div>
 		<div class="panel-footer" ng-Model="autoSuggestCode" ace>
 		</div>

@@ -1765,6 +1765,65 @@ ppdpControllers.controller('create_newsclip', ['$rootScope','$scope', '$routePar
   }]
 );
 
+/** controller: develop */
+ppdpControllers.controller('develop', ['$scope', 'ppdpAPIService',
+  function($scope, ppdpAPIService) {
+
+    console.log(ppdpAPIService);
+
+    $scope.booleanOptions = [
+    {
+      text: 'True',
+      value: true
+    },
+    {
+      text: 'False',
+      value: false
+    }];
+
+    $scope.dropdownCode = "<dropdown\n"
+    +"\tng-Model = \"modelValue\"\n"
+    +"\toptions = \"options\"\n"
+    +"\ttext-Field = \" 'text' \"\n" 
+    +"\tvalue-Field = \" 'value' \"\n"
+    +"\tdescription-Field = \" 'description' \"\n"
+    +"\tplaceholder = \" 'Select a type' \"\n"
+    +"\textraOptions = \" 'extraOptions' \"\n"
+    +"\treturnObject = \" 'returnObject' \"\n"
+    +"\tsearch = \" 'search' \"\n"
+    +"\tdisabled = \" 'disabled' \"\n"
+    +"\t>\n"
+    +"</dropdown>\n";
+
+    $scope.dropdownOptions = [
+    {
+      text: 'option1',
+      value: '1'
+    },
+    {
+      text: 'option2',
+      value: '2'
+    }];
+
+    $scope.dropdownFieldValue = "";
+    $scope.dropdownFieldText = "";
+    $scope.dropdownFieldDescription = "";
+    $scope.dropdownSearch = false;
+    $scope.dropdownReturnObject = false;
+    $scope.dropdownCodeModel = "";
+    $scope.dropdownDisabled = "";
+
+    $scope.autoSuggestCode = "<autosuggest\n"
+    +"\tng-Model = \"doc.typeid\"\n"
+    +"\toptions = \"types\"\n"
+    +"\treturnObject = \" 'id' \"\n" 
+    +"\tplaceholder = \" 'Select a type' \"\n"
+    +"\t>\n"
+    +"</autosuggest>\n";
+
+  }]
+);
+
 /** Controller: dropdown */ 
 ppdpControllers.controller('dropdown', ['$scope',
   function($scope) {

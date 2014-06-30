@@ -213,5 +213,28 @@ ppdpDirectives.directive('calenderInput', function(){
    } 
 });
 
+//directive which can ve used to neatly display code
+ppdpDirectives.directive('ace', function(){
+  return {
+    restrict: "AE",
+    scope: {
+      ngModel : "=ngModel",
+     },
+    link: function(scope, element, attrs, tabsCtrl){
+      console.log(scope.autoSuggestCode);
+
+      var innerText = element[0].innerHTML;
+      var editor = ace.edit(element[0]);
+
+      editor.setTheme("ace/theme/tomorrow");
+      editor.getSession().setMode("ace/mode/html");
+      editor.setAutoScrollEditorIntoView(true);
+      editor.setOption("maxLines", 100);
+      editor.setReadOnly(true);
+      editor.setValue(scope.ngModel, -1);
+    }
+  };
+});
+
 
 

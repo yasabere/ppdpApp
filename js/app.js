@@ -51,6 +51,10 @@ ppdpApp.config(['$routeProvider',
         templateUrl: 'templates/create_newsclip.html',
         controller: 'create_newsclip'
       }).
+      when('/develop', {
+        templateUrl: 'templates/frontend_dev_docs.html',
+        controller: 'develop'
+      }).
       when('/files', {
         templateUrl: 'templates/files.html',
         controller: 'files'

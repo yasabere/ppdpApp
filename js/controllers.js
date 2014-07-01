@@ -380,7 +380,9 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
         value: function(row){
          
           if (row.date_created){
-            return $filter('date')(new Date(row.date_created), "M/dd/yyyy");
+            var date = new Date(row.date_created);
+            date.setDate(date.getDate() + 1);
+            return $filter('date')(date, "M/dd/yyyy");
           }
           else{
             return 'unspecified';
@@ -395,7 +397,9 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
       {
         text:'Date Due',
         value: function(row){
-          return $filter('date')(new Date(row.date_due), "M/dd/yyyy");
+          var date = new Date(row.date_due);
+          date.setDate(date.getDate() + 1);
+          return $filter('date')(date, "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -408,7 +412,9 @@ ppdpControllers.controller('assignments', ['$scope', '$routeParams', 'ppdpAPISer
         value: function(row){
           
           if (row.date_complete){
-            return $filter('date')(new Date(row.date_complete), "M/dd/yyyy");
+            var date = new Date(row.date_complete);
+            date.setDate(date.getDate() + 1);
+            return $filter('date')(date, "M/dd/yyyy");
           }
           else{
             return 'unspecified';
@@ -785,7 +791,10 @@ ppdpControllers.controller('batch', ['$scope', '$routeParams', 'ppdpAPIService',
       { 
         text:'Date Created',
         value: function(row){
-          return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
+
+          var date = new Date(row.date_added);
+          date.setDate(date.getDate() + 1);
+          return $filter('date')(date, "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -1138,7 +1147,9 @@ ppdpControllers.controller('batches', ['$rootScope', '$scope', '$routeParams', '
         { 
           text:'Date Created', 
           value: function(row){
-            return $filter('date')(new Date(row.date_created), "M/dd/yyyy");
+            var date = new Date(row.date_created);
+            date.setDate(date.getDate() + 1);
+            return $filter('date')(date, "M/dd/yyyy");
           },
           click: function(id, row){
             $scope.details(id);
@@ -2176,17 +2187,6 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
         field_text: 'name' 
       },
       { 
-        text:'File Size', 
-        value: function(row){
-          return row.file_size;
-        },
-        click: function(id, row){
-          $scope.details(id);
-        },
-        attributes:'',
-        field_text: 'file_size'
-      },
-      { 
         text:'Creator',
         value: function(row){
           return row.creator.first_name;
@@ -2201,7 +2201,9 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
         text:'Date Created',
         value: function(row){
           if (row.date_added) {
-            return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
+            var date = new Date(row.date_added);
+            date.setDate(date.getDate() + 1);
+            return $filter('date')(date, "M/dd/yyyy");
           }
           else{
             return 'unspecified';
@@ -2212,17 +2214,6 @@ ppdpControllers.controller('files', ['$rootScope','$scope', '$routeParams', 'ppd
         },
         attributes:'',
         field_text: 'date_added'
-      },
-      {
-        text:'Status',
-        value: function(row){
-          return row.status;
-        },
-        click: function(id, row){
-          $scope.details(id);
-        },
-        attributes:'',
-        field_text: 'status'
       },
       {
         text:'Assigned',
@@ -3615,7 +3606,9 @@ ppdpControllers.controller('newsclips', ['$rootScope', '$scope', '$routeParams',
       { 
         text:'Date Created',
         value: function(row){
-          return $filter('date')(new Date(row.date_added), "M/dd/yyyy");
+          var date = new Date(row.date_added);
+          date.setDate(date.getDate() + 1);
+          return $filter('date')(date, "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);
@@ -4328,7 +4321,9 @@ ppdpControllers.controller('users', ['$scope', '$routeParams', 'ppdpAPIService',
       { 
         text:'Date Added',
         value: function(row){
-          return $filter('date')(new Date(row.date_joined), "M/dd/yyyy");
+          var date = new Date(row.date_joined);
+          date.setDate(date.getDate() + 1);
+          return $filter('date')(date, "M/dd/yyyy");
         },
         click: function(id, row){
           $scope.details(id);

@@ -7,7 +7,45 @@
 	
 	<hr/>
 	<br/>
-	<h2>Alert</h2>
+	<h2>Alerts</h2>
+
+	<div class="panel panel-default" style="position:relative">
+
+		<div class="panel-body">
+			<b class="text-muted">EXAMPLE</b><br/><br/>
+			<master-Alerts alerts="alerts">
+        	</master-Alerts>
+			<br/><br/>
+      		<div class="well">
+		      <span class="text-muted">Selected Value: </span>{{alerts}}
+		    </div>
+		</div>
+		<div class="panel-footer" ng-Model="alertsCode" lang="'html'" ace>
+		</div>	
+	</div>
+
+	<b>Options</b>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+		  <thead>
+		   <tr>
+		     <th style="width: 100px;">Name</th>
+		     <th style="width: 50px;">type</th>
+		     <th style="width: 50px;">default</th>
+		     <th>description</th>
+		   </tr>
+		  </thead>
+		  <tbody>
+		   <tr>
+		     <td>alerts *</td>
+		     <td>array [objects]</td>
+		     <td> N/A </td>
+		     <td>Array list of alert objects to be shown as bootstrap alerts</td>
+		   </tr>
+		  </tbody>
+		</table>
+	</div>
+
 
 	<hr/>
 	<br/>
@@ -34,8 +72,6 @@
 		</div>
 		<div class="panel-footer" ng-Model="autoSuggestCode" lang="'html'" ace>
 		</div>
-
-		
 	</div>
 
 	<b>Options</b>

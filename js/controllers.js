@@ -1895,8 +1895,15 @@ ppdpControllers.controller('develop', ['$scope', 'ppdpAPIService',
       return result.replace(/,\n$/, "");
     }
 
+    $scope.alerts = [];
+    $scope.alerts.push({
+        message:'Removal successful!',
+        level:'success'
+      }); 
+    $scope.alertsCode = "<master-Alerts alerts = \"alertsModelValue\">\n"
+    +"</master-Alerts>\n";
+
     $scope.javascript_api_functions = [];
-    console.log(ppdpAPIService);
 
 
   }]

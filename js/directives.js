@@ -219,22 +219,21 @@ ppdpDirectives.directive('ace', function(){
     restrict: "AE",
     scope: {
       ngModel : "=ngModel",
-      lang : "=lang",
+      nglang : "=lang",
      },
-    compile: function(element, attrs){
-      if (!attrs.lang) { attrs.lang = 'html'; }
-    }  
     link: function(scope, element, attrs, tabsCtrl){
+
       console.log(scope.autoSuggestCode);
 
       var innerText = element[0].innerHTML;
       var editor = ace.edit(element[0]);
 
       editor.setTheme("ace/theme/tomorrow");
-      editor.getSession().setMode("ace/mode/"+scope.lang);
+      editor.getSession().setMode("ace/mode/"+scope.nglang);
       editor.setAutoScrollEditorIntoView(true);
       editor.setOption("maxLines", 100);
       editor.setReadOnly(true);
+      if (scope.ngModel)
       editor.setValue(scope.ngModel, -1);
     }
   };

@@ -1884,6 +1884,10 @@ ppdpControllers.controller('develop', ['$scope', 'ppdpAPIService',
       return result.replace(/,\n$/, "");
     }
 
+    $scope.javascript_api_functions = [];
+    console.log(ppdpAPIService);
+
+
   }]
 );
 

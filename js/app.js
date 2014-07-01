@@ -55,6 +55,10 @@ ppdpApp.config(['$routeProvider',
         templateUrl: 'templates/frontend_dev_docs.html',
         controller: 'develop'
       }).
+      when('/develop/api', {
+        templateUrl: 'templates/api_dev_docs.html',
+        controller: 'develop'
+      }).
       when('/files', {
         templateUrl: 'templates/files.html',
         controller: 'files'

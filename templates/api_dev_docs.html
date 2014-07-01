@@ -1,0 +1,249 @@
+<div class="panel-body"  style="padding-bottom: 0px;" >
+	<h3 style="margin-top: 7px; margin-bottom: 0px;">Developer Docs</h3>
+</div>
+<div class="container">
+	<h1>PPDP AngularJS API Guide</h1>
+</div>
+<div class="container"  data-spy="scroll" data-target="#menu">
+	<div class="row">
+
+	</div>
+	<div class="col-md-3" id="menu">
+		<ul class="nav nav-pills nav-stacked">
+		  <li class="active"><a href="#sec0">ppdpAPIService</a></li>
+		  <li><a href="#sec1">account</a></li>
+		  <li><a href="#sec2">assignment</a></li>
+		  <li><a href="#sec3">batch</a></li>
+		  <li><a href="#sec4">code</a></li>
+		  <li><a href="#sec5">doc</a></li>
+		  <li><a href="#sec6">file</a></li>
+		  <li><a href="#sec7">newspaper</a></li>
+		  <li><a href="#sec8">newsclipType</a></li>
+		  <li><a href="#sec9">role</a></li>
+		  <li><a href="#sec0">user</a></li>
+		</ul>
+	</div>
+	<div class="col-md-9">
+		<div class="panel">
+			<h2 id="sec0">ppdpAPIService</h2>
+			<div class="well">
+ppdpControllers.controller('develop', ['ppdpAPIService',<br/>
+  	function(ppdpAPIService) {<br/>
+  	...<br/>
+  	}]<br/>
+);
+			</div>
+			<p>ppdpAPIService is a custom angulajs api which allows angularjs to communicate with the ppdp .NET api</p>
+			<p><code>ppdpAPIService</code> must be injected like code above</p>
+			<blockquote>
+				<h3 id="sec1" style="display:inline-block">.account</h3> <span class="label label-primary">Object</span>
+				<br/>
+
+				<blockquote>
+					<h4 style="display:inline-block"><b>.login</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.create(params);</div>
+					<p>create new account object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.logout</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.logout();</div>
+					<p>retrieves list of account objects</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.isloggedin</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.isloggedin();</div>
+					<p>saves account object</p>
+					<br/>
+				</blockquote>
+
+				<h3 id="sec2" style="display:inline-block">.assignment</h3> <span class="label label-primary">Object</span>
+				<br/>
+				<blockquote>
+					<h4 style="display:inline-block"><b>.create</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.create(params);</div>
+					<p>create new assignment object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.retrieve</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.retrieve(params);</div>
+					<p>retrieves list of assignment objects</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.update</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.update(params);</div>
+					<p>saves assignment object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.delete</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.delete(params);</div>
+					<p>deletes assignment object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.totalNum</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.totalNum(params);</div>
+					<p>retrieves total number of assignment object</p>
+					<br/>
+				</blockquote>
+
+				<h3 id="sec3" style="display:inline-block">.batch</h3> <span class="label label-primary">Object</span>
+				<br/><blockquote>
+					<h4 style="display:inline-block"><b>.create</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.create(params);</div>
+					<p>create new batch object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.retrieve</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.retrieve(params);</div>
+					<p>retrieves list of batch objects</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.update</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.update(params);</div>
+					<p>saves batch object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.delete</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.delete(params);</div>
+					<p>deletes batch object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.totalNum</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.totalNum(params);</div>
+					<p>retrieves total number of batch object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.adddocument</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.adddocument(params);</div>
+					<p>Adds documents object to batch</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.removedocument</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.removedocument(params);</div>
+					<p>Removes document from batch</p>
+					<br/>
+				</blockquote>
+
+				<h3 id="sec4" style="display:inline-block">.code</h3> <span class="label label-primary">Object</span>
+				<br/><blockquote>
+					<h4 style="display:inline-block"><b>.create</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.create(params);</div>
+					<p>create new code object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.retrieve</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.retrieve(params);</div>
+					<p>retrieves list of code objects</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.update</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.update(params);</div>
+					<p>saves code object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.delete</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.delete(params);</div>
+					<p>deletes code object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.totalNum</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.totalNum(params);</div>
+					<p>retrieves total number of code object</p>
+					<br/>
+					
+				</blockquote>
+
+				<h3 id="sec5" style="display:inline-block">.doc</h3> <span class="label label-primary">Object</span>
+				<br/><blockquote>
+					<h4 style="display:inline-block"><b>.create</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.create(params);</div>
+					<p>create new document object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.retrieve</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.retrieve(params);</div>
+					<p>retrieves list of document objects</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.update</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.update(params);</div>
+					<p>saves document object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.delete</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.delete(params);</div>
+					<p>deletes document object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.totalNum</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.totalNum(params);</div>
+					<p>retrieves total number of document object</p>
+					<br/>
+				</blockquote>
+
+				<h3 id="sec6" style="display:inline-block">.file</h3> <span class="label label-primary">Object</span>
+				<br/><blockquote>
+					<h4 style="display:inline-block"><b>.create</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.create(params);</div>
+					<p>create new file object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.retrieve</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.retrieve(params);</div>
+					<p>retrieves list of file objects</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.update</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.update(params);</div>
+					<p>saves file object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.delete</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.delete(params);</div>
+					<p>deletes file object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.totalNum</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.totalNum(params);</div>
+					<p>retrieves total number of file object</p>
+					<br/>
+				</blockquote>
+
+				<h3 id="sec7" style="display:inline-block">.newspaper</h3> <span class="label label-primary">Object</span>
+				<br/><blockquote>
+					<h4 style="display:inline-block"><b>.create</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.create(params);</div>
+					<p>create new newspaper object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.retrieve</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.retrieve(params);</div>
+					<p>retrieves list of newspaper objects</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.update</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.update(params);</div>
+					<p>saves newspaper object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.delete</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.delete(params);</div>
+					<p>deletes newspaper object</p>
+					<br/>
+				</blockquote>
+
+				<h3 id="sec8" style="display:inline-block">.newsclipType</h3> <span class="label label-primary">Object</span>
+				<br/><blockquote>
+					<h4 style="display:inline-block"><b>.retrieve</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.retrieve(params);</div>
+					<p>retrieves list of newsclipType objects</p>
+					<br/>
+				</blockquote>
+
+				<h3 id="sec9" style="display:inline-block">.role</h3> <span class="label label-primary">Object</span>
+				<br/><blockquote>
+					<h4 style="display:inline-block"><b>.create</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.create(params);</div>
+					<p>create new role object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.retrieve</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.retrieve(params);</div>
+					<p>retrieves list of role objects</p>
+					<br/>
+				</blockquote>
+
+				<h3 id="sec10" style="display:inline-block">.user</h3> <span class="label label-primary">Object</span>
+				<br/><blockquote>
+					<h4 style="display:inline-block"><b>.create</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.create(params);</div>
+					<p>create new user object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.retrieve</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.retrieve(params);</div>
+					<p>retrieves list of user objects</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.update</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.update(params);</div>
+					<p>saves user object</p>
+					<br/>
+					<h4 style="display:inline-block"><b>.totalNum</b></h4> <span class="label label-warning">Function</span>
+					<div class="well">ppdpAPIService.totalNum(params);</div>
+					<p>retrieves total number of user object</p>
+				</blockquote>
+
+			</blockquote>
+		</div>
+	</div>
+</div>
